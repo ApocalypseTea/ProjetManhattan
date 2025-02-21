@@ -73,22 +73,16 @@ namespace ProjetManhattan
 
         public void AjouterIPClientAuDictionnaire(string numIpClient, Dictionary<string, IpClient> listingIPJournalieres, HashSet<string>listeBlancheIp)
         {
-            foreach (var ip in listeBlancheIp)
+            if(!listeBlancheIp.Contains(numIpClient))
             {
-                if (numIpClient.Equals(ip))
+                if (!listingIPJournalieres.ContainsKey(numIpClient))
                 {
-                    return;
+                    IpClient nouvelleIp = new IpClient(numIpClient);
+                    listingIPJournalieres.Add(numIpClient, nouvelleIp);
                 }
-            }
 
-            if (!listingIPJournalieres.ContainsKey(numIpClient))
-            {
-                IpClient nouvelleIp = new IpClient(numIpClient);
-                listingIPJournalieres.Add(numIpClient, nouvelleIp);              
-            }
-
-            listingIPJournalieres[numIpClient].nbConnexionJournaliere++;
-
+                listingIPJournalieres[numIpClient].nbConnexionJournaliere++;
+            }                  
         }
     }
 }

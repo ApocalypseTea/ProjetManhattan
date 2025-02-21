@@ -26,25 +26,38 @@ namespace ProjetManhattan
             }
         }
 
+        static HashSet<string> ImporterListeBlancheAdressesIP()
+        {
+            //Liste Blanche des adresses IP autorisées
+            string nomDeFichierListeBlancheIP = "ProjetManhattan\\listeIPAutorisees.txt";
+            string cheminDeFichiersRacine = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string cheminFichierFinalListeBlanche = Path.Combine(cheminDeFichiersRacine, nomDeFichierListeBlancheIP);
+            
+            HashSet<string> listeBlancheIP = new HashSet<string>();
+
+            var ligneListeBlanche = File.ReadAllLines(cheminFichierFinalListeBlanche);
+            foreach (var ligne in ligneListeBlanche)
+            {
+                listeBlancheIP.Add(ligne);
+            }
+            return listeBlancheIP;
+        }
 
         static void Main(string[] args)
         {
-            //Liste Blanche des adresses IP autorisées
-            HashSet<string> listeBlancheIP = new HashSet<string>();
-            listeBlancheIP.Add("194.214.38.250");
-            listeBlancheIP.Add("37.58.161.180");
-
+            //Repertoire racine des documents
+            string cheminDeFichiersRacine = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            
 
             //Infos fichier log de travail
-            string nomDeFichierLog = "ProjetManhattan\\test.txt";
-            string cheminDeFichierLog = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            string cheminFichierFinal = Path.Combine(cheminDeFichierLog, nomDeFichierLog);
+            string nomDeFichierLog = "ProjetManhattan\\test.txt";            
+            string cheminFichierFinalLogs = Path.Combine(cheminDeFichiersRacine, nomDeFichierLog);
 
             //Créer un dictionaire pour les informations IP
             Dictionary<string, IpClient> adressesIPJournaliere = new Dictionary<string, IpClient>();
 
             //Acceder au fichier ligne par ligne et ajout de chaque ligne à la collection d'adresses IP
-            var lignes = File.ReadAllLines(cheminFichierFinal);
+            var lignes = File.ReadAllLines(cheminFichierFinalLogs);
             foreach (string ligne in lignes)
             {
                 if (ligne[0] == '#')
@@ -55,31 +68,14 @@ namespace ProjetManhattan
                 {
                     string[] champs = ligne.Split(' ');
                     LigneDeLog ligneLog = new LigneDeLog(champs);
-                    
-                    
-                    ligneLog.AjouterIPClientAuDictionnaire(ligneLog.IpClient, adressesIPJournaliere, listeBlancheIP);
-                    //Console.WriteLine("on a ajouté : " + ligneLog.ipClient);
+                                        
+                    ligneLog.AjouterIPClientAuDictionnaire(ligneLog.IpClient, adressesIPJournaliere, ImporterListeBlancheAdressesIP());
                 }
             }
 
             TrierAdressesIPParConnexion(adressesIPJournaliere);
-
-
-            
-        
-
-
     }
 
         
-
-
-
-
-
-
-
-
-
     }
     }
