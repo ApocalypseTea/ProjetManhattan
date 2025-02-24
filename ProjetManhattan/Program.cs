@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace ProjetManhattan
 {    
@@ -38,7 +39,19 @@ namespace ProjetManhattan
             var ligneListeBlanche = File.ReadAllLines(cheminFichierFinalListeBlanche);
             foreach (var ligne in ligneListeBlanche)
             {
-                listeBlancheIP.Add(ligne);
+                string regexIPv4 = @"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$";
+
+                if (String.IsNullOrEmpty(ligne))
+                {
+                    //Console.WriteLine("IP vide");
+                    break; 
+                }
+
+                if (Regex.IsMatch(ligne, regexIPv4))
+                {
+                    //Console.WriteLine("c'est bien une adresse IP");
+                    listeBlancheIP.Add(ligne);
+                }                
             }
             return listeBlancheIP;
         }
@@ -50,11 +63,14 @@ namespace ProjetManhattan
             
 
             //Infos fichier log de travail
-            string nomDeFichierLog = "ProjetManhattan\\test.txt";            
+            string nomDeFichierLog = "ProjetManhattan\\u_ex250217.log";            
             string cheminFichierFinalLogs = Path.Combine(cheminDeFichiersRacine, nomDeFichierLog);
 
             //Créer un dictionaire pour les informations IP
             Dictionary<string, IpClient> adressesIPJournaliere = new Dictionary<string, IpClient>();
+
+            //Recuperer la Liste autorisée d'adresses IP
+            HashSet <string> ipAutorisees = ImporterListeBlancheAdressesIP();
 
             //Acceder au fichier ligne par ligne et ajout de chaque ligne à la collection d'adresses IP
             var lignes = File.ReadAllLines(cheminFichierFinalLogs);
@@ -69,7 +85,7 @@ namespace ProjetManhattan
                     string[] champs = ligne.Split(' ');
                     LigneDeLog ligneLog = new LigneDeLog(champs);
                                         
-                    ligneLog.AjouterIPClientAuDictionnaire(ligneLog.IpClient, adressesIPJournaliere, ImporterListeBlancheAdressesIP());
+                    ligneLog.AjouterIPClientAuDictionnaire(ligneLog.IpClient, adressesIPJournaliere, ipAutorisees);
                 }
             }
 
