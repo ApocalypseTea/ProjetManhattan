@@ -9,22 +9,14 @@ namespace ProjetManhattan
 {
     internal class IPAutorisees
     {
-        public string cheminDeFichier { get; init; }
-        public string nomDeFichier { get; init; }
         public HashSet<string> adressesIPValides { get; init; }
         public DateTime dateDeCreationListe { get; init; }
-
-
-        public IPAutorisees(string cheminDeFichier, string nomDeFichier) 
-        {
-            this.cheminDeFichier = cheminDeFichier;
-            this.nomDeFichier = nomDeFichier;
-            this.dateDeCreationListe = DateTime.Now; //A voir si utile de mettre une duree de validite de la liste
-            this.adressesIPValides = new HashSet<string>();
-            string cheminFichierFinal = Path.Combine(cheminDeFichier, nomDeFichier);
             
-            var ligneListeBlanche = File.ReadAllLines(cheminFichierFinal);
-            foreach (var ligne in ligneListeBlanche)
+
+        public IPAutorisees(HashSet<string> adressesIPValides)
+        {
+            HashSet<string> IPVerifiees = new HashSet<string>();
+            foreach (var ligne in adressesIPValides)
             {
                 string regexIPv4 = @"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$";
 
@@ -35,15 +27,26 @@ namespace ProjetManhattan
 
                 if (Regex.IsMatch(ligne, regexIPv4))
                 {
-                    adressesIPValides.Add(ligne);
+                    IPVerifiees.Add(ligne);
                 }
+
             }
+            this.adressesIPValides = IPVerifiees;
+            this.dateDeCreationListe = DateTime.Now;            
         }
 
+        public override string ToString()
+        {
+            StringBuilder infosIPAutorisees = new StringBuilder();
+            infosIPAutorisees.AppendLine($"Adresses IP Autorisées :");
+            foreach (string ligne in adressesIPValides)
+            {
+                infosIPAutorisees.AppendLine(ligne);
+            }
+            infosIPAutorisees.AppendLine($"Date de Création de la liste d'IP valides : {dateDeCreationListe}");
+            return infosIPAutorisees.ToString();
 
-    }
+        }
 
-
-
-    
+    }    
 }

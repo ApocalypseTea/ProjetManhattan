@@ -9,16 +9,18 @@ namespace ProjetManhattan
     {
         static void Main(string[] args)
         {
-            IPAutorisees listeBlancheAdressesIPv4 = new IPAutorisees(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ProjetManhattan\\listeIPAutorisees.txt");
+            string fichierConfig = @"C:\Users\AdeLas\source\repos\ProjetManhattan\ProjetManhattan\Ressources\config.json";
+            string importJSONConfig = File.ReadAllText(fichierConfig);
+            Config importConfig = JsonConvert.DeserializeObject<Config>(importJSONConfig);
+            Console.WriteLine(importConfig);
 
-            //Test De serialisation de la liste des adresses IP autorisées
-            string infosListeIPAutorisees = JsonConvert.SerializeObject(listeBlancheAdressesIPv4);
-            Console.WriteLine(infosListeIPAutorisees);
+            IPAutorisees listeBlancheAdressesIPv4 = new IPAutorisees(importConfig.adressesIPValides);
 
-
-            RecuperateurIPDuLog adressesIPDuJour = new RecuperateurIPDuLog(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ProjetManhattan\\u_ex250217.log", listeBlancheAdressesIPv4);
             
-           adressesIPDuJour.TrierAdressesIPParConnexion();
+
+            //RecuperateurIPDuLog adressesIPDuJour = new RecuperateurIPDuLog(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "ProjetManhattan\\u_ex250217.log", listeBlancheAdressesIPv4);
+            
+            //adressesIPDuJour.TrierAdressesIPParConnexion();
 
             
 

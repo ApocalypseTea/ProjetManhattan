@@ -10,8 +10,8 @@ namespace ProjetManhattan
     {
         public string cheminDeFichier { get; init; }
         public string nomDeFichier { get; init; }
-        Dictionary<string, IpClient> adressesIPJournaliere { get; init; }
-        IPAutorisees listeBlanche { get; init; }
+        public Dictionary<string, IpClient> adressesIPJournaliere { get; init; }
+        public IPAutorisees listeBlanche { get; init; }
 
         public RecuperateurIPDuLog(string cheminDeFichier, string nomDeFichier, IPAutorisees listeBlanche)
         {
@@ -59,7 +59,7 @@ namespace ProjetManhattan
             Console.WriteLine("Qui se connecte le plus ? ");
             foreach (var adresses in adressesIPJournaliereTriees)
             {
-                Console.WriteLine("La liste d'IP a enregistré : " + adresses.numeroIP + " qui s'est connectée " + adresses.nbConnexionJournaliere + " fois");
+                Console.WriteLine(adresses.numeroIP + " s'est connectée " + adresses.nbConnexionJournaliere + " fois");
             }
         }
 
