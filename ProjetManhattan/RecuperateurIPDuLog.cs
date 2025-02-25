@@ -9,23 +9,20 @@ namespace ProjetManhattan
     internal class RecuperateurIPDuLog
     {
         public string cheminDeFichier { get; init; }
-        public string nomDeFichier { get; init; }
+        //public string nomDeFichier { get; init; }
         public Dictionary<string, IpClient> adressesIPJournaliere { get; init; }
         public IPAutorisees listeBlanche { get; init; }
 
-        public RecuperateurIPDuLog(string cheminDeFichier, string nomDeFichier, IPAutorisees listeBlanche)
+        public RecuperateurIPDuLog(string cheminDeFichier, IPAutorisees listeBlanche)
         {
-            this.cheminDeFichier = cheminDeFichier;
-            this.nomDeFichier = nomDeFichier;
-            this.listeBlanche = listeBlanche;
-
-            string cheminFichierFinalLogs = Path.Combine(cheminDeFichier, nomDeFichier);
+            this.cheminDeFichier = cheminDeFichier;       
+            this.listeBlanche = listeBlanche;            
 
             //Créer un dictionaire pour les informations IP
             this.adressesIPJournaliere = new Dictionary<string, IpClient>();
 
             //Acceder au fichier ligne par ligne et ajout de chaque ligne à la collection d'adresses IP
-            var lignes = File.ReadAllLines(cheminFichierFinalLogs);
+            var lignes = File.ReadAllLines(cheminDeFichier);
             foreach (string ligne in lignes)
             {
                 if (ligne[0] == '#')
@@ -40,28 +37,35 @@ namespace ProjetManhattan
                     ligneLog.AjouterIPClientAuDictionnaire(ligneLog.IpClient, adressesIPJournaliere, listeBlanche.adressesIPValides);
                 }
             }
-        }
+             }
 
-        public void TrierAdressesIPParConnexion()
+        public void TrierAdressesIPParConnexion(int seuilAlerte)
         {
-            //Visualisation de la liste d'adresses IP Client du dictionnaire
-            //foreach (var adresses in adressesIPJournaliere)
-            //{
-            //   Console.WriteLine("La liste d'IP du dictionnaire a enregistré : " + adresses.Key + " qui s'est connectée " + adresses.Value.nbConnexionJournaliere + " fois");
-            //}
-            //Console.WriteLine();
-
             //Tri des adresses IP par nombre de connexion
             List<IpClient> listingAdressesIP = adressesIPJournaliere.Values.ToList();
-            var adressesIPJournaliereTriees = listingAdressesIP.OrderByDescending(adresse => adresse.nbConnexionJournaliere);
+            List<IpClient> adressesIPJournaliereTriees = (listingAdressesIP.OrderByDescending(adresse => adresse.nbConnexionJournaliere)).ToList<IpClient>();            
 
-            //Visualisation de la liste d'adresses IP Client triées
-            Console.WriteLine("Qui se connecte le plus ? ");
-            foreach (var adresses in adressesIPJournaliereTriees)
+            foreach(var adresse in adressesIPJournaliereTriees)
             {
-                Console.WriteLine(adresses.numeroIP + " s'est connectée " + adresses.nbConnexionJournaliere + " fois");
+                if (adresse.nbConnexionJournaliere > seuilAlerte)
+                {
+                    Console.WriteLine(adresse.numeroIP + " a effectué " + adresse.nbConnexionJournaliere + " requêtes au serveur aujourd'hui");
+                }
             }
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var adresses in adressesIPJournaliere)
+            {
+               sb.AppendLine(adresses.Key + " s'est connectée " + adresses.Value.nbConnexionJournaliere + " fois");
+            }
+            
+            return sb.ToString();
+        }
+
+
 
 
 
