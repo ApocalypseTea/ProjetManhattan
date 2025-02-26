@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
+using ProjetManhattan.Traitements;
 
 namespace ProjetManhattan
 {
@@ -14,11 +15,15 @@ namespace ProjetManhattan
                 case 1:
                     //Recuperateur d'adresses IP par nombre de requetes
                     //Import Liste Blanche
-                    IPAutorisees listeBlancheAdressesIPv4 = new IPAutorisees(importConfig.adressesIPValides);
+                    //IPAutorisees listeBlancheAdressesIPv4 = new IPAutorisees(importConfig.adressesIPValides);
 
-                    RecuperateurIPDuLog adressesIPDuJour = new RecuperateurIPDuLog(importConfig.cheminFichierLog, listeBlancheAdressesIPv4);
+                    //RecuperateurIPDuLog adressesIPDuJour = new RecuperateurIPDuLog(importConfig.cheminFichierLog, listeBlancheAdressesIPv4);
 
-                    adressesIPDuJour.TrierAdressesIPParConnexion(importConfig.seuilAlerteRequetesParIp);
+                    //adressesIPDuJour.TrierAdressesIPParConnexion(importConfig.seuilAlerteRequetesParIp);
+                    ITraitement traitement = new TraitementStatIP(importConfig);
+                    traitement.Execute();
+                    traitement.Display();
+
                     break;
                 case 2:
                     //Analyse de longueur de requete
@@ -38,13 +43,13 @@ namespace ProjetManhattan
             string importJSONConfig = File.ReadAllText(fichierConfig);
             Config importConfig = JsonConvert.DeserializeObject<Config>(importJSONConfig);
 
-
+            miniMenu(1, importConfig);
             //miniMenu(2, importConfig);
 
             //Analyse de longueur de requete
-            AnalyseurTempsDeRequete infosTempsRequetesLog = new AnalyseurTempsDeRequete();
-            infosTempsRequetesLog.RecupererInfosTempsRequeteDuLog(importConfig.cheminFichierLog);
-            infosTempsRequetesLog.AnalyserListeTempsDeRequete(2000);
+            //AnalyseurTempsDeRequete infosTempsRequetesLog = new AnalyseurTempsDeRequete();
+            //infosTempsRequetesLog.RecupererInfosTempsRequeteDuLog(importConfig.cheminFichierLog);
+            //infosTempsRequetesLog.AnalyserListeTempsDeRequete(2000);
             
 
         }
