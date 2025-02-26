@@ -9,7 +9,7 @@ namespace ProjetManhattan
     internal class RecuperateurIPDuLog
     {
         public string cheminDeFichier { get; init; }
-        //public string nomDeFichier { get; init; }
+     
         public Dictionary<string, IpClient> adressesIPJournaliere { get; init; }
         public IPAutorisees listeBlanche { get; init; }
 

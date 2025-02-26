@@ -46,7 +46,7 @@ namespace ProjetManhattan
             this._dateHeure = DateTime.Parse(champsLog[COL_DATE] + " " + champsLog[COL_TIME]);
             this._ipSource = champsLog[COL_IP_SOURCE];
             this._methodeHTTP = (VerbesHTTP)Enum.Parse(typeof(VerbesHTTP), champsLog[COL_METHODE_HTTP]);
-            this._csUriStem = champsLog[COL_URI_QUERY];
+            this._csUriStem = champsLog[COL_CS_URI_STEM];
             this._csUriQuery = champsLog[COL_URI_QUERY];
             this._port = int.Parse(champsLog[COL_PORT]);
             this._username = champsLog[COL_USERNAME];
@@ -63,13 +63,13 @@ namespace ProjetManhattan
         {
             StringBuilder ligneDeLogTexte = new StringBuilder();
             ligneDeLogTexte.AppendLine($"Date et Heure: {_dateHeure}");
+            ligneDeLogTexte.AppendLine($"Champs Temps Url Query: {_csUriQuery}");
             ligneDeLogTexte.AppendLine($"Ip Serveur : {_ipSource}");
             ligneDeLogTexte.AppendLine($"Methode HTTP : {_methodeHTTP}");
             ligneDeLogTexte.AppendLine($"Port : {_port}");
             ligneDeLogTexte.AppendLine($"ip Client : {IpClient}");
             ligneDeLogTexte.AppendLine($"status HTTP : {_csStatutHTTP}");
             return ligneDeLogTexte.ToString();
-
         }
 
         public void AjouterIPClientAuDictionnaire(string numIpClient, Dictionary<string, IpClient> listingIPJournalieres, HashSet<string>listeBlancheIp)
@@ -84,6 +84,35 @@ namespace ProjetManhattan
 
                 listingIPJournalieres[numIpClient].nbConnexionJournaliere++;
             }                  
+        }
+
+        public void AjouterInfosTempsDeRequetes(List<TempsRequete> infosTempsRequetes)
+        {
+            IpClient ip = new IpClient(IpClient);            
+            //Traitement cs_uri_query à faire, car mis en dur
+            TempsRequete tempsRequete = new TempsRequete(ip, _timeTaken, _csUriStem, NettoyageTempsRequeteHorsReseau(_csUriQuery));
+
+            infosTempsRequetes.Add(tempsRequete);
+
+        }
+
+        public int NettoyageTempsRequeteHorsReseau(string _csUriQuery)
+        {
+            if(_csUriQuery == "-")
+            {
+                return -1;
+            }
+            
+            string [] urlQueryDecoupe = _csUriQuery.Split("+time=");
+
+            if (urlQueryDecoupe.Length >= 2)
+            {
+                int timeQuery = int.Parse(urlQueryDecoupe[1]);
+
+                return timeQuery;
+            }
+
+            return -1;
         }
     }
 }
