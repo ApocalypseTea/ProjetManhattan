@@ -53,7 +53,6 @@ namespace ProjetManhattan.Traitements
             TempsRequete tempsRequete = new TempsRequete(ip, ligne.timeTaken, ligne.csUriStem, ligne.NettoyageTempsRequeteHorsReseau(ligne.csUriQuery));
 
             _infosTempsRequetes.Add(tempsRequete);
-
         }
     }
 }

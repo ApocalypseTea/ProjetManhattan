@@ -55,8 +55,7 @@ namespace ProjetManhattan.Traitements
                 {
                     this.AddLine(ligne);
                 }
-                // filtre(ligne)
-                // traitement(ligne)                
+                                
             }
         }
 
