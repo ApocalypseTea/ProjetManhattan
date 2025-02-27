@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using ProjetManhattan.Filtres;
 using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
@@ -42,7 +43,6 @@ namespace ProjetManhattan.Traitements
                     notifications.Add(notification);
                 }
             }
-
             _sortie.Display(notifications);
         }
 
@@ -51,7 +51,6 @@ namespace ProjetManhattan.Traitements
             while(_source.HasLines())
             {
                 LigneDeLog? ligne = _source.ReadLine();
-
                 if (ligne != null && _filtre.Needed(ligne))
                 {
                     this.AddLine(ligne);

@@ -6,5 +6,6 @@
 		"141.255.166.90"
 	],
 	"seuilAlerteRequetesParIp": 2000,
-	"cheminFichierLog" : "C:\\Users\\AdeLas\\source\\repos\\ProjetManhattan\\ProjetManhattan\\Ressources\\u_ex250217.log"
+	"cheminFichierLog": "C:\\Users\\AdeLas\\source\\repos\\ProjetManhattan\\ProjetManhattan\\Ressources\\u_ex250217.log",
+	"seuilAlerteTempsRequetes": 2000
 }

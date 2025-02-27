@@ -32,7 +32,6 @@ namespace ProjetManhattan.Sources
             {
                 string[] champs = line.Split(' ');
                 LigneDeLog parsedLine = new LigneDeLog(champs);
-
                 return parsedLine;
             }
             else

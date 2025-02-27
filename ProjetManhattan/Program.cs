@@ -13,43 +13,32 @@ namespace ProjetManhattan
             switch (numero)
             {
                 case 1:
-                    //Recuperateur d'adresses IP par nombre de requetes
-                    //Import Liste Blanche
-                    //IPAutorisees listeBlancheAdressesIPv4 = new IPAutorisees(importConfig.adressesIPValides);
-
-                    //RecuperateurIPDuLog adressesIPDuJour = new RecuperateurIPDuLog(importConfig.cheminFichierLog, listeBlancheAdressesIPv4);
-
-                    //adressesIPDuJour.TrierAdressesIPParConnexion(importConfig.seuilAlerteRequetesParIp);
-                    ITraitement traitement = new TraitementStatIP(importConfig);
-                    traitement.Execute();
-                    traitement.Display();
+                    
+                    ITraitement traitement1 = new TraitementStatIP(importConfig);
+                    traitement1.Execute();
+                    traitement1.Display();
 
                     break;
                 case 2:
-                    //Analyse de longueur de requete
-                    AnalyseurTempsDeRequete infosTempsRequetesLog = new AnalyseurTempsDeRequete();
-                    infosTempsRequetesLog.RecupererInfosTempsRequeteDuLog(importConfig.cheminFichierLog);
-                    //infosTempsRequetesLog.AnalyserListeTempsDeRequete(1);
-                    Console.WriteLine(infosTempsRequetesLog);
+
+                    ITraitement traitement2 = new TraitementTempsRequete(importConfig);
+                    traitement2.Execute();
+                    traitement2.Display();
                     break;
+
 
             }
         }
-
-
         static void Main(string[] args)
         {
             string fichierConfig = @"C:\Users\AdeLas\source\repos\ProjetManhattan\ProjetManhattan\Ressources\config.json";
             string importJSONConfig = File.ReadAllText(fichierConfig);
             Config importConfig = JsonConvert.DeserializeObject<Config>(importJSONConfig);
 
-            miniMenu(1, importConfig);
-            //miniMenu(2, importConfig);
+            //miniMenu(1, importConfig);
+            miniMenu(2, importConfig);
 
-            //Analyse de longueur de requete
-            //AnalyseurTempsDeRequete infosTempsRequetesLog = new AnalyseurTempsDeRequete();
-            //infosTempsRequetesLog.RecupererInfosTempsRequeteDuLog(importConfig.cheminFichierLog);
-            //infosTempsRequetesLog.AnalyserListeTempsDeRequete(2000);
+            
             
 
         }

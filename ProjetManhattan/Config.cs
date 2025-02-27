@@ -11,11 +11,14 @@ namespace ProjetManhattan
         public HashSet<string> adressesIPValides { get; init; }
         public int seuilAlerteRequetesParIp {  get; init; }
         public string cheminFichierLog {  get; init; }
-        public Config(HashSet<string> adressesIPValides, int seuilAlerteRequetesParIp, string cheminFichierLog) 
+        public int seuilAlerteTempsRequetes { get; init; }
+
+        public Config(HashSet<string> adressesIPValides, int seuilAlerteRequetesParIp, string cheminFichierLog, int seuilAlerteTempsRequetes) 
         {
             this.adressesIPValides = adressesIPValides;
             this.seuilAlerteRequetesParIp = seuilAlerteRequetesParIp;
             this.cheminFichierLog = cheminFichierLog;
+            this.seuilAlerteTempsRequetes = seuilAlerteTempsRequetes;
         }
 
         public override string ToString()

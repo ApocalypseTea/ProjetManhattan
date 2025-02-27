@@ -14,26 +14,26 @@ namespace ProjetManhattan
             this._infosTempsRequetes = new List<TempsRequete>();
         }
 
-        public void RecupererInfosTempsRequeteDuLog(string cheminFichier)
-        {
-            var lignes = File.ReadAllLines(cheminFichier);
-            foreach (string ligne in lignes)
-            {
-                if (ligne[0] == '#')
-                {
-                    continue;
-                }
-                else
-                {
-                    string[] champs = ligne.Split(' ');
-                    LigneDeLog ligneLog = new LigneDeLog(champs);
-                    //Console.WriteLine(ligneLog);
+        //public void RecupererInfosTempsRequeteDuLog(string cheminFichier)
+        //{
+        //    var lignes = File.ReadAllLines(cheminFichier);
+        //    foreach (string ligne in lignes)
+        //    {
+        //        if (ligne[0] == '#')
+        //        {
+        //            continue;
+        //        }
+        //        else
+        //        {
+        //            string[] champs = ligne.Split(' ');
+        //            LigneDeLog ligneLog = new LigneDeLog(champs);
+        //            //Console.WriteLine(ligneLog);
 
-                    ligneLog.AjouterInfosTempsDeRequetes(_infosTempsRequetes);
-                }
+        //            ligneLog.AjouterInfosTempsDeRequetes(_infosTempsRequetes);
+        //        }
 
-            }            
-        }
+        //    }            
+        //}
 
         public override string ToString()
         {
