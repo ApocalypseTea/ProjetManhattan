@@ -7,5 +7,14 @@
 	],
 	"seuilAlerteRequetesParIp": 2000,
 	"cheminFichierLog": "C:\\Users\\AdeLas\\source\\repos\\ProjetManhattan\\ProjetManhattan\\Ressources\\u_ex250217.log",
-	"seuilAlerteTempsRequetes": 2000
+	"seuilAlerteTempsRequetes": 3000,
+	"patternURLValide": [
+		"^/rcp/",
+		"^/rcp$",
+		"^/rcp_test/",
+		"^/rcp_test$",
+		"^/favicon.ico$",
+		"^/$",
+		"^/robots.txt"
+	]
 }

@@ -12,13 +12,14 @@ namespace ProjetManhattan
         public int seuilAlerteRequetesParIp {  get; init; }
         public string cheminFichierLog {  get; init; }
         public int seuilAlerteTempsRequetes { get; init; }
-
-        public Config(HashSet<string> adressesIPValides, int seuilAlerteRequetesParIp, string cheminFichierLog, int seuilAlerteTempsRequetes) 
+        public HashSet<string> patternURLValide { get; init; }
+        public Config(HashSet<string> adressesIPValides, int seuilAlerteRequetesParIp, string cheminFichierLog, int seuilAlerteTempsRequetes, HashSet<string> urlValides) 
         {
             this.adressesIPValides = adressesIPValides;
             this.seuilAlerteRequetesParIp = seuilAlerteRequetesParIp;
             this.cheminFichierLog = cheminFichierLog;
             this.seuilAlerteTempsRequetes = seuilAlerteTempsRequetes;
+            this.patternURLValide = urlValides;
         }
 
         public override string ToString()
@@ -35,7 +36,5 @@ namespace ProjetManhattan
             return infosConfig.ToString();
 
         }
-
-
     }
 }

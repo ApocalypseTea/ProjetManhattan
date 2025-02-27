@@ -26,6 +26,12 @@ namespace ProjetManhattan
                     traitement2.Display();
                     break;
 
+                case 3:
+                    ITraitement traitement3 = new TraitementURL(importConfig);
+                    traitement3.Execute();
+                    traitement3.Display();
+                    break;
+
 
             }
         }
@@ -36,7 +42,8 @@ namespace ProjetManhattan
             Config importConfig = JsonConvert.DeserializeObject<Config>(importJSONConfig);
 
             //miniMenu(1, importConfig);
-            miniMenu(2, importConfig);
+            //miniMenu(2, importConfig);
+            miniMenu(3, importConfig);
 
             
             
