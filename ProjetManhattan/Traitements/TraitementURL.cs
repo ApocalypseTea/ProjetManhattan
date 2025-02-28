@@ -9,21 +9,16 @@ using ProjetManhattan.Sources;
 
 namespace ProjetManhattan.Traitements
 {
-    class TraitementURL : ITraitement
+    internal class TraitementURL : Traitement, ITraitement
     {
-        private IFichierDeLog _source;
-        private IFiltre _filtre;
-        private IFormatage _sortie;
+        
         private List<InfosURL> _urlNonValides;
 
-        public TraitementURL(Config config)
-        {
-            _source = new FichierDeLogIIS(config);
-            _filtre = new IgnoreURLWhiteList(config);
-            _sortie = new OutputDisplay();
+        public TraitementURL(Config config) : base (config, new IgnoreURLWhiteList(config))
+        {          
             _urlNonValides = new List<InfosURL>();
         }
-        public void Display()
+        public override void Display()
         {
             List<Notification> notificationsURLNonAutorisees = new List<Notification>();
             foreach (var requete in _urlNonValides)
@@ -33,20 +28,8 @@ namespace ProjetManhattan.Traitements
             }
             _sortie.Display(notificationsURLNonAutorisees);
         }
-
-        public void Execute()
-        {
-            while (_source.HasLines())
-            {
-                LigneDeLog? ligne = _source.ReadLine();
-                if (ligne != null && _filtre.Needed(ligne))
-                {
-                    this.AddLine(ligne);
-                }
-            }
-        }
-
-        private void AddLine(LigneDeLog ligne)
+        
+        protected override void AddLine(LigneDeLog ligne)
         {
             IpClient ip = new IpClient(ligne.IpClient);
             InfosURL urlNonValide = new InfosURL(ligne.csUriStem, ip);

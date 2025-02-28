@@ -9,22 +9,16 @@ using ProjetManhattan.Sources;
 
 namespace ProjetManhattan.Traitements
 {
-    internal class TraitementTempsRequete : ITraitement
-    {
-        private IFichierDeLog _source;
-        private IFiltre _filtre;
-        private IFormatage _sortie;
+    internal class TraitementTempsRequete : Traitement, ITraitement
+    {       
         private List<TempsRequete> _infosTempsRequetes;
 
-        public TraitementTempsRequete(Config config)
-        {
-            _source = new FichierDeLogIIS(config);
-            _infosTempsRequetes = new List<TempsRequete>();
-            _sortie = new OutputDisplay();
-            _filtre = new IgnoreFastRequest(config);
+        public TraitementTempsRequete(Config config) : base (config, new IgnoreFastRequest(config))
+        {           
+            _infosTempsRequetes = new List<TempsRequete>();           
         }
 
-        public void Display()
+        public override void Display()
         {
             List<Notification> notificationsTempsRequete = new List<Notification>();
             foreach (var requete in _infosTempsRequetes)
@@ -34,20 +28,7 @@ namespace ProjetManhattan.Traitements
             }
             _sortie.Display(notificationsTempsRequete);
         }
-
-        public void Execute()
-        {
-            while (_source.HasLines())
-            {
-                LigneDeLog? ligne = _source.ReadLine();
-                if (ligne != null && _filtre.Needed(ligne))
-                {
-                    this.AddLine(ligne);
-                }                                
-            }
-        }
-
-        private void AddLine(LigneDeLog ligne)
+        protected override void AddLine(LigneDeLog ligne)
         {
             IpClient ip = new IpClient(ligne.IpClient);            
             TempsRequete tempsRequete = new TempsRequete(ip, ligne.timeTaken, ligne.csUriStem, ligne.NettoyageTempsRequeteHorsReseau(ligne.csUriQuery));

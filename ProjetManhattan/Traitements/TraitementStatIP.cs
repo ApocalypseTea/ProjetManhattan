@@ -10,27 +10,20 @@ using ProjetManhattan.Sources;
 
 namespace ProjetManhattan.Traitements
 {
-    internal class TraitementStatIP : ITraitement
+    internal class TraitementStatIP : Traitement, ITraitement 
     {
-        private IFichierDeLog _source;
-        private IFiltre _filtre;
-        private IFormatage _sortie;
         private Dictionary<string, IpClient> _listingIPJournalieres;
-        private int _seuilAlerte;
+        private int _seuilAlerte;       
 
-        public TraitementStatIP(Config config) 
+        public TraitementStatIP(Config config) : base(config, new IgnoreWhiteList(config))
         {
-            _seuilAlerte = config.seuilAlerteRequetesParIp;
-            _source = new FichierDeLogIIS(config);
-            _filtre = new IgnoreWhiteList(config);
-            _sortie = new OutputDisplay();
+            _seuilAlerte = config.seuilAlerteRequetesParIp; 
             _listingIPJournalieres = new Dictionary<string, IpClient>();
         }
 
-        public void Display()
+        public override void Display()
         {
             List<Notification> notifications = new List<Notification>();
-
             //Tri des adresses IP par nombre de connexion
             List<IpClient> listingAdressesIP = _listingIPJournalieres.Values.ToList();
             List<IpClient> adressesIPJournaliereTriees = (listingAdressesIP.OrderByDescending(adresse => adresse.nbConnexionJournaliere)).ToList<IpClient>();
@@ -44,22 +37,9 @@ namespace ProjetManhattan.Traitements
                 }
             }
             _sortie.Display(notifications);
-        }
+        }       
 
-        public void Execute()
-        {
-            while(_source.HasLines())
-            {
-                LigneDeLog? ligne = _source.ReadLine();
-                if (ligne != null && _filtre.Needed(ligne))
-                {
-                    this.AddLine(ligne);
-                }
-                                
-            }
-        }
-
-        private void AddLine(LigneDeLog line)
+        protected override void AddLine(LigneDeLog line)
         {
             string numIpClient = line.IpClient;
 
@@ -68,7 +48,6 @@ namespace ProjetManhattan.Traitements
                 IpClient nouvelleIp = new IpClient(numIpClient);
                 _listingIPJournalieres.Add(numIpClient, nouvelleIp);
             }
-
             _listingIPJournalieres[numIpClient].nbConnexionJournaliere++;
         }
     }

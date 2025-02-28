@@ -10,30 +10,25 @@ namespace ProjetManhattan
     {
         public static void miniMenu(int numero, Config importConfig)
         {
+            ITraitement? traitement = null;
+
             switch (numero)
             {
                 case 1:
-                    
-                    ITraitement traitement1 = new TraitementStatIP(importConfig);
-                    traitement1.Execute();
-                    traitement1.Display();
-
+                    traitement = new TraitementStatIP(importConfig);
                     break;
                 case 2:
-
-                    ITraitement traitement2 = new TraitementTempsRequete(importConfig);
-                    traitement2.Execute();
-                    traitement2.Display();
+                    traitement = new TraitementTempsRequete(importConfig);
                     break;
-
                 case 3:
-                    ITraitement traitement3 = new TraitementURL(importConfig);
-                    traitement3.Execute();
-                    traitement3.Display();
+                    traitement = new TraitementURL(importConfig);
                     break;
-
-
             }
+
+            traitement?.Execute();
+
+            // if (traitement != null) { traitement.Execute(); }
+            traitement?.Display();
         }
         static void Main(string[] args)
         {
@@ -41,8 +36,9 @@ namespace ProjetManhattan
             string importJSONConfig = File.ReadAllText(fichierConfig);
             Config importConfig = JsonConvert.DeserializeObject<Config>(importJSONConfig);
 
-            //miniMenu(1, importConfig);
-            //miniMenu(2, importConfig);
+            
+            miniMenu(1, importConfig);
+            miniMenu(2, importConfig);            
             miniMenu(3, importConfig);
 
             
