@@ -9,10 +9,18 @@ namespace ProjetManhattan
     internal class Notification
     {
         private string _message;
-        public Notification(string message) 
+        private int? _priority;
+
+        public Notification(string message, int? priority = null) 
         {
             _message = message;
+            _priority = priority;
         }
-        public string Message => _message;       
+        public string Message => _message;   
+        public int? Priority
+        {
+            get { return _priority; }
+            set { _priority = value; }
+        }
     }
 }

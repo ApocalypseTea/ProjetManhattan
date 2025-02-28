@@ -9,13 +9,13 @@ using ProjetManhattan.Sources;
 
 namespace ProjetManhattan.Traitements
 {
-    abstract class Traitement
+    abstract class BaseTraitement
     {
         protected IFichierDeLog _source;
         protected IFiltre _filtre;
         protected IFormatage _sortie;
 
-        public Traitement(Config config, IFiltre filtre)
+        public BaseTraitement(Config config, IFiltre filtre)
         {
             _source = new FichierDeLogIIS(config);
             _sortie = new OutputDisplay();

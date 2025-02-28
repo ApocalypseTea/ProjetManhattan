@@ -10,7 +10,7 @@ using ProjetManhattan.Sources;
 
 namespace ProjetManhattan.Traitements
 {
-    internal class TraitementStatIP : Traitement, ITraitement 
+    internal class TraitementStatIP : BaseTraitement, ITraitement 
     {
         private Dictionary<string, IpClient> _listingIPJournalieres;
         private int _seuilAlerte;       

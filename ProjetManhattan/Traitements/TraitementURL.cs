@@ -9,7 +9,7 @@ using ProjetManhattan.Sources;
 
 namespace ProjetManhattan.Traitements
 {
-    internal class TraitementURL : Traitement, ITraitement
+    internal class TraitementURL : BaseTraitement, ITraitement
     {
         
         private List<InfosURL> _urlNonValides;
