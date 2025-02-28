@@ -37,8 +37,8 @@ namespace ProjetManhattan
             Config importConfig = JsonConvert.DeserializeObject<Config>(importJSONConfig);
 
             
-            miniMenu(1, importConfig);
-            miniMenu(2, importConfig);            
+            //miniMenu(1, importConfig);
+            //miniMenu(2, importConfig);            
             miniMenu(3, importConfig);
 
             

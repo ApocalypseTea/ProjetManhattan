@@ -9,31 +9,23 @@ using ProjetManhattan.Sources;
 
 namespace ProjetManhattan.Traitements
 {
-    internal class TraitementURL : BaseTraitement, ITraitement
-    {
-        
-        private List<InfosURL> _urlNonValides;
-
+    internal class TraitementURL : BaseTraitementParLigne<InfosURL>, ITraitement
+    {        
         public TraitementURL(Config config) : base (config, new IgnoreURLWhiteList(config))
         {          
-            _urlNonValides = new List<InfosURL>();
         }
-        public override void Display()
-        {
-            List<Notification> notificationsURLNonAutorisees = new List<Notification>();
-            foreach (var requete in _urlNonValides)
-            {
-                Notification notification = new Notification($"L'adresse IP {requete.adresseIp.numeroIP} a cherché a acceder à :  {requete.url}");
-                notificationsURLNonAutorisees.Add(notification);
-            }
-            _sortie.Display(notificationsURLNonAutorisees);
-        }
-        
+           
         protected override void AddLine(LigneDeLog ligne)
         {
             IpClient ip = new IpClient(ligne.IpClient);
             InfosURL urlNonValide = new InfosURL(ligne.csUriStem, ip);
-            _urlNonValides.Add(urlNonValide);
+            _items.Add(urlNonValide);
+        }
+
+        protected override Notification TranslateLigneToNotification(InfosURL? requete)
+        {
+            Notification notification = new Notification($"L'adresse IP {requete.adresseIp.numeroIP} a cherché a acceder à :  {requete.url}");
+            return notification;
         }
     }
 }
