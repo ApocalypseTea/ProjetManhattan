@@ -27,6 +27,17 @@ namespace ProjetManhattan.Traitements
             _sortie.Display(notifications);
         }
 
-        protected abstract Notification TranslateLigneToNotification(T? requete);       
+        protected abstract Notification TranslateLigneToNotification(T? requete);
+
+        protected override void AddLine(LigneDeLog ligne)
+        {
+            IpClient ip = new IpClient(ligne.IpClient);
+            T tempsRequete = ParseLineIntoItem(ligne, ip);
+
+            _items.Add(tempsRequete);
+        }
+
+        protected abstract T ParseLineIntoItem(LigneDeLog ligne, IpClient ip);
+        
     }
 }

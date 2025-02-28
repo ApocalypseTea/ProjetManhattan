@@ -15,17 +15,24 @@ namespace ProjetManhattan.Traitements
         {          
         }
            
-        protected override void AddLine(LigneDeLog ligne)
-        {
-            IpClient ip = new IpClient(ligne.IpClient);
-            InfosURL urlNonValide = new InfosURL(ligne.csUriStem, ip);
-            _items.Add(urlNonValide);
-        }
+        //protected override void AddLine(LigneDeLog ligne)
+        //{
+        //    IpClient ip = new IpClient(ligne.IpClient);
+        //    InfosURL urlNonValide = new InfosURL(ligne.csUriStem, ip);
+        //    _items.Add(urlNonValide);
+        //}
 
         protected override Notification TranslateLigneToNotification(InfosURL? requete)
         {
             Notification notification = new Notification($"L'adresse IP {requete.adresseIp.numeroIP} a cherché a acceder à :  {requete.url}");
             return notification;
         }
+
+        protected override InfosURL ParseLineIntoItem(LigneDeLog ligne, IpClient ip)
+        {
+            InfosURL urlNonValide = new InfosURL(ligne.csUriStem, ip);
+            return urlNonValide;
+        }
+
     }
 }
