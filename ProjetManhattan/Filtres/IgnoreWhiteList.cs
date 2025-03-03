@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjetManhattan.Configuration;
 
 namespace ProjetManhattan.Filtres
 {
@@ -10,9 +11,9 @@ namespace ProjetManhattan.Filtres
     {
         private IPAutorisees _listeBlanche;
 
-        public IgnoreWhiteList(Config config)
+        public IgnoreWhiteList(HashSet<string> addressesIP)
         {
-            _listeBlanche = new IPAutorisees(config.adressesIPValides);
+            _listeBlanche = new IPAutorisees(addressesIP);
         }
 
         public bool Needed(LigneDeLog ligne)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
 using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
@@ -15,11 +16,10 @@ namespace ProjetManhattan.Traitements
         protected IFiltre _filtre;
         protected IFormatage _sortie;
 
-        public BaseTraitement(Config config, IFiltre filtre)
+        public BaseTraitement(BaseConfig config)
         {
             _source = new FichierDeLogIIS(config);
-            _sortie = new OutputDisplay();
-            _filtre = filtre;
+            _sortie = new OutputDisplay();         
         }
 
         public void Execute()
@@ -37,6 +37,12 @@ namespace ProjetManhattan.Traitements
         protected abstract void AddLine(LigneDeLog line);
 
         public abstract void Display();
+
+        public IFiltre Filtre
+        {
+            get { return _filtre; }
+            set { _filtre = value; }
+        }
 
     }
 }

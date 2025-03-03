@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjetManhattan.Configuration;
 
 namespace ProjetManhattan.Sources
 {
@@ -11,7 +12,7 @@ namespace ProjetManhattan.Sources
         private string _cheminDeFichier;
         private string[] _lignes;
         private int _currentLine;
-        public FichierDeLogIIS(Config config)
+        public FichierDeLogIIS(BaseConfig config)
         {
             _cheminDeFichier = config.cheminFichierLog;
             _lignes = File.ReadAllLines(_cheminDeFichier);

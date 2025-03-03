@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using ProjetManhattan.Configuration;
 
 namespace ProjetManhattan.Filtres
 {
@@ -11,9 +12,9 @@ namespace ProjetManhattan.Filtres
     {
         private HashSet<string> _urlValides;
 
-        public IgnoreURLWhiteList(Config config)
+        public IgnoreURLWhiteList(HashSet<string> regexs)
         {
-            _urlValides = new HashSet<string>(config.patternURLValide);
+            _urlValides = regexs;
         }
         public bool Needed(LigneDeLog ligne)
         {

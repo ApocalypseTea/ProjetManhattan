@@ -1,20 +1,32 @@
 {
-	"adressesIPValides": [
-		"51.68.119.164",
-		"37.58.161.180",
-		"3.82.48.116",
-		"141.255.166.90"
-	],
-	"seuilAlerteRequetesParIp": 2000,
-	"cheminFichierLog": "C:\\Users\\AdeLas\\source\\repos\\ProjetManhattan\\ProjetManhattan\\Ressources\\u_ex250217.log",
-	"seuilAlerteTempsRequetes": 3000,
-	"patternURLValide": [
-		"^/rcp/",
-		"^/rcp$",
-		"^/rcp_test/",
-		"^/rcp_test$",
-		"^/favicon.ico$",
-		"^/$",
-		"^/robots.txt"
-	]
+	"Sources": {
+		"FichierDeLogIIS": {
+			"CheminFichierLog": "C:\\Users\\AdeLas\\source\\repos\\ProjetManhattan\\ProjetManhattan\\Ressources\\u_ex250217.log"
+		}
+	},
+	"Traitements": {
+		"TraitementURL": {
+			"PatternURLValide": [
+				"^/rcp/",
+				"^/rcp$",
+				"^/rcp_test/",
+				"^/rcp_test$",
+				"^/favicon.ico$",
+				"^/$",
+				"^/robots.txt"
+			]
+		},
+		"TraitementStatIP": {
+			"SeuilAlerteRequetesParIp": 2000,
+			"AdressesIPValides": [
+				"51.68.119.164",
+				"37.58.161.180",
+				"3.82.48.116",
+				"141.255.166.90"
+			]
+		},
+		"TraitementTempsRequete": {
+			"SeuilAlerteTempsRequetes": 3000
+		}
+	}
 }

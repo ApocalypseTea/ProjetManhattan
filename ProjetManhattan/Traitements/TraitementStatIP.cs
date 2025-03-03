@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
 using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
@@ -15,9 +15,12 @@ namespace ProjetManhattan.Traitements
         private Dictionary<string, IpClient> _listingIPJournalieres;
         private int _seuilAlerte;       
 
-        public TraitementStatIP(Config config) : base(config, new IgnoreWhiteList(config))
+        public TraitementStatIP(BaseConfig config) : base(config)
         {
-            _seuilAlerte = config.seuilAlerteRequetesParIp; 
+            ConfigStatsIP c = config.GetConfigTraitement<ConfigStatsIP>(nameof(TraitementStatIP));
+            this.Filtre = new IgnoreWhiteList(c.adressesIPValides);
+
+            _seuilAlerte = c.seuilAlerteRequetesParIp; 
             _listingIPJournalieres = new Dictionary<string, IpClient>();
         }
 

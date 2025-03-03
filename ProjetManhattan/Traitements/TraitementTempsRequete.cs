@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
 using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
@@ -11,8 +12,10 @@ namespace ProjetManhattan.Traitements
 {
     internal class TraitementTempsRequete : BaseTraitementParLigne<TempsRequete>, ITraitement
     {       
-        public TraitementTempsRequete(Config config) : base (config, new IgnoreFastRequest(config))
-        {           
+        public TraitementTempsRequete(BaseConfig config) : base (config)
+        {
+            ConfigTempsRequetes c = config.GetConfigTraitement<ConfigTempsRequetes>(nameof(TraitementTempsRequete));
+            this.Filtre = new IgnoreFastRequest(c.seuilAlerteTempsRequetes);
         }   
         protected override Notification TranslateLigneToNotification(TempsRequete? requete)
         {
@@ -20,8 +23,10 @@ namespace ProjetManhattan.Traitements
             return notification;
         }
 
-        protected override TempsRequete ParseLineIntoItem(LigneDeLog ligne, IpClient ip)
+        protected override TempsRequete ParseLineIntoItem(LigneDeLog ligne)
         {
+            IpClient ip = new IpClient(ligne.IpClient);
+
             TempsRequete tempsRequete = new TempsRequete(ip, ligne.timeTaken, ligne.csUriStem, ligne.NettoyageTempsRequeteHorsReseau(ligne.csUriQuery));
             return tempsRequete;
         }

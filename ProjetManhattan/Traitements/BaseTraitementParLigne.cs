@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
 
 namespace ProjetManhattan.Traitements
@@ -11,7 +12,7 @@ namespace ProjetManhattan.Traitements
     {
         protected List<T> _items;
 
-        protected BaseTraitementParLigne(Config config, IFiltre filtre) : base(config, filtre)
+        protected BaseTraitementParLigne(BaseConfig config) : base(config)
         {
             _items = new List<T>();
         }
@@ -31,13 +32,12 @@ namespace ProjetManhattan.Traitements
 
         protected override void AddLine(LigneDeLog ligne)
         {
-            IpClient ip = new IpClient(ligne.IpClient);
-            T tempsRequete = ParseLineIntoItem(ligne, ip);
+            T tempsRequete = ParseLineIntoItem(ligne);
 
             _items.Add(tempsRequete);
         }
 
-        protected abstract T ParseLineIntoItem(LigneDeLog ligne, IpClient ip);
+        protected abstract T ParseLineIntoItem(LigneDeLog ligne);
         
     }
 }
