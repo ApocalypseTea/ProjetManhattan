@@ -11,25 +11,15 @@ namespace ProjetManhattan.Configuration
     class BaseConfig
     {
         public string cheminFichierLog { get; init; }
+        public string connectionString { get; init; }
         protected JObject jConfig;
-        //public HashSet<string> adressesIPValides { get; init; }
-        //public int seuilAlerteRequetesParIp { get; init; }
-        //public int seuilAlerteTempsRequetes { get; init; }
-        //public HashSet<string> patternURLValide { get; init; }
-        //public BaseConfig(HashSet<string> adressesIPValides, int seuilAlerteRequetesParIp, string cheminFichierLog, int seuilAlerteTempsRequetes, HashSet<string> urlValides)
-        //{
-        //    this.adressesIPValides = adressesIPValides;
-        //    this.seuilAlerteRequetesParIp = seuilAlerteRequetesParIp;
-        //    this.cheminFichierLog = cheminFichierLog;
-        //    this.seuilAlerteTempsRequetes = seuilAlerteTempsRequetes;
-        //    patternURLValide = urlValides;
-        //}
 
         public BaseConfig(string filename)
         {
             string json = File.ReadAllText(filename);
             jConfig = JObject.Parse(json);
             cheminFichierLog = (string)jConfig["Sources"]["FichierDeLogIIS"]["CheminFichierLog"];
+            connectionString = (string)jConfig["Sources"]["AccesBDD"]["connectionString"];
         }
 
         public T GetConfigTraitement<T>(string nomTraitement) where T : class

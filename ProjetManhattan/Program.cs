@@ -24,6 +24,9 @@ namespace ProjetManhattan
                 case 3:
                     traitement = new TraitementURL(importConfig);
                     break;
+                case 4:
+                    traitement = new TraitementBrisDeGlace(importConfig);
+                    break;
             }
 
             traitement?.Execute();
@@ -39,9 +42,10 @@ namespace ProjetManhattan
             BaseConfig importConfig = new BaseConfig(fichierConfig);
             
 
-            miniMenu(1, importConfig);
-            miniMenu(2, importConfig);            
-            miniMenu(3, importConfig);
+            //miniMenu(1, importConfig);
+            //miniMenu(2, importConfig);            
+            //miniMenu(3, importConfig);
+            miniMenu(4, importConfig);
 
 
             

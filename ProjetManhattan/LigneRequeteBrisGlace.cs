@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProjetManhattan
+{
+    class LigneRequeteBrisGlace
+    {
+        public long Profil { get; init; }
+        public string Nom { get; init; }
+        public string Prenom { get; init; }
+        public string Label { get; init; }
+        public string Value { get; init; }
+        public int NbPatientBrisGlace { get; init; }
+        public DateTime Date { get; init; }
+
+        public LigneRequeteBrisGlace(long _colProfil, string _colNom, string _colPrenom, string _colLabel, string _colValue, int _colNbPatientBrisGlace, DateTime _colDate)
+        {
+            Profil = _colProfil;
+            Nom = _colNom;
+            Prenom = _colPrenom;
+            Label = _colLabel;
+            Value = _colValue;
+            NbPatientBrisGlace = _colNbPatientBrisGlace;
+            Date = _colDate;
+        }
+
+
+    }
+}
