@@ -32,7 +32,7 @@
 			"SeuilAlerteTempsRequetes": 3000
 		},
 		"TraitementBrisDeGlace": {
-			"SeuilAlerteBrisDeGlaceJournalierParUtilisateur" :  5
+			"SeuilAlerteBrisDeGlaceJournalierParUtilisateur" :  25
 		}
 	}
 }
