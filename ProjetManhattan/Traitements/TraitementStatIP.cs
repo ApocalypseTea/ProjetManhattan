@@ -42,6 +42,7 @@ namespace ProjetManhattan.Traitements
             _sortie.Display(notifications);
         }       
 
+        
         protected override void AddLine(LigneDeLog line)
         {
             string numIpClient = line.IpClient;

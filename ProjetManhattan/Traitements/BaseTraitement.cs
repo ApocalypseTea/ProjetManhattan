@@ -10,31 +10,30 @@ using ProjetManhattan.Sources;
 
 namespace ProjetManhattan.Traitements
 {
-    abstract class BaseTraitement
+    abstract class BaseTraitement<TSource> where TSource: ISource
     {
-        protected IFichierDeLog _source;
+        protected TSource _source;
         protected IFiltre _filtre;
         protected IFormatage _sortie;
 
         public BaseTraitement(BaseConfig config)
         {
-            _source = new FichierDeLogIIS(config);
+            //_source = new FichierDeLogIIS(config);
             _sortie = new OutputDisplay();         
         }
 
-        public void Execute()
-        {
-            while (_source.HasLines())
-            {
-                LigneDeLog? ligne = _source.ReadLine();
-                if (ligne != null && _filtre.Needed(ligne))
-                {
-                    this.AddLine(ligne);
-                }
-
-            }
-        }
-        protected abstract void AddLine(LigneDeLog line);
+        public abstract void Execute();
+        //{
+        //    while (_source.HasLines())
+        //    {
+        //        LigneDeLog? ligne = _source.ReadLine();
+        //        if (ligne != null && _filtre.Needed(ligne))
+        //        {
+        //            this.AddLine(ligne);
+        //        }
+        //    }
+        //}
+        protected abstract void AddLine(Record line); 
 
         public abstract void Display();
 

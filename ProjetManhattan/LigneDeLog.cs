@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace ProjetManhattan
 {
-    internal class LigneDeLog
+    internal class LigneDeLog : IToRecordable
     {
         private const int COL_DATE = 0;
         private const int COL_TIME = 1;
@@ -25,7 +25,7 @@ namespace ProjetManhattan
         private const int COL_CS_WIN32_STATUS = 13;
         private const int COL_TIME_TAKEN = 14;
 
-        private DateTime _dateHeure;
+        public DateTime DateHeure { get; set; }
         private string _ipSource;
         private VerbesHTTP _methodeHTTP;
         public string csUriStem { get; init; }
@@ -43,7 +43,7 @@ namespace ProjetManhattan
 
         public LigneDeLog(string[] champsLog)
         {
-            this._dateHeure = DateTime.Parse(champsLog[COL_DATE] + " " + champsLog[COL_TIME]);
+            this.DateHeure = DateTime.Parse(champsLog[COL_DATE] + " " + champsLog[COL_TIME]);
             this._ipSource = champsLog[COL_IP_SOURCE];
             this._methodeHTTP = (VerbesHTTP)Enum.Parse(typeof(VerbesHTTP), champsLog[COL_METHODE_HTTP]);
             this.csUriStem = champsLog[COL_CS_URI_STEM];
@@ -62,7 +62,7 @@ namespace ProjetManhattan
         public override string ToString()
         {
             StringBuilder ligneDeLogTexte = new StringBuilder();
-            ligneDeLogTexte.AppendLine($"Date et Heure: {_dateHeure}");
+            ligneDeLogTexte.AppendLine($"Date et Heure: {DateHeure}");
             ligneDeLogTexte.AppendLine($"Champs Temps Url Query: {csUriQuery}");
             ligneDeLogTexte.AppendLine($"Ip Serveur : {_ipSource}");
             ligneDeLogTexte.AppendLine($"Methode HTTP : {_methodeHTTP}");
@@ -111,6 +111,14 @@ namespace ProjetManhattan
             }
 
             return -1;
+        }
+
+        public Record ToRecord()
+        {
+            return new Record()
+            {
+                Date = this.DateHeure
+            };
         }
     }
 }

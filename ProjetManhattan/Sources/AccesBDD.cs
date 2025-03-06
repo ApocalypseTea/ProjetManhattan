@@ -8,20 +8,20 @@ using Microsoft.Data.SqlClient;
 
 namespace ProjetManhattan.Sources
 {
-    class AccesBDD
+    class AccesBDD : IAccesBDD
     {
-        private string _connectionString;
+        public string ConnectionString { get; init; }
 
         public AccesBDD(BaseConfig config)
         {
-            _connectionString = config.connectionString;
-        }
+            ConnectionString = config.connectionString;
+        }          
 
         public SqlConnection ConnexionBD()
         {
             try
             {
-                SqlConnection connect = new SqlConnection(_connectionString);
+                SqlConnection connect = new SqlConnection(ConnectionString);
                 connect.Open();
                 return connect;
             }
@@ -33,6 +33,5 @@ namespace ProjetManhattan.Sources
             //return null;
 
         }
-
     }
 }

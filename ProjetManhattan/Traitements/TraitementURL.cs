@@ -10,14 +10,23 @@ using ProjetManhattan.Sources;
 
 namespace ProjetManhattan.Traitements
 {
-    internal class TraitementURL : BaseTraitementParLigne<InfosURL>, ITraitement
+    // <InfosURL>
+    internal class TraitementURL : BaseTraitementParLigne, ITraitement
     {        
-        public TraitementURL(BaseConfig config) : base (config)
+        public TraitementURL(BaseConfig config) : base (config, new FichierDeLogIIS(config))
         {
             ConfigURLInvalides c = config.GetConfigTraitement<ConfigURLInvalides>(nameof(TraitementURL));
             this.Filtre = new IgnoreURLWhiteList(c.patternURLValide);
         }
-           
+
+        protected override void FillRecord(Record record, LigneDeLog ligne)
+        {
+            record.Traitement = nameof(TraitementURL);
+            record.Target = ligne.csUriStem;
+            record.PropertyName = "UrlDouteuse";
+            record.Value = 1.0f;
+        }
+
         //protected override void AddLine(LigneDeLog ligne)
         //{
         //    IpClient ip = new IpClient(ligne.IpClient);
@@ -25,18 +34,19 @@ namespace ProjetManhattan.Traitements
         //    _items.Add(urlNonValide);
         //}
 
-        protected override Notification TranslateLigneToNotification(InfosURL? requete)
-        {
-            Notification notification = new Notification($"L'adresse IP {requete.adresseIp.numeroIP} a cherché a acceder à :  {requete.url}");
-            return notification;
-        }
+        //protected override Notification TranslateLigneToNotification(Record requete)
+        //{
+        //    //Notification notification = new Notification($"L'adresse IP {requete.adresseIp.numeroIP} a cherché a acceder à :  {requete.url}");
+        //    Notification notification = new Notification($"{requete.Traitement} : {requete.Target} : {requete.Date} : {requete.PropertyName} : {requete.Value}");
+        //    return notification;
+        //}
 
-        protected override InfosURL ParseLineIntoItem(LigneDeLog ligne)
-        {
-            IpClient ip = new IpClient(ligne.IpClient);
-            InfosURL urlNonValide = new InfosURL(ligne.csUriStem, ip);
-            return urlNonValide;
-        }
+        //protected override InfosURL ParseLineIntoItem(LigneDeLog ligne)
+        //{
+        //    IpClient ip = new IpClient(ligne.IpClient);
+        //    InfosURL urlNonValide = new InfosURL(ligne.csUriStem, ip);
+        //    return urlNonValide;
+        //}
 
     }
 }

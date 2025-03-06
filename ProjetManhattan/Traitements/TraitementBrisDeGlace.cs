@@ -14,7 +14,7 @@ namespace ProjetManhattan.Traitements
     class TraitementBrisDeGlace : ITraitement
     {
         //Voir le type reel de retour de la requete SQL
-        private List<LigneRequeteBrisGlace> _resultatsRequeteSQL;
+        private List<LigneRequeteBrisGlace> _items;
         private int _seuilAlerteBrisGlace;
         private AccesBDD _source;
         private string _queryBrisGlace;
@@ -25,7 +25,8 @@ namespace ProjetManhattan.Traitements
             ConfigBrisGlace c = config.GetConfigTraitement<ConfigBrisGlace>(nameof(TraitementBrisDeGlace));
             _seuilAlerteBrisGlace = c.SeuilAlerteBrisDeGlaceJournalierParUtilisateur;
 
-            _resultatsRequeteSQL = new List<LigneRequeteBrisGlace> ();
+            _items = new List<LigneRequeteBrisGlace> ();
+
             _source = new AccesBDD(config);
             _sortie = new OutputDisplay();
             _queryBrisGlace = "SELECT BG.profil_ref, \t\r\n\tU.nom, \r\n\tU.prenom,\t \r\n\tPPSS.label,\r\n\tPT.value,\r\n\tCOUNT(BG.patient_ref) AS nb_patient_brise_glace, \r\n\tCONVERT(DATE, BG.creation_date) AS date\r\nFROM account.bris_glace AS BG\r\nJOIN account.ZT_profil AS P ON BG.profil_ref = P.id \r\nJOIN account.profil_type_enum AS PT ON P.type_ref = PT.id\r\nJOIN account.ZT_user AS U ON P.user_ref = U.id\r\nLEFT JOIN account.profil_professionnel_sante AS PPS ON PPS.profil_id=P.id\r\nLEFT JOIN account.profil_professionnel_sante_specialite_enum AS PPSS ON PPS.specialite_ref=PPSS.id\r\nGROUP BY BG.profil_ref,\t\r\n\tPT.value,\r\n\tU.nom, \r\n\tU.prenom,\t\r\n\tPPSS.label,\r\n\tCONVERT(DATE, BG.creation_date)\r\n\tHAVING COUNT(BG.patient_ref)>@Seuil\r\nORDER BY CONVERT(DATE, BG.creation_date) DESC\r\n;";
@@ -68,13 +69,13 @@ namespace ProjetManhattan.Traitements
 
         public void AddLine(LigneRequeteBrisGlace ligne)
         {
-            _resultatsRequeteSQL.Add(ligne);
+            _items.Add(ligne);
         }
 
         public void Display()
         {
             List<Notification> notifications = new List<Notification>();
-            foreach (LigneRequeteBrisGlace ligneRequete in _resultatsRequeteSQL)
+            foreach (LigneRequeteBrisGlace ligneRequete in _items)
             {
                 Notification notification = new Notification($"L'utilisateur {ligneRequete.Nom} {ligneRequete.Prenom} a effectué {ligneRequete.NbPatientBrisGlace} bris de glace le {ligneRequete.Date.ToString("dd/MM/yyyy")}");
 

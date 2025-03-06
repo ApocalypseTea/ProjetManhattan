@@ -27,6 +27,18 @@ namespace ProjetManhattan
             Date = _colDate;
         }
 
+        //public XXX ToXXX()
+        //{
+        //    return new XXX()
+        //    {
+        //        Traitements = "TraitementBrisGlace",
+        //        Date = this.Date,
+        //        Target = $"ProfilID:{this.Profil}",
+        //        PropertyName = "NbBrisGlace",
+        //        Value = this.NbPatientBrisGlace,
+        //    };
+        //}
+
 
     }
 }

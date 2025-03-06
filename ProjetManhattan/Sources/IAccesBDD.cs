@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
 
 namespace ProjetManhattan.Sources
 {
-    internal interface IFichierDeLog : ISource
+    interface IAccesBDD : ISource
     {
-        bool HasLines();
-        LigneDeLog? ReadLine();
+        public string ConnectionString { get; init; }
+        SqlConnection ConnexionBD();
+
     }
 }

@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjetManhattan.Sources
 {
-    internal interface IFichierDeLog : ISource
+    interface ISource
     {
-        bool HasLines();
-        LigneDeLog? ReadLine();
     }
 }
