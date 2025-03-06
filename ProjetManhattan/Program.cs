@@ -16,7 +16,7 @@ namespace ProjetManhattan
             switch (numero)
             {
                 case 1:
-                    //traitement = new TraitementStatIP(importConfig);
+                    traitement = new TraitementStatIP(importConfig);
                     break;
                 case 2:
                     traitement = new TraitementTempsRequete(importConfig);
@@ -43,13 +43,13 @@ namespace ProjetManhattan
             
 
             miniMenu(1, importConfig);
-            miniMenu(2, importConfig);            
+            miniMenu(2, importConfig);
             miniMenu(3, importConfig);
             miniMenu(4, importConfig);
 
 
-            
-            
+
+
 
         }
     }

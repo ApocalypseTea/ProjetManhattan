@@ -8,8 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Traitements\BaseTraitementParRequeteSQL.cs" />
     <Compile Remove="Traitements\TraitementBrisDeGlace.cs" />
-    <Compile Remove="Traitements\TraitementStatIP.cs" />
   </ItemGroup>
 
   <ItemGroup>

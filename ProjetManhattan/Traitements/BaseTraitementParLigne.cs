@@ -53,7 +53,7 @@ namespace ProjetManhattan.Traitements
             return notification;
         }
 
-        protected override void AddLine(Record ligne)
+        protected virtual void AddLine(Record ligne)
         {
             //T tempsRequete = ParseLineIntoItem(ligne);
 

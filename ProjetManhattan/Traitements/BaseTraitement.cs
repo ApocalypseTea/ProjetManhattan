@@ -33,7 +33,7 @@ namespace ProjetManhattan.Traitements
         //        }
         //    }
         //}
-        protected abstract void AddLine(Record line); 
+      
 
         public abstract void Display();
 
