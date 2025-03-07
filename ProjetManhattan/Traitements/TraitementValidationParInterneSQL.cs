@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +13,9 @@ namespace ProjetManhattan.Traitements
 {
     class TraitementValidationParInterneSQL : BaseTraitementParRequeteSQL<LigneRequeteSQLValidationParInterne>, ITraitement
     {
-        private const string QUERY = "SELECT FR.id AS numeroFiche, FR.patient_ref AS patient, FR.validateur_ref AS validateur, U.nom, U.prenom, FR.reunion_ref AS numeroRCP, FR.date_validation\r\nFROM dbo.fiches_rcp AS FR\r\nJOIN account.profil_professionnel_sante AS PPS ON PPS.profil_id = FR.validateur_ref \r\nJOIN account.profil_professionnel_sante_titre_enum AS PPST ON PPST.id = PPS.titre_ref\r\nJOIN account.ZT_profil AS P ON P.id = FR.validateur_ref\r\nJOIN account.ZT_user AS U ON U.id = P.user_ref\r\nWHERE FR.date_validation IS NOT NULL AND PPST.value = @Titre;";
+        private const string QUERY = "SELECT FR.id AS numeroFiche, FR.patient_ref AS patient, FR.validateur_ref AS validateur, U.nom, U.prenom, FR.reunion_ref AS numeroRCP, FR.date_validation\r\nFROM dbo.fiches_rcp AS FR\r\nJOIN account.profil_professionnel_sante AS PPS ON PPS.profil_id = FR.validateur_ref \r\nJOIN account.profil_professionnel_sante_titre_enum AS PPST ON PPST.id = PPS.titre_ref\r\nJOIN account.ZT_profil AS P ON P.id = FR.validateur_ref\r\nJOIN account.ZT_user AS U ON U.id = P.user_ref\r\n,@Titre AS T WHERE FR.date_validation IS NOT NULL AND PPST.value = T.value;";
 
-        private string _titreValidateur;
+        private string [] _titreValidateur;
         public TraitementValidationParInterneSQL(BaseConfig config) : base(config)
         {
             ConfigRCPValideParInterne c = config.GetConfigTraitement<ConfigRCPValideParInterne>(nameof(TraitementValidationParInterneSQL));
@@ -29,7 +30,19 @@ namespace ProjetManhattan.Traitements
         protected override SqlCommand GetSQLCommand(SqlConnection connection)
         {
             SqlCommand requete = new SqlCommand(QUERY, connection);
-            requete.Parameters.AddWithValue("@Titre", _titreValidateur);
+            DataTable table = new DataTable("toto");
+            DataColumn column = new DataColumn("value");
+            column.DataType = typeof(string);
+            table.Columns.Add(column);
+
+            foreach(string titre in _titreValidateur)
+            {
+                table.Rows.Add(titre);
+            }
+
+            SqlParameter pTitre = requete.Parameters.AddWithValue("@Titre", table);
+            pTitre.SqlDbType = SqlDbType.Structured;
+            pTitre.TypeName = "dbo.StringArray";
             return requete;
         }
 

@@ -2,6 +2,6 @@
 {
     internal class ConfigRCPValideParInterne
     {
-        public string TitreValidateur;
+        public string [] TitreValidateur;
     }
 }

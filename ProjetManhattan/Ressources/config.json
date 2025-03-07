@@ -40,7 +40,10 @@
 		},
 
 		"TraitementValidationParInterneSQL": {
-			"TitreValidateur": "Interne"	
+			"TitreValidateur": [
+				"Interne",
+				"FaisantFonctionInterne"
+			]
 
 		}
 	}
