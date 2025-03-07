@@ -27,6 +27,9 @@ namespace ProjetManhattan
                 case 4:
                     traitement = new TraitementBrisDeGlace(importConfig);
                     break;
+                case 5:
+                    traitement = new TraitementValidationParInterneSQL(importConfig);
+                    break;
             }
 
             traitement?.Execute();
@@ -42,10 +45,11 @@ namespace ProjetManhattan
             BaseConfig importConfig = new BaseConfig(fichierConfig);
 
 
-            miniMenu(1, importConfig);
-            miniMenu(2, importConfig);
-            miniMenu(3, importConfig);
-            miniMenu(4, importConfig);
+            //miniMenu(1, importConfig);
+            //miniMenu(2, importConfig);
+            //miniMenu(3, importConfig);
+            //miniMenu(4, importConfig);
+            miniMenu(5, importConfig);
 
 
 
