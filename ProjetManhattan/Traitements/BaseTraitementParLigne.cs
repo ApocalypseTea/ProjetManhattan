@@ -11,10 +11,8 @@ namespace ProjetManhattan.Traitements
 {
     abstract class BaseTraitementParLigne : BaseTraitement<IFichierDeLog>
     {
-        protected List<Record> _items;
         protected BaseTraitementParLigne(BaseConfig config, IFichierDeLog source) : base(config)
         {
-            _items = new List<Record>();
             //_source = new FichierDeLogIIS(config);
             _source = source;
         }
@@ -35,29 +33,25 @@ namespace ProjetManhattan.Traitements
 
         protected abstract void FillRecord(Record record, LigneDeLog ligne);       
 
-        public override void Display()
-        {
-            List<Notification> notifications = new List<Notification>();
-            foreach (Record item in _items)
-            {
-                Notification notification = TranslateLigneToNotification(item);
-                notifications.Add(notification);
-            }
-            _sortie.Display(notifications);
-        }
+        //public override void Display()
+        //{
+        //    List<Notification> notifications = new List<Notification>();
+        //    foreach (Record item in _items)
+        //    {
+        //        Notification notification = TranslateLigneToNotification(item);
+        //        notifications.Add(notification);
+        //    }
+        //    _sortie.Display(notifications);
+        //}
 
 
-        protected Notification TranslateLigneToNotification(Record requete)
-        {
-            Notification notification = new Notification($"{requete.Traitement} : {requete.Target} : {requete.Date} : {requete.PropertyName} : {requete.Value}");
-            return notification;
-        }
+       
 
         protected virtual void AddLine(Record ligne)
         {
             //T tempsRequete = ParseLineIntoItem(ligne);
 
-            _items.Add(ligne);
+            this.AddItem(ligne);
             //throw new NotImplementedException();
         }
     }

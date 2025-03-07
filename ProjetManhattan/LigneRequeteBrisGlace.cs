@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjetManhattan
 {
-    class LigneRequeteBrisGlace
+    class LigneRequeteBrisGlace : IToRecordable
     {
         public long Profil { get; init; }
         public string Nom { get; init; }
@@ -27,17 +27,17 @@ namespace ProjetManhattan
             Date = _colDate;
         }
 
-        //public XXX ToXXX()
-        //{
-        //    return new XXX()
-        //    {
-        //        Traitements = "TraitementBrisGlace",
-        //        Date = this.Date,
-        //        Target = $"ProfilID:{this.Profil}",
-        //        PropertyName = "NbBrisGlace",
-        //        Value = this.NbPatientBrisGlace,
-        //    };
-        //}
+        public Record ToRecord()
+        {
+            return new Record()
+            {
+                Traitement = "TraitementBrisGlace",
+                Date = this.Date,
+                Target = $"ProfilID:{this.Profil}",
+                PropertyName = "NbBrisGlace",
+                Value = this.NbPatientBrisGlace,
+            };
+        }
 
 
     }

@@ -24,23 +24,23 @@ namespace ProjetManhattan.Traitements
             _listingIPJournalieres = new Dictionary<string, IpClient>();
         }
 
-        public override void Display()
-        {
-            List<Notification> notifications = new List<Notification>();
-            //Tri des adresses IP par nombre de connexion
-            List<IpClient> listingAdressesIP = _listingIPJournalieres.Values.ToList();
-            List<IpClient> adressesIPJournaliereTriees = (listingAdressesIP.OrderByDescending(adresse => adresse.nbConnexionJournaliere)).ToList<IpClient>();
+        //public override void Display()
+        //{
+        //    List<Notification> notifications = new List<Notification>();
+        //    //Tri des adresses IP par nombre de connexion
+        //    List<IpClient> listingAdressesIP = _listingIPJournalieres.Values.ToList();
+        //    List<IpClient> adressesIPJournaliereTriees = (listingAdressesIP.OrderByDescending(adresse => adresse.nbConnexionJournaliere)).ToList<IpClient>();
 
-            foreach (var adresse in adressesIPJournaliereTriees)
-            {
-                if (adresse.nbConnexionJournaliere > _seuilAlerte)
-                {
-                    Notification notification = new Notification((adresse.numeroIP + " a effectué " + adresse.nbConnexionJournaliere + " requêtes au serveur aujourd'hui"));
-                    notifications.Add(notification);
-                }
-            }
-            _sortie.Display(notifications);
-        }
+        //    foreach (var adresse in adressesIPJournaliereTriees)
+        //    {
+        //        if (adresse.nbConnexionJournaliere > _seuilAlerte)
+        //        {
+        //            Notification notification = new Notification((adresse.numeroIP + " a effectué " + adresse.nbConnexionJournaliere + " requêtes au serveur aujourd'hui"));
+        //            notifications.Add(notification);
+        //        }
+        //    }
+        //    _sortie.Display(notifications);
+        //}
 
         public override void Execute()
         {
@@ -53,19 +53,22 @@ namespace ProjetManhattan.Traitements
                 }
             }
 
-            //foreach(var item in _listingIPJournalieres.Values)
-            //{
-            //    Record record = new Record()
-            //    {
-            //        Traitement = nameof(TraitementStatIP),
-            //        Date = DateTime.Now,
-            //        Target = item.numeroIP,
-            //        PropertyName = "NbRequetes",
-            //        Value = item.nbConnexionJournaliere
-            //    };
+            foreach (var item in _listingIPJournalieres.Values)
+            {
+                if (item.nbConnexionJournaliere > _seuilAlerte)
+                {
+                    Record record = new Record()
+                    {
+                        Traitement = nameof(TraitementStatIP),
+                        Date = DateTime.Now,
+                        Target = item.numeroIP,
+                        PropertyName = "NbRequetes",
+                        Value = item.nbConnexionJournaliere
+                    };
 
-            //    this.AddLine(record);
-            //}
+                    this.AddItem(record);
+                }
+            }
         }       
 
         protected void UpdateStat(LigneDeLog line)

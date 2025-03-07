@@ -28,7 +28,7 @@ namespace ProjetManhattan.Traitements
                 {
                     T item = ReadItem(reader);
                     Record line = item.ToRecord();
-                    this.AddLine(line);
+                    this.AddItem(line);
                 }
             }
             
@@ -36,24 +36,24 @@ namespace ProjetManhattan.Traitements
 
         protected abstract T ReadItem(SqlDataReader reader);       
 
-        public override void Display()
-        {
-            List<Notification> notifications = new List<Notification>();
-            foreach (T item in _items)
-            {
-                Notification notification = TranslateLigneToNotification(item);
-                notifications.Add(notification);
-            }
-            _sortie.Display(notifications);
-        }
-        protected abstract Notification TranslateLigneToNotification(T? requete);
+        //public override void Display()
+        //{
+        //    List<Notification> notifications = new List<Notification>();
+        //    foreach (T item in _items)
+        //    {
+        //        Notification notification = TranslateLigneToNotification(item);
+        //        notifications.Add(notification);
+        //    }
+        //    _sortie.Display(notifications);
+        //}
+        //protected abstract Notification TranslateLigneToNotification(T? requete);
 
-        protected override void AddLine(Record ligne)
-        {
-            throw new Exception("not implemented");
-        }
+        //protected override void AddLine(Record ligne)
+        //{
+        //    throw new Exception("not implemented");
+        //}
 
-        protected abstract T ParseLineIntoItem(LigneDeLog ligne);
+        //protected abstract T ParseLineIntoItem(LigneDeLog ligne);
 
         protected abstract SqlCommand GetSQLCommand(SqlConnection connection);
 
