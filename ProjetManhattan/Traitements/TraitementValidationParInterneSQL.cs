@@ -12,10 +12,14 @@ namespace ProjetManhattan.Traitements
 {
     class TraitementValidationParInterneSQL : BaseTraitementParRequeteSQL<LigneRequeteSQLValidationParInterne>, ITraitement
     {
-        private const string QUERY = "SELECT FR.id AS numeroFiche, FR.patient_ref AS patient, FR.validateur_ref AS validateur, U.nom, U.prenom, FR.reunion_ref AS numeroRCP, FR.date_validation\r\nFROM dbo.fiches_rcp AS FR\r\nJOIN account.profil_professionnel_sante AS PPS ON PPS.profil_id = FR.validateur_ref \r\nJOIN account.profil_professionnel_sante_titre_enum AS PPST ON PPST.id = PPS.titre_ref\r\nJOIN account.ZT_profil AS P ON P.id = FR.validateur_ref\r\nJOIN account.ZT_user AS U ON U.id = P.user_ref\r\nWHERE FR.date_validation IS NOT NULL AND PPST.value = 'Interne';";
+        private const string QUERY = "SELECT FR.id AS numeroFiche, FR.patient_ref AS patient, FR.validateur_ref AS validateur, U.nom, U.prenom, FR.reunion_ref AS numeroRCP, FR.date_validation\r\nFROM dbo.fiches_rcp AS FR\r\nJOIN account.profil_professionnel_sante AS PPS ON PPS.profil_id = FR.validateur_ref \r\nJOIN account.profil_professionnel_sante_titre_enum AS PPST ON PPST.id = PPS.titre_ref\r\nJOIN account.ZT_profil AS P ON P.id = FR.validateur_ref\r\nJOIN account.ZT_user AS U ON U.id = P.user_ref\r\nWHERE FR.date_validation IS NOT NULL AND PPST.value = @Titre;";
+
+        private string _titreValidateur;
         public TraitementValidationParInterneSQL(BaseConfig config) : base(config)
         {
-            //ConfigRCPValideParInterne c = config.GetConfigTraitement<ConfigRCPValideParInterne>(nameof(TraitementValidationParInterneSQL));
+            ConfigRCPValideParInterne c = config.GetConfigTraitement<ConfigRCPValideParInterne>(nameof(TraitementValidationParInterneSQL));
+
+            _titreValidateur = c.TitreValidateur;
 
             _items = new List<LigneRequeteSQLValidationParInterne>();
             _source = new AccesBDD(config);
@@ -24,7 +28,9 @@ namespace ProjetManhattan.Traitements
 
         protected override SqlCommand GetSQLCommand(SqlConnection connection)
         {
-            return new SqlCommand(QUERY, connection);
+            SqlCommand requete = new SqlCommand(QUERY, connection);
+            requete.Parameters.AddWithValue("@Titre", _titreValidateur);
+            return requete;
         }
 
         protected override LigneRequeteSQLValidationParInterne ReadItem(SqlDataReader reader)

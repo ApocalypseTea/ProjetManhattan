@@ -7,6 +7,7 @@
 			"connectionString": "Data Source=.\\SQLEXPRESS;Initial Catalog=OncoPC_DCC_extract;Integrated Security=true;TrustServerCertificate=true;"
 		}
 	},
+
 	"Traitements": {
 		"TraitementURL": {
 			"PatternURLValide": [
@@ -19,6 +20,7 @@
 				"^/robots.txt"
 			]
 		},
+
 		"TraitementStatIP": {
 			"SeuilAlerteRequetesParIp": 2000,
 			"AdressesIPValides": [
@@ -28,11 +30,18 @@
 				"141.255.166.90"
 			]
 		},
+
 		"TraitementTempsRequete": {
 			"SeuilAlerteTempsRequetes": 10000
 		},
+
 		"TraitementBrisDeGlace": {
-			"SeuilAlerteBrisDeGlaceJournalierParUtilisateur" :  25
+			"SeuilAlerteBrisDeGlaceJournalierParUtilisateur": 25
+		},
+
+		"TraitementValidationParInterneSQL": {
+			"TitreValidateur": "Interne"	
+
 		}
 	}
 }
