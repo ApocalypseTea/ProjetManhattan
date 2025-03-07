@@ -16,17 +16,12 @@ namespace ProjetManhattan.Traitements
         protected TSource _source;
         protected IFiltre _filtre;
         protected IFormatage _sortie;
-
         public BaseTraitement(BaseConfig config)
         {
             _sortie = new OutputDisplay();
             _items = new List<Record>();
         }
-
         public abstract void Execute();
-        
-      
-
         public virtual void Display()
         {
             List<Notification> notifications = new List<Notification>();

@@ -13,7 +13,6 @@ namespace ProjetManhattan.Traitements
     {
         protected BaseTraitementParLigne(BaseConfig config, IFichierDeLog source) : base(config)
         {
-            //_source = new FichierDeLogIIS(config);
             _source = source;
         }
 
@@ -30,29 +29,11 @@ namespace ProjetManhattan.Traitements
                 }
             }
         }
-
         protected abstract void FillRecord(Record record, LigneDeLog ligne);       
-
-        //public override void Display()
-        //{
-        //    List<Notification> notifications = new List<Notification>();
-        //    foreach (Record item in _items)
-        //    {
-        //        Notification notification = TranslateLigneToNotification(item);
-        //        notifications.Add(notification);
-        //    }
-        //    _sortie.Display(notifications);
-        //}
-
-
-       
-
         protected virtual void AddLine(Record ligne)
         {
-            //T tempsRequete = ParseLineIntoItem(ligne);
-
             this.AddItem(ligne);
-            //throw new NotImplementedException();
+         
         }
     }
 }

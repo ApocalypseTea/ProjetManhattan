@@ -12,7 +12,6 @@ namespace ProjetManhattan.Traitements
     abstract class BaseTraitementParRequeteSQL <T> : BaseTraitement<IAccesBDD> where T: IToRecordable
     {
         protected List<T> _items;
-
         protected BaseTraitementParRequeteSQL(BaseConfig config) : base(config)
         {
             _items = new List<T>();
@@ -31,30 +30,8 @@ namespace ProjetManhattan.Traitements
                     this.AddItem(line);
                 }
             }
-            
         }
-
         protected abstract T ReadItem(SqlDataReader reader);       
-
-        //public override void Display()
-        //{
-        //    List<Notification> notifications = new List<Notification>();
-        //    foreach (T item in _items)
-        //    {
-        //        Notification notification = TranslateLigneToNotification(item);
-        //        notifications.Add(notification);
-        //    }
-        //    _sortie.Display(notifications);
-        //}
-        //protected abstract Notification TranslateLigneToNotification(T? requete);
-
-        //protected override void AddLine(Record ligne)
-        //{
-        //    throw new Exception("not implemented");
-        //}
-
-        //protected abstract T ParseLineIntoItem(LigneDeLog ligne);
-
         protected abstract SqlCommand GetSQLCommand(SqlConnection connection);
 
     }

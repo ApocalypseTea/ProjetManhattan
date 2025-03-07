@@ -26,21 +26,6 @@ namespace ProjetManhattan.Configuration
         {
             return jConfig["Traitements"][nomTraitement].ToObject<T>();
         }
-
-
-        //public override string ToString()
-        //{
-        //    StringBuilder infosConfig = new StringBuilder();
-        //    infosConfig.AppendLine($"Adresses IP Autorisées :");
-        //    foreach (string ligne in adressesIPValides)
-        //    {
-        //        infosConfig.AppendLine(ligne);
-        //    }
-        //    infosConfig.AppendLine($"Seuil d'alerte du nombre de Requêtes Journalieres par IP : {seuilAlerteRequetesParIp}");
-        //    infosConfig.AppendLine($"Chemin du Fichier Log Journalier : {cheminFichierLog}");
-
-        //    return infosConfig.ToString();
-
-        //}
+        
     }
 }

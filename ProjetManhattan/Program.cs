@@ -40,11 +40,11 @@ namespace ProjetManhattan
             //string importJSONConfig = File.ReadAllText(fichierConfig);
             //BaseConfig importConfig = JsonConvert.DeserializeObject<BaseConfig>(importJSONConfig);
             BaseConfig importConfig = new BaseConfig(fichierConfig);
-            
+
 
             miniMenu(1, importConfig);
-            //miniMenu(2, importConfig);
-            //miniMenu(3, importConfig);
+            miniMenu(2, importConfig);
+            miniMenu(3, importConfig);
             miniMenu(4, importConfig);
 
 

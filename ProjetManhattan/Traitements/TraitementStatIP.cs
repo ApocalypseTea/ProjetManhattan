@@ -24,24 +24,6 @@ namespace ProjetManhattan.Traitements
             _listingIPJournalieres = new Dictionary<string, IpClient>();
         }
 
-        //public override void Display()
-        //{
-        //    List<Notification> notifications = new List<Notification>();
-        //    //Tri des adresses IP par nombre de connexion
-        //    List<IpClient> listingAdressesIP = _listingIPJournalieres.Values.ToList();
-        //    List<IpClient> adressesIPJournaliereTriees = (listingAdressesIP.OrderByDescending(adresse => adresse.nbConnexionJournaliere)).ToList<IpClient>();
-
-        //    foreach (var adresse in adressesIPJournaliereTriees)
-        //    {
-        //        if (adresse.nbConnexionJournaliere > _seuilAlerte)
-        //        {
-        //            Notification notification = new Notification((adresse.numeroIP + " a effectué " + adresse.nbConnexionJournaliere + " requêtes au serveur aujourd'hui"));
-        //            notifications.Add(notification);
-        //        }
-        //    }
-        //    _sortie.Display(notifications);
-        //}
-
         public override void Execute()
         {
             while (_source.HasLines())
@@ -82,12 +64,5 @@ namespace ProjetManhattan.Traitements
             }
             _listingIPJournalieres[numIpClient].nbConnexionJournaliere++;
         }
-
-        //protected override void FillRecord(Record record, LigneDeLog ligne)
-        //{
-        //    record.Date = ligne.DateHeure;
-        //    record.Target = ligne.IpClient;
-        //    record.Value = 
-        //}
     }
 }
