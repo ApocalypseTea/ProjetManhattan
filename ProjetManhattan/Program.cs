@@ -30,6 +30,9 @@ namespace ProjetManhattan
                 case 5:
                     traitement = new TraitementValidationParInterneSQL(importConfig);
                     break;
+                case 6:
+                    traitement = new TraitementChangementIdentiteUserSQL(importConfig);
+                    break;
             }
 
             traitement?.Execute();
@@ -49,7 +52,8 @@ namespace ProjetManhattan
             //miniMenu(2, importConfig);
             //miniMenu(3, importConfig);
             //miniMenu(4, importConfig);
-            miniMenu(5, importConfig);
+            //miniMenu(5, importConfig);
+            miniMenu(6, importConfig);
 
 
 
