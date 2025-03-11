@@ -8,11 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Configuration\SelectBrisDeGlace.txt" />
+    <None Remove="Configuration\QueryChangementIdentiteUser.txt" />
+    <None Remove="Configuration\QueryValidateurRCPAbsent.txt" />
+    <None Remove="Configuration\QueryValidationParInterne.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Configuration\SelectBrisDeGlace.txt" />
+    <EmbeddedResource Include="Configuration\QueryBrisDeGlace.txt" />
+    <EmbeddedResource Include="Configuration\QueryChangementIdentiteUser.txt" />
+    <EmbeddedResource Include="Configuration\QueryValidateurRCPAbsent.txt" />
+    <EmbeddedResource Include="Configuration\QueryValidationParInterne.txt" />
   </ItemGroup>
 
   <ItemGroup>

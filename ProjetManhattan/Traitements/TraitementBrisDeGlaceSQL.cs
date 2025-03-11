@@ -13,14 +13,14 @@ using System.Reflection;
 
 namespace ProjetManhattan.Traitements
 {
-    class TraitementBrisDeGlace : BaseTraitementParRequeteSQL<LigneRequeteBrisGlace>, ITraitement
+    class TraitementBrisDeGlaceSQL : BaseTraitementParRequeteSQL<LigneRequeteBrisGlace>, ITraitement
     {
-        private const string resourceName = "ProjetManhattan.Configuration.SelectBrisDeGlace.txt";
+        private const string RESOURCENAME = "ProjetManhattan.Configuration.QueryBrisDeGlace.txt";
 
         private int _seuilAlerteBrisGlace;
-        public TraitementBrisDeGlace(BaseConfig config) : base(config)
+        public TraitementBrisDeGlaceSQL(BaseConfig config) : base(config)
         {
-            ConfigBrisGlace c = config.GetConfigTraitement<ConfigBrisGlace>(nameof(TraitementBrisDeGlace));
+            ConfigBrisGlace c = config.GetConfigTraitement<ConfigBrisGlace>(nameof(TraitementBrisDeGlaceSQL));
             _seuilAlerteBrisGlace = c.SeuilAlerteBrisDeGlaceJournalierParUtilisateur;
 
             _items = new List<LigneRequeteBrisGlace> ();
@@ -51,7 +51,7 @@ namespace ProjetManhattan.Traitements
         }
         protected override SqlCommand GetSQLCommand(SqlConnection connection)
         {
-            SqlCommand requete = new SqlCommand(GetSQLQuery(resourceName), connection);
+            SqlCommand requete = new SqlCommand(GetSQLQuery(RESOURCENAME), connection);
             requete.Parameters.AddWithValue("@Seuil", _seuilAlerteBrisGlace);
 
             return requete;

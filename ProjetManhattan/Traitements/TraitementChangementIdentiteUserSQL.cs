@@ -12,7 +12,9 @@ namespace ProjetManhattan.Traitements
 {
     class TraitementChangementIdentiteUserSQL : BaseTraitementParRequeteSQL<LigneRequeteSQLChgtIdentiteUser>, ITraitement
     {
-        private const string QUERY = "SELECT U.id, U.nom AS nom_enCours, U.prenom AS prenom_enCours, UPN.nom AS nom_Origine, UPN.prenom AS prenom_Origine FROM account.ZT_user AS U JOIN account.ZT_user_previous_name AS UPN ON U.id = UPN.user_ref WHERE REPLACE(U.nom COLLATE French_CI_AI, '-', ' ')  != REPLACE(UPN.nom, '-', ' ') AND REPLACE(U.prenom COLLATE French_CI_AI, '-', ' ') != REPLACE(UPN.prenom,'-', ' ') AND UPN.prenom NOT LIKE '%Interne%' AND U.nom NOT LIKE '%TESTPROD%' AND REPLACE(U.nom COLLATE French_CI_AI, '-', ' ') != REPLACE(UPN.prenom, '-', ' ') AND REPLACE(U.prenom COLLATE French_CI_AI, '-', ' ') != REPLACE(UPN.nom,'-', ' ');";
+        //private const string QUERY = "SELECT U.id, U.nom AS nom_enCours, U.prenom AS prenom_enCours, UPN.nom AS nom_Origine, UPN.prenom AS prenom_Origine FROM account.ZT_user AS U JOIN account.ZT_user_previous_name AS UPN ON U.id = UPN.user_ref WHERE REPLACE(U.nom COLLATE French_CI_AI, '-', ' ')  != REPLACE(UPN.nom, '-', ' ') AND REPLACE(U.prenom COLLATE French_CI_AI, '-', ' ') != REPLACE(UPN.prenom,'-', ' ') AND UPN.prenom NOT LIKE '%Interne%' AND U.nom NOT LIKE '%TESTPROD%' AND REPLACE(U.nom COLLATE French_CI_AI, '-', ' ') != REPLACE(UPN.prenom, '-', ' ') AND REPLACE(U.prenom COLLATE French_CI_AI, '-', ' ') != REPLACE(UPN.nom,'-', ' ');";
+
+        private const string RESSOURCENAME = "ProjetManhattan.Configuration.QueryChangementIdentiteUser.txt";
 
         public TraitementChangementIdentiteUserSQL(BaseConfig config) : base(config)
         {
@@ -21,7 +23,7 @@ namespace ProjetManhattan.Traitements
 
         protected override SqlCommand GetSQLCommand(SqlConnection connection)
         {
-            return new SqlCommand(QUERY, connection);
+            return new SqlCommand(GetSQLQuery(RESSOURCENAME), connection);
         }
 
         protected override LigneRequeteSQLChgtIdentiteUser ReadItem(SqlDataReader reader)

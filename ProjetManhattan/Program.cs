@@ -25,11 +25,11 @@ namespace ProjetManhattan
                     traitement = new TraitementURL(importConfig);
                     break;
                 case 4:
-                    traitement = new TraitementBrisDeGlace(importConfig);
+                    traitement = new TraitementBrisDeGlaceSQL(importConfig);
                     break;
-                case 5:
-                    traitement = new TraitementValidationParInterneSQL(importConfig);
-                    break;
+                    //case 5:
+                    //    traitement = new TraitementValidationParInterneSQL(importConfig);
+                    //break;
                 case 6:
                     traitement = new TraitementChangementIdentiteUserSQL(importConfig);
                     break;
@@ -55,10 +55,10 @@ namespace ProjetManhattan
             //miniMenu(1, importConfig);
             //miniMenu(2, importConfig);
             //miniMenu(3, importConfig);
-            miniMenu(4, importConfig);
+            //miniMenu(4, importConfig);
             //miniMenu(5, importConfig);
-            //miniMenu(6, importConfig);
-            //miniMenu(7, importConfig);
+            miniMenu(6, importConfig);
+            miniMenu(7, importConfig);
 
             
 
