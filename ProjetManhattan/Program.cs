@@ -33,6 +33,10 @@ namespace ProjetManhattan
                 case 6:
                     traitement = new TraitementChangementIdentiteUserSQL(importConfig);
                     break;
+                case 7:
+                    traitement = new TraitementValidateurRCPnonPresentSQL(importConfig);
+                    break;
+
             }
 
             traitement?.Execute();
@@ -53,9 +57,10 @@ namespace ProjetManhattan
             //miniMenu(3, importConfig);
             //miniMenu(4, importConfig);
             //miniMenu(5, importConfig);
-            miniMenu(6, importConfig);
+            //miniMenu(6, importConfig);
+            miniMenu(7, importConfig);
 
-
+            
 
 
 
