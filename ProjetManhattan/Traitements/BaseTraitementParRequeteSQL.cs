@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
@@ -34,5 +35,17 @@ namespace ProjetManhattan.Traitements
         protected abstract T ReadItem(SqlDataReader reader);       
         protected abstract SqlCommand GetSQLCommand(SqlConnection connection);
 
+        protected virtual string GetSQLQuery(string resourceName)
+        {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    return reader.ReadToEnd();
+                }
+            }
+        }
     }
 }

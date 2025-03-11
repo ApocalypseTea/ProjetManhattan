@@ -1,0 +1,26 @@
+SELECT 
+	BG.profil_ref, 
+	U.nom, 
+	U.prenom,
+	PPSS.label,
+	PT.value,
+	COUNT(BG.patient_ref) AS nb_patient_brise_glace,
+	CONVERT(DATE, BG.creation_date) AS date 
+FROM account.bris_glace AS BG
+JOIN account.ZT_profil AS P ON BG.profil_ref = P.id 
+JOIN account.profil_type_enum AS PT ON P.type_ref = PT.id
+JOIN account.ZT_user AS U ON P.user_ref = U.id
+LEFT JOIN account.profil_professionnel_sante AS PPS ON PPS.profil_id=P.id
+LEFT JOIN account.profil_professionnel_sante_specialite_enum AS PPSS ON PPS.specialite_ref=PPSS.id
+
+GROUP BY 
+	BG.profil_ref,
+	PT.value,
+	U.nom, 
+	U.prenom,
+	PPSS.label,
+	CONVERT(DATE, BG.creation_date)
+HAVING 
+	COUNT(BG.patient_ref)>@Seuil
+ORDER BY CONVERT(DATE, BG.creation_date) DESC
+;
