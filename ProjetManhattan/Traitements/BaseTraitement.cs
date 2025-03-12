@@ -7,6 +7,7 @@ using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
 using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
+using Microsoft.Data.Sqlite;
 
 namespace ProjetManhattan.Traitements
 {
@@ -24,14 +25,29 @@ namespace ProjetManhattan.Traitements
         public abstract void Execute();
         public virtual void Display()
         {
-            List<Notification> notifications = new List<Notification>();
-            foreach (Record item in _items)
-            {
-                Notification notification = TranslateLigneToNotification(item);
-                notifications.Add(notification);
-            }
-            _sortie.AffichageNotifications(notifications);
+            /*
+            //List<Notification> notifications = new List<Notification>();
+            //foreach (Record item in _items)
+            //{
+            //    Notification notification = TranslateLigneToNotification(item);
+            //    notifications.Add(notification);
+            //}
+            //_sortie.AffichageNotifications(notifications);*/
+            _sortie.AffichageRecord(_items);
+
+
+            //Creation de la base de données de reception des records
+            //AccesDBSQLite creationDBSQLite = new AccesDBSQLite();
+            //SqliteConnection connection = creationDBSQLite.ConnectToTinyDB();
+
+            ////Ajout des records dans la base de données créée
+            //foreach (Record item in _items)
+            //{
+            //    RecordToSQLite ligneBD = new RecordToSQLite(item);
+            //    ligneBD.AddRecordToDataBase(connection);
+            //}
         }
+
         public IFiltre Filtre
         {
             get { return _filtre; }

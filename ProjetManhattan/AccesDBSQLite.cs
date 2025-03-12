@@ -21,7 +21,7 @@ namespace ProjetManhattan
 
         public SqliteConnection ConnectToTinyDB()
         {
-            string pathAndFile = Path.Combine(_dbFileName, _dbPath);
+            string pathAndFile = Path.Combine(_dbPath, _dbFileName);
             string connectionString = "Data Source=" + pathAndFile;
             Console.WriteLine(pathAndFile);
 
@@ -68,12 +68,12 @@ namespace ProjetManhattan
             }
         }
 
-        public void AddRecordToDataBase(Record record)
-        {
-            string requete = "INSERT INTO record (target, date, value, propertyName, description)" +
-                $"VALUES ({record.Traitement}, {record.Target}, {record.Date}, {record.Value}, {record.PropertyName}, {record.Description});"
-                ;
-        }
+        //public void AddRecordToDataBase(Record record)
+        //{
+        //    string requete = "INSERT INTO record (target, date, value, propertyName, description)" +
+        //        $"VALUES ({record.Traitement}, {record.Target}, {record.Date}, {record.Value}, {record.PropertyName}, {record.Description});"
+        //        ;
+        //}
 
     }
 }

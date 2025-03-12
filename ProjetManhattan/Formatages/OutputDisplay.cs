@@ -8,11 +8,19 @@ namespace ProjetManhattan.Formatages
 {
     internal class OutputDisplay : IFormatage
     {
-        public void AffichageNotifications(IEnumerable<Notification> notifications)
+        //public void AffichageNotifications(IEnumerable<Notification> notifications)
+        //{
+        //    foreach(Notification notification in notifications)
+        //    {
+        //        Console.WriteLine(notification.Message);
+        //    }
+        //}
+
+        public void AffichageRecord(IEnumerable<Record> listeDeRecord)
         {
-            foreach(Notification notification in notifications)
+            foreach(Record record in listeDeRecord)
             {
-                Console.WriteLine(notification.Message);
+                Console.WriteLine($"{ record.Traitement} : {record.Target} : {record.Date} : {record.Value} : {record.PropertyName} : {record.Description}");
             }
         }
     }
