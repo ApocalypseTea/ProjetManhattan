@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Traitements;
+using Microsoft.Data.Sqlite;
 
 namespace ProjetManhattan
 {
@@ -27,9 +28,9 @@ namespace ProjetManhattan
                 case 4:
                     traitement = new TraitementBrisDeGlaceSQL(importConfig);
                     break;
-                    //case 5:
-                    //    traitement = new TraitementValidationParInterneSQL(importConfig);
-                    //break;
+                case 5:
+                    traitement = new TraitementValidationParInterneSQL(importConfig);
+                    break;
                 case 6:
                     traitement = new TraitementChangementIdentiteUserSQL(importConfig);
                     break;
@@ -57,10 +58,12 @@ namespace ProjetManhattan
             //miniMenu(3, importConfig);
             //miniMenu(4, importConfig);
             //miniMenu(5, importConfig);
-            miniMenu(6, importConfig);
-            miniMenu(7, importConfig);
+            //miniMenu(6, importConfig);
+            //miniMenu(7, importConfig);
 
             
+
+
 
 
 

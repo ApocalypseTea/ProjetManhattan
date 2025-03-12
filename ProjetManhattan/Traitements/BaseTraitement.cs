@@ -30,7 +30,7 @@ namespace ProjetManhattan.Traitements
                 Notification notification = TranslateLigneToNotification(item);
                 notifications.Add(notification);
             }
-            _sortie.Display(notifications);
+            _sortie.AffichageNotifications(notifications);
         }
         public IFiltre Filtre
         {

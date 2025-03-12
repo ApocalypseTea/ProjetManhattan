@@ -33,7 +33,6 @@ namespace ProjetManhattan.Traitements
         protected virtual void AddLine(Record ligne)
         {
             this.AddItem(ligne);
-         
         }
     }
 }

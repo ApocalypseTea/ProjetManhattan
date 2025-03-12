@@ -8,7 +8,6 @@ namespace ProjetManhattan
 {
     class LigneRequeteSQLValidateurNonPresent : IToRecordable
     {
-        // Je te vois
         private long _validateur;
         private long _idFicheRCP;
         private long _idReunionRCP;

@@ -35,7 +35,7 @@
 			"SeuilAlerteTempsRequetes": 10000
 		},
 
-		"TraitementBrisDeGlace": {
+		"TraitementBrisDeGlaceSQL": {
 			"SeuilAlerteBrisDeGlaceJournalierParUtilisateur": 25
 		},
 

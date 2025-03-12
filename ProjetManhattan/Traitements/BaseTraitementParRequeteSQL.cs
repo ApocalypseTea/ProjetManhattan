@@ -35,7 +35,7 @@ namespace ProjetManhattan.Traitements
         protected abstract T ReadItem(SqlDataReader reader);       
         protected abstract SqlCommand GetSQLCommand(SqlConnection connection);
 
-        protected virtual string GetSQLQuery(string resourceName)
+        protected string GetSQLQuery(string resourceName)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
 
