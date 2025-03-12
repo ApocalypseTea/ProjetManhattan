@@ -8,8 +8,6 @@ namespace ProjetManhattan.Formatages
 {
     internal interface IFormatage
     {
-        //void AffichageNotifications(IEnumerable<Notification> notifications);
-
         void AffichageRecord(IEnumerable<Record> listeDeRecord);
     }
 }

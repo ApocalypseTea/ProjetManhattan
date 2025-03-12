@@ -25,16 +25,8 @@ namespace ProjetManhattan.Traitements
         public abstract void Execute();
         public virtual void Display()
         {
-            /*
-            //List<Notification> notifications = new List<Notification>();
-            //foreach (Record item in _items)
-            //{
-            //    Notification notification = TranslateLigneToNotification(item);
-            //    notifications.Add(notification);
-            //}
-            //_sortie.AffichageNotifications(notifications);*/
+            
             _sortie.AffichageRecord(_items);
-
 
             //Creation de la base de données de reception des records
             //AccesDBSQLite creationDBSQLite = new AccesDBSQLite();
@@ -57,12 +49,6 @@ namespace ProjetManhattan.Traitements
         public void AddItem(Record item)
         {
             _items.Add(item);
-        }
-
-        protected Notification TranslateLigneToNotification(Record requete)
-        {
-            Notification notification = new Notification($"{requete.Traitement} : {requete.Target} : {requete.Date} : {requete.PropertyName} : {requete.Value}");
-            return notification;
         }
     }
 }
