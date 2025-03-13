@@ -54,10 +54,10 @@ namespace ProjetManhattan
 
 
             //miniMenu(1, importConfig);
-            miniMenu(2, importConfig);
-            miniMenu(3, importConfig);
-            miniMenu(4, importConfig);
-            miniMenu(5, importConfig);
+            //miniMenu(2, importConfig);
+            //miniMenu(3, importConfig);
+            //miniMenu(4, importConfig);
+            //miniMenu(5, importConfig);
             miniMenu(6, importConfig);
             //miniMenu(7, importConfig);
 

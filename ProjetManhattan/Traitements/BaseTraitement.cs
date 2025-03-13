@@ -25,19 +25,18 @@ namespace ProjetManhattan.Traitements
         public abstract void Execute();
         public virtual void Display()
         {
-            
             _sortie.AffichageRecord(_items);
 
             //Creation de la base de données de reception des records
-            //AccesDBSQLite creationDBSQLite = new AccesDBSQLite();
-            //SqliteConnection connection = creationDBSQLite.ConnectToTinyDB();
+            AccesDBSQLite creationDBSQLite = new AccesDBSQLite();
+            SqliteConnection connection = creationDBSQLite.ConnectToTinyDB();
 
-            ////Ajout des records dans la base de données créée
-            //foreach (Record item in _items)
-            //{
-            //    RecordToSQLite ligneBD = new RecordToSQLite(item);
-            //    ligneBD.AddRecordToDataBase(connection);
-            //}
+            //Ajout des records dans la base de données créée
+            foreach (Record item in _items)
+            {
+                RecordToSQLite ligneBD = new RecordToSQLite(item);
+                ligneBD.AddRecordToDataBase(connection);
+            }
         }
 
         public IFiltre Filtre

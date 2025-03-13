@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 
 
-namespace ProjetManhattan
+namespace ProjetManhattan.Formatages
 {
     class AccesDBSQLite
     {
@@ -15,8 +15,8 @@ namespace ProjetManhattan
 
         public AccesDBSQLite(string DbFileName = "resultTraitementDb.db", string DbPath = @"C:\Users\AdeLas\source\repos\ProjetManhattan\ProjetManhattan\SQLiteDB")
         {
-            this._dbFileName = DbFileName;
-            this._dbPath = DbPath;
+            _dbFileName = DbFileName;
+            _dbPath = DbPath;
         }
 
         public SqliteConnection ConnectToTinyDB()
@@ -25,8 +25,10 @@ namespace ProjetManhattan
             string connectionString = "Data Source=" + pathAndFile;
             Console.WriteLine(pathAndFile);
 
-            using (SqliteConnection connection = new SqliteConnection(connectionString))
-            {
+
+            try {
+                SqliteConnection connection = new SqliteConnection(connectionString);
+            
                 connection.Open();
                 Console.WriteLine("connecté a le BD SQLite");
 
@@ -65,6 +67,11 @@ namespace ProjetManhattan
                 //commande = new SqliteCommand(insertionTable, connection);*/
 
                 return connection;
+            }
+            catch(SqliteException _sqliteErreur)
+            {
+                Console.WriteLine("ERREUR CONNEXION SQL : " + _sqliteErreur.Message);
+                throw;
             }
         }
 
