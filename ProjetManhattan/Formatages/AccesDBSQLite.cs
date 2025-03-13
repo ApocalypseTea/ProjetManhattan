@@ -10,28 +10,23 @@ namespace ProjetManhattan.Formatages
 {
     class AccesDBSQLite
     {
-        private string _dbFileName = "resultTraitementDb.db";
-        private string _dbPath = @"C:\Users\AdeLas\source\repos\ProjetManhattan\ProjetManhattan\SQLiteDB";
+        private string _dbFileName;
+        private string _dbPath;
 
-        public AccesDBSQLite(string DbFileName = "resultTraitementDb.db", string DbPath = @"C:\Users\AdeLas\source\repos\ProjetManhattan\ProjetManhattan\SQLiteDB")
+        public AccesDBSQLite(string dbFileName = "resultTraitementDb.db")
         {
-            _dbFileName = DbFileName;
-            _dbPath = DbPath;
+            _dbFileName = dbFileName;
         }
 
         public SqliteConnection ConnectToTinyDB()
         {
-            string pathAndFile = Path.Combine(_dbPath, _dbFileName);
-            string connectionString = "Data Source=" + pathAndFile;
-            Console.WriteLine(pathAndFile);
-
-
+            string connectionString = "Data Source=" + _dbFileName;
+            
             try {
                 SqliteConnection connection = new SqliteConnection(connectionString);
             
                 connection.Open();
-                Console.WriteLine("connecté a le BD SQLite");
-
+                Console.WriteLine("connecté à la BD SQLite");
                 /*
                 //string creationTableTypeTraitement = "CREATE TABLE IF NOT EXISTS traitements_types (" +
                 //    "idTraitement INTEGER PRIMARY KEY," +
@@ -48,8 +43,6 @@ namespace ProjetManhattan.Formatages
                    "value REAL," +
                    "propertyName TEXT," +
                    "description TEXT" +
-                   //"FOREIGN KEY(traitement_ref)" +
-                   //"REFERENCES traitements_types(idTraitement)" +
                    ");";
                 SqliteCommand commande = new SqliteCommand(creationTableRecord, connection);
                 commande.ExecuteReader();
@@ -74,13 +67,5 @@ namespace ProjetManhattan.Formatages
                 throw;
             }
         }
-
-        //public void AddRecordToDataBase(Record record)
-        //{
-        //    string requete = "INSERT INTO record (target, date, value, propertyName, description)" +
-        //        $"VALUES ({record.Traitement}, {record.Target}, {record.Date}, {record.Value}, {record.PropertyName}, {record.Description});"
-        //        ;
-        //}
-
     }
 }

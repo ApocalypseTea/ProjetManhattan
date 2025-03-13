@@ -8,7 +8,7 @@ namespace ProjetManhattan.Traitements
 {
     internal interface ITraitement
     {
-        void Display();
+        void Display(int exportDataMethod);
         void Execute();
     }
 }

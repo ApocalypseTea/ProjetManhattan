@@ -23,19 +23,40 @@ namespace ProjetManhattan.Traitements
             _items = new List<Record>();
         }
         public abstract void Execute();
-        public virtual void Display()
+        public virtual void Display(int exportDataMethod)
         {
-            _sortie.AffichageRecord(_items);
-
-            //Creation de la base de données de reception des records
-            AccesDBSQLite creationDBSQLite = new AccesDBSQLite();
-            SqliteConnection connection = creationDBSQLite.ConnectToTinyDB();
-
-            //Ajout des records dans la base de données créée
-            foreach (Record item in _items)
+            if (exportDataMethod == 0)
             {
-                RecordToSQLite ligneBD = new RecordToSQLite(item);
-                ligneBD.AddRecordToDataBase(connection);
+                _sortie.AffichageRecord(_items);
+            }
+            if (exportDataMethod == 1)
+            {
+                AccesDBSQLite creationDBSQLite;
+                string userFileName = null;
+                Console.WriteLine("Nom du fichier BD souhaité : ");
+                userFileName = Console.ReadLine();
+
+                if (String.IsNullOrEmpty(userFileName) && !(userFileName is String))
+                {
+                    //Nom generique pour la BD resultTraitementDb.db
+                    creationDBSQLite = new AccesDBSQLite();
+                } 
+                else
+                {
+                    userFileName += ".db";
+                    creationDBSQLite = new AccesDBSQLite(dbFileName: userFileName);
+                }
+                    
+                //Creation de la base de données de reception des records
+                    
+                SqliteConnection connection = creationDBSQLite.ConnectToTinyDB();
+
+                //Ajout des records dans la base de données créée
+                foreach (Record item in _items)
+                {
+                    RecordToSQLite ligneBD = new RecordToSQLite(item);
+                    ligneBD.AddRecordToDataBase(connection);
+                }
             }
         }
 

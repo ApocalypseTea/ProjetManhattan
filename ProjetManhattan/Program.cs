@@ -10,11 +10,11 @@ namespace ProjetManhattan
 {
     internal class Program
     {
-        public static void miniMenu(int numero, BaseConfig importConfig)
+        public static void miniMenu(int numeroTraitement, BaseConfig importConfig, int typeOutput)
         {
             ITraitement? traitement = null;
 
-            switch (numero)
+            switch (numeroTraitement)
             {
                 case 1:
                     traitement = new TraitementStatIP(importConfig);
@@ -37,13 +37,15 @@ namespace ProjetManhattan
                 case 7:
                     traitement = new TraitementValidateurRCPnonPresentSQL(importConfig);
                     break;
-
             }
 
             traitement?.Execute();
 
             // if (traitement != null) { traitement.Execute(); }
-            traitement?.Display();
+            
+            //0 : Afficahge resultat sur Console
+            //1 : Envoi resultats dans BD SQLite
+            traitement?.Display(typeOutput);
         }
         static void Main(string[] args)
         {
@@ -52,16 +54,18 @@ namespace ProjetManhattan
             //BaseConfig importConfig = JsonConvert.DeserializeObject<BaseConfig>(importJSONConfig);
             BaseConfig importConfig = new BaseConfig(fichierConfig);
 
+            //miniMenu(1, importConfig,1);
+            //miniMenu(2, importConfig,1);
+            //miniMenu(3, importConfig,1);
+            //miniMenu(4, importConfig,1);
+            //miniMenu(5, importConfig,1);
+            //miniMenu(6, importConfig,1);
+            //miniMenu(7, importConfig,1);
 
-            //miniMenu(1, importConfig);
-            //miniMenu(2, importConfig);
-            //miniMenu(3, importConfig);
-            //miniMenu(4, importConfig);
-            //miniMenu(5, importConfig);
-            miniMenu(6, importConfig);
-            //miniMenu(7, importConfig);
-
-
+            foreach (var arg in args)
+            {
+                Console.WriteLine(arg);
+            }
 
 
 
