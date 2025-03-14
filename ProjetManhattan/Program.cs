@@ -55,37 +55,37 @@ namespace ProjetManhattan
             //BaseConfig importConfig = JsonConvert.DeserializeObject<BaseConfig>(importJSONConfig);
             BaseConfig importConfig = new BaseConfig(fichierConfig);
 
-            //miniMenu(1, importConfig,1);
-            //miniMenu(2, importConfig,1);
-            //miniMenu(3, importConfig,1);
-            //miniMenu(4, importConfig,1);
-            //miniMenu(5, importConfig,1);
-            //miniMenu(6, importConfig,1);
-            //miniMenu(7, importConfig,1);
-
             var rootCommand = new RootCommand("K-Projet Manhattan");
 
-            Command effectuerTraitement = new Command("ttt", "Faire un traitement");            
+            Command effectuerTraitement = new Command("ttt", "Effectuer un traitement");            
             rootCommand.Add(effectuerTraitement);
 
                 Option<int> choixTraitement = new Option<int>(name: "--numeroTraitement", description: "numero du traitement choisi");
+                choixTraitement.IsRequired = true;
                 effectuerTraitement.AddOption(choixTraitement);
 
-            //Faire une option pour tous les traitements à la fois par exemple 0 ?
+                Option<int> choixOutput = new Option<int>(name: "--numeroOutput", description: "numero du type d'export des données traitées");
+                effectuerTraitement.AddOption(choixOutput);
 
-            effectuerTraitement.SetHandler((choixTraitementValue) =>
-            {
-                miniMenu(choixTraitementValue, importConfig, 1);
-            }, choixTraitement);
+                //Faire une option pour tous les traitements à la fois ?
 
-            
-            Command choisirOutput = new Command("output", "Choix Output");
-            rootCommand.Add(choisirOutput);
+                effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue) =>
+                {
+                    miniMenu(choixTraitementValue, importConfig, choixOutputValue);
+                }, choixTraitement, choixOutput);
 
-                Option choixOutput = new Option<int>(name: "--numeroOutput", description: "numero du type d'export des données traitées");
-                choisirOutput.AddOption(choixOutput);
+            Command importerFichierConfig = new Command("config", "importer un fichier JSON de configuration");
+            rootCommand.Add(importerFichierConfig);
 
-            
+                //Type <FileInfo> ?
+                Option<string> configFileName = new Option<string>(name: "--configFile", description: "emplacement du fichier config JSON");
+                importerFichierConfig.AddOption(configFileName);
+
+                importerFichierConfig.SetHandler((configFileNameValue) => 
+                {
+                    //Verifications a faire avant ??
+                    fichierConfig = configFileNameValue;
+                }, configFileName);
 
             rootCommand.Invoke(args);
         }
