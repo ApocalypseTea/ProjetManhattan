@@ -23,7 +23,7 @@ namespace ProjetManhattan.Traitements
             _items = new List<Record>();
         }
         public abstract void Execute();
-        public virtual void Display(int exportDataMethod)
+        public virtual void Display(int exportDataMethod, string nomBD)
         {
             if (exportDataMethod == 0)
             {
@@ -31,24 +31,26 @@ namespace ProjetManhattan.Traitements
             }
             if (exportDataMethod == 1)
             {
-                AccesDBSQLite creationDBSQLite;
-                string userFileName = null;
-                Console.WriteLine("Nom du fichier BD souhaité : ");
-                userFileName = Console.ReadLine();
+                //AccesDBSQLite creationDBSQLite;
+                //string userFileName = null;
+                //Console.WriteLine("Nom du fichier BD souhaité : ");
+                //userFileName = Console.ReadLine();
 
-                if (String.IsNullOrEmpty(userFileName) && !(userFileName is String))
-                {
-                    //Nom generique pour la BD resultTraitementDb.db
-                    creationDBSQLite = new AccesDBSQLite();
-                } 
-                else
-                {
-                    userFileName += ".db";
-                    creationDBSQLite = new AccesDBSQLite(dbFileName: userFileName);
-                }
-                    
+                //if (String.IsNullOrEmpty(userFileName) && !(userFileName is String))
+                //{
+                //    //Nom generique pour la BD resultTraitementDb.db
+                //    creationDBSQLite = new AccesDBSQLite();
+                //} 
+                //else
+                //{
+                //    userFileName += ".db";
+                //    creationDBSQLite = new AccesDBSQLite(dbFileName: userFileName);
+                //}
+                string userFileName = $"{nomBD}.db";
+                AccesDBSQLite creationDBSQLite = new AccesDBSQLite(dbFileName: userFileName);
+
                 //Creation de la base de données de reception des records
-                    
+
                 SqliteConnection connection = creationDBSQLite.ConnectToTinyDB();
 
                 //Ajout des records dans la base de données créée

@@ -12,7 +12,7 @@ namespace ProjetManhattan
 {
     internal class Program
     {
-        public static void miniMenu(int numeroTraitement, BaseConfig importConfig, int typeOutput)
+        public static void miniMenu(int numeroTraitement, BaseConfig importConfig, int typeOutput, string nomBD)
         {
             ITraitement? traitement = null;
 
@@ -46,7 +46,7 @@ namespace ProjetManhattan
             
             //0 : Afficahge resultat sur Console
             //1 : Envoi resultats dans BD SQLite
-            traitement?.Display(typeOutput);
+            traitement?.Display(typeOutput, nomBD);
         }
         static void Main(string[] args)
         {
@@ -64,21 +64,24 @@ namespace ProjetManhattan
                 choixTraitement.IsRequired = true;
                 effectuerTraitement.AddOption(choixTraitement);
 
-                Option<int> choixOutput = new Option<int>(name: "--numeroOutput", description: "numero du type d'export des données traitées");
+                Option<int> choixOutput = new Option<int>(name: "--numeroOutput", description: "numero du type d'export des données traitées", getDefaultValue: () => 1);
                 effectuerTraitement.AddOption(choixOutput);
+
+                    Argument<string> nomBDResult = new Argument<string>(name: "nomBaseDonnee", description: "Nom de la base de donnée qui recevra les resultats du traitement", getDefaultValue: () => "resultatTraitement");
+                    effectuerTraitement.AddArgument(nomBDResult);
 
                 //Faire une option pour tous les traitements à la fois ?
 
-                effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue) =>
+                effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue, nomBDresultValue) =>
                 {
-                    miniMenu(choixTraitementValue, importConfig, choixOutputValue);
-                }, choixTraitement, choixOutput);
+                    miniMenu(choixTraitementValue, importConfig, choixOutputValue, nomBDresultValue);
+                }, choixTraitement, choixOutput, nomBDResult);
 
             Command importerFichierConfig = new Command("config", "importer un fichier JSON de configuration");
             rootCommand.Add(importerFichierConfig);
 
                 //Type <FileInfo> ?
-                Option<string> configFileName = new Option<string>(name: "--configFile", description: "emplacement du fichier config JSON");
+                Option<string> configFileName = new Option<string>(name: "--configFile", description: "emplacement du nouveau fichier config JSON");
                 importerFichierConfig.AddOption(configFileName);
 
                 importerFichierConfig.SetHandler((configFileNameValue) => 
