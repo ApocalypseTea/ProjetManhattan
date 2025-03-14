@@ -51,50 +51,54 @@ namespace ProjetManhattan
             string fichierConfig = @"C:\Users\AdeLas\source\repos\ProjetManhattan\ProjetManhattan\Ressources\config.json";
             //string importJSONConfig = File.ReadAllText(fichierConfig);
             //BaseConfig importConfig = JsonConvert.DeserializeObject<BaseConfig>(importJSONConfig);
-            BaseConfig importConfig = new BaseConfig(fichierConfig);
+           
 
             var rootCommand = new RootCommand("K-Projet Manhattan");
 
-            Command effectuerTraitement = new Command("ttt", "Effectuer un traitement");            
+            //Type <FileInfo> ?
+            Option<string> configFileName = new Option<string>(name: "--configFile", description: "emplacement du nouveau fichier config JSON", getDefaultValue:() => @"C:\Users\AdeLas\source\repos\ProjetManhattan\ProjetManhattan\Ressources\config.json");
+            rootCommand.AddOption(configFileName);
+
+            rootCommand.SetHandler((configFileNameValue) =>
+            {
+                fichierConfig = configFileNameValue;
+            }, configFileName);
+
+            BaseConfig importConfig = new BaseConfig(fichierConfig);
+
+            Command effectuerTraitement = new Command("ttt", "Effectuer un traitement");
             rootCommand.Add(effectuerTraitement);
 
-                Option<string> choixTraitement = new Option<string>(name: "--nomTraitement", description: "nom du traitement choisi");
-                choixTraitement.IsRequired = true;
-                effectuerTraitement.AddOption(choixTraitement);
+            Option<string> choixTraitement = new Option<string>(name: "--nomTraitement", description: "nom du traitement choisi");
+            choixTraitement.IsRequired = true;
+            effectuerTraitement.AddOption(choixTraitement);
 
-                Option<string> choixOutput = new Option<string>(name: "--nomOutput", description: "nom du type d'export des données traitées", getDefaultValue: () => "bd");
-                effectuerTraitement.AddOption(choixOutput);
+            Option<string> choixOutput = new Option<string>(name: "--nomOutput", description: "nom du type d'export des données traitées", getDefaultValue: () => "bd");
+            effectuerTraitement.AddOption(choixOutput);
 
-                    Argument<string> nomBDResult = new Argument<string>(name: "nomBaseDonnee", description: "Nom de la base de donnée qui recevra les resultats du traitement", getDefaultValue: () => "resultatTraitement");
-                    effectuerTraitement.AddArgument(nomBDResult);
+            Argument<string> nomBDResult = new Argument<string>(name: "nomBaseDonnee", description: "Nom de la base de donnée qui recevra les resultats du traitement", getDefaultValue: () => "resultatTraitement");
+            effectuerTraitement.AddArgument(nomBDResult);
 
-                //Faire une option pour tous les traitements à la fois 
-                effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue, nomBDresultValue) =>
+            //Faire une option pour tous les traitements à la fois 
+            effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue, nomBDresultValue) =>
+            {
+                if (choixTraitementValue.Equals("all"))
                 {
-                    if (choixTraitementValue.Equals("all"))
+                    foreach (var traitement in Enum.GetValues(typeof(NomsTraitements)))
                     {
-                        foreach (var traitement in Enum.GetValues(typeof(NomsTraitements)))
-                        {
-                            miniMenu(traitement.ToString(), importConfig, choixOutputValue, nomBDresultValue);
-                        }
-                    } 
-                    else
-                    {
-                        miniMenu(choixTraitementValue, importConfig, choixOutputValue, nomBDresultValue);
-                    }                        
-                }, choixTraitement, choixOutput, nomBDResult);
-
-            Command importerFichierConfig = new Command("config", "importer un fichier JSON de configuration");
-            rootCommand.Add(importerFichierConfig);
-
-                //Type <FileInfo> ?
-                Option<string> configFileName = new Option<string>(name: "--configFile", description: "emplacement du nouveau fichier config JSON");
-                importerFichierConfig.AddOption(configFileName);
-
-                importerFichierConfig.SetHandler((configFileNameValue) => 
+                        miniMenu(traitement.ToString(), importConfig, choixOutputValue, nomBDresultValue);
+                    }
+                }
+                else
                 {
-                   fichierConfig = configFileNameValue;
-                }, configFileName);
+                    miniMenu(choixTraitementValue, importConfig, choixOutputValue, nomBDresultValue);
+                }
+            }, choixTraitement, choixOutput, nomBDResult);
+
+            //Command importerFichierConfig = new Command("config", "importer un fichier JSON de configuration");
+            //rootCommand.Add(importerFichierConfig);
+
+            
 
             rootCommand.Invoke(args);
         }
