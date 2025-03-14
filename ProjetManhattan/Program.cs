@@ -12,31 +12,31 @@ namespace ProjetManhattan
 {
     internal class Program
     {
-        public static void miniMenu(int numeroTraitement, BaseConfig importConfig, int typeOutput, string nomBD)
+        public static void miniMenu(string nomTraitement, BaseConfig importConfig, string typeOutput, string nomBD)
         {
             ITraitement? traitement = null;
 
-            switch (numeroTraitement)
+            switch (nomTraitement)
             {
-                case 1:
+                case "StatIp":
                     traitement = new TraitementStatIP(importConfig);
                     break;
-                case 2:
+                case "TempsRequete":
                     traitement = new TraitementTempsRequete(importConfig);
                     break;
-                case 3:
+                case "URL":
                     traitement = new TraitementURL(importConfig);
                     break;
-                case 4:
+                case "BrisGlace":
                     traitement = new TraitementBrisDeGlaceSQL(importConfig);
                     break;
-                case 5:
+                case "ValidationInterne":
                     traitement = new TraitementValidationParInterneSQL(importConfig);
                     break;
-                case 6:
+                case "ChangementIdentite":
                     traitement = new TraitementChangementIdentiteUserSQL(importConfig);
                     break;
-                case 7:
+                case "ValidateurAbsent":
                     traitement = new TraitementValidateurRCPnonPresentSQL(importConfig);
                     break;
             }
@@ -44,8 +44,6 @@ namespace ProjetManhattan
             traitement?.Execute();
             // if (traitement != null) { traitement.Execute(); }
             
-            //0 : Afficahge resultat sur Console
-            //1 : Envoi resultats dans BD SQLite
             traitement?.Display(typeOutput, nomBD);
         }
         static void Main(string[] args)
@@ -60,11 +58,11 @@ namespace ProjetManhattan
             Command effectuerTraitement = new Command("ttt", "Effectuer un traitement");            
             rootCommand.Add(effectuerTraitement);
 
-                Option<int> choixTraitement = new Option<int>(name: "--numeroTraitement", description: "numero du traitement choisi");
+                Option<string> choixTraitement = new Option<string>(name: "--nomTraitement", description: "nom du traitement choisi");
                 choixTraitement.IsRequired = true;
                 effectuerTraitement.AddOption(choixTraitement);
 
-                Option<int> choixOutput = new Option<int>(name: "--numeroOutput", description: "numero du type d'export des données traitées", getDefaultValue: () => 1);
+                Option<string> choixOutput = new Option<string>(name: "--nomOutput", description: "nom du type d'export des données traitées", getDefaultValue: () => "bd");
                 effectuerTraitement.AddOption(choixOutput);
 
                     Argument<string> nomBDResult = new Argument<string>(name: "nomBaseDonnee", description: "Nom de la base de donnée qui recevra les resultats du traitement", getDefaultValue: () => "resultatTraitement");

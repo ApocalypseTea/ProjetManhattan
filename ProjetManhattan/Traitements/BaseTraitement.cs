@@ -23,13 +23,14 @@ namespace ProjetManhattan.Traitements
             _items = new List<Record>();
         }
         public abstract void Execute();
-        public virtual void Display(int exportDataMethod, string nomBD)
+        public virtual void Display(string exportDataMethod, string nomBD)
         {
-            if (exportDataMethod == 0)
+            if (exportDataMethod.Equals("console"))
             {
                 _sortie.AffichageRecord(_items);
             }
-            if (exportDataMethod == 1)
+
+            if (exportDataMethod.Equals("bd"))
             {
                 //AccesDBSQLite creationDBSQLite;
                 //string userFileName = null;
