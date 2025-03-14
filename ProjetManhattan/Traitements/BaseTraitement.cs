@@ -32,29 +32,11 @@ namespace ProjetManhattan.Traitements
 
             if (exportDataMethod.Equals("bd"))
             {
-                //AccesDBSQLite creationDBSQLite;
-                //string userFileName = null;
-                //Console.WriteLine("Nom du fichier BD souhaité : ");
-                //userFileName = Console.ReadLine();
-
-                //if (String.IsNullOrEmpty(userFileName) && !(userFileName is String))
-                //{
-                //    //Nom generique pour la BD resultTraitementDb.db
-                //    creationDBSQLite = new AccesDBSQLite();
-                //} 
-                //else
-                //{
-                //    userFileName += ".db";
-                //    creationDBSQLite = new AccesDBSQLite(dbFileName: userFileName);
-                //}
                 string userFileName = $"{nomBD}.db";
                 AccesDBSQLite creationDBSQLite = new AccesDBSQLite(dbFileName: userFileName);
 
-                //Creation de la base de données de reception des records
-
                 SqliteConnection connection = creationDBSQLite.ConnectToTinyDB();
 
-                //Ajout des records dans la base de données créée
                 foreach (Record item in _items)
                 {
                     RecordToSQLite ligneBD = new RecordToSQLite(item);

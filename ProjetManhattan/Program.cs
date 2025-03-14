@@ -68,11 +68,20 @@ namespace ProjetManhattan
                     Argument<string> nomBDResult = new Argument<string>(name: "nomBaseDonnee", description: "Nom de la base de donnée qui recevra les resultats du traitement", getDefaultValue: () => "resultatTraitement");
                     effectuerTraitement.AddArgument(nomBDResult);
 
-                //Faire une option pour tous les traitements à la fois ?
-
+                //Faire une option pour tous les traitements à la fois 
                 effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue, nomBDresultValue) =>
                 {
-                    miniMenu(choixTraitementValue, importConfig, choixOutputValue, nomBDresultValue);
+                    if (choixTraitementValue.Equals("all"))
+                    {
+                        foreach (var traitement in Enum.GetValues(typeof(NomsTraitements)))
+                        {
+                            miniMenu(traitement.ToString(), importConfig, choixOutputValue, nomBDresultValue);
+                        }
+                    } 
+                    else
+                    {
+                        miniMenu(choixTraitementValue, importConfig, choixOutputValue, nomBDresultValue);
+                    }                        
                 }, choixTraitement, choixOutput, nomBDResult);
 
             Command importerFichierConfig = new Command("config", "importer un fichier JSON de configuration");
@@ -84,8 +93,7 @@ namespace ProjetManhattan
 
                 importerFichierConfig.SetHandler((configFileNameValue) => 
                 {
-                    //Verifications a faire avant ??
-                    fichierConfig = configFileNameValue;
+                   fichierConfig = configFileNameValue;
                 }, configFileName);
 
             rootCommand.Invoke(args);

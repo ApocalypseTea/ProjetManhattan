@@ -1,7 +1,8 @@
 {
   "profiles": {
     "ProjetManhattan": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "ProjetManhattan ttt --nomTraitement all"
     }
   }
 }
