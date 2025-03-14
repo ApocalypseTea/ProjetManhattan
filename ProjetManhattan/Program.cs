@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Traitements;
 using Microsoft.Data.Sqlite;
+using System.CommandLine;
+using System.Threading.Tasks;
 
 namespace ProjetManhattan
 {
@@ -40,7 +42,6 @@ namespace ProjetManhattan
             }
 
             traitement?.Execute();
-
             // if (traitement != null) { traitement.Execute(); }
             
             //0 : Afficahge resultat sur Console
@@ -62,15 +63,31 @@ namespace ProjetManhattan
             //miniMenu(6, importConfig,1);
             //miniMenu(7, importConfig,1);
 
-            foreach (var arg in args)
+            var rootCommand = new RootCommand("K-Projet Manhattan");
+
+            Command effectuerTraitement = new Command("ttt", "Faire un traitement");            
+            rootCommand.Add(effectuerTraitement);
+
+                Option<int> choixTraitement = new Option<int>(name: "--numeroTraitement", description: "numero du traitement choisi");
+                effectuerTraitement.AddOption(choixTraitement);
+
+            //Faire une option pour tous les traitements à la fois par exemple 0 ?
+
+            effectuerTraitement.SetHandler((choixTraitementValue) =>
             {
-                Console.WriteLine(arg);
-            }
+                miniMenu(choixTraitementValue, importConfig, 1);
+            }, choixTraitement);
 
+            
+            Command choisirOutput = new Command("output", "Choix Output");
+            rootCommand.Add(choisirOutput);
 
+                Option choixOutput = new Option<int>(name: "--numeroOutput", description: "numero du type d'export des données traitées");
+                choisirOutput.AddOption(choixOutput);
 
+            
 
-
+            rootCommand.Invoke(args);
         }
     }
 }
