@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="MenuCLI.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Configuration\QueryChangementIdentiteUser.txt" />
     <None Remove="Configuration\QueryValidateurRCPAbsent.txt" />
     <None Remove="Configuration\QueryValidationParInterne.txt" />

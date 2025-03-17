@@ -13,7 +13,6 @@ namespace ProjetManhattan.Configuration
         public string cheminFichierLog { get; init; }
         public string connectionString { get; init; }
         protected JObject jConfig;
-
         public BaseConfig(string filename)
         {
             string json = File.ReadAllText(filename);
@@ -26,6 +25,5 @@ namespace ProjetManhattan.Configuration
         {
             return jConfig["Traitements"][nomTraitement].ToObject<T>();
         }
-        
     }
 }

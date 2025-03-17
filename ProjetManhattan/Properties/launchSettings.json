@@ -2,7 +2,7 @@
   "profiles": {
     "ProjetManhattan": {
       "commandName": "Project",
-      "commandLineArgs": "ProjetManhattan ttt --nomTraitement all"
+      "commandLineArgs": "--configFile \"C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\config2.json\" ttt --nomTraitement BrisGlace"
     }
   }
 }
