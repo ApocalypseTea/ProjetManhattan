@@ -2,7 +2,7 @@
   "profiles": {
     "ProjetManhattan": {
       "commandName": "Project",
-      "commandLineArgs": "toZabbix getValue --nomTraitement=TraitementStatIP --nomTarget=\"194.214.38.250\" --nomPropertyName=NbRequetes"
+      "commandLineArgs": "ttt --nomTraitement=StatIp --nomOutput= bd hellohelloStatIp"
     }
   }
 }

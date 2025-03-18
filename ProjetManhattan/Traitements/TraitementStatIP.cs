@@ -49,7 +49,6 @@ namespace ProjetManhattan.Traitements
                 }
             }
         }       
-
         protected void UpdateStat(LigneDeLog line)
         {
             string numIpClient = line.IpClient;
