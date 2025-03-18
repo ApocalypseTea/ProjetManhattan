@@ -13,7 +13,7 @@ namespace ProjetManhattan.Formatages
 {
     class SQLiteToZabbix
     {
-        private const string QUERY = "SELECT DISTINCT traitement, target FROM record;";
+        private const string QUERY = "SELECT DISTINCT traitement, target, propertyName FROM record;";
         private List<ZabbixData> _zabbixListe;
         private SqliteConnection _connection;
         public SQLiteToZabbix(string _nomBD) {

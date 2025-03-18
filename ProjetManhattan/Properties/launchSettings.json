@@ -1,7 +1,8 @@
 {
   "profiles": {
     "ProjetManhattan": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "toZabbix"
     },
     "Profil 1": {
       "commandName": "Project",
