@@ -12,7 +12,6 @@ namespace ProjetManhattan
         private long _idFicheRCP;
         private long _idReunionRCP;
         private DateTime _dateFicheRCP;
-
         public LigneRequeteSQLValidateurNonPresent(long validateur, long idFicheRCP, long idReunionRCP, DateTime dateReunionRCP)
         {
             _validateur = validateur;
@@ -20,7 +19,6 @@ namespace ProjetManhattan
             _idReunionRCP = idReunionRCP;
             _dateFicheRCP = dateReunionRCP;
         }
-
         public Record ToRecord()
         {
             return new Record()

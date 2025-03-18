@@ -38,7 +38,5 @@ namespace ProjetManhattan
                 Value = this.NbPatientBrisGlace,
             };
         }
-
-
     }
 }

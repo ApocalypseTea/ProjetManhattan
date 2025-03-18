@@ -21,7 +21,6 @@ namespace ProjetManhattan.Traitements
             ConfigRCPValideParInterne c = config.GetConfigTraitement<ConfigRCPValideParInterne>(nameof(TraitementValidationParInterneSQL));
 
             _titreValidateur = c.TitreValidateur;
-
             _items = new List<LigneRequeteSQLValidationParInterne>();
             _source = new AccesBDD(config);
             _sortie = new OutputDisplay();
@@ -70,7 +69,6 @@ namespace ProjetManhattan.Traitements
             DateTime date = reader.GetDateTime(colDate);
 
             LigneRequeteSQLValidationParInterne ligne = new LigneRequeteSQLValidationParInterne(numeroFicheRCP, idPatient, idValidateur, nomValidateur, prenomValidateur, numeroRCP, date);
-
 
             return ligne;
         }

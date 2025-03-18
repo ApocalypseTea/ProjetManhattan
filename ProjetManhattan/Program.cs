@@ -7,6 +7,7 @@ using ProjetManhattan.Traitements;
 using Microsoft.Data.Sqlite;
 using System.CommandLine;
 using System.Threading.Tasks;
+using ProjetManhattan.Formatages;
 
 namespace ProjetManhattan
 {
@@ -43,27 +44,24 @@ namespace ProjetManhattan
 
             traitement?.Execute();
             // if (traitement != null) { traitement.Execute(); }
-            
             traitement?.Display(typeOutput, nomBD);
         }
         static void Main(string[] args)
         {
            string fichierConfig;
-            //string fichierConfig = @"C:\Users\Adelas\source\repos\ApocalypseTea\ProjetManhattan\ProjetManhattan\Ressources\config.json";
            BaseConfig? importConfig=null;
 
            RootCommand rootCommand = new RootCommand("K-Projet Manhattan");
-            Option<string> configFileName = new Option<string>(
+           Option<string> configFileName = new Option<string>(
                 name: "--configFile", 
                 description: "emplacement du nouveau fichier config JSON", 
-                getDefaultValue:() => @"C:\Users\Adelas\source\repos\ApocalypseTea\ProjetManhattan\ProjetManhattan\Ressources\config.json");
+                getDefaultValue:() => @"config.json");
             configFileName.IsRequired = true;
             rootCommand.AddGlobalOption(configFileName);
 
             rootCommand.SetHandler((configFileNameValue) =>
             {
                 fichierConfig = configFileNameValue;
-                //Console.WriteLine($"Fichier config utilisé : {fichierConfig}");
                 importConfig = new BaseConfig(fichierConfig);
             }, configFileName);
 
@@ -88,7 +86,6 @@ namespace ProjetManhattan
                 getDefaultValue: () => "resultatTraitement");
             effectuerTraitement.AddArgument(nomBDResult);
 
-            //Option pour tous les traitements à la fois 
             effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue, nomBDresultValue, configFileNameValue) =>
             {
                 fichierConfig = configFileNameValue;
@@ -106,9 +103,43 @@ namespace ProjetManhattan
                 }
             }, choixTraitement, choixOutput, nomBDResult, configFileName);
 
-            //Command importerFichierConfig = new Command("config", "importer un fichier JSON de configuration");
-            //rootCommand.Add(importerFichierConfig);
-                 
+            Command exporterVersZabbix = new Command("toZabbix", "exporter le resultat d'un traitement en bd");
+                rootCommand.Add(exporterVersZabbix);
+                Argument<string> nomBDorigine = new Argument<string>(
+                    name: "nomBaseDonnee",
+                    description: "Nom de la base de donnée dont il faut exporter les resultats",
+                    getDefaultValue: () => "resultatTraitement.db");
+                    exporterVersZabbix.AddArgument(nomBDorigine);
+            
+                exporterVersZabbix.SetHandler((nomBDorigneValue) => 
+                {
+                    SQLiteToZabbix transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue);
+                    Console.WriteLine(transfertVersZabbix.GetJSONToZabbix());
+                }, nomBDorigine);
+
+            Command getValue = new Command(name: "getValue", description:"recuperer la derniere valeur d'un ensemble Traitement-Target-PropertyName");
+                exporterVersZabbix.Add(getValue);
+                Option<string> nomTraitement = new Option<string>(
+                    name: "--nomTraitement",
+                    description: "nom du traitement dont la value est recherchee");
+                nomTraitement.IsRequired = true;
+                getValue.AddOption(nomTraitement);
+                Option<string> nomTarget = new Option<string>(
+                    name: "--nomTarget",
+                    description: "nom du Target dont la value est recherchée");
+                nomTarget.IsRequired = true;
+                getValue.AddOption(nomTarget);
+                Option<string> nomPropertyName = new Option<string>(
+                    name: "--nomPropertyName",
+                    description: "nom de la PropertyName dont la value est recherchée");
+                nomPropertyName.IsRequired = true;
+                getValue.AddOption(nomPropertyName);
+                getValue.SetHandler((nomTraitementValue, nomTargetValue, nomPropertyNameValue, nomBDOrigineValue) =>
+                {
+                    SQLiteToZabbix transfertToZabbix = new SQLiteToZabbix(nomBDOrigineValue);
+                    Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue));
+
+                }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine);
 
             rootCommand.Invoke(args);
         }

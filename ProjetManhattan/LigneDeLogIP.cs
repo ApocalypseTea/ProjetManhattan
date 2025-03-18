@@ -10,7 +10,6 @@ namespace ProjetManhattan
     {
         LigneDeLogIP(string[] champsLog): base(champsLog)
         {
-
         }
 
         public Record ToRecord()

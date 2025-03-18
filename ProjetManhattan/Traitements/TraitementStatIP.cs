@@ -14,7 +14,6 @@ namespace ProjetManhattan.Traitements
     {
         private Dictionary<string, IpClient> _listingIPJournalieres;
         private int _seuilAlerte;
-
         public TraitementStatIP(BaseConfig config) : base(config)
         {
             ConfigStatsIP c = config.GetConfigTraitement<ConfigStatsIP>(nameof(TraitementStatIP));
@@ -23,7 +22,6 @@ namespace ProjetManhattan.Traitements
             _seuilAlerte = c.seuilAlerteRequetesParIp; 
             _listingIPJournalieres = new Dictionary<string, IpClient>();
         }
-
         public override void Execute()
         {
             while (_source.HasLines())
@@ -47,7 +45,6 @@ namespace ProjetManhattan.Traitements
                         PropertyName = "NbRequetes",
                         Value = item.nbConnexionJournaliere
                     };
-
                     this.AddItem(record);
                 }
             }

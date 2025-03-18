@@ -17,7 +17,6 @@ namespace ProjetManhattan.Traitements
             ConfigURLInvalides c = config.GetConfigTraitement<ConfigURLInvalides>(nameof(TraitementURL));
             this.Filtre = new IgnoreURLWhiteList(c.patternURLValide);
         }
-
         protected override void FillRecord(Record record, LigneDeLog ligne)
         {
             record.Traitement = nameof(TraitementURL);

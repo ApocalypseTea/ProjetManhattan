@@ -10,7 +10,6 @@ namespace ProjetManhattan
     {
         public string numeroIP { get; init; }
         public int nbConnexionJournaliere = 0;
-
         public IpClient(string numeroIP)
         {
             this.numeroIP = numeroIP;

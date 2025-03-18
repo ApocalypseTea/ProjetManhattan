@@ -15,8 +15,5 @@ namespace ProjetManhattan
             this.url = url;
             this.adresseIp = adresseIp;
         }
-
-
-
     }
 }

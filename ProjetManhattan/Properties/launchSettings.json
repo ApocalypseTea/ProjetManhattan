@@ -2,7 +2,7 @@
   "profiles": {
     "ProjetManhattan": {
       "commandName": "Project",
-      "commandLineArgs": "--configFile \"C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\config2.json\" ttt --nomTraitement BrisGlace"
+      "commandLineArgs": "toZabbix getValue --nomTraitement=TraitementStatIP --nomTarget=\"194.214.38.250\" --nomPropertyName=NbRequetes"
     }
   }
 }

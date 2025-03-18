@@ -26,7 +26,6 @@ namespace ProjetManhattan
             this.dateModificationNom = dateModificationNom;
             _idModificateur = idModificateur;
         }
-
         public Record ToRecord()
         {
             return new Record()

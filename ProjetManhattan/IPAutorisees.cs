@@ -11,8 +11,6 @@ namespace ProjetManhattan
     {
         public HashSet<string> adressesIPValides { get; init; }
         public DateTime dateDeCreationListe { get; init; }
-            
-
         public IPAutorisees(HashSet<string> adressesIPValides)
         {
             HashSet<string> IPVerifiees = new HashSet<string>();
@@ -29,12 +27,10 @@ namespace ProjetManhattan
                 {
                     IPVerifiees.Add(ligne);
                 }
-
             }
             this.adressesIPValides = IPVerifiees;
-            this.dateDeCreationListe = DateTime.Now;            
+            this.dateDeCreationListe = DateTime.Now;
         }
-
         public override string ToString()
         {
             StringBuilder infosIPAutorisees = new StringBuilder();
@@ -45,8 +41,6 @@ namespace ProjetManhattan
             }
             infosIPAutorisees.AppendLine($"Date de Création de la liste d'IP valides : {dateDeCreationListe}");
             return infosIPAutorisees.ToString();
-
         }
-
-    }    
+    }
 }

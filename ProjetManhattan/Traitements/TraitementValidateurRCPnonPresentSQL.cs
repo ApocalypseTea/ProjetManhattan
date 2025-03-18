@@ -14,12 +14,10 @@ namespace ProjetManhattan.Traitements
         public TraitementValidateurRCPnonPresentSQL(BaseConfig config) : base(config)
         {
         }
-
         protected override SqlCommand GetSQLCommand(SqlConnection connection)
         {
             return new SqlCommand(GetSQLQuery(RESOURCENAME), connection);
         }
-
         protected override LigneRequeteSQLValidateurNonPresent ReadItem(SqlDataReader reader)
         {
             int _colValidateur = reader.GetOrdinal("Validateur");

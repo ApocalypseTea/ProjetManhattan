@@ -13,16 +13,13 @@ namespace ProjetManhattan.Traitements
     class TraitementChangementIdentiteUserSQL : BaseTraitementParRequeteSQL<LigneRequeteSQLChgtIdentiteUser>, ITraitement
     {
         private const string RESSOURCENAME = "ProjetManhattan.Configuration.QueryChangementIdentiteUser.txt";
-
         public TraitementChangementIdentiteUserSQL(BaseConfig config) : base(config)
         {
         }
-
         protected override SqlCommand GetSQLCommand(SqlConnection connection)
         {
             return new SqlCommand(GetSQLQuery(RESSOURCENAME), connection);
         }
-
         protected override LigneRequeteSQLChgtIdentiteUser ReadItem(SqlDataReader reader)
         {
             int colId = reader.GetOrdinal("id");

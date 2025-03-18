@@ -11,9 +11,8 @@ namespace ProjetManhattan.Formatages
     class AccesDBSQLite
     {
         private string _dbFileName;
-        private string _dbPath;
-
-        public AccesDBSQLite(string dbFileName = "resultTraitementDb.db")
+        
+        public AccesDBSQLite(string dbFileName = "resultatTraitement.db")
         {
             _dbFileName = dbFileName;
         }
@@ -26,14 +25,7 @@ namespace ProjetManhattan.Formatages
                 SqliteConnection connection = new SqliteConnection(connectionString);
             
                 connection.Open();
-                Console.WriteLine("connecté à la BD SQLite");
-                /*
-                //string creationTableTypeTraitement = "CREATE TABLE IF NOT EXISTS traitements_types (" +
-                //    "idTraitement INTEGER PRIMARY KEY," +
-                //    "nomTraitement TEXT NOT NULL);";
-
-                //SqliteCommand commande = new SqliteCommand(creationTableTypeTraitement, connection);
-                //commande.ExecuteReader();*/
+                Console.WriteLine("Connecté à la BD SQLite");
 
                 string creationTableRecord = "CREATE TABLE IF NOT EXISTS record (" +
                    "idRecord INTEGER PRIMARY KEY," +
@@ -46,18 +38,6 @@ namespace ProjetManhattan.Formatages
                    ");";
                 SqliteCommand commande = new SqliteCommand(creationTableRecord, connection);
                 commande.ExecuteReader();
-
-                /*//string insertionTable = "INSERT INTO traitements_types (idTraitement, nomTraitement)" +
-                //    "VALUES " +
-                //    "(1, StatsIP)," +
-                //    "(2, TempsRequete)," +
-                //    "(3, AccesURL)," +
-                //    "(4, BrisDeGlace)," +
-                //    "(5, ValidationParInterne)," +
-                //    "(6, ChangementIdentiteUtilisateur)," +
-                //    "(7, ValidateurRCPAbsent);";
-
-                //commande = new SqliteCommand(insertionTable, connection);*/
 
                 return connection;
             }
