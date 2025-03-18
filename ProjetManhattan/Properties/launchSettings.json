@@ -1,8 +1,11 @@
 {
   "profiles": {
     "ProjetManhattan": {
+      "commandName": "Project"
+    },
+    "Profil 1": {
       "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=StatIp --nomOutput= bd hellohelloStatIp"
+      "commandLineArgs": "ttt --nomTraitement=StatIp --nomOutput bd hellohelloStatIp"
     }
   }
 }
