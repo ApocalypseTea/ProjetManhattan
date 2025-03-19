@@ -14,22 +14,8 @@ namespace ProjetManhattan.Traitements
 {
     class TraitementLocalisationIp : TraitementStatIP, ITraitement
     {
-        private class MyComparer : IEqualityComparer<IpClient>
-        {
-            public bool Equals(IpClient? x, IpClient? y)
-            {
-                return x?.Equals(y) ?? false;
-            }
-
-            public int GetHashCode([DisallowNull] IpClient obj)
-            {
-                return obj?.GetHashCode() ?? 0;
-            }
-        }
-
         private HashSet<IpClient> _listingIp;
         
-        //private readonly int[] _conversionIpNumbers = { 16777216, 65536, 256, 1 };
         public string ConnectionStringIPLocator { get; init; }
 
         //Passer la Query dans le fichier de config json
@@ -40,7 +26,7 @@ namespace ProjetManhattan.Traitements
         public TraitementLocalisationIp(BaseConfig config) : base(config)
         {
             ConnectionStringIPLocator = config.connectionStringIPLocator;
-            _listingIp = new HashSet<IpClient>(new MyComparer());
+            _listingIp = new HashSet<IpClient>();
         }
 
         public override void Execute()
@@ -52,19 +38,10 @@ namespace ProjetManhattan.Traitements
                 if (ligne != null && _filtre.Needed(ligne) && Regex.IsMatch(ligne.IpClient, regexIPv4))                    
                 {
                     IpClient nouvelleIp = new IpClient(ligne.IpClient);
-                    if(_listingIp.Add(nouvelleIp)){
-                        Console.WriteLine("ajout " + nouvelleIp.ToString());
-                    }
-                    else
-                    {
-                        Console.WriteLine("ip deja present");
-                    }
+                    _listingIp.Add(nouvelleIp);
                 }
             }
-            foreach (IpClient ipLog in _listingIp)
-            {
-                Console.WriteLine(ipLog.NumeroIp);
-            }
+            
             //Connexion à la BD localisation IP
             using (SqlConnection connect = new SqlConnection(ConnectionStringIPLocator))
             {
