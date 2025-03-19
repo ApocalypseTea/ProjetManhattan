@@ -82,7 +82,7 @@ namespace ProjetManhattan
                     listingIPJournalieres.Add(numIpClient, nouvelleIp);
                 }
 
-                listingIPJournalieres[numIpClient].nbConnexionJournaliere++;
+                listingIPJournalieres[numIpClient]._nbConnexionJournaliere++;
             }                  
         }
 

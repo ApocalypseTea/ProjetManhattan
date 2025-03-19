@@ -15,7 +15,7 @@ namespace ProjetManhattan.Sources
         public FichierDeLogIIS(BaseConfig config)
         {
             _cheminDeFichier = config.cheminFichierLog;
-        _lignes = File.ReadAllLines(_cheminDeFichier);
+            _lignes = File.ReadAllLines(_cheminDeFichier);
             _currentLine = 0;
         }
 

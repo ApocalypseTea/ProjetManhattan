@@ -4,7 +4,8 @@
 			"CheminFichierLog": "..\\..\\..\\Ressources\\u_ex250217.log"
 		},
 		"AccesBDD": {
-			"connectionString": "Data Source=.\\SQLEXPRESS;Initial Catalog=OncoPC_DCC_extract;Integrated Security=true;TrustServerCertificate=true;"
+			"connectionString": "Data Source=.\\SQLEXPRESS;Initial Catalog=OncoPC_DCC_extract;Integrated Security=true;TrustServerCertificate=true;",
+			"connectionStringIPLocator": "Data Source=.\\SQLEXPRESS;Initial Catalog=ip2location;Integrated Security=true;TrustServerCertificate=true;"
 		}
 	},
 
@@ -27,7 +28,8 @@
 				"51.68.119.164",
 				"37.58.161.180",
 				"3.82.48.116",
-				"141.255.166.90"
+				"141.255.166.90",
+				"::1"
 			]
 		},
 

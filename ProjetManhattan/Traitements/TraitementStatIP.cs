@@ -12,7 +12,7 @@ namespace ProjetManhattan.Traitements
 {
     internal class TraitementStatIP : BaseTraitement<FichierDeLogIIS>, ITraitement
     {
-        private Dictionary<string, IpClient> _listingIPJournalieres;
+        protected Dictionary<string, IpClient> _listingIPJournalieres;
         private int _seuilAlerte;
         public TraitementStatIP(BaseConfig config) : base(config)
         {
@@ -35,21 +35,21 @@ namespace ProjetManhattan.Traitements
 
             foreach (var item in _listingIPJournalieres.Values)
             {
-                if (item.nbConnexionJournaliere > _seuilAlerte)
+                if (item._nbConnexionJournaliere > _seuilAlerte)
                 {
                     Record record = new Record()
                     {
                         Traitement = nameof(TraitementStatIP),
                         Date = DateTime.Now,
-                        Target = item.numeroIP,
+                        Target = item.adresseIP,
                         PropertyName = "NbRequetes",
-                        Value = item.nbConnexionJournaliere
+                        Value = item._nbConnexionJournaliere
                     };
                     this.AddItem(record);
                 }
             }
         }       
-        protected void UpdateStat(LigneDeLog line)
+        protected virtual void UpdateStat(LigneDeLog line)
         {
             string numIpClient = line.IpClient;
 
@@ -58,7 +58,7 @@ namespace ProjetManhattan.Traitements
                 IpClient nouvelleIp = new IpClient(numIpClient);
                 _listingIPJournalieres.Add(numIpClient, nouvelleIp);
             }
-            _listingIPJournalieres[numIpClient].nbConnexionJournaliere++;
+            _listingIPJournalieres[numIpClient]._nbConnexionJournaliere++;
         }
     }
 }

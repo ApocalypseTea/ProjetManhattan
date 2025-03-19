@@ -40,6 +40,9 @@ namespace ProjetManhattan
                 case "ValidateurAbsent":
                     traitement = new TraitementValidateurRCPnonPresentSQL(importConfig);
                     break;
+                case "LocalisationIp":
+                    traitement = new TraitementLocalisationIp(importConfig);
+                    break;
             }
 
             traitement?.Execute();

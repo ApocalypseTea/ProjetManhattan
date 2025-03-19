@@ -15,6 +15,7 @@
     <None Remove="Configuration\QueryChangementIdentiteUser.txt" />
     <None Remove="Configuration\QueryValidateurRCPAbsent.txt" />
     <None Remove="Configuration\QueryValidationParInterne.txt" />
+    <None Remove="Ressources\config_initial.json" />
   </ItemGroup>
 
   <ItemGroup>
