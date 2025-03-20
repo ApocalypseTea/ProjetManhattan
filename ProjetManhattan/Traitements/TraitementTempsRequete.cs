@@ -19,7 +19,7 @@ namespace ProjetManhattan.Traitements
         }
         protected override void FillRecord(Record record, LigneDeLog ligne)
         {
-            record.Traitement = nameof(TraitementTempsRequete);
+            record.Traitement = "TempsRequete";
             record.Target = ligne.csUriStem;
             record.PropertyName = "TimeTaken";
             record.Value = ligne.timeTaken;

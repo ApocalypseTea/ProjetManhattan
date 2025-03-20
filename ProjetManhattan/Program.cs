@@ -113,12 +113,18 @@ namespace ProjetManhattan
                     description: "Nom de la base de donnée dont il faut exporter les resultats",
                     getDefaultValue: () => "resultatTraitement.db");
                     exporterVersZabbix.AddArgument(nomBDorigine);
-            
-                exporterVersZabbix.SetHandler((nomBDorigneValue) => 
+
+                Option<string> traitementChoisi = new Option<string>(
+                    name: "--nomTraitement",
+                    description: "Traitement à exporter en JSON");
+                traitementChoisi.IsRequired = true;
+            exporterVersZabbix.AddOption(traitementChoisi);
+
+            exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue) => 
                 {
                     SQLiteToZabbix transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue);
-                    Console.WriteLine(transfertVersZabbix.GetJSONToZabbix());
-                }, nomBDorigine);
+                    Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue));
+                }, nomBDorigine, traitementChoisi);
 
             Command getValue = new Command(name: "getValue", description:"recuperer la derniere valeur d'un ensemble Traitement-Target-PropertyName");
                 exporterVersZabbix.Add(getValue);

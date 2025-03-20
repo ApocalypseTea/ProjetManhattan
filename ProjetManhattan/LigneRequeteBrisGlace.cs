@@ -31,7 +31,7 @@ namespace ProjetManhattan
         {
             return new Record()
             {
-                Traitement = "TraitementBrisGlace",
+                Traitement = "BrisGlace",
                 Date = this.Date,
                 Target = $"ProfilID:{this.Profil}",
                 PropertyName = "NbBrisGlace",

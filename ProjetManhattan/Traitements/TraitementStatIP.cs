@@ -39,7 +39,7 @@ namespace ProjetManhattan.Traitements
                 {
                     Record record = new Record()
                     {
-                        Traitement = nameof(TraitementStatIP),
+                        Traitement = "StatIp",
                         Date = DateTime.Now,
                         Target = item.adresseIP,
                         PropertyName = "NbRequetes",

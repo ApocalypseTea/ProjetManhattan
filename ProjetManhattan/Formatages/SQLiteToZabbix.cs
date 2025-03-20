@@ -13,7 +13,7 @@ namespace ProjetManhattan.Formatages
 {
     class SQLiteToZabbix
     {
-        private const string QUERY = "SELECT DISTINCT traitement, target, propertyName FROM record;";
+        private const string QUERY = "SELECT DISTINCT traitement, target, propertyName, description FROM record WHERE traitement=@traitement;";
         private List<ZabbixData> _zabbixListe;
         private SqliteConnection _connection;
         public SQLiteToZabbix(string _nomBD) {
@@ -21,22 +21,25 @@ namespace ProjetManhattan.Formatages
             AccesDBSQLite accesDB = new AccesDBSQLite(_nomBD);
             _connection = accesDB.ConnectToTinyDB();
         }
-        public string GetJSONToZabbix()
+        public string GetJSONToZabbix(string nomTraitement)
         {
             using (SqliteCommand requete = new SqliteCommand(QUERY, _connection))
             {
+                requete.Parameters.AddWithValue("@traitement", nomTraitement);
                 SqliteDataReader reader = requete.ExecuteReader();
                 while (reader.Read())
                 {
                     int colTraitement = reader.GetOrdinal("traitement");
                     int colTarget = reader.GetOrdinal("target");
                     int colPropertyName = reader.GetOrdinal("propertyName");
+                    int colDescription = reader.GetOrdinal("description");
 
                     string traitement = reader.GetString(colTraitement);
                     string target = reader.GetString(colTarget);
                     string propertyName = reader.GetString(colPropertyName);
+                    string description = reader.GetString(colDescription);
 
-                    ZabbixData zabbixObject = new ZabbixData(target, traitement, propertyName);
+                    ZabbixData zabbixObject = new ZabbixData(target, traitement, propertyName, description);
                     _zabbixListe.Add(zabbixObject);
                 }
             }

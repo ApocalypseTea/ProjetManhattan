@@ -43,7 +43,7 @@ namespace ProjetManhattan.Traitements
                 {
                     Record record = new Record()
                     {
-                        Traitement = nameof(TraitementLocalisationIp),
+                        Traitement = "LocalisationIp",
                         Date = DateTime.Now,
                         Target = item.adresseIP,
                         PropertyName = $"OrigineGeographique : {item.PaysOrigine}",

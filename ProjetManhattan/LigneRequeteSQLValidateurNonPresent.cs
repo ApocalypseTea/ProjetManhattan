@@ -23,7 +23,7 @@ namespace ProjetManhattan
         {
             return new Record()
             {
-                Traitement = "FicheRCPAvecValidateurAbsent",
+                Traitement = "ValidateurAbsent",
                 Date = this._dateFicheRCP,
                 Target = $"Validateur:{this._validateur}",
                 PropertyName = $"Validateur Absent",

@@ -24,7 +24,7 @@
         {
             return new Record()
             {
-                Traitement = "TraitementRCPvalideParInterne",
+                Traitement = "ValidationInterne",
                 Date = this.date,
                 Target = $"FicheRCPID:{this.numeroFicheRCP}",
                 PropertyName = $"Validateur",

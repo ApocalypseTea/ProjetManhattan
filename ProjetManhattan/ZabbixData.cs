@@ -11,11 +11,13 @@ namespace ProjetManhattan
         public string Target {  get; set; }
         public string Traitement { get; set; }
         public string PropertyName { get; set; }
-        public ZabbixData(string target, string traitement, string propertyName)
+        public string Description { get; set; }
+        public ZabbixData(string target, string traitement, string propertyName, string description)
         {
             Target = target;
             Traitement = traitement;
             PropertyName = propertyName;
+            Description = description;
         }
     }
 }

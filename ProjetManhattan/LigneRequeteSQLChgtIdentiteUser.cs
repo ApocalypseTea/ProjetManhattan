@@ -30,7 +30,7 @@ namespace ProjetManhattan
         {
             return new Record()
             {
-                Traitement = "TraitementRequeteSQLChgtIdentiteUser",
+                Traitement = "ChangementIdentite",
                 Date = this.dateModificationNom,
                 Target = $"userIDModified:{this._idUser}",
                 PropertyName = $"Modificateur",

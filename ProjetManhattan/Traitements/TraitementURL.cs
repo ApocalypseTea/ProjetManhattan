@@ -19,7 +19,7 @@ namespace ProjetManhattan.Traitements
         }
         protected override void FillRecord(Record record, LigneDeLog ligne)
         {
-            record.Traitement = nameof(TraitementURL);
+            record.Traitement = "URL";
             record.Target = ligne.csUriStem;
             record.PropertyName = "UrlDouteuse";
             record.Value = 1.0f;
