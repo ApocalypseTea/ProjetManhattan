@@ -15,6 +15,7 @@ namespace ProjetManhattan
         BrisGlace,
         ValidationInterne,
         ChangementIdentite,
-        ValidateurAbsent
+        ValidateurAbsent,
+        LocalisationIp
     }
 }

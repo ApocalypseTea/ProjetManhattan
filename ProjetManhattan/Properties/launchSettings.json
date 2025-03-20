@@ -4,9 +4,45 @@
       "commandName": "Project",
       "commandLineArgs": "toZabbix"
     },
-    "Profil 1": {
+    "ttt BrisGlace - Console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=BrisGlace --nomOutput console"
+    },
+    "ttt all - Console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=all --nomOutput console"
+    },
+    "ttt StatIp - Console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=StatIp --nomOutput console"
+    },
+    "ttt TempsRequete - Console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=TempsRequete --nomOutput console"
+    },
+    "ttt URL - Console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=URL --nomOutput console"
+    },
+    "ttt ValidationInterne - Console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=ValidationInterne --nomOutput console"
+    },
+    "ttt chgtId - Console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=ChangementIdentite --nomOutput console"
+    },
+    "ttt ValidateurAbsent - Console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=ValidateurAbsent --nomOutput console"
+    },
+    "ttt LocalisationIp - Console": {
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=LocalisationIp --nomOutput console"
+    },
+    "ttt all - BD default": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=all"
     }
   }
 }
