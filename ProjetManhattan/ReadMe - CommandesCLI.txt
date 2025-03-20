@@ -55,3 +55,5 @@
 				- *"Validateur Absent" (pour pour Validateur RCP absent)
 
 LEGENDE : *Options possibles pour le texte à ecrire
+
+Base de données Source des localisation IP : https://lite.ip2location.com/database/db1-ip-country
