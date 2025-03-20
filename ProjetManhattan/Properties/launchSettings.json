@@ -50,7 +50,7 @@
     },
     "toZabbix ttt Bris Glace": {
       "commandName": "Project",
-      "commandLineArgs": "toZabbix hello.db --nomTraitement=BrisGlace "
+      "commandLineArgs": "toZabbix --nomTraitement=BrisGlace "
     },
     "toZabbix ttt URL": {
       "commandName": "Project",

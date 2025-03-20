@@ -36,7 +36,7 @@ namespace ProjetManhattan
                 Target = $"ProfilID:{this.Profil}",
                 PropertyName = "NbBrisGlace",
                 Value = this.NbPatientBrisGlace,
-                Description = $"{this.Nom} {this.Prenom} {this.Profil}"
+                Description = $"{this.Nom} {this.Prenom} {this.Value}"
             };
         }
     }
