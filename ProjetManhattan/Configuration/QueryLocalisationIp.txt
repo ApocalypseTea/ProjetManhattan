@@ -1,5 +1,0 @@
-﻿SELECT country_name 
-FROM dbo.ip2location_db1 
-WHERE @ip 
-	BETWEEN ip_from 
-	AND ip_to;

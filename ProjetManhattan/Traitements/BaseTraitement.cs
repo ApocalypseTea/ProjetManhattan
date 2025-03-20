@@ -8,6 +8,7 @@ using ProjetManhattan.Filtres;
 using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
 using Microsoft.Data.Sqlite;
+using System.Reflection;
 
 namespace ProjetManhattan.Traitements
 {
@@ -55,5 +56,6 @@ namespace ProjetManhattan.Traitements
         {
             _items.Add(item);
         }
+
     }
 }
