@@ -10,9 +10,11 @@
 			- *ValidateurAbsent
 		- --nomOutput (option)
 			- *bd (default)
-				- *nomBaseDonnée (arg) (default = resultatTraitement )
+				- *nomBaseDonnée (arg) (default = resultatTraitement)
+				(pas besoin de mettre d'extension de fichier, ajout de .db automatique)
 			- *console
 	- toZabbix (command)
+			Note : L'ordre entre option et argument n'a pas d'importance ;)
 		- *nomBaseDonnee (arg) 
 			- *resultatTraitement.db (default)
 		- --nomTraitement (option required) 
