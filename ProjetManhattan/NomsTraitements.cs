@@ -16,6 +16,7 @@ namespace ProjetManhattan
         ValidationInterne,
         ChangementIdentite,
         ValidateurAbsent,
-        LocalisationIp
+        LocalisationIp,
+        ModificationDateNaissance
     }
 }

@@ -2,7 +2,7 @@
   "profiles": {
     "ProjetManhattan": {
       "commandName": "Project",
-      "commandLineArgs": "toZabbix"
+      "commandLineArgs": "ttt --nomTraitement=ModificationDateNaissance --nomOutput console"
     },
     "ttt BrisGlace - Console": {
       "commandName": "Project",

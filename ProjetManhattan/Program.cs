@@ -43,6 +43,9 @@ namespace ProjetManhattan
                 case "LocalisationIp":
                     traitement = new TraitementLocalisationIp(importConfig);
                     break;
+                case "ModificationDateNaissance":
+                    traitement = new TraitementChangementNaissancePatient(importConfig);
+                    break;
             }
 
             traitement?.Execute();
