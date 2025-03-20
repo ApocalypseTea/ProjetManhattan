@@ -31,7 +31,6 @@ namespace ProjetManhattan.Sources
                 throw;
             }
             //return null;
-
         }
     }
 }
