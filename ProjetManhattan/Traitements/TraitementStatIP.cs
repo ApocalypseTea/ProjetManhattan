@@ -43,7 +43,8 @@ namespace ProjetManhattan.Traitements
                         Date = DateTime.Now,
                         Target = item.adresseIP,
                         PropertyName = "NbRequetes",
-                        Value = item._nbConnexionJournaliere
+                        Value = item._nbConnexionJournaliere,
+                        Description = "nombre de connexion"
                     };
                     this.AddItem(record);
                 }

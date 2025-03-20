@@ -51,6 +51,10 @@
     "toZabbix ttt Bris Glace": {
       "commandName": "Project",
       "commandLineArgs": "toZabbix --nomTraitement=BrisGlace"
+    },
+    "toZabbix ttt URL": {
+      "commandName": "Project",
+      "commandLineArgs": "toZabbix --nomTraitement=URL"
     }
   }
 }

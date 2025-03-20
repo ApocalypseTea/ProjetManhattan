@@ -15,15 +15,24 @@
 	- toZabbix (command)
 		- *nomBaseDonnee (arg) 
 			- *resultatTraitement.db (default)
+		- --nomTraitement (option required) 
+			- *StatIp
+			- *TempsRequete
+			- *URL
+			- *BrisGlace
+			- *ValidationInterne
+			- *ChangementIdentite
+			- *ValidateurAbsent
+			- *LocalisationIp
 		- getValue (subcommand)
 			- --nomTraitement (option required)
-				- *TraitementBrisGlace
-				- *TraitementStatIP
-				- *TraitementTempsRequete
-				- *TraitementURL
-				- *TraitementRCPvalideParInterne
-				- *TraitementRequeteSQLChgtIdentiteUser
-				- *FicheRCPAvecValidateurAbsent
+				- *BrisGlace
+				- *StatIP
+				- *TempsRequete
+				- *URL
+				- *ValidationInterne
+				- *ChangementIdentite
+				- *ValidateurAbsent
 
 			- --nomTarget(option required)
 				- * ProfilID:5881         (exemple pour Bris glace)
