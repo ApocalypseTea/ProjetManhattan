@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Configuration\QueryChangementDateNaissancePatient.txt" />
     <None Remove="Configuration\QueryChangementIdentiteUser.txt" />
     <None Remove="Configuration\QueryValidateurRCPAbsent.txt" />
     <None Remove="Configuration\QueryValidationParInterne.txt" />
@@ -20,6 +21,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Configuration\QueryBrisDeGlace.txt" />
+    <EmbeddedResource Include="Configuration\QueryChangementDateNaissancePatient.txt" />
     <EmbeddedResource Include="Configuration\QueryChangementIdentiteUser.txt" />
     <EmbeddedResource Include="Configuration\QueryValidateurRCPAbsent.txt" />
     <EmbeddedResource Include="Configuration\QueryValidationParInterne.txt" />
