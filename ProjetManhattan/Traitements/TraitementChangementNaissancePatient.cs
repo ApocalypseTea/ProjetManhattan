@@ -25,12 +25,14 @@ namespace ProjetManhattan.Traitements
             int colIdPatient = reader.GetOrdinal("id_patient");
             int colDateActuelle = reader.GetOrdinal("date_actuelle");
             int colDateAnterieure = reader.GetOrdinal("date_origine");
+            int colModificateur = reader.GetOrdinal("modificateur");
 
             long idPatient = reader.GetInt64(colIdPatient);
             DateTime dateActuelle = reader.GetDateTime(colDateActuelle);
             DateTime dateAnterieure = reader.GetDateTime(colDateAnterieure);
+            long modificateur = reader.GetInt64(colModificateur);
 
-            return new LigneRequeteChangementNaissancePatient(idPatient, dateActuelle, dateAnterieure);
+            return new LigneRequeteChangementNaissancePatient(idPatient, dateActuelle, dateAnterieure, modificateur);
         }
     }
 }

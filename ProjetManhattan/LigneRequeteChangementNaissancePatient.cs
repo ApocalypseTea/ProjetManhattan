@@ -11,14 +11,14 @@ namespace ProjetManhattan
         private long _idPatient;
         private DateTime _dateActuelle;
         private DateTime _dateAnterieure;
-        //private long _profilModificateur;
+        private long _profilModificateur;
 
-        public LigneRequeteChangementNaissancePatient(long idPatient, DateTime dateActuelle, DateTime dateAnterieure)
+        public LigneRequeteChangementNaissancePatient(long idPatient, DateTime dateActuelle, DateTime dateAnterieure, long profilModificateur)
         {
             _idPatient = idPatient;
             _dateActuelle = dateActuelle;
             _dateAnterieure = dateAnterieure;
-            //Ajouter le profil du modificateur dans le constructeur
+            _profilModificateur = profilModificateur;
         }
 
         public Record ToRecord()
@@ -30,7 +30,7 @@ namespace ProjetManhattan
                 Date = DateTime.Now,
                 Value = 0f,
                 PropertyName = "Date de naissance modifiee",
-                Description = $"{this._dateAnterieure} modifié par ? en {this._dateActuelle}"
+                Description = $"{this._dateAnterieure} modifié par {this._profilModificateur} en {this._dateActuelle}"
             };
             
                 
