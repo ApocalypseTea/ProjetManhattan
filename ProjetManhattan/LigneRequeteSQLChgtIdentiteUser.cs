@@ -34,8 +34,8 @@ namespace ProjetManhattan
                 Date = this.dateModificationNom,
                 Target = $"userIDModified:{this._idUser}",
                 PropertyName = $"Modificateur",
-                Description = $"PreviousName : {this._previousNomUser} {this._previousPrenomUser} CurrentName : {this._prenomUser} {this._nomUser}",
-                Value = this._idModificateur.ToString()
+                Description = this._idModificateur.ToString(),
+                Value =  $"PreviousName={this._previousNomUser} {this._previousPrenomUser} /CurrentName={this._prenomUser} {this._nomUser}"
             };
         }
     }

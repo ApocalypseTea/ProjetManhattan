@@ -26,7 +26,7 @@ namespace ProjetManhattan
                 Traitement = "ValidateurAbsent",
                 Date = this._dateFicheRCP,
                 Target = $"Validateur:{this._validateur}",
-                PropertyName = $"Validateur Absent",
+                PropertyName = "ValidateurAbsent",
                 Description = $"Concerne la RCP {this._idReunionRCP}",
                 Value = _idFicheRCP.ToString(),
             };

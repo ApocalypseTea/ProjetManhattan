@@ -26,10 +26,10 @@
             {
                 Traitement = "ValidationInterne",
                 Date = this.date,
-                Target = $"IdFicheRCP:{this.numeroFicheRCP}",
-                PropertyName = $"Validateur",
-                Description = $"Concerne la RCP {this.numeroRCP}",
-                Value = $"{this.idValidateur}:{this.nomValidateur} {this.prenomValidateur}"
+                Target = $"IdFicheRCP={this.numeroFicheRCP}",
+                PropertyName = "Validateur",
+                Description = $"IdReunionRCP={this.numeroRCP}",
+                Value = $"{this.idValidateur}={this.nomValidateur} {this.prenomValidateur}"
             };
         }
     }

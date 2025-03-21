@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using ProjetManhattan.Configuration;
 
+
 namespace ProjetManhattan.Traitements
 {
     class TraitementChangementIdentiteUserSQL : BaseTraitementParRequeteSQL<LigneRequeteSQLChgtIdentiteUser>, ITraitement
@@ -27,14 +28,24 @@ namespace ProjetManhattan.Traitements
             int colPrenomActuel = reader.GetOrdinal("prenom_enCours");
             int colNomPrecedent = reader.GetOrdinal("nom_Origine");
             int colPrenomPrecedent = reader.GetOrdinal("prenom_Origine");
+            int colModificateurId = reader.GetOrdinal("modificateurID");
 
             long idUser = reader.GetInt64(colId);
             string nomUser = reader.GetString(colNomActuel);
             string prenomUser = reader.GetString(colPrenomActuel);
             string previousPrenomUser = reader.GetString(colPrenomPrecedent);
             string previousNomUser = reader.GetString(colNomPrecedent);
+            long modificateurID;
+            if (!reader.IsDBNull(colModificateurId))
+            {
+                modificateurID = reader.GetInt64(colModificateurId);
+            } 
+            else
+            {
+                modificateurID = 0;
+            }
 
-            LigneRequeteSQLChgtIdentiteUser ligne = new LigneRequeteSQLChgtIdentiteUser(idUser, nomUser, prenomUser,previousNomUser, previousPrenomUser, DateTime.Now, 0);
+                LigneRequeteSQLChgtIdentiteUser ligne = new LigneRequeteSQLChgtIdentiteUser(idUser, nomUser, prenomUser, previousNomUser, previousPrenomUser, DateTime.Now, modificateurID);
 
             return ligne;
         }
