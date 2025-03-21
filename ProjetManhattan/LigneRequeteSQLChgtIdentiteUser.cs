@@ -35,7 +35,7 @@ namespace ProjetManhattan
                 Target = $"userIDModified:{this._idUser}",
                 PropertyName = $"Modificateur",
                 Description = $"PreviousName : {this._previousNomUser} {this._previousPrenomUser} CurrentName : {this._prenomUser} {this._nomUser}",
-                Value = this._idModificateur
+                Value = this._idModificateur.ToString()
             };
         }
     }

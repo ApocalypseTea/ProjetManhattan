@@ -35,7 +35,7 @@ namespace ProjetManhattan
                 Date = this.Date,
                 Target = $"ProfilID:{this.Profil}",
                 PropertyName = "NbBrisGlace",
-                Value = this.NbPatientBrisGlace,
+                Value = this.NbPatientBrisGlace.ToString(),
                 Description = $"{this.Nom} {this.Prenom} {this.Value}"
             };
         }

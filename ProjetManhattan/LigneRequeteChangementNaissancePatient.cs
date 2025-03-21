@@ -34,9 +34,9 @@ namespace ProjetManhattan
                 Traitement = "ModificationDateNaissance",
                 Target = $"PatientId:{this._idPatient}",
                 Date = DateTime.Now,
-                Value = 0f,
+                Value = $"{this._dateAnterieure} en {this._dateActuelle}" ,
                 PropertyName = "Date de naissance modifiee",
-                Description = $"{this._dateAnterieure} modifié par {this._profilModificateurID} {this._modificateurNom} {this._modificateurPrenom}, {this._modificateurType} en {this._dateActuelle}"
+                Description = $"modifié par {this._profilModificateurID} {this._modificateurNom} {this._modificateurPrenom}, {this._modificateurType} "
             };
             
                 

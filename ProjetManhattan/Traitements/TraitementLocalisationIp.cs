@@ -47,7 +47,7 @@ namespace ProjetManhattan.Traitements
                         Date = DateTime.Now,
                         Target = item.adresseIP,
                         PropertyName = $"OrigineGeographique : {item.PaysOrigine}",
-                        Value = 0
+                        Value = " "
                     };
                     this.AddItem(record);
                 }

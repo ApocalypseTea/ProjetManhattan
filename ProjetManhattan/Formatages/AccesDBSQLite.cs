@@ -32,7 +32,7 @@ namespace ProjetManhattan.Formatages
                    "traitement TEXT NOT NULL,"+
                    "target TEXT NOT NULL," +
                    "date TEXT," +
-                   "value REAL," +
+                   "value TEXT," +
                    "propertyName TEXT," +
                    "description TEXT" +
                    ");";

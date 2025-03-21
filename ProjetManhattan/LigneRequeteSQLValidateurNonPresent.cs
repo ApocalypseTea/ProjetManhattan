@@ -28,7 +28,7 @@ namespace ProjetManhattan
                 Target = $"Validateur:{this._validateur}",
                 PropertyName = $"Validateur Absent",
                 Description = $"Concerne la RCP {this._idReunionRCP}",
-                Value = 0
+                Value = _idFicheRCP.ToString(),
             };
         }
     }

@@ -22,7 +22,7 @@ namespace ProjetManhattan.Traitements
             record.Traitement = "TempsRequete";
             record.Target = ligne.csUriStem;
             record.PropertyName = "TimeTaken";
-            record.Value = ligne.timeTaken;
+            record.Value = ligne.timeTaken.ToString();
             record.Description = "";
         }
     }
