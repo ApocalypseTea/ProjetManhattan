@@ -1,7 +1,7 @@
 ﻿SELECT 
 	I.id AS id_patient, 
 	I.date_naissance AS date_actuelle, 
-	IH.date_naissance AS date_precedente
+	IH.date_naissance AS date_precedente,
 	IH.trace_profil_ref AS modificateur
 FROM patient.ZT_identite_history AS IH
 LEFT JOIN patient.ZT_identite AS I ON I.id=IH.id
