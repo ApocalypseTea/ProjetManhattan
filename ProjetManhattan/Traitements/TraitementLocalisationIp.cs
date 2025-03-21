@@ -46,8 +46,8 @@ namespace ProjetManhattan.Traitements
                         Traitement = "LocalisationIp",
                         Date = DateTime.Now,
                         Target = item.adresseIP,
-                        PropertyName = $"OrigineGeographique : {item.PaysOrigine}",
-                        Value = " "
+                        PropertyName = "OrigineGeographique",
+                        Value = $"{item.PaysOrigine}"
                     };
                     this.AddItem(record);
                 }
