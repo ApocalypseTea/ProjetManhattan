@@ -19,7 +19,7 @@ namespace ProjetManhattan.Traitements
         {
             int colIdPatient = reader.GetOrdinal("id_patient");
             int colDateActuelle = reader.GetOrdinal("date_actuelle");
-            int colDateAnterieure = reader.GetOrdinal("date_origine");
+            int colDateAnterieure = reader.GetOrdinal("date_precedente");
             int colModificateurId = reader.GetOrdinal("modificateurID");
             int colModificateurNom = reader.GetOrdinal("modificateurNom");
             int colModificateurPrenom = reader.GetOrdinal("modificateurPrenom");
