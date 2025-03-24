@@ -1,4 +1,5 @@
 ﻿ProjetManhattan
+	- --configFile (option required) (default = ..\..\..\Ressources\config.json")
 	- ttt (command)
 		- --nomTraitement (option required)
 			- *StatIp

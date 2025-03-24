@@ -33,7 +33,7 @@ namespace ProjetManhattan
             {
                 Traitement = "BrisGlace",
                 Date = this.Date,
-                Target = $"ProfilID:{this.Profil}",
+                Target = $"ProfilID={this.Profil}",
                 PropertyName = "NbBrisGlace",
                 Value = this.NbPatientBrisGlace.ToString(),
                 Description = $"{this.Nom} {this.Prenom} {this.Value}"
