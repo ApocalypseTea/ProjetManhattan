@@ -24,13 +24,24 @@ namespace ProjetManhattan.Traitements
             int _colIdFicheRCP = reader.GetOrdinal("FicheRCP");
             int _colDateFicheRCP = reader.GetOrdinal("DateValidationRCP");
             int _colIdReunionRCP = reader.GetOrdinal("ReunionRCP");
+            int _colDateReunionRCP = reader.GetOrdinal("date_reunion");
+            int _colIdSpecialiteMedicale = reader.GetOrdinal("specialite_ref");
+            int _colLieuReunion = reader.GetOrdinal("label");
+            int _colNomValidateur = reader.GetOrdinal("validateur_nom");
+            int _colPrenomValidateur = reader.GetOrdinal("validateur_prenom");
 
             long _validateur = reader.GetInt64(_colValidateur);
             long _idFicheRCP = reader.GetInt64(_colIdFicheRCP);
             long _idReunionRCP = reader.GetInt64(_colIdReunionRCP);
             DateTime _dateFicheRCP = reader.GetDateTime(_colDateFicheRCP);
+            DateTime _dateReunionRCP = reader.GetDateTime(_colDateReunionRCP);
+            long _idSpecialiteMed = reader.GetInt32(_colIdSpecialiteMedicale);
+            string _lieuReunion = reader.GetString(_colLieuReunion);
+            string _nomValidateur = reader.GetString(_colNomValidateur);
+            string _prenomValidateur = reader.GetString(_colPrenomValidateur);
 
-            return new LigneRequeteSQLValidateurNonPresent(_validateur, _idFicheRCP, _idReunionRCP, _dateFicheRCP);
+
+            return new LigneRequeteSQLValidateurNonPresent(_validateur, _idFicheRCP, _idReunionRCP, _dateFicheRCP, _dateReunionRCP, _colIdSpecialiteMedicale, _lieuReunion, _nomValidateur, _prenomValidateur);
         }
     }
 }
