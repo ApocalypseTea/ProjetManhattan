@@ -29,6 +29,7 @@ namespace ProjetManhattan.Traitements
             int colNomPrecedent = reader.GetOrdinal("nom_Origine");
             int colPrenomPrecedent = reader.GetOrdinal("prenom_Origine");
             int colModificateurId = reader.GetOrdinal("modificateurID");
+            int colDateModificationNom = reader.GetOrdinal("dateModification");
 
             long idUser = reader.GetInt64(colId);
             string nomUser = reader.GetString(colNomActuel);
@@ -45,7 +46,16 @@ namespace ProjetManhattan.Traitements
                 modificateurID = 0;
             }
 
-                LigneRequeteSQLChgtIdentiteUser ligne = new LigneRequeteSQLChgtIdentiteUser(idUser, nomUser, prenomUser, previousNomUser, previousPrenomUser, DateTime.Now, modificateurID);
+            DateTime dateModification;
+            if(!reader.IsDBNull(colDateModificationNom))
+            {
+                dateModification = reader.GetDateTime(colDateModificationNom);
+            }else
+            {
+                dateModification = DateTime.Now;
+            }
+
+                LigneRequeteSQLChgtIdentiteUser ligne = new LigneRequeteSQLChgtIdentiteUser(idUser, nomUser, prenomUser, previousNomUser, previousPrenomUser, dateModification, modificateurID);
 
             return ligne;
         }

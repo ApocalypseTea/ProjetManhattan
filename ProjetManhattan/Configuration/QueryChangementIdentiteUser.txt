@@ -4,7 +4,8 @@
 	U.prenom AS prenom_enCours, 
 	UPN.nom AS nom_Origine, 
 	UPN.prenom AS prenom_Origine,
-	PTM.modified_by_user_ref AS modificateurID
+	PTM.modified_by_user_ref AS modificateurID,
+	PTM.modification_date AS dateModification
 FROM account.ZT_user AS U 
 JOIN account.ZT_user_previous_name AS UPN ON U.id = UPN.user_ref 
 FULL OUTER JOIN account.ZT_profil_trace_modification AS PTM ON U.trace_profil_ref=PTM.profil_ref
