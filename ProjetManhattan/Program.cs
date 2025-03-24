@@ -56,7 +56,6 @@ namespace ProjetManhattan
         {
            string fichierConfig;
            BaseConfig? importConfig=null;
-
            RootCommand rootCommand = new RootCommand("K-Projet Manhattan");
            Option<string> configFileName = new Option<string>(
                 name: "--configFile", 
