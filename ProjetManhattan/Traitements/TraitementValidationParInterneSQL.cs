@@ -71,14 +71,17 @@ namespace ProjetManhattan.Traitements
             int colDateReunionRCP = reader.GetOrdinal("dateRCP");
             DateTime dateReunionRCP = reader.GetDateTime(colDateReunionRCP);
             
-            int colSpecialiteMedicale = reader.GetOrdinal("id_specialite");
-            long specialiteID = reader.GetInt32(colSpecialiteMedicale);
+            int colIdSpecialiteMedicale = reader.GetOrdinal("id_specialite");
+            long specialiteID = reader.GetInt32(colIdSpecialiteMedicale);
 
             int colLieuReunion = reader.GetOrdinal("salle_reunion");
             string lieuReunionRCP = reader.GetString(colLieuReunion);
 
+            int colSpecialiteMedicale = reader.GetOrdinal("specialite_med");
+            string specialite = reader.GetString(colSpecialiteMedicale);
 
-            LigneRequeteSQLValidationParInterne ligne = new LigneRequeteSQLValidationParInterne(numeroFicheRCP, idPatient, idValidateur, nomValidateur, prenomValidateur, numeroRCP, dateValidationFiche, dateReunionRCP, specialiteID, lieuReunionRCP);
+
+            LigneRequeteSQLValidationParInterne ligne = new LigneRequeteSQLValidationParInterne(numeroFicheRCP, idPatient, idValidateur, nomValidateur, prenomValidateur, numeroRCP, dateValidationFiche, dateReunionRCP, specialiteID, lieuReunionRCP, specialite);
 
             return ligne;
         }

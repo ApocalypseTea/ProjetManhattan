@@ -7,14 +7,15 @@
 	FR.date_validation,
 	R.date_reunion AS dateRCP,
 	R.specialite_ref AS id_specialite,
-	LE.label AS salle_reunion
-
+	LE.label AS salle_reunion,
+	SRE.label AS specialite_med
 FROM dbo.fiches_rcp AS FR
 JOIN account.profil_professionnel_sante AS PPS ON PPS.profil_id = FR.validateur_ref
 JOIN account.profil_professionnel_sante_titre_enum AS PPST ON PPST.id = PPS.titre_ref
 JOIN account.ZT_profil AS P ON P.id = FR.validateur_ref
 JOIN dbo.reunions AS R ON R.id = FR.reunion_ref
 JOIN dbo.lieux_enum AS LE ON LE.id = R.lieu_ref
+JOIN core.specialite_rcp_enum AS SRE ON SRE.id=R.specialite_ref
 JOIN account.ZT_user AS U ON U.id = P.user_ref, @Titre AS T
 WHERE 
 	FR.date_validation IS NOT NULL 

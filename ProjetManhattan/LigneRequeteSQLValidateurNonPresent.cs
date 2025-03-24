@@ -17,8 +17,9 @@ namespace ProjetManhattan
         private string _lieuReunion;
         private string _nomValidateur;
         private string _prenomValidateur;
+        private string _specialiteMedicale;
 
-        public LigneRequeteSQLValidateurNonPresent(long validateur, long idFicheRCP, long idReunionRCP, DateTime dateValidationRCP, DateTime dateReunionRCP, long idSpecialiteMedicale, string lieuReunion, string nomValidateur, string prenomValidateur)
+        public LigneRequeteSQLValidateurNonPresent(long validateur, long idFicheRCP, long idReunionRCP, DateTime dateValidationRCP, DateTime dateReunionRCP, long idSpecialiteMedicale, string lieuReunion, string nomValidateur, string prenomValidateur, string specialiteMedicale)
         {
             _idValidateur = validateur;
             _idFicheRCP = idFicheRCP;
@@ -29,6 +30,7 @@ namespace ProjetManhattan
             _lieuReunion = lieuReunion;
             _nomValidateur = nomValidateur;
             _prenomValidateur = prenomValidateur;
+            _specialiteMedicale = specialiteMedicale;
         }
         public Record ToRecord()
         {
@@ -38,7 +40,7 @@ namespace ProjetManhattan
                 Date = this._dateFicheRCP,
                 Target = $"idValidateur={this._idValidateur} {this._prenomValidateur} {this._nomValidateur}",
                 PropertyName = "ValidateurAbsent",
-                Description = $"IdRCP={this._idReunionRCP} Date={this._dateReunionRCP} Lieu={this._lieuReunion} Specialite={this._idSpecialiteMedicale}",
+                Description = $"IdRCP={this._idReunionRCP} Date={this._dateReunionRCP} Lieu={this._lieuReunion} Specialite={this._idSpecialiteMedicale} {this._specialiteMedicale}",
                 Value = _idFicheRCP.ToString(),
             };
         }

@@ -10,11 +10,12 @@
         private long numeroRCP;
         private DateTime date;
         private DateTime dateReunionRCP;
-        private long specialiteMedicale;
+        private long idSpecialiteMedicale;
         private string lieuReunionRCP;
+        private string specialiteMedicale;
 
 
-        public LigneRequeteSQLValidationParInterne(long numeroFicheRCP, long idPatient, long idValidateur, string nomValidateur, string prenomValidateur, long numeroRCP, DateTime date, DateTime dateReunionRCP, long specialiteMedicale, string lieuReunion)
+        public LigneRequeteSQLValidationParInterne(long numeroFicheRCP, long idPatient, long idValidateur, string nomValidateur, string prenomValidateur, long numeroRCP, DateTime date, DateTime dateReunionRCP, long specialiteMedicale, string lieuReunion, string specialiteMed)
         {
             this.numeroFicheRCP = numeroFicheRCP;
             this.idPatient = idPatient;
@@ -24,8 +25,9 @@
             this.numeroRCP = numeroRCP;
             this.date = date;
             this.dateReunionRCP = dateReunionRCP;
-            this.specialiteMedicale = specialiteMedicale;
+            this.idSpecialiteMedicale = specialiteMedicale;
             this.lieuReunionRCP = lieuReunion;
+            this.specialiteMedicale = specialiteMed;
         }
         public Record ToRecord()
         {
@@ -35,7 +37,7 @@
                 Date = this.date,
                 Target = $"IdFicheRCP={this.numeroFicheRCP}",
                 PropertyName = "Validateur",
-                Description = $"IdReunion={this.numeroRCP} Date={this.dateReunionRCP}, Lieu={this.lieuReunionRCP}, Specialite={this.specialiteMedicale} ",
+                Description = $"IdReunion={this.numeroRCP} Date={this.dateReunionRCP}, Lieu={this.lieuReunionRCP}, Specialite={this.idSpecialiteMedicale} {this.specialiteMedicale}",
                 Value = $"{this.idValidateur}={this.nomValidateur} {this.prenomValidateur}"
             };
         }

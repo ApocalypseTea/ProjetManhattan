@@ -29,6 +29,7 @@ namespace ProjetManhattan.Traitements
             int _colLieuReunion = reader.GetOrdinal("label");
             int _colNomValidateur = reader.GetOrdinal("validateur_nom");
             int _colPrenomValidateur = reader.GetOrdinal("validateur_prenom");
+            int _colSpecialiteMedicale = reader.GetOrdinal("specialite_med");
 
             long _validateur = reader.GetInt64(_colValidateur);
             long _idFicheRCP = reader.GetInt64(_colIdFicheRCP);
@@ -39,9 +40,10 @@ namespace ProjetManhattan.Traitements
             string _lieuReunion = reader.GetString(_colLieuReunion);
             string _nomValidateur = reader.GetString(_colNomValidateur);
             string _prenomValidateur = reader.GetString(_colPrenomValidateur);
+            string _specialiteMedicale = reader.GetString(_colSpecialiteMedicale);
 
 
-            return new LigneRequeteSQLValidateurNonPresent(_validateur, _idFicheRCP, _idReunionRCP, _dateFicheRCP, _dateReunionRCP, _colIdSpecialiteMedicale, _lieuReunion, _nomValidateur, _prenomValidateur);
+            return new LigneRequeteSQLValidateurNonPresent(_validateur, _idFicheRCP, _idReunionRCP, _dateFicheRCP, _dateReunionRCP, _colIdSpecialiteMedicale, _lieuReunion, _nomValidateur, _prenomValidateur, _specialiteMedicale);
         }
     }
 }
