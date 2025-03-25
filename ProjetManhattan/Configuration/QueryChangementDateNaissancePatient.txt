@@ -5,12 +5,12 @@
 	I.trace_profil_ref AS modificateurID,
 	U.nom AS modificateurNom,
 	U.prenom AS modificateurPrenom,
-	PTE.label AS modificateurType
+	PTE.label AS modificateurType,
+	I.trace_start_date AS date_derniere_modification
 FROM patient.ZT_identite_history AS IH
 INNER JOIN patient.ZT_identite AS I ON I.id=IH.id
 JOIN account.ZT_profil AS P ON P.id = I.trace_profil_ref
 JOIN account.ZT_user AS U ON P.user_ref = U.id
 JOIN account.profil_type_enum AS PTE ON P.type_ref = PTE.id
 WHERE I.date_naissance != IH.date_naissance
-
-;
+AND CONVERT(DATE,I.trace_start_date) = CONVERT(DATE, @dateTraitement);

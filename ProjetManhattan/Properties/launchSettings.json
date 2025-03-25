@@ -68,7 +68,11 @@
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=ValidationInterne --nomOutput console --date=2024-07-01"
     },
-    "ttt ValidateurAbsent date console": {
+    "ttt ChgtNaissance date console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=ModificationDateNaissance --nomOutput console --date=2023-03-10"
+    },
+    "ttt ValidateurAbsent console date": {
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=ValidateurAbsent --nomOutput console --date=2014-06-23"
     }

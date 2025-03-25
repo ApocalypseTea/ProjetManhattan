@@ -15,8 +15,9 @@ namespace ProjetManhattan
         private string _modificateurNom;
         private string _modificateurPrenom;
         private string _modificateurType;
+        private DateTime _dateModification;
 
-        public LigneRequeteChangementNaissancePatient(long idPatient, DateTime dateActuelle, DateTime dateAnterieure, long profilModificateurID, string modificateurNom, string modificateurPrenom, string modificateurType)
+        public LigneRequeteChangementNaissancePatient(long idPatient, DateTime dateActuelle, DateTime dateAnterieure, long profilModificateurID, string modificateurNom, string modificateurPrenom, string modificateurType, DateTime dateModification)
         {
             _idPatient = idPatient;
             _dateActuelle = dateActuelle;
@@ -25,6 +26,7 @@ namespace ProjetManhattan
             _modificateurNom= modificateurNom;
             _modificateurPrenom= modificateurPrenom;
             _modificateurType= modificateurType;
+            _dateModification= dateModification;
         }
 
         public Record ToRecord()
@@ -32,11 +34,11 @@ namespace ProjetManhattan
             return new Record()
             {
                 Traitement = "ModificationDateNaissance",
-                Target = $"PatientId:{this._idPatient}",
-                Date = DateTime.Now,
-                Value = $"{this._dateAnterieure} en {this._dateActuelle}" ,
+                Target = $"PatientId={this._idPatient}",
+                Date = this._dateModification,
+                Value = $"{this._dateActuelle.Date.ToString("dd-MM-yyyy")}",
                 PropertyName = "Date de naissance modifiee",
-                Description = $"modifié par {this._profilModificateurID} {this._modificateurNom} {this._modificateurPrenom}, {this._modificateurType} "
+                Description = $"Previous Date={DateOnly.FromDateTime(this._dateAnterieure).ToString("dd-MM-yyyy")} / Modificateur={this._profilModificateurID} {this._modificateurNom} {this._modificateurPrenom}, {this._modificateurType}"
             };
             
                 

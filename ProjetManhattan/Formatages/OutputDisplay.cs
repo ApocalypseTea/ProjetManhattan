@@ -12,7 +12,7 @@ namespace ProjetManhattan.Formatages
         {
             foreach(Record record in listeDeRecord)
             {
-                Console.WriteLine($"{ record.Traitement} : {record.Target} : {record.Date} : {record.Value} : {record.PropertyName} : {record.Description}");
+                Console.WriteLine($"{ record.Traitement} : {record.Target} : {record.Date.Value.ToString("dd-MM-yyyy")} : {record.Value} : {record.PropertyName} : {record.Description}");
             }
         }
     }
