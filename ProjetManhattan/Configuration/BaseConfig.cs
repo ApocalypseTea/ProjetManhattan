@@ -14,6 +14,7 @@ namespace ProjetManhattan.Configuration
         public string connectionString { get; init; }
         public string connectionStringIPLocator { get; init; }
         protected JObject jConfig;
+        public DateTime dateTraitement {  get; set; }
         public BaseConfig(string filename)
         {
             string json = File.ReadAllText(filename);
@@ -21,12 +22,13 @@ namespace ProjetManhattan.Configuration
             cheminFichierLog = (string)jConfig["Sources"]["FichierDeLogIIS"]["CheminFichierLog"];
             connectionString = (string)jConfig["Sources"]["AccesBDD"]["connectionString"];
             connectionStringIPLocator = (string)jConfig["Sources"]["AccesBDD"]["connectionStringIPLocator"];
-
         }
 
         public T GetConfigTraitement<T>(string nomTraitement) where T : class
         {
             return jConfig["Traitements"][nomTraitement].ToObject<T>();
         }
+
+        
     }
 }

@@ -16,6 +16,7 @@ namespace ProjetManhattan.Traitements
         private const string RESOURCENAME = "ProjetManhattan.Configuration.QueryValidationParInterne.txt";
 
         private string [] _titreValidateur;
+        private DateTime _dateTraitement;
         public TraitementValidationParInterneSQL(BaseConfig config) : base(config)
         {
             ConfigRCPValideParInterne c = config.GetConfigTraitement<ConfigRCPValideParInterne>(nameof(TraitementValidationParInterneSQL));
@@ -24,6 +25,7 @@ namespace ProjetManhattan.Traitements
             _items = new List<LigneRequeteSQLValidationParInterne>();
             _source = new AccesBDD(config);
             _sortie = new OutputDisplay();
+            _dateTraitement = config.dateTraitement;
         }
 
         protected override SqlCommand GetSQLCommand(SqlConnection connection)
@@ -42,6 +44,7 @@ namespace ProjetManhattan.Traitements
             SqlParameter pTitre = requete.Parameters.AddWithValue("@Titre", table);
             pTitre.SqlDbType = SqlDbType.Structured;
             pTitre.TypeName = "dbo.StringArray";
+            requete.Parameters.AddWithValue("@dateTraitement", _dateTraitement);
             return requete;
         }
 

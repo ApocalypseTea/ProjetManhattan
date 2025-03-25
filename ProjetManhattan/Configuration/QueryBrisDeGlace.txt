@@ -22,5 +22,8 @@ GROUP BY
 	CONVERT(DATE, BG.creation_date)
 HAVING 
 	COUNT(BG.patient_ref)>@Seuil
+AND 
+	CONVERT(DATE, BG.creation_date)=@dateTraitement
+
 ORDER BY CONVERT(DATE, BG.creation_date) DESC
 ;

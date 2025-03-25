@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,9 +15,21 @@ namespace ProjetManhattan.Sources
         private int _currentLine;
         public FichierDeLogIIS(BaseConfig config)
         {
-            _cheminDeFichier = config.cheminFichierLog;
+            _cheminDeFichier = GetCheminFichierLog(config);
             _lignes = File.ReadAllLines(_cheminDeFichier);
             _currentLine = 0;
+        }
+
+        private static string GetCheminFichierLog(BaseConfig config)
+        {
+            // C:\inetpub\logs\LogFiles\W3SVC1\u_ex{YY}{MM}{DD}.log
+
+            string fileName = config.cheminFichierLog;
+            fileName = fileName
+                        .Replace("{YY}", config.dateTraitement.ToString("yy"))
+                        .Replace("{MM}", config.dateTraitement.ToString("MM"))
+                        .Replace("{DD}", config.dateTraitement.ToString("dd"));
+            return fileName;
         }
 
         public bool HasLines()

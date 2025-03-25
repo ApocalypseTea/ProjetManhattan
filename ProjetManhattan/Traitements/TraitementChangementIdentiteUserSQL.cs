@@ -14,12 +14,16 @@ namespace ProjetManhattan.Traitements
     class TraitementChangementIdentiteUserSQL : BaseTraitementParRequeteSQL<LigneRequeteSQLChgtIdentiteUser>, ITraitement
     {
         private const string RESSOURCENAME = "ProjetManhattan.Configuration.QueryChangementIdentiteUser.txt";
+        private DateTime _dateTraitement;
         public TraitementChangementIdentiteUserSQL(BaseConfig config) : base(config)
         {
+            _dateTraitement = config.dateTraitement;
         }
         protected override SqlCommand GetSQLCommand(SqlConnection connection)
         {
-            return new SqlCommand(GetSQLQuery(RESSOURCENAME), connection);
+            SqlCommand requete = new SqlCommand(GetSQLQuery(RESSOURCENAME), connection);
+            requete.Parameters.AddWithValue("@dateTraitement", _dateTraitement);
+            return requete;
         }
         protected override LigneRequeteSQLChgtIdentiteUser ReadItem(SqlDataReader reader)
         {

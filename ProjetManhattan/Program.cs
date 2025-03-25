@@ -91,10 +91,19 @@ namespace ProjetManhattan
                 getDefaultValue: () => "resultatTraitement");
             effectuerTraitement.AddArgument(nomBDResult);
 
-            effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue, nomBDresultValue, configFileNameValue) =>
+            Option<DateTime> dateDebutTraitements = new Option<DateTime>(
+                name:"--date",
+                description:"date à laquelle effectuer le ou les traitements",
+                getDefaultValue: () => DateTime.Now
+                );
+            effectuerTraitement.AddOption(dateDebutTraitements);
+
+            effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue, nomBDresultValue, configFileNameValue, dateDebutTraitementsValue) =>
             {
                 fichierConfig = configFileNameValue;
                 importConfig = new BaseConfig(fichierConfig);
+                importConfig.dateTraitement = dateDebutTraitementsValue;
+                Console.WriteLine(importConfig.dateTraitement);
                 if (choixTraitementValue.Equals("all"))
                 {
                     foreach (var traitement in Enum.GetValues(typeof(NomsTraitements)))
@@ -106,7 +115,7 @@ namespace ProjetManhattan
                 {
                     miniMenu(choixTraitementValue, importConfig, choixOutputValue, nomBDresultValue);
                 }
-            }, choixTraitement, choixOutput, nomBDResult, configFileName);
+            }, choixTraitement, choixOutput, nomBDResult, configFileName, dateDebutTraitements);
 
             Command exporterVersZabbix = new Command("toZabbix", "exporter le resultat d'un traitement en bd");
                 rootCommand.Add(exporterVersZabbix);

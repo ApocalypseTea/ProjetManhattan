@@ -59,6 +59,18 @@
     "ttt all bd hello": {
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=all --nomOutput bd hello"
+    },
+    "ttt BrisGlace date console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=BrisGlace --nomOutput console --date=2022-08-26"
+    },
+    "ttt ValidationInterne date console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=ValidationInterne --nomOutput console --date=2024-07-01"
+    },
+    "ttt ValidateurAbsent date console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=ValidateurAbsent --nomOutput console --date=2014-06-23"
     }
   }
 }

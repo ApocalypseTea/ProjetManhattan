@@ -11,12 +11,16 @@ namespace ProjetManhattan.Traitements
     class TraitementValidateurRCPnonPresentSQL : BaseTraitementParRequeteSQL<LigneRequeteSQLValidateurNonPresent>, ITraitement
     {
         private const string RESOURCENAME = "ProjetManhattan.Configuration.QueryValidateurRCPAbsent.txt";
+        private DateTime _dateTraitement;
         public TraitementValidateurRCPnonPresentSQL(BaseConfig config) : base(config)
         {
+            _dateTraitement = config.dateTraitement;
         }
         protected override SqlCommand GetSQLCommand(SqlConnection connection)
         {
-            return new SqlCommand(GetSQLQuery(RESOURCENAME), connection);
+            SqlCommand requete = new SqlCommand(GetSQLQuery(RESOURCENAME), connection);
+            requete.Parameters.AddWithValue("@dateTraitement", _dateTraitement);
+            return requete;
         }
         protected override LigneRequeteSQLValidateurNonPresent ReadItem(SqlDataReader reader)
         {

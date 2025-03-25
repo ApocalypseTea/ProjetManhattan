@@ -18,4 +18,6 @@ AND
 AND 
 	REPLACE(U.nom COLLATE French_CI_AI, '-', ' ') != REPLACE(UPN.prenom, '-', ' ') 
 AND 
-	REPLACE(U.prenom COLLATE French_CI_AI, '-', ' ') != REPLACE(UPN.nom,'-', ' ');
+	REPLACE(U.prenom COLLATE French_CI_AI, '-', ' ') != REPLACE(UPN.nom,'-', ' ')
+AND 
+	CONVERT(DATE,PTM.modification_date) = CONVERT(Date, @dateTraitement) ;

@@ -15,6 +15,7 @@ JOIN dbo.lieux_enum AS LE ON LE.id=R.lieu_ref
 JOIN account.ZT_user AS U ON U.id=FR.validateur_ref
 JOIN core.specialite_rcp_enum AS SRE ON SRE.id=R.specialite_ref
 WHERE validateur_ref IS NOT NULL
+AND CONVERT(DATE, FR.date_validation) = CONVERT(DATE,@dateTraitement)
 AND validateur_ref NOT IN (
 	SELECT responsable_ref 
 	FROM dbo.reunions AS R

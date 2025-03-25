@@ -18,7 +18,7 @@ JOIN dbo.lieux_enum AS LE ON LE.id = R.lieu_ref
 JOIN core.specialite_rcp_enum AS SRE ON SRE.id=R.specialite_ref
 JOIN account.ZT_user AS U ON U.id = P.user_ref, @Titre AS T
 WHERE 
-	FR.date_validation IS NOT NULL 
+	CONVERT(DATE,FR.date_validation) = CONVERT(DATE,@dateTraitement)
 AND 
 	PPST.value = T.value
 ;

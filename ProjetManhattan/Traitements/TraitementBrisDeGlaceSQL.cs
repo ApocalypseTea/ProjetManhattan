@@ -18,11 +18,12 @@ namespace ProjetManhattan.Traitements
         private const string RESOURCENAME = "ProjetManhattan.Configuration.QueryBrisDeGlace.txt";
 
         private int _seuilAlerteBrisGlace;
+        private DateTime _dateTraitement;
         public TraitementBrisDeGlaceSQL(BaseConfig config) : base(config)
         {
             ConfigBrisGlace c = config.GetConfigTraitement<ConfigBrisGlace>(nameof(TraitementBrisDeGlaceSQL));
             _seuilAlerteBrisGlace = c.SeuilAlerteBrisDeGlaceJournalierParUtilisateur;
-
+            _dateTraitement = config.dateTraitement;
             _items = new List<LigneRequeteBrisGlace> ();
             _source = new AccesBDD(config);
             _sortie = new OutputDisplay();           
@@ -53,6 +54,7 @@ namespace ProjetManhattan.Traitements
         {
             SqlCommand requete = new SqlCommand(GetSQLQuery(RESOURCENAME), connection);
             requete.Parameters.AddWithValue("@Seuil", _seuilAlerteBrisGlace);
+            requete.Parameters.AddWithValue("@dateTraitement", _dateTraitement);
 
             return requete;
         }
