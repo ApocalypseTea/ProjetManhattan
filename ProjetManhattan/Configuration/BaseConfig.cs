@@ -14,7 +14,7 @@ namespace ProjetManhattan.Configuration
         public string connectionString { get; init; }
         public string connectionStringIPLocator { get; init; }
         protected JObject jConfig;
-        public DateTime dateTraitement {  get; set; }
+        public DateTime dateTraitement { get; set; }
         public BaseConfig(string filename)
         {
             string json = File.ReadAllText(filename);

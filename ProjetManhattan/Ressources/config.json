@@ -1,7 +1,7 @@
 {
 	"Sources": {
 		"FichierDeLogIIS": {
-			"CheminFichierLog": "..\\..\\..\\Ressources\\u_ex250217.log"
+			"CheminFichierLog": "..\\..\\..\\Ressources\\u_exYYMMDD.log"
 		},
 		"AccesBDD": {
 			"connectionString": "Data Source=.\\SQLEXPRESS;Initial Catalog=OncoPC_DCC_extract;Integrated Security=true;TrustServerCertificate=true;",
@@ -23,7 +23,7 @@
 		},
 
 		"TraitementStatIP": {
-			"SeuilAlerteRequetesParIp": 2000,
+			"SeuilAlerteRequetesParIp": 500,
 			"AdressesIPValides": [
 				"51.68.119.164",
 				"37.58.161.180",
