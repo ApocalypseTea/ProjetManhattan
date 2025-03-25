@@ -40,7 +40,7 @@ namespace ProjetManhattan
                 Date = this._dateFicheRCP,
                 Target = $"idValidateur={this._idValidateur} {this._prenomValidateur} {this._nomValidateur}",
                 PropertyName = "ValidateurAbsent",
-                Description = $"IdRCP={this._idReunionRCP} Date={this._dateReunionRCP} Lieu={this._lieuReunion} Specialite={this._idSpecialiteMedicale} {this._specialiteMedicale}",
+                Description = $"IdRCP={this._idReunionRCP} Date={this._dateReunionRCP.ToString("dd-MM-yyyy HH.mm")} Lieu={this._lieuReunion} Specialite={this._idSpecialiteMedicale} {this._specialiteMedicale}",
                 Value = _idFicheRCP.ToString(),
             };
         }
