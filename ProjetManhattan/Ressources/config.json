@@ -1,17 +1,17 @@
 {
-	"Sources": {
-		"FichierDeLogIIS": {
-			"CheminFichierLog": "..\\..\\..\\Ressources\\u_exYYMMDD.log"
+	"sources": {
+		"fichierDeLogIIS": {
+			"cheminFichierLog": "..\\..\\..\\Ressources\\u_exYYMMDD.log"
 		},
-		"AccesBDD": {
+		"accesBDD": {
 			"connectionString": "Data Source=.\\SQLEXPRESS;Initial Catalog=OncoPC_DCC_extract;Integrated Security=true;TrustServerCertificate=true;",
 			"connectionStringIPLocator": "Data Source=.\\SQLEXPRESS;Initial Catalog=ip2location;Integrated Security=true;TrustServerCertificate=true;"
 		}
 	},
 
-	"Traitements": {
-		"TraitementURL": {
-			"PatternURLValide": [
+	"traitements": {
+		"traitementURL": {
+			"patternURLValide": [
 				"^/rcp/",
 				"^/rcp$",
 				"^/rcp_test/",
@@ -22,9 +22,9 @@
 			]
 		},
 
-		"TraitementStatIP": {
-			"SeuilAlerteRequetesParIp": 500,
-			"AdressesIPValides": [
+		"traitementStatIP": {
+			"seuilAlerteRequetesParIp": 500,
+			"adressesIPValides": [
 				"51.68.119.164",
 				"37.58.161.180",
 				"3.82.48.116",
@@ -33,20 +33,19 @@
 			]
 		},
 
-		"TraitementTempsRequete": {
-			"SeuilAlerteTempsRequetes": 10000
+		"traitementTempsRequete": {
+			"seuilAlerteTempsRequetes": 10000
 		},
 
-		"TraitementBrisDeGlaceSQL": {
-			"SeuilAlerteBrisDeGlaceJournalierParUtilisateur": 25
+		"traitementBrisDeGlaceSQL": {
+			"seuilAlerteBrisDeGlaceJournalierParUtilisateur": 25
 		},
 
-		"TraitementValidationParInterneSQL": {
-			"TitreValidateur": [
+		"traitementValidationParInterneSQL": {
+			"titreValidateur": [
 				"Interne",
 				"FaisantFonctionInterne"
 			]
-
 		}
 	}
 }

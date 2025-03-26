@@ -19,16 +19,23 @@ namespace ProjetManhattan.Configuration
         {
             string json = File.ReadAllText(filename);
             jConfig = JObject.Parse(json);
-            cheminFichierLog = (string)jConfig["Sources"]["FichierDeLogIIS"]["CheminFichierLog"];
-            connectionString = (string)jConfig["Sources"]["AccesBDD"]["connectionString"];
-            connectionStringIPLocator = (string)jConfig["Sources"]["AccesBDD"]["connectionStringIPLocator"];
+            cheminFichierLog = (string)jConfig["sources"]["fichierDeLogIIS"]["cheminFichierLog"];
+            connectionString = (string)jConfig["sources"]["accesBDD"]["connectionString"];
+            connectionStringIPLocator = (string)jConfig["sources"]["accesBDD"]["connectionStringIPLocator"];
         }
 
         public T GetConfigTraitement<T>(string nomTraitement) where T : class
         {
-            return jConfig["Traitements"][nomTraitement].ToObject<T>();
+            string nomTraitementEnCamelCase = transformToCamelCase(nomTraitement);
+
+
+            return jConfig["traitements"][nomTraitementEnCamelCase].ToObject<T>();
         }
 
-        
+        private string transformToCamelCase(string nomTraitement)
+        {
+            char majusculeFirst = Char.ToLower(nomTraitement[0]);
+            return majusculeFirst + nomTraitement.Substring(1);
+        }
     }
 }
