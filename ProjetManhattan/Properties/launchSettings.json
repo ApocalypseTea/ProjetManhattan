@@ -12,10 +12,6 @@
       "commandName": "Project",
       "commandLineArgs": "toZabbix --nomTraitement=BrisGlace "
     },
-    "ttt BrisGlace date console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=BrisGlace --Output console --date=2022-08-26"
-    },
     "ttt ValidationInterne date console": {
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=ValidationInterne --nomOutput console --date=2024-07-01"
@@ -55,6 +51,14 @@
     "toZabbix ttt URL dateRange": {
       "commandName": "Project",
       "commandLineArgs": "toZabbix --nomTraitement=URL --debutPeriode=20-03-2025 --finPeriode=20-03-2025"
+    },
+    "toZabbix getValue URL": {
+      "commandName": "Project",
+      "commandLineArgs": "toZabbix getValue --nomTraitement=BrisGlace --nomTarget=ProfilID=5881 --nomPropertyName=NbBrisGlace--date=08-09-2022"
+    },
+    "ttt BrisGlace date bd default": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=BrisGlace --date=2019-12-24"
     }
   }
 }

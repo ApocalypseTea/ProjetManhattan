@@ -174,7 +174,7 @@ namespace ProjetManhattan
                 Option<DateTime> dateValue = new Option<DateTime>(
                     name: "--date",
                     description: "Date a laquelle la Value est a rechercher",
-                    getDefaultValue: () => DateTime.Now                    );
+                    getDefaultValue: () => DateTime.Now);
                 getValue.AddOption(dateValue);
 
                 getValue.SetHandler((nomTraitementValue, nomTargetValue, nomPropertyNameValue, nomBDOrigineValue, dateValueValue) =>
