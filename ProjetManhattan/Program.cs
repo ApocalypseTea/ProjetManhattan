@@ -131,11 +131,27 @@ namespace ProjetManhattan
                 traitementChoisi.IsRequired = true;
             exporterVersZabbix.AddOption(traitementChoisi);
 
-            exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue) => 
+                Option<DateTime> dateDebutExport = new Option<DateTime>(
+                        name:"--debutPeriode",
+                        description:"Date de debut de periode de traitement a exporter"                
+                    );
+                dateDebutExport.IsRequired = true;
+            exporterVersZabbix.AddOption(dateDebutExport);
+
+            Option<DateTime> dateFinExport = new Option<DateTime>(
+                        name: "--finPeriode",
+                        description: "Date de fin de periode de traitement a exporter",
+                        getDefaultValue : () => DateTime.Now
+                    );
+            dateFinExport.IsRequired = true;
+            exporterVersZabbix.AddOption(dateFinExport);
+
+            exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue, dateDebutExportValue, dateFinExportValue) => 
                 {
-                    SQLiteToZabbix transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue);
-                    Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue));
-                }, nomBDorigine, traitementChoisi);
+                   SQLiteToZabbix transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, dateDebutExportValue, dateFinExportValue);
+                   Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue));
+                }, nomBDorigine, traitementChoisi, dateDebutExport, dateFinExport);
+
 
             Command getValue = new Command(name: "getValue", description:"recuperer la derniere valeur d'un ensemble Traitement-Target-PropertyName");
                 exporterVersZabbix.Add(getValue);
@@ -154,12 +170,12 @@ namespace ProjetManhattan
                     description: "nom de la PropertyName dont la value est recherchée");
                 nomPropertyName.IsRequired = true;
                 getValue.AddOption(nomPropertyName);
-                getValue.SetHandler((nomTraitementValue, nomTargetValue, nomPropertyNameValue, nomBDOrigineValue) =>
+                getValue.SetHandler((nomTraitementValue, nomTargetValue, nomPropertyNameValue, nomBDOrigineValue, dateDebutExportValue, dateFinExportValue) =>
                 {
-                    SQLiteToZabbix transfertToZabbix = new SQLiteToZabbix(nomBDOrigineValue);
+                    SQLiteToZabbix transfertToZabbix = new SQLiteToZabbix(nomBDOrigineValue, dateDebutExportValue, dateFinExportValue);
                     Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue));
 
-                }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine);
+                }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine, dateDebutExport, dateFinExport);
 
             rootCommand.Invoke(args);
         }

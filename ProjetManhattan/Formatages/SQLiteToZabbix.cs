@@ -14,19 +14,36 @@ namespace ProjetManhattan.Formatages
 {
     class SQLiteToZabbix
     {
-        private const string QUERY = "SELECT DISTINCT traitement, target, propertyName, description FROM record WHERE traitement=@traitement;";
+        private const string QUERY = "SELECT DISTINCT traitement, target, date, propertyName, description FROM record WHERE traitement=@traitement AND date BETWEEN @debutExport AND @finExport;";
         private List<ZabbixData> _zabbixListe;
         private SqliteConnection _connection;
-        public SQLiteToZabbix(string _nomBD) {
+        private DateTime _dateDebutExport;
+        private DateTime _dateFinExport;
+        public SQLiteToZabbix(string _nomBD, DateTime dateDebutExport, DateTime dateFinExport)
+        {
             _zabbixListe = new List<ZabbixData>();
             AccesDBSQLite accesDB = new AccesDBSQLite(_nomBD);
             _connection = accesDB.ConnectToTinyDB();
+
+            //Si erreur dans les dates, retourner les traitment concernant le jour meme
+            if (dateDebutExport <= dateFinExport)
+            {
+                _dateDebutExport = dateDebutExport;
+                _dateFinExport = dateFinExport;
+            }
+            else 
+            {
+                _dateDebutExport = DateTime.Now;
+                _dateFinExport = DateTime.Now;
+            }
         }
         public string GetJSONToZabbix(string nomTraitement)
         {
             using (SqliteCommand requete = new SqliteCommand(QUERY, _connection))
             {
                 requete.Parameters.AddWithValue("@traitement", nomTraitement);
+                requete.Parameters.AddWithValue("@debutExport", _dateDebutExport);
+                requete.Parameters.AddWithValue("@finExport", _dateFinExport.AddDays(1));
                 SqliteDataReader reader = requete.ExecuteReader();
                 while (reader.Read())
                 {
@@ -34,13 +51,15 @@ namespace ProjetManhattan.Formatages
                     int colTarget = reader.GetOrdinal("target");
                     int colPropertyName = reader.GetOrdinal("propertyName");
                     int colDescription = reader.GetOrdinal("description");
+                    int colDate = reader.GetOrdinal("date");
 
                     string traitement = reader.GetString(colTraitement);
                     string target = reader.GetString(colTarget);
                     string propertyName = reader.GetString(colPropertyName);
                     string description = reader.GetString(colDescription);
+                    DateTime date = reader.GetDateTime(colDate);
 
-                    ZabbixData zabbixObject = new ZabbixData(target, traitement, propertyName, description);
+                    ZabbixData zabbixObject = new ZabbixData(target, traitement, propertyName, description, date);
                     _zabbixListe.Add(zabbixObject);
                 }
             }

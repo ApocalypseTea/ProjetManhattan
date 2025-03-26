@@ -14,12 +14,14 @@ namespace ProjetManhattan
         public string Traitement { get; set; }
         public string PropertyName { get; set; }
         public string Description { get; set; }
-        public ZabbixData(string target, string traitement, string propertyName, string description)
+        public DateTime Date { get; set; }
+        public ZabbixData(string target, string traitement, string propertyName, string description, DateTime date)
         {
             Target = target;
             Traitement = traitement;
             PropertyName = propertyName;
             Description = description;
+            Date = date;
         }
     }
 }

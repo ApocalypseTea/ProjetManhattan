@@ -52,17 +52,13 @@
       "commandName": "Project",
       "commandLineArgs": "toZabbix --nomTraitement=BrisGlace "
     },
-    "toZabbix ttt URL": {
-      "commandName": "Project",
-      "commandLineArgs": "toZabbix --nomTraitement=URL"
-    },
     "ttt all bd hello": {
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=all --nomOutput bd hello"
     },
     "ttt BrisGlace date console": {
       "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=BrisGlace --nomOutput console --date=2022-08-26"
+      "commandLineArgs": "ttt --nomTraitement=BrisGlace --Output console --date=2022-08-26"
     },
     "ttt ValidationInterne date console": {
       "commandName": "Project",
@@ -76,10 +72,6 @@
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=ModificationDateNaissance --nomOutput console --date=2023-03-10"
     },
-    "ttt ValidateurAbsent console date": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=ValidateurAbsent --nomOutput console --date=2014-06-23"
-    },
     "ttt StatIp date console": {
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=StatIp --nomOutput console --date=20-03-2025"
@@ -88,17 +80,25 @@
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=TempsRequete --nomOutput console --date=20-03-2025"
     },
-    "ttt URL date Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=URL --nomOutput console --date=20-03-2025"
-    },
     "ttt ChgtId date Console": {
       "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=ChangementIdentite --nomOutput console --date=2025-03-10"
+      "commandLineArgs": "ttt --nomTraitement=ChangementIdentite  --nomOutput console --date=2025-03-10"
     },
     "ttt localisationIP date Console": {
       "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=LocalisationIp --nomOutput console --date=2025-03-22"
+      "commandLineArgs": "ttt --nomTraitement=LocalisationIp  --nomOutput console --date=2025-03-22"
+    },
+    "ttt URL date bd default": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=URL --date=17-02-2025"
+    },
+    "ttt ValidateurAbsent bd default date": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=ValidateurAbsent --date=2014-06-23"
+    },
+    "toZabbix ttt URL dateRange": {
+      "commandName": "Project",
+      "commandLineArgs": "toZabbix --nomTraitement=URL --debutPeriode=20-03-2025 --finPeriode=20-03-2025"
     }
   }
 }
