@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using ProjetManhattan.Traitements;
 
 namespace ProjetManhattan.Formatages
@@ -43,7 +44,14 @@ namespace ProjetManhattan.Formatages
                     _zabbixListe.Add(zabbixObject);
                 }
             }
-            return JsonConvert.SerializeObject(_zabbixListe);
+
+            JsonSerializerSettings settings = new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                
+            };
+
+            return JsonConvert.SerializeObject(_zabbixListe, settings);
         }
         public float GetValueFromTraitementTargetPropertyName (string nomTraitement, string nomTarget, string nomPropertyName)
         {

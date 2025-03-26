@@ -69,7 +69,7 @@ namespace ProjetManhattan.Traitements
                 dateModification = reader.GetDateTime(colDateModificationNom);
             }else
             {
-                dateModification = DateTime.Now;
+                dateModification = _dateTraitement;
             }
 
                 LigneRequeteSQLChgtIdentiteUser ligne = new LigneRequeteSQLChgtIdentiteUser(idUser, nomUser, prenomUser, previousNomUser, previousPrenomUser, dateModification, modificateurID, nomModificateur, prenomModificateur, typeModificateur);
