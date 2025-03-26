@@ -4,46 +4,6 @@
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=ModificationDateNaissance --nomOutput console"
     },
-    "ttt BrisGlace - Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=BrisGlace --nomOutput console"
-    },
-    "ttt all - Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=all --nomOutput console"
-    },
-    "ttt StatIp - Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=StatIp --nomOutput console"
-    },
-    "ttt TempsRequete - Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=TempsRequete --nomOutput console"
-    },
-    "ttt URL - Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=URL --nomOutput console"
-    },
-    "ttt ValidationInterne - Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=ValidationInterne --nomOutput console"
-    },
-    "ttt chgtId - Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=ChangementIdentite --nomOutput console"
-    },
-    "ttt ValidateurAbsent - Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=ValidateurAbsent --nomOutput console"
-    },
-    "ttt LocalisationIp - Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=LocalisationIp --nomOutput console"
-    },
-    "ttt all - BD default (resultatTraitement.db)": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=all"
-    },
     "toZabbix ttt StatIp": {
       "commandName": "Project",
       "commandLineArgs": "toZabbix --nomTraitement=StatIp"
@@ -51,10 +11,6 @@
     "toZabbix ttt Bris Glace": {
       "commandName": "Project",
       "commandLineArgs": "toZabbix --nomTraitement=BrisGlace "
-    },
-    "ttt all bd hello": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=all --nomOutput bd hello"
     },
     "ttt BrisGlace date console": {
       "commandName": "Project",

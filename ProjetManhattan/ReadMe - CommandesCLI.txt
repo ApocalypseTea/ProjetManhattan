@@ -14,6 +14,7 @@
 				- *nomBaseDonnée (arg) (default = resultatTraitement)
 				(pas besoin de mettre d'extension de fichier, ajout de .db automatique)
 			- *console
+		- --date (option)(default DateTime.Now)
 	- toZabbix (command)
 			Note : L'ordre entre option et argument n'a pas d'importance ;)
 		- *nomBaseDonnee (arg) 
@@ -27,6 +28,9 @@
 			- *ChangementIdentite
 			- *ValidateurAbsent
 			- *LocalisationIp
+		- --debutPeriode (option required)
+		- --finPeriode (option required) (default DateTime.Now)
+
 		- getValue (subcommand)
 			- --nomTraitement (option required)
 				- *BrisGlace
@@ -53,7 +57,9 @@
 				- *UrlDouteuse (pour Url)
 				- *Validateur (pour RCP validé par Interne)
 				- *Modificateur (pour Changement Identite User)
-				- *"Validateur Absent" (pour pour Validateur RCP absent)
+				- *Validateur Absent (pour pour Validateur RCP absent)
+
+			- --date (option)(default DateTime.Now)
 
 LEGENDE : *Options possibles pour le texte à ecrire
 

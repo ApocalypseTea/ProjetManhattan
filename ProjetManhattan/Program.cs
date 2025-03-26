@@ -170,12 +170,19 @@ namespace ProjetManhattan
                     description: "nom de la PropertyName dont la value est recherchée");
                 nomPropertyName.IsRequired = true;
                 getValue.AddOption(nomPropertyName);
-                getValue.SetHandler((nomTraitementValue, nomTargetValue, nomPropertyNameValue, nomBDOrigineValue, dateDebutExportValue, dateFinExportValue) =>
+
+                Option<DateTime> dateValue = new Option<DateTime>(
+                    name: "--date",
+                    description: "Date a laquelle la Value est a rechercher",
+                    getDefaultValue: () => DateTime.Now                    );
+                getValue.AddOption(dateValue);
+
+                getValue.SetHandler((nomTraitementValue, nomTargetValue, nomPropertyNameValue, nomBDOrigineValue, dateValueValue) =>
                 {
-                    SQLiteToZabbix transfertToZabbix = new SQLiteToZabbix(nomBDOrigineValue, dateDebutExportValue, dateFinExportValue);
+                    SQLiteToZabbix transfertToZabbix = new SQLiteToZabbix(nomBDOrigineValue, dateValueValue, dateValueValue);
                     Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue));
 
-                }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine, dateDebutExport, dateFinExport);
+                }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine, dateValue);
 
             rootCommand.Invoke(args);
         }
