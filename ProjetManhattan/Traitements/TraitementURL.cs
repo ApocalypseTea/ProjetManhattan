@@ -22,7 +22,7 @@ namespace ProjetManhattan.Traitements
             record.Traitement = "URL";
             record.Target = ligne.csUriStem;
             record.PropertyName = "UrlDouteuse";
-            record.Value = "";
+            record.Value = "true";
             record.Description = ligne.IpClient;
             record.Date = ligne.DateHeure;
         }

@@ -32,10 +32,10 @@ namespace ProjetManhattan
             {
                 Traitement = "ChangementIdentite",
                 Date = this.dateModificationNom,
-                Target = $"userIDModified={this._idUser}",
+                Target = $"UserID={this._idUser}",
                 PropertyName = $"Modificateur",
-                Description = $"PreviousName={this._previousNomUser} {this._previousPrenomUser} /IdModificateur={this._idModificateur.ToString()}",
-                Value =  $"CurrentName={this._prenomUser} {this._nomUser}"
+                Description = $"PreviousName={this._previousNomUser} {this._previousPrenomUser} /ModificateurID={this._idModificateur.ToString()}",
+                Value =  $"{this._prenomUser} {this._nomUser}"
             };
         }
     }

@@ -14,6 +14,7 @@ namespace ProjetManhattan.Traitements
     {
         protected Dictionary<string, IpClient> _listingIPJournalieres;
         private int _seuilAlerte;
+        private DateTime _dateTraitement;
         public TraitementStatIP(BaseConfig config) : base(config)
         {
             ConfigStatsIP c = config.GetConfigTraitement<ConfigStatsIP>(nameof(TraitementStatIP));
@@ -21,6 +22,7 @@ namespace ProjetManhattan.Traitements
             _source = new FichierDeLogIIS(config);
             _seuilAlerte = c.seuilAlerteRequetesParIp; 
             _listingIPJournalieres = new Dictionary<string, IpClient>();
+            _dateTraitement = config.dateTraitement;
         }
         public override void Execute()
         {
@@ -40,11 +42,11 @@ namespace ProjetManhattan.Traitements
                     Record record = new Record()
                     {
                         Traitement = "StatIp",
-                        Date = DateTime.Now,
+                        Date = _dateTraitement,
                         Target = item.adresseIP,
                         PropertyName = "NbRequetes",
                         Value = item._nbConnexionJournaliere.ToString(),
-                        Description = "nombre de connexion"
+                        Description = ""
                     };
                     this.AddItem(record);
                 }

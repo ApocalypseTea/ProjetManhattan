@@ -34,10 +34,10 @@ namespace ProjetManhattan
             return new Record()
             {
                 Traitement = "ModificationDateNaissance",
-                Target = $"PatientId={this._idPatient}",
+                Target = $"PatientID={this._idPatient}",
                 Date = this._dateModification,
                 Value = $"{this._dateActuelle.Date.ToString("dd-MM-yyyy")}",
-                PropertyName = "Date de naissance modifiee",
+                PropertyName = "NouvelleDateNaissance",
                 Description = $"Previous Date={DateOnly.FromDateTime(this._dateAnterieure).ToString("dd-MM-yyyy")} / Modificateur={this._profilModificateurID} {this._modificateurNom} {this._modificateurPrenom}, {this._modificateurType}"
             };
             

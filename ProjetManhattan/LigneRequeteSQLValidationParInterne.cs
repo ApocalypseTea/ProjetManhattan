@@ -35,9 +35,9 @@
             {
                 Traitement = "ValidationInterne",
                 Date = this.date,
-                Target = $"IdFicheRCP={this.numeroFicheRCP}",
+                Target = $"FicheRcpID={this.numeroFicheRCP}",
                 PropertyName = "Validateur",
-                Description = $"IdReunion={this.numeroRCP} Date={this.dateReunionRCP.ToString("dd-MM-yyyy")}, Lieu={this.lieuReunionRCP}, Specialite={this.idSpecialiteMedicale} {this.specialiteMedicale}",
+                Description = $"ReunionID={this.numeroRCP} Date={this.dateReunionRCP.ToString("dd-MM-yyyy")}, Lieu={this.lieuReunionRCP}, Specialite={this.idSpecialiteMedicale} {this.specialiteMedicale}",
                 Value = $"{this.idValidateur}={this.nomValidateur} {this.prenomValidateur}"
             };
         }

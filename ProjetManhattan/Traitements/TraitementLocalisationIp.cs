@@ -18,11 +18,13 @@ namespace ProjetManhattan.Traitements
         public string ConnectionStringIPLocator { get; init; }
 
         private string regexIPv4 = @"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$";
+        private DateTime _dateTraitement;
 
         public TraitementLocalisationIp(BaseConfig config) : base(config)
         {
             ConnectionStringIPLocator = config.connectionStringIPLocator;
             _listingIp = new HashSet<IpClient>();
+            _dateTraitement = config.dateTraitement;
         }
 
         public override void Execute()
@@ -44,7 +46,7 @@ namespace ProjetManhattan.Traitements
                     Record record = new Record()
                     {
                         Traitement = "LocalisationIp",
-                        Date = DateTime.Now,
+                        Date = _dateTraitement,
                         Target = item.adresseIP,
                         PropertyName = "OrigineGeographique",
                         Value = $"{item.PaysOrigine}",
