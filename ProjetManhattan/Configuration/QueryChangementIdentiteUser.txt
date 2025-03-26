@@ -5,10 +5,16 @@
 	UPN.nom AS nom_Origine, 
 	UPN.prenom AS prenom_Origine,
 	PTM.modified_by_user_ref AS modificateurID,
-	PTM.modification_date AS dateModification
+	PTM.modification_date AS dateModification,
+	PTM_U.nom AS nom_modificateur,
+	PTM_U.prenom AS prenom_modificateur,
+	PTE.label AS type_modificateur
 FROM account.ZT_user AS U 
 JOIN account.ZT_user_previous_name AS UPN ON U.id = UPN.user_ref 
 FULL OUTER JOIN account.ZT_profil_trace_modification AS PTM ON U.trace_profil_ref=PTM.profil_ref
+INNER JOIN account.ZT_profil AS PTM_P ON PTM.profil_ref = PTM_P.id
+INNER JOIN account.ZT_user AS PTM_U ON PTM_P.user_ref = PTM_U.id
+INNER JOIN account.profil_type_enum AS PTE ON PTE.id = PTM_P.type_ref
 WHERE 
 	REPLACE(U.nom COLLATE French_CI_AI, '-', ' ')  != REPLACE(UPN.nom, '-', ' ') 
 AND 
@@ -20,4 +26,4 @@ AND
 AND 
 	REPLACE(U.prenom COLLATE French_CI_AI, '-', ' ') != REPLACE(UPN.nom,'-', ' ')
 AND 
-	CONVERT(DATE,PTM.modification_date) = CONVERT(Date, @dateTraitement) ;
+	CONVERT(DATE,PTM.modification_date) = CONVERT(Date, @dateTraitement);

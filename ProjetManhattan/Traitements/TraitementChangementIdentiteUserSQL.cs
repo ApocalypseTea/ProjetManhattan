@@ -34,20 +34,33 @@ namespace ProjetManhattan.Traitements
             int colPrenomPrecedent = reader.GetOrdinal("prenom_Origine");
             int colModificateurId = reader.GetOrdinal("modificateurID");
             int colDateModificationNom = reader.GetOrdinal("dateModification");
+            int colModificateurNom = reader.GetOrdinal("nom_modificateur");
+            int colModificateurPrenom = reader.GetOrdinal("prenom_modificateur");
+            int colModificateurType = reader.GetOrdinal("type_modificateur");
 
             long idUser = reader.GetInt64(colId);
             string nomUser = reader.GetString(colNomActuel);
             string prenomUser = reader.GetString(colPrenomActuel);
             string previousPrenomUser = reader.GetString(colPrenomPrecedent);
             string previousNomUser = reader.GetString(colNomPrecedent);
+            
             long modificateurID;
+            string nomModificateur;
+            string prenomModificateur;
+            string typeModificateur;
             if (!reader.IsDBNull(colModificateurId))
             {
                 modificateurID = reader.GetInt64(colModificateurId);
+                nomModificateur = reader.GetString(colModificateurNom);
+                prenomModificateur = reader.GetString(colModificateurPrenom);
+                typeModificateur = reader.GetString(colModificateurType);
             } 
             else
             {
                 modificateurID = 0;
+                nomModificateur = "";
+                prenomModificateur = "";
+                typeModificateur = "";
             }
 
             DateTime dateModification;
@@ -59,7 +72,7 @@ namespace ProjetManhattan.Traitements
                 dateModification = DateTime.Now;
             }
 
-                LigneRequeteSQLChgtIdentiteUser ligne = new LigneRequeteSQLChgtIdentiteUser(idUser, nomUser, prenomUser, previousNomUser, previousPrenomUser, dateModification, modificateurID);
+                LigneRequeteSQLChgtIdentiteUser ligne = new LigneRequeteSQLChgtIdentiteUser(idUser, nomUser, prenomUser, previousNomUser, previousPrenomUser, dateModification, modificateurID, nomModificateur, prenomModificateur, typeModificateur);
 
             return ligne;
         }
