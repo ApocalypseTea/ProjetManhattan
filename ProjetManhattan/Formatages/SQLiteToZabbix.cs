@@ -72,7 +72,7 @@ namespace ProjetManhattan.Formatages
 
             return JsonConvert.SerializeObject(_zabbixListe, settings);
         }
-        public float GetValueFromTraitementTargetPropertyName (string nomTraitement, string nomTarget, string nomPropertyName)
+        public string GetValueFromTraitementTargetPropertyName (string nomTraitement, string nomTarget, string nomPropertyName)
         {
             string query = "SELECT value FROM record WHERE traitement = @traitement AND target = @target AND propertyName = @propertyName GROUP BY date HAVING date = MAX(date);";
             SqliteCommand requete = new SqliteCommand(query, _connection);
@@ -82,12 +82,12 @@ namespace ProjetManhattan.Formatages
             requete.Parameters.AddWithValue("@propertyName", nomPropertyName);
 
             SqliteDataReader reader = requete.ExecuteReader();
-            float value = -1;
+            string value = "no value";
 
             while (reader.Read())
             {
                 int colVal = reader.GetOrdinal("value");
-                value = reader.GetFloat(colVal);
+                value = reader.GetString(colVal);
             }
             return value;
         }

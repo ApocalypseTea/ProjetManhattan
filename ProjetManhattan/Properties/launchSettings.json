@@ -52,13 +52,13 @@
       "commandName": "Project",
       "commandLineArgs": "toZabbix --nomTraitement=URL --debutPeriode=20-03-2025 --finPeriode=20-03-2025"
     },
-    "toZabbix getValue URL": {
-      "commandName": "Project",
-      "commandLineArgs": "toZabbix getValue --nomTraitement=BrisGlace --nomTarget=ProfilID=5881 --nomPropertyName=NbBrisGlace--date=08-09-2022"
-    },
     "ttt BrisGlace date bd default": {
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=BrisGlace --date=2019-12-24"
+    },
+    "toZabbix getValue LocalisationIp": {
+      "commandName": "Project",
+      "commandLineArgs": "toZabbix getValue --nomTraitement=LocalisationIp --nomTarget=20.171.31.124 --nomPropertyName=OrigineGeographique --date=22-03-2025"
     }
   }
 }

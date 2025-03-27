@@ -152,7 +152,6 @@ namespace ProjetManhattan
                    Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue));
                 }, nomBDorigine, traitementChoisi, dateDebutExport, dateFinExport);
 
-
             Command getValue = new Command(name: "getValue", description:"recuperer la derniere valeur d'un ensemble Traitement-Target-PropertyName");
                 exporterVersZabbix.Add(getValue);
                 Option<string> nomTraitement = new Option<string>(
