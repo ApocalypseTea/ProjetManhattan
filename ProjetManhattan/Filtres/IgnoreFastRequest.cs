@@ -9,14 +9,14 @@ namespace ProjetManhattan.Filtres
 {
     internal class IgnoreFastRequest : IFiltre
     {
-        private int seuilTempsRequete;
+        private int _seuilTempsRequete;
         public IgnoreFastRequest(int valeur) 
         {
-            this.seuilTempsRequete = valeur;
+            this._seuilTempsRequete = valeur;
         }
         public bool Needed(LigneDeLog ligne)
         {
-            return (seuilTempsRequete < ligne.timeTaken);
+            return (_seuilTempsRequete < ligne.TimeTaken);
         }
     }
 }

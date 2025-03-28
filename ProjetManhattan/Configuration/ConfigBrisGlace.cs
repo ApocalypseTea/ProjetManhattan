@@ -8,13 +8,10 @@ namespace ProjetManhattan.Configuration
 {
     class ConfigBrisGlace
     {
-        //public string connectionString { get; init; }
         public int SeuilAlerteBrisDeGlaceJournalierParUtilisateur { get; init; }
 
         public ConfigBrisGlace()
         {
-            //connectionString = config.connectionString;
         }
-
     }
 }

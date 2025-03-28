@@ -10,9 +10,7 @@ namespace ProjetManhattan.Configuration
 {
     class ConfigStatsIP
     {
-        //[JsonProperty("toto")]
-        public HashSet<string> adressesIPValides { get; init; }
-
-        public int seuilAlerteRequetesParIp { get; init; }       
+        public HashSet<string> AdressesIPValides { get; init; }
+        public int SeuilAlerteRequetesParIp { get; init; }       
     }
 }

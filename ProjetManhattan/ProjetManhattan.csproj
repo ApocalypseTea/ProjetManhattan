@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <Compile Remove="MenuCLI.cs" />
+    <Compile Remove="NomsTraitements.cs" />
+    <Compile Remove="TestsReflexivite.cs" />
   </ItemGroup>
 
   <ItemGroup>

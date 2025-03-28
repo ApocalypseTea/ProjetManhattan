@@ -8,17 +8,17 @@ namespace ProjetManhattan
 {
     internal class TempsRequete
     {
-        public int timeTaken { get; init; }
-        public string url { get; init; }
-        public int timeQuery { get; init; }
-        public IpClient ipClient { get; init; }
+        public int TimeTaken { get; init; }
+        public string Url { get; init; }
+        public int TimeQuery { get; init; }
+        public IpClient IpClient { get; init; }
 
         public TempsRequete(IpClient iPClient, int timeTaken, string url, int timeQuery)
         {
-            this.ipClient = iPClient;
-            this.timeTaken = timeTaken;
-            this.url = url;
-            this.timeQuery = timeQuery;
+            this.IpClient = iPClient;
+            this.TimeTaken = timeTaken;
+            this.Url = url;
+            this.TimeQuery = timeQuery;
         }
     }
 }

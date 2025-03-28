@@ -10,29 +10,27 @@ namespace ProjetManhattan.Configuration
 {
     class BaseConfig
     {
-        public string cheminFichierLog { get; init; }
-        public string connectionString { get; init; }
-        public string connectionStringIPLocator { get; init; }
-        protected JObject jConfig;
-        public DateTime dateTraitement { get; set; }
+        public string CheminFichierLog { get; init; }
+        public string ConnectionString { get; init; }
+        public string ConnectionStringIPLocator { get; init; }
+        protected JObject _jConfig;
+        public DateTime DateTraitement { get; set; }
         public BaseConfig(string filename)
         {
             string json = File.ReadAllText(filename);
-            jConfig = JObject.Parse(json);
-            cheminFichierLog = (string)jConfig["sources"]["fichierDeLogIIS"]["cheminFichierLog"];
-            connectionString = (string)jConfig["sources"]["accesBDD"]["connectionString"];
-            connectionStringIPLocator = (string)jConfig["sources"]["accesBDD"]["connectionStringIPLocator"];
+            _jConfig = JObject.Parse(json);
+            CheminFichierLog = (string)_jConfig["sources"]["fichierDeLogIIS"]["cheminFichierLog"];
+            ConnectionString = (string)_jConfig["sources"]["accesBDD"]["connectionString"];
+            ConnectionStringIPLocator = (string)_jConfig["sources"]["accesBDD"]["connectionStringIPLocator"];
         }
 
         public T GetConfigTraitement<T>(string nomTraitement) where T : class
         {
-            string nomTraitementEnCamelCase = transformToCamelCase(nomTraitement);
-
-
-            return jConfig["traitements"][nomTraitementEnCamelCase].ToObject<T>();
+            string nomTraitementEnCamelCase = TransformToCamelCase(nomTraitement);
+            return _jConfig["traitements"][nomTraitementEnCamelCase].ToObject<T>();
         }
 
-        private string transformToCamelCase(string nomTraitement)
+        private string TransformToCamelCase(string nomTraitement)
         {
             char majusculeFirst = Char.ToLower(nomTraitement[0]);
             return majusculeFirst + nomTraitement.Substring(1);

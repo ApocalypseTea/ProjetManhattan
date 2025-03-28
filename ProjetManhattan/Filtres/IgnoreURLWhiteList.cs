@@ -20,7 +20,7 @@ namespace ProjetManhattan.Filtres
         {
             foreach(var url in _urlValides) 
             {
-                if (Regex.IsMatch(ligne.csUriStem,url))
+                if (Regex.IsMatch(ligne.CsUriStem,url))
                 {
                     return false;
                 }

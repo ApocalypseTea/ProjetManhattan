@@ -24,14 +24,14 @@ namespace ProjetManhattan.Traitements
             } 
         }
 
-        private string regexIPv4 = @"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$";
+        private string _regexIPv4 = @"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$";
         private DateTime _dateTraitement;
 
         public TraitementLocalisationIp(BaseConfig config) : base(config)
         {
-            ConnectionStringIPLocator = config.connectionStringIPLocator;
+            ConnectionStringIPLocator = config.ConnectionStringIPLocator;
             _listingIp = new HashSet<IpClient>();
-            _dateTraitement = config.dateTraitement;
+            _dateTraitement = config.DateTraitement;
         }
 
         public override void Execute()
@@ -39,7 +39,7 @@ namespace ProjetManhattan.Traitements
             while (_source.HasLines())
             {
                 LigneDeLog? ligne = _source.ReadLine();
-                if (ligne != null && _filtre.Needed(ligne) && Regex.IsMatch(ligne.IpClient, regexIPv4))                    
+                if (ligne != null && _filtre.Needed(ligne) && Regex.IsMatch(ligne.IpClient, _regexIPv4))                    
                 {
                     IpClient nouvelleIp = new IpClient(ligne.IpClient, ConnectionStringIPLocator);
                     _listingIp.Add(nouvelleIp);
@@ -54,7 +54,7 @@ namespace ProjetManhattan.Traitements
                     {
                         Traitement = "LocalisationIp",
                         Date = _dateTraitement,
-                        Target = item.adresseIP,
+                        Target = item.AdresseIP,
                         PropertyName = "OrigineGeographique",
                         Value = $"{item.PaysOrigine}",
                         Description = ""

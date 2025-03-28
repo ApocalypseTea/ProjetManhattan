@@ -14,7 +14,7 @@ namespace ProjetManhattan.Sources
 
         public AccesBDD(BaseConfig config)
         {
-            ConnectionString = config.connectionString;
+            ConnectionString = config.ConnectionString;
         }          
 
         public SqlConnection ConnexionBD()

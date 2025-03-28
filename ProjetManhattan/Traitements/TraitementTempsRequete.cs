@@ -22,14 +22,14 @@ namespace ProjetManhattan.Traitements
         public TraitementTempsRequete(BaseConfig config) : base (config, new FichierDeLogIIS(config))
         {
             ConfigTempsRequetes c = config.GetConfigTraitement<ConfigTempsRequetes>(nameof(TraitementTempsRequete));
-            this.Filtre = new IgnoreFastRequest(c.seuilAlerteTempsRequetes);
+            this.Filtre = new IgnoreFastRequest(c.SeuilAlerteTempsRequetes);
         }
         protected override void FillRecord(Record record, LigneDeLog ligne)
         {
             record.Traitement = "TempsRequete";
-            record.Target = ligne.csUriStem;
+            record.Target = ligne.CsUriStem;
             record.PropertyName = "TimeTaken";
-            record.Value = ligne.timeTaken.ToString();
+            record.Value = ligne.TimeTaken.ToString();
             record.Description = ligne.IpClient;
             record.Date = ligne.DateHeure;
         }

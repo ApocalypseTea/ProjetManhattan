@@ -32,7 +32,7 @@ namespace ProjetManhattan.Traitements
             _items = new List<LigneRequeteSQLValidationParInterne>();
             _source = new AccesBDD(config);
             _sortie = new OutputDisplay();
-            _dateTraitement = config.dateTraitement;
+            _dateTraitement = config.DateTraitement;
         }
 
         protected override SqlCommand GetSQLCommand(SqlConnection connection)
@@ -72,7 +72,7 @@ namespace ProjetManhattan.Traitements
             int colPrenom = reader.GetOrdinal("prenom");
             string prenomValidateur = reader.GetString(colPrenom);
 
-            int colRCP = reader.GetOrdinal("numeroRCP");
+            int colRCP = reader.GetOrdinal("_numeroRCP");
             long numeroRCP = reader.GetInt64(colRCP);
 
             int colDateValidationFiche = reader.GetOrdinal("date_validation");

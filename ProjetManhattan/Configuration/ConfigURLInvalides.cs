@@ -9,6 +9,6 @@ namespace ProjetManhattan.Configuration
 {
     class ConfigURLInvalides
     {
-        public HashSet<string> patternURLValide { get; init; }       
+        public HashSet<string> PatternURLValide { get; init; }       
     }
 }

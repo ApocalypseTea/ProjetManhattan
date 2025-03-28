@@ -21,6 +21,7 @@ namespace ProjetManhattan
         {
             ITraitement? traitement = null;
             object[] parametreTraitement = { importConfig };
+            
             Action<ITraitement> executeTraitement = (traitement) =>
             {
                 traitement?.Execute();
@@ -59,7 +60,7 @@ namespace ProjetManhattan
         }
         static void Main(string[] args)
         {
-//A mettre dans une methode comme les uaters
+            //RootCommand : mettre dans une methode comme les autres
             RootCommand rootCommand = new RootCommand("K-Projet Manhattan");
             Option<string> configFileName = new Option<string>(
                  name: "--configFile",
@@ -146,7 +147,7 @@ namespace ProjetManhattan
             getValue.AddOption(nomPropertyName);
 
             Option<DateTime> dateValue = new Option<DateTime>(
-                name: "--date",
+                name: "--_date",
                 description: "Date a laquelle la Value est a rechercher",
                 getDefaultValue: () => DateTime.Now);
             getValue.AddOption(dateValue);
@@ -184,8 +185,8 @@ namespace ProjetManhattan
             effectuerTraitement.AddArgument(nomBDResult);
 
             Option<DateTime> dateDebutTraitements = new Option<DateTime>(
-                name: "--date",
-                description: "date à laquelle effectuer le ou les traitements",
+                name: "--_date",
+                description: "_date à laquelle effectuer le ou les traitements",
                 getDefaultValue: () => DateTime.Now
                 );
             effectuerTraitement.AddOption(dateDebutTraitements);
@@ -194,8 +195,8 @@ namespace ProjetManhattan
             {
                 fichierConfig = configFileNameValue;
                 importConfig = new BaseConfig(fichierConfig);
-                importConfig.dateTraitement = dateDebutTraitementsValue;
-                Console.WriteLine(importConfig.dateTraitement);
+                importConfig.DateTraitement = dateDebutTraitementsValue;
+                Console.WriteLine(importConfig.DateTraitement);
                 MiniMenu(choixTraitementValue, importConfig, choixOutputValue, nomBDresultValue);
             }, choixTraitement, choixOutput, nomBDResult, configFileName, dateDebutTraitements);
 

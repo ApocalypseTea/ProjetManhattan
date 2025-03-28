@@ -19,7 +19,7 @@ namespace ProjetManhattan.Filtres
         public bool Needed(LigneDeLog ligne)
         {
             string numIpClient = ligne.IpClient;
-            HashSet<string> listeBlancheIp = _listeBlanche.adressesIPValides;
+            HashSet<string> listeBlancheIp = _listeBlanche.AdressesIPValides;
 
             return !listeBlancheIp.Contains(numIpClient);
         }

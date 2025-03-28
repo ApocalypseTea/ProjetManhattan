@@ -19,7 +19,7 @@ namespace ProjetManhattan.Traitements
         public string Name { get { return "ChangementIdentite"; } }
         public TraitementChangementIdentiteUserSQL(BaseConfig config) : base(config)
         {
-            _dateTraitement = config.dateTraitement;
+            _dateTraitement = config.DateTraitement;
         }
         protected override SqlCommand GetSQLCommand(SqlConnection connection)
         {

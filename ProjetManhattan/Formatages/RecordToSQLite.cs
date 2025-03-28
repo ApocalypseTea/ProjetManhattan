@@ -9,27 +9,27 @@ namespace ProjetManhattan.Formatages
 {
     class RecordToSQLite
     {
-        private Record record;
+        private Record _record;
         public RecordToSQLite(Record record)
         {
-            this.record = record;
+            this._record = record;
         }
 
         public void AddRecordToDataBase(SqliteConnection connection)
         {
-            string requete = "INSERT INTO record (traitement, target, date, value, propertyName, description)" +
+            string requete = "INSERT INTO _record (traitement, target, _date, value, propertyName, description)" +
                 $"VALUES (@Traitement, @Target, @Date, @Value, @PropertyName, @Description);"
                 ;
 
             try {
                 SqliteCommand commande = new SqliteCommand(requete, connection);
 
-                commande.Parameters.AddWithValue("@Traitement", this.record.Traitement);
-                commande.Parameters.AddWithValue("@Target", this.record.Target);
-                commande.Parameters.AddWithValue("@Date", this.record.Date.HasValue?this.record.Date:DBNull.Value);
-                commande.Parameters.AddWithValue("@Value", this.record.Value);
-                commande.Parameters.AddWithValue("@PropertyName", this.record.PropertyName != null ? this.record.PropertyName : DBNull.Value);
-                commande.Parameters.AddWithValue("@Description", this.record.Description != null ? this.record.Description : DBNull.Value);
+                commande.Parameters.AddWithValue("@Traitement", this._record.Traitement);
+                commande.Parameters.AddWithValue("@Target", this._record.Target);
+                commande.Parameters.AddWithValue("@Date", this._record.Date.HasValue?this._record.Date:DBNull.Value);
+                commande.Parameters.AddWithValue("@Value", this._record.Value);
+                commande.Parameters.AddWithValue("@PropertyName", this._record.PropertyName != null ? this._record.PropertyName : DBNull.Value);
+                commande.Parameters.AddWithValue("@Description", this._record.Description != null ? this._record.Description : DBNull.Value);
 
                 commande.ExecuteReader();
             }

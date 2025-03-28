@@ -15,7 +15,7 @@ namespace ProjetManhattan.Traitements
         }
         public TraitementChangementNaissancePatient(BaseConfig config) : base(config)
         {
-            _dateTraitement = config.dateTraitement;
+            _dateTraitement = config.DateTraitement;
         }
         
         protected override SqlCommand GetSQLCommand(SqlConnection connection)

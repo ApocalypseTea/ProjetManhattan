@@ -20,13 +20,19 @@ namespace ProjetManhattan.Traitements
         private int _seuilAlerteBrisGlace;
         private DateTime _dateTraitement;
 
-        public string Name { get { return "BrisGlace"; } }
+        public string Name 
+        { 
+            get 
+            { 
+                return "BrisGlace"; 
+            } 
+        }
 
         public TraitementBrisDeGlaceSQL(BaseConfig config) : base(config)
         {
             ConfigBrisGlace c = config.GetConfigTraitement<ConfigBrisGlace>(nameof(TraitementBrisDeGlaceSQL));
             _seuilAlerteBrisGlace = c.SeuilAlerteBrisDeGlaceJournalierParUtilisateur;
-            _dateTraitement = config.dateTraitement;
+            _dateTraitement = config.DateTraitement;
             _items = new List<LigneRequeteBrisGlace> ();
             _source = new AccesBDD(config);
             _sortie = new OutputDisplay();           
@@ -39,7 +45,7 @@ namespace ProjetManhattan.Traitements
             int colLabel = reader.GetOrdinal("label");
             int colValue = reader.GetOrdinal("value");
             int colNbPatient = reader.GetOrdinal("nb_patient_brise_glace");
-            int colDate = reader.GetOrdinal("date");
+            int colDate = reader.GetOrdinal("_date");
 
             long profilRef = reader.GetInt64(colProfilRef);
             string prenom = reader.GetString(colPrenom);

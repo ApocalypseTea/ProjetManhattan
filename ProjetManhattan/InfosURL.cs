@@ -8,12 +8,12 @@ namespace ProjetManhattan
 {
     class InfosURL
     {
-        public string url { get; init; }
-        public IpClient adresseIp { get; init; }
+        public string Url { get; init; }
+        public IpClient AdresseIp { get; init; }
         public InfosURL (string url, IpClient adresseIp)
         {
-            this.url = url;
-            this.adresseIp = adresseIp;
+            this.Url = url;
+            this.AdresseIp = adresseIp;
         }
     }
 }

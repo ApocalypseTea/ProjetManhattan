@@ -13,7 +13,7 @@ namespace ProjetManhattan
         private string _prenomUser;
         private string _previousNomUser;
         private string _previousPrenomUser;
-        private DateTime dateModificationNom;
+        private DateTime _dateModificationNom;
         private long _idModificateur;
         private string _nomModificateur;
         private string _prenomModificateur;
@@ -26,7 +26,7 @@ namespace ProjetManhattan
             _prenomUser = prenomUser;
             _previousNomUser = previousNomUser;
             _previousPrenomUser = previousPrenomUser;
-            this.dateModificationNom = dateModificationNom;
+            _dateModificationNom = dateModificationNom;
             _idModificateur = idModificateur;
             _nomModificateur = nomModificateur;
             _prenomModificateur = prenomModificateur;
@@ -37,7 +37,7 @@ namespace ProjetManhattan
             return new Record()
             {
                 Traitement = "ChangementIdentite",
-                Date = this.dateModificationNom,
+                Date = this._dateModificationNom,
                 Target = $"UserID={this._idUser}",
                 PropertyName = $"Modificateur",
                 Description = $"PreviousName={this._previousNomUser} {this._previousPrenomUser} /ModificateurID={this._idModificateur.ToString()} {this._nomModificateur} {this._prenomModificateur} {this._typeModificateur}",

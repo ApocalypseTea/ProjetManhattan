@@ -16,18 +16,18 @@ namespace ProjetManhattan
         //Passer la Query dans le fichier de config json
         private const string QUERY = "SELECT country_name FROM dbo.ip2location_db1 WHERE @ip BETWEEN ip_from AND ip_to;";
         
-        public string adresseIP { get; init; }
+        public string AdresseIP { get; init; }
         public int _nbConnexionJournaliere = 0;
         public string ConnectionStringIPLocator { get; init; }
         public IpClient(string adresseIP)
         {
-            this.adresseIP = adresseIP;
+            this.AdresseIP = adresseIP;
         }
 
         public IpClient(string adresseIP, string connectionStringIPLocator)
         {
             this.ConnectionStringIPLocator = connectionStringIPLocator;
-            this.adresseIP = adresseIP;
+            this.AdresseIP = adresseIP;
         }
 
         public long NumeroIp
@@ -36,7 +36,7 @@ namespace ProjetManhattan
             {
                 long[] _conversionIpNumbers = { 16777216, 65536, 256, 1 };
 
-                string[] numIp = adresseIP.Split('.');
+                string[] numIp = AdresseIP.Split('.');
                 long numIpTotal = 0;
                 for (int i = 0; i < 4; i++)
                 {
@@ -76,7 +76,7 @@ namespace ProjetManhattan
             IpClient ipClient = obj as IpClient;
             if (ipClient != null)
             {
-                return this.adresseIP.Equals(ipClient.adresseIP);
+                return this.AdresseIP.Equals(ipClient.AdresseIP);
             }
             else
             {
@@ -86,7 +86,7 @@ namespace ProjetManhattan
 
         public override int GetHashCode()
         {
-            return this.adresseIP.GetHashCode();
+            return this.AdresseIP.GetHashCode();
         }
     }
 }

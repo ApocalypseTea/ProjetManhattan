@@ -9,8 +9,8 @@ namespace ProjetManhattan
 {
     internal class IPAutorisees
     {
-        public HashSet<string> adressesIPValides { get; init; }
-        public DateTime dateDeCreationListe { get; init; }
+        public HashSet<string> AdressesIPValides { get; init; }
+        public DateTime DateDeCreationListe { get; init; }
         public IPAutorisees(HashSet<string> adressesIPValides)
         {
             HashSet<string> IPVerifiees = new HashSet<string>();
@@ -28,18 +28,18 @@ namespace ProjetManhattan
                     IPVerifiees.Add(ligne);
                 }
             }
-            this.adressesIPValides = IPVerifiees;
-            this.dateDeCreationListe = DateTime.Now;
+            this.AdressesIPValides = IPVerifiees;
+            this.DateDeCreationListe = DateTime.Now;
         }
         public override string ToString()
         {
             StringBuilder infosIPAutorisees = new StringBuilder();
             infosIPAutorisees.AppendLine($"Adresses IP Autorisées :");
-            foreach (string ligne in adressesIPValides)
+            foreach (string ligne in AdressesIPValides)
             {
                 infosIPAutorisees.AppendLine(ligne);
             }
-            infosIPAutorisees.AppendLine($"Date de Création de la liste d'IP valides : {dateDeCreationListe}");
+            infosIPAutorisees.AppendLine($"Date de Création de la liste d'IP valides : {DateDeCreationListe}");
             return infosIPAutorisees.ToString();
         }
     }

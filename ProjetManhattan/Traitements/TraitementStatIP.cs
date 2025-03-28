@@ -25,11 +25,11 @@ namespace ProjetManhattan.Traitements
         public TraitementStatIP(BaseConfig config) : base(config)
         {
             ConfigStatsIP c = config.GetConfigTraitement<ConfigStatsIP>(nameof(TraitementStatIP));
-            this.Filtre = new IgnoreWhiteList(c.adressesIPValides);
+            this.Filtre = new IgnoreWhiteList(c.AdressesIPValides);
             _source = new FichierDeLogIIS(config);
-            _seuilAlerte = c.seuilAlerteRequetesParIp; 
+            _seuilAlerte = c.SeuilAlerteRequetesParIp; 
             _listingIPJournalieres = new Dictionary<string, IpClient>();
-            _dateTraitement = config.dateTraitement;
+            _dateTraitement = config.DateTraitement;
         }
         public override void Execute()
         {
@@ -50,7 +50,7 @@ namespace ProjetManhattan.Traitements
                     {
                         Traitement = "StatIp",
                         Date = _dateTraitement,
-                        Target = item.adresseIP,
+                        Target = item.AdresseIP,
                         PropertyName = "NbRequetes",
                         Value = item._nbConnexionJournaliere.ToString(),
                         Description = ""

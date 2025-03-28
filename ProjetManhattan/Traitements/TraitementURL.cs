@@ -22,12 +22,12 @@ namespace ProjetManhattan.Traitements
         public TraitementURL(BaseConfig config) : base (config, new FichierDeLogIIS(config))
         {
             ConfigURLInvalides c = config.GetConfigTraitement<ConfigURLInvalides>(nameof(TraitementURL));
-            this.Filtre = new IgnoreURLWhiteList(c.patternURLValide);
+            this.Filtre = new IgnoreURLWhiteList(c.PatternURLValide);
         }
         protected override void FillRecord(Record record, LigneDeLog ligne)
         {
             record.Traitement = "URL";
-            record.Target = ligne.csUriStem;
+            record.Target = ligne.CsUriStem;
             record.PropertyName = "UrlDouteuse";
             record.Value = "true";
             record.Description = ligne.IpClient;

@@ -23,13 +23,11 @@ namespace ProjetManhattan.Sources
         private static string GetCheminFichierLogAndModifyingDate(BaseConfig config)
         {
             // Format type fichier log C:\inetpub\logs\LogFiles\W3SVC1\u_ex{YY}{MM}{DD}.log
-
-            string fileName = config.cheminFichierLog;
+            string fileName = config.CheminFichierLog;
             fileName = fileName
-                        .Replace("YY", config.dateTraitement.ToString("yy"))
-                        .Replace("MM", config.dateTraitement.ToString("MM"))
-                        .Replace("DD", config.dateTraitement.ToString("dd"));
-
+                        .Replace("YY", config.DateTraitement.ToString("yy"))
+                        .Replace("MM", config.DateTraitement.ToString("MM"))
+                        .Replace("DD", config.DateTraitement.ToString("dd"));
             return fileName;
         }
 

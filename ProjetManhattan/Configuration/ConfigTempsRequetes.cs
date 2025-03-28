@@ -9,6 +9,6 @@ namespace ProjetManhattan.Configuration
 {
     class ConfigTempsRequetes 
     {
-        public int seuilAlerteTempsRequetes { get; init; }      
+        public int SeuilAlerteTempsRequetes { get; init; }      
     }
 }

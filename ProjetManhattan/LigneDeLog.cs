@@ -28,8 +28,8 @@ namespace ProjetManhattan
         public DateTime DateHeure { get; set; }
         private string _ipSource;
         private VerbesHTTP _methodeHTTP;
-        public string csUriStem { get; init; }
-        public string csUriQuery { get; init; }
+        public string CsUriStem { get; init; }
+        public string CsUriQuery { get; init; }
         private int _port;
         private string _username;
         public string IpClient { get; set; }
@@ -38,7 +38,7 @@ namespace ProjetManhattan
         private int _csStatutHTTP;
         private int _csSubStatut;
         private int _csWin32Status;
-        public int timeTaken { get; set; }
+        public int TimeTaken { get; set; }
         
 
         public LigneDeLog(string[] champsLog)
@@ -46,8 +46,8 @@ namespace ProjetManhattan
             this.DateHeure = DateTime.Parse(champsLog[COL_DATE] + " " + champsLog[COL_TIME]);
             this._ipSource = champsLog[COL_IP_SOURCE];
             this._methodeHTTP = (VerbesHTTP)Enum.Parse(typeof(VerbesHTTP), champsLog[COL_METHODE_HTTP]);
-            this.csUriStem = champsLog[COL_CS_URI_STEM];
-            this.csUriQuery = champsLog[COL_URI_QUERY];
+            this.CsUriStem = champsLog[COL_CS_URI_STEM];
+            this.CsUriQuery = champsLog[COL_URI_QUERY];
             this._port = int.Parse(champsLog[COL_PORT]);
             this._username = champsLog[COL_USERNAME];
             this.IpClient = champsLog[COL_IP_CLIENT];
@@ -56,14 +56,14 @@ namespace ProjetManhattan
             this._csStatutHTTP = int.Parse(champsLog[COL_CS_STATUS_HTTP]);
             this._csSubStatut = int.Parse(champsLog[COL_CS_SUBSTATUS]);
             this._csWin32Status = int.Parse(champsLog[COL_CS_WIN32_STATUS]);
-            this.timeTaken = int.Parse(champsLog[COL_TIME_TAKEN]);
+            this.TimeTaken = int.Parse(champsLog[COL_TIME_TAKEN]);
         }
 
         public override string ToString()
         {
             StringBuilder ligneDeLogTexte = new StringBuilder();
             ligneDeLogTexte.AppendLine($"Date et Heure: {DateHeure}");
-            ligneDeLogTexte.AppendLine($"Champs Temps Url Query: {csUriQuery}");
+            ligneDeLogTexte.AppendLine($"Champs Temps Url Query: {CsUriQuery}");
             ligneDeLogTexte.AppendLine($"Ip Serveur : {_ipSource}");
             ligneDeLogTexte.AppendLine($"Methode HTTP : {_methodeHTTP}");
             ligneDeLogTexte.AppendLine($"Port : {_port}");
@@ -90,7 +90,7 @@ namespace ProjetManhattan
         {
             IpClient ip = new IpClient(IpClient);
             //Traitement cs_uri_query à faire, car mis en dur
-            TempsRequete tempsRequete = new TempsRequete(ip, timeTaken, csUriStem, NettoyageTempsRequeteHorsReseau(csUriQuery));
+            TempsRequete tempsRequete = new TempsRequete(ip, TimeTaken, CsUriStem, NettoyageTempsRequeteHorsReseau(CsUriQuery));
             infosTempsRequetes.Add(tempsRequete);
         }
 
