@@ -185,8 +185,8 @@ namespace ProjetManhattan
             effectuerTraitement.AddArgument(nomBDResult);
 
             Option<DateTime> dateDebutTraitements = new Option<DateTime>(
-                name: "--_date",
-                description: "_date à laquelle effectuer le ou les traitements",
+                name: "--date",
+                description: "date à laquelle effectuer le ou les traitements",
                 getDefaultValue: () => DateTime.Now
                 );
             effectuerTraitement.AddOption(dateDebutTraitements);
