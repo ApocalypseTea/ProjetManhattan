@@ -8,6 +8,7 @@ namespace ProjetManhattan.Traitements
 {
     internal interface ITraitement
     {
+        string Name { get; }
         void Display(string exportDataMethod, string nomDB);
         void Execute();
     }

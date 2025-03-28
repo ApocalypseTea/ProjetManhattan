@@ -15,6 +15,13 @@ namespace ProjetManhattan.Traitements
         protected Dictionary<string, IpClient> _listingIPJournalieres;
         private int _seuilAlerte;
         private DateTime _dateTraitement;
+        public string Name
+        {
+            get
+            {
+                return "StatIp";
+            }
+        }
         public TraitementStatIP(BaseConfig config) : base(config)
         {
             ConfigStatsIP c = config.GetConfigTraitement<ConfigStatsIP>(nameof(TraitementStatIP));

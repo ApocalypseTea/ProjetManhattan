@@ -19,6 +19,9 @@ namespace ProjetManhattan.Traitements
 
         private int _seuilAlerteBrisGlace;
         private DateTime _dateTraitement;
+
+        public string Name { get { return "BrisGlace"; } }
+
         public TraitementBrisDeGlaceSQL(BaseConfig config) : base(config)
         {
             ConfigBrisGlace c = config.GetConfigTraitement<ConfigBrisGlace>(nameof(TraitementBrisDeGlaceSQL));

@@ -12,6 +12,13 @@ namespace ProjetManhattan.Traitements
 {
     internal class TraitementTempsRequete : BaseTraitementParLigne, ITraitement
     {       
+        public string Name
+        {
+            get
+            {
+                return "TempsRequete";
+            }
+        }
         public TraitementTempsRequete(BaseConfig config) : base (config, new FichierDeLogIIS(config))
         {
             ConfigTempsRequetes c = config.GetConfigTraitement<ConfigTempsRequetes>(nameof(TraitementTempsRequete));

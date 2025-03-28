@@ -16,6 +16,13 @@ namespace ProjetManhattan.Traitements
     {
         private HashSet<IpClient> _listingIp;
         public string ConnectionStringIPLocator { get; init; }
+        public string Name 
+        { 
+            get 
+            { 
+                return "LocalisationIp"; 
+            } 
+        }
 
         private string regexIPv4 = @"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$";
         private DateTime _dateTraitement;

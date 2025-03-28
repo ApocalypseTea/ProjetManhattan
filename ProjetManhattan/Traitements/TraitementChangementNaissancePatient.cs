@@ -7,6 +7,12 @@ namespace ProjetManhattan.Traitements
     {
         protected const string RESSOURCENAME = "ProjetManhattan.Configuration.QueryChangementDateNaissancePatient.txt";
         private DateTime _dateTraitement;
+        public string Name { 
+            get 
+            { 
+                return "ModificationDateNaissance"; 
+            } 
+        }
         public TraitementChangementNaissancePatient(BaseConfig config) : base(config)
         {
             _dateTraitement = config.dateTraitement;

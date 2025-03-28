@@ -17,6 +17,13 @@ namespace ProjetManhattan.Traitements
 
         private string [] _titreValidateur;
         private DateTime _dateTraitement;
+        public string Name
+        {
+            get
+            {
+                return "ValidationInterne";
+            }
+        }
         public TraitementValidationParInterneSQL(BaseConfig config) : base(config)
         {
             ConfigRCPValideParInterne c = config.GetConfigTraitement<ConfigRCPValideParInterne>(nameof(TraitementValidationParInterneSQL));

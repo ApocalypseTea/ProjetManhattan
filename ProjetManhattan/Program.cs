@@ -8,6 +8,7 @@ using Microsoft.Data.Sqlite;
 using System.CommandLine;
 using System.Threading.Tasks;
 using ProjetManhattan.Formatages;
+using System.Reflection;
 
 namespace ProjetManhattan
 {
@@ -16,6 +17,27 @@ namespace ProjetManhattan
         public static void miniMenu(string nomTraitement, BaseConfig importConfig, string typeOutput, string nomBD)
         {
             ITraitement? traitement = null;
+            BaseConfig[] parametreTraitement = { importConfig };
+
+            //var traitementsQuiImplemententItraitement = Assembly.GetExecutingAssembly().GetTypes().Where(l => l.IsClass && l.IsAssignableTo(typeof(ITraitement)));
+
+            ////Instancier tous les traitements
+            //foreach (Type traitementQuiImplementeITraitement in traitementsQuiImplemententItraitement)
+            //{
+            //    ConstructorInfo[] constructeur = traitementQuiImplementeITraitement.GetConstructors();
+            //    foreach (ConstructorInfo constructor in constructeur)
+            //    {
+            //        constructor.Invoke(parametreTraitement);
+            //    }
+
+            ////Selectionner uniquement le traitement qui correspond à la demande
+            //    //Revoir le comparateur pour comparer des choses similaires et pas des carottes et des torchons
+            //    if (traitementQuiImplementeITraitement.Name == nomTraitement)
+            //    {
+
+            //    }
+            //}
+
 
             switch (nomTraitement)
             {
@@ -182,7 +204,17 @@ namespace ProjetManhattan
                     Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue));
 
                 }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine, dateValue);
-
+            //////ATTENTION A RETIRER ///////////////////
+            Command tests = new Command(
+                name: "test");
+            rootCommand.AddCommand(tests);
+            tests.SetHandler(() =>
+            {
+                TestsReflexivite test = new TestsReflexivite();
+                test.GetTest();
+            }
+            );
+            /////////////////////////////////////////////
             rootCommand.Invoke(args);
         }
     }

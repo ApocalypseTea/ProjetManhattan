@@ -12,6 +12,13 @@ namespace ProjetManhattan.Traitements
 {
     internal class TraitementURL : BaseTraitementParLigne, ITraitement
     {        
+        public string Name
+        {
+            get
+            {
+                return "URL";
+            }
+        }
         public TraitementURL(BaseConfig config) : base (config, new FichierDeLogIIS(config))
         {
             ConfigURLInvalides c = config.GetConfigTraitement<ConfigURLInvalides>(nameof(TraitementURL));

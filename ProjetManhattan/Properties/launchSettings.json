@@ -2,7 +2,7 @@
   "profiles": {
     "ProjetManhattan": {
       "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=ModificationDateNaissance --nomOutput console"
+      "commandLineArgs": "test"
     },
     "toZabbix ttt StatIp": {
       "commandName": "Project",
@@ -24,21 +24,9 @@
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=ModificationDateNaissance --nomOutput console --date=2023-03-10"
     },
-    "ttt StatIp date console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=StatIp --nomOutput console --date=20-03-2025"
-    },
-    "ttt TempsRequete date console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=TempsRequete --nomOutput console --date=20-03-2025"
-    },
     "ttt ChgtId date Console": {
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=ChangementIdentite  --nomOutput console --date=2025-03-10"
-    },
-    "ttt localisationIP date Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=LocalisationIp  --nomOutput console --date=2025-03-22"
     },
     "ttt URL date bd default": {
       "commandName": "Project",
@@ -58,7 +46,19 @@
     },
     "toZabbix getValue LocalisationIp": {
       "commandName": "Project",
-      "commandLineArgs": "toZabbix getValue --nomTraitement=LocalisationIp --nomTarget=20.171.31.124 --nomPropertyName=OrigineGeographique --date=22-03-2025"
+      "commandLineArgs": "toZabbix getValue --nomTraitement=StatIp --nomTarget=217.109.150.133 --nomPropertyName=OrigineGeographique --date=17-02-2025"
+    },
+    "ttt localisationIP date bd default": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=LocalisationIp  --date=2025-02-17"
+    },
+    "ttt StatIp date bd default": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=StatIp --date=17-02-2025"
+    },
+    "ttt TempsRequete date bd default": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=TempsRequete --date=17-02-2025"
     }
   }
 }

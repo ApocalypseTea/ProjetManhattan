@@ -15,6 +15,8 @@ namespace ProjetManhattan.Traitements
     {
         private const string RESSOURCENAME = "ProjetManhattan.Configuration.QueryChangementIdentiteUser.txt";
         private DateTime _dateTraitement;
+
+        public string Name { get { return "ChangementIdentite"; } }
         public TraitementChangementIdentiteUserSQL(BaseConfig config) : base(config)
         {
             _dateTraitement = config.dateTraitement;

@@ -12,6 +12,13 @@ namespace ProjetManhattan.Traitements
     {
         private const string RESOURCENAME = "ProjetManhattan.Configuration.QueryValidateurRCPAbsent.txt";
         private DateTime _dateTraitement;
+        public string Name { 
+            get
+            {
+                return "ValidateurAbsent";
+
+            } 
+        }
         public TraitementValidateurRCPnonPresentSQL(BaseConfig config) : base(config)
         {
             _dateTraitement = config.dateTraitement;
