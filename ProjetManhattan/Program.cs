@@ -18,61 +18,37 @@ namespace ProjetManhattan
         {
             ITraitement? traitement = null;
             BaseConfig[] parametreTraitement = { importConfig };
-
-            //var traitementsQuiImplemententItraitement = Assembly.GetExecutingAssembly().GetTypes().Where(l => l.IsClass && l.IsAssignableTo(typeof(ITraitement)));
-
-            ////Instancier tous les traitements
-            //foreach (Type traitementQuiImplementeITraitement in traitementsQuiImplemententItraitement)
-            //{
-            //    ConstructorInfo[] constructeur = traitementQuiImplementeITraitement.GetConstructors();
-            //    foreach (ConstructorInfo constructor in constructeur)
-            //    {
-            //        constructor.Invoke(parametreTraitement);
-            //    }
-
-            ////Selectionner uniquement le traitement qui correspond à la demande
-            //    //Revoir le comparateur pour comparer des choses similaires et pas des carottes et des torchons
-            //    if (traitementQuiImplementeITraitement.Name == nomTraitement)
-            //    {
-
-            //    }
-            //}
-
-
-            switch (nomTraitement)
+            Action<ITraitement> executeTraitement = (traitement) =>
             {
-                case "StatIp":
-                    traitement = new TraitementStatIP(importConfig);
-                    break;
-                case "TempsRequete":
-                    traitement = new TraitementTempsRequete(importConfig);
-                    break;
-                case "URL":
-                    traitement = new TraitementURL(importConfig);
-                    break;
-                case "BrisGlace":
-                    traitement = new TraitementBrisDeGlaceSQL(importConfig);
-                    break;
-                case "ValidationInterne":
-                    traitement = new TraitementValidationParInterneSQL(importConfig);
-                    break;
-                case "ChangementIdentite":
-                    traitement = new TraitementChangementIdentiteUserSQL(importConfig);
-                    break;
-                case "ValidateurAbsent":
-                    traitement = new TraitementValidateurRCPnonPresentSQL(importConfig);
-                    break;
-                case "LocalisationIp":
-                    traitement = new TraitementLocalisationIp(importConfig);
-                    break;
-                case "ModificationDateNaissance":
-                    traitement = new TraitementChangementNaissancePatient(importConfig);
-                    break;
-            }
+                traitement?.Execute();
+                traitement?.Display(typeOutput, nomBD);
+            };
+            Dictionary<string, ITraitement> allTreatmentInstances = new Dictionary<string, ITraitement>();
 
-            traitement?.Execute();
-            // if (traitement != null) { traitement.Execute(); }
-            traitement?.Display(typeOutput, nomBD);
+            var traitementsQuiImplemententItraitement = Assembly.GetExecutingAssembly().GetTypes().Where(l => l.IsClass && l.IsAssignableTo(typeof(ITraitement)));
+
+            //Instancier tous les traitements
+            foreach (Type traitementQuiImplementeITraitement in traitementsQuiImplemententItraitement)
+            {
+                ConstructorInfo[] constructeur = traitementQuiImplementeITraitement.GetConstructors();
+
+                foreach (ConstructorInfo constructor in constructeur)
+                {
+                    ITraitement instanceDeTraitement = (ITraitement)constructor.Invoke(parametreTraitement);
+                    string nomTraitementRaccourci = instanceDeTraitement.Name;
+                    allTreatmentInstances.Add(nomTraitementRaccourci, instanceDeTraitement);
+                }
+
+                foreach(var traitementInstance in allTreatmentInstances)
+                {
+                    if (nomTraitement == "all" || traitementInstance.Key.Contains(nomTraitement))
+                    {
+                        traitement = traitementInstance.Value;
+                        traitement?.Execute();
+                        traitement?.Display(typeOutput, nomBD);
+                    }
+                }
+            }            
         }
         static void Main(string[] args)
         {
@@ -126,17 +102,7 @@ namespace ProjetManhattan
                 importConfig = new BaseConfig(fichierConfig);
                 importConfig.dateTraitement = dateDebutTraitementsValue;
                 Console.WriteLine(importConfig.dateTraitement);
-                if (choixTraitementValue.Equals("all"))
-                {
-                    foreach (var traitement in Enum.GetValues(typeof(NomsTraitements)))
-                    { 
-                        miniMenu(traitement.ToString(), importConfig!, choixOutputValue, nomBDresultValue);
-                    }
-                }
-                else
-                {
                     miniMenu(choixTraitementValue, importConfig, choixOutputValue, nomBDresultValue);
-                }
             }, choixTraitement, choixOutput, nomBDResult, configFileName, dateDebutTraitements);
 
             Command exporterVersZabbix = new Command("toZabbix", "exporter le resultat d'un traitement en bd");
@@ -204,17 +170,6 @@ namespace ProjetManhattan
                     Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue));
 
                 }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine, dateValue);
-            //////ATTENTION A RETIRER ///////////////////
-            Command tests = new Command(
-                name: "test");
-            rootCommand.AddCommand(tests);
-            tests.SetHandler(() =>
-            {
-                TestsReflexivite test = new TestsReflexivite();
-                test.GetTest();
-            }
-            );
-            /////////////////////////////////////////////
             rootCommand.Invoke(args);
         }
     }
