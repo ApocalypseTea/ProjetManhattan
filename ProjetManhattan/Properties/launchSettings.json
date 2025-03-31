@@ -48,10 +48,6 @@
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=LocalisationIp  --date=2025-02-17"
     },
-    "ttt StatIp date bd default": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=StatIp --date=17-02-2025"
-    },
     "ttt TempsRequete date bd default": {
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=TempsRequete --date=17-02-2025"
@@ -59,6 +55,10 @@
     "ttt all date console": {
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=all --nomOutput console --date=2025-03-23"
+    },
+    "ttt StatIp date console": {
+      "commandName": "Project",
+      "commandLineArgs": "ttt --nomTraitement=StatIp --date=17-02-2025 --nomOutput=console"
     }
   }
 }

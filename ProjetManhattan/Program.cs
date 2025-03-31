@@ -16,7 +16,7 @@ namespace ProjetManhattan
     {
         private static string fichierConfig;
         private static BaseConfig? importConfig = null;
-
+        private static Option<string> configFileName;
         public static void MiniMenu(string nomTraitement, BaseConfig importConfig, string typeOutput, string nomBD)
         {
             ITraitement? traitement = null;
@@ -60,9 +60,20 @@ namespace ProjetManhattan
         }
         static void Main(string[] args)
         {
-            //RootCommand : mettre dans une methode comme les autres
+            RootCommand rootCommand = GetRootCommandProjetManhattan();
+
+            Command effectuerTraitement = GetCommandTraitement(configFileName);
+            Command exporterVersZabbix = GetCommandExportToZabbix();
+
+            rootCommand.Add(effectuerTraitement);
+            rootCommand.Add(exporterVersZabbix);
+            rootCommand.Invoke(args);
+        }
+
+        private static RootCommand GetRootCommandProjetManhattan()
+        {
             RootCommand rootCommand = new RootCommand("K-Projet Manhattan");
-            Option<string> configFileName = new Option<string>(
+            configFileName = new Option<string>(
                  name: "--configFile",
                  description: "emplacement du nouveau fichier config JSON",
                  getDefaultValue: () => @"..\..\..\Ressources\config.json");
@@ -75,13 +86,7 @@ namespace ProjetManhattan
                 importConfig = new BaseConfig(fichierConfig);
             }, configFileName);
 
-            Command effectuerTraitement = GetCommandTraitement(configFileName);
-            Command exporterVersZabbix = GetCommandExportToZabbix();
-
-            rootCommand.Add(effectuerTraitement);
-            rootCommand.Add(exporterVersZabbix);
-            
-            rootCommand.Invoke(args);
+            return rootCommand;
         }
 
         private static Command GetCommandExportToZabbix()
