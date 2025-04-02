@@ -61,7 +61,6 @@ namespace ProjetManhattan
         static void Main(string[] args)
         {
             RootCommand rootCommand = GetRootCommandProjetManhattan();
-
             Command effectuerTraitement = GetCommandTraitement(configFileName);
             Command exporterVersZabbix = GetCommandExportToZabbix();
 
@@ -92,11 +91,11 @@ namespace ProjetManhattan
         private static Command GetCommandExportToZabbix()
         {
             Command exporterVersZabbix = new Command("toZabbix", "exporter le resultat d'un traitement en bd");
-            Argument<string> nomBDorigine = new Argument<string>(
-                name: "nomBaseDonnee",
+            Option<string> nomBDorigine = new Option<string>(
+                name: "--output",
                 description: "Nom de la base de donnée dont il faut exporter les resultats",
                 getDefaultValue: () => "resultatTraitement.db");
-            exporterVersZabbix.AddArgument(nomBDorigine);
+            exporterVersZabbix.AddOption(nomBDorigine);
 
             Option<string> traitementChoisi = new Option<string>(
                 name: "--traitement",
@@ -105,17 +104,17 @@ namespace ProjetManhattan
             exporterVersZabbix.AddOption(traitementChoisi);
 
             Option<DateTime> dateDebutExport = new Option<DateTime>(
-                    name: "--debutPeriode",
-                    description: "Date de debut de periode de traitement a exporter"
+                name: "--debutPeriode",
+                description: "Date de debut de periode de traitement a exporter"
                 );
             dateDebutExport.IsRequired = true;
             exporterVersZabbix.AddOption(dateDebutExport);
 
             Option<DateTime> dateFinExport = new Option<DateTime>(
-                        name: "--finPeriode",
-                        description: "Date de fin de periode de traitement a exporter",
-                        getDefaultValue: () => DateTime.Now
-                    );
+                name: "--finPeriode",
+                description: "Date de fin de periode de traitement a exporter",
+                getDefaultValue: () => DateTime.Now
+                );
             dateFinExport.IsRequired = true;
             exporterVersZabbix.AddOption(dateFinExport);
 
@@ -132,11 +131,11 @@ namespace ProjetManhattan
             return exporterVersZabbix;
         }
 
-        private static Command GetSubCommandGetValue(Argument<string> nomBDorigine)
+        private static Command GetSubCommandGetValue(Option<string> nomBDorigine)
         {
             Command getValue = new Command(name: "getValue", description: "recuperer la derniere valeur d'un ensemble Traitement-Target-PropertyName");
             Option<string> nomTraitement = new Option<string>(
-                name: "--nomTraitement",
+                name: "--traitement",
                 description: "nom du traitement dont la value est recherchee");
             nomTraitement.IsRequired = true;
             getValue.AddOption(nomTraitement);
@@ -152,7 +151,7 @@ namespace ProjetManhattan
             getValue.AddOption(nomPropertyName);
 
             Option<DateTime> dateValue = new Option<DateTime>(
-                name: "--_date",
+                name: "--date",
                 description: "Date a laquelle la Value est a rechercher",
                 getDefaultValue: () => DateTime.Now);
             getValue.AddOption(dateValue);

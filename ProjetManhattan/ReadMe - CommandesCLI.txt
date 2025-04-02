@@ -1,7 +1,7 @@
 ﻿ProjetManhattan
 	- --configFile (option required) (default = ..\..\..\Ressources\config.json")
-	- ttt (command)
-		- --nomTraitement (option required)
+	- traitement (command)
+		- --traitement (option required)
 			- *StatIp
 			- *TempsRequete
 			- *URL
@@ -9,17 +9,14 @@
 			- *ValidationInterne
 			- *ChangementIdentite
 			- *ValidateurAbsent
-		- --nomOutput (option)
+		- --outputFormat (option)
 			- *bd (default)
-				- *nomBaseDonnée (arg) (default = resultatTraitement)
-				(pas besoin de mettre d'extension de fichier, ajout de .db automatique)
 			- *console
+		- --output (option) (default = resultatTraitement) (pas besoin de mettre d'extension de fichier, ajout de .db automatique)
 		- --date (option)(default DateTime.Now)
 	- toZabbix (command)
-			Note : L'ordre entre option et argument n'a pas d'importance ;)
-		- *nomBaseDonnee (arg) 
-			- *resultatTraitement.db (default)
-		- --nomTraitement (option required) 
+		- --output (option) resultatTraitement.db (default)
+		- --traitement (option required) 
 			- *StatIp
 			- *TempsRequete
 			- *URL
@@ -32,7 +29,7 @@
 		- --finPeriode (option required) (default DateTime.Now)
 
 		- getValue (subcommand)
-			- --nomTraitement (option required)
+			- --traitement (option required)
 				- *BrisGlace
 				- *StatIP
 				- *TempsRequete
