@@ -99,7 +99,7 @@ namespace ProjetManhattan
             exporterVersZabbix.AddArgument(nomBDorigine);
 
             Option<string> traitementChoisi = new Option<string>(
-                name: "--nomTraitement",
+                name: "--traitement",
                 description: "Traitement à exporter en JSON");
             traitementChoisi.IsRequired = true;
             exporterVersZabbix.AddOption(traitementChoisi);
@@ -172,22 +172,22 @@ namespace ProjetManhattan
             Command effectuerTraitement = new Command("traitement", "Effectuer un traitement");
             
             Option<string> choixTraitement = new Option<string>(
-                name: "--nomTraitement",
+                name: "--traitement",
                 description: "nom du traitement choisi");
             choixTraitement.IsRequired = true;
             effectuerTraitement.AddOption(choixTraitement);
 
             Option<string> choixOutput = new Option<string>(
-                name: "--nomOutput",
+                name: "--outputFormat",
                 description: "nom du type d'export des données traitées",
                 getDefaultValue: () => "bd");
             effectuerTraitement.AddOption(choixOutput);
 
-            Argument<string> nomBDResult = new Argument<string>(
-                name: "nomBaseDonnee",
+            Option<string> nomBDResult = new Option<string>(
+                name: "--output",
                 description: "Nom de la base de donnée qui recevra les resultats du traitement",
                 getDefaultValue: () => "resultatTraitement");
-            effectuerTraitement.AddArgument(nomBDResult);
+            effectuerTraitement.AddOption(nomBDResult);
 
             Option<DateTime> dateDebutTraitements = new Option<DateTime>(
                 name: "--date",
