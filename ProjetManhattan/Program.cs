@@ -169,7 +169,7 @@ namespace ProjetManhattan
 
         private static Command GetCommandTraitement(Option<string> configFileName)
         {
-            Command effectuerTraitement = new Command("ttt", "Effectuer un traitement");
+            Command effectuerTraitement = new Command("traitement", "Effectuer un traitement");
             
             Option<string> choixTraitement = new Option<string>(
                 name: "--nomTraitement",
