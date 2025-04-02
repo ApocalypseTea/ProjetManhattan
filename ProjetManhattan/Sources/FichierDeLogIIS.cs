@@ -13,6 +13,12 @@ namespace ProjetManhattan.Sources
         private string _cheminDeFichier;
         private string[] _lignes;
         private int _currentLine;
+
+        static FichierDeLogIIS()
+        {
+            Console.WriteLine("FichierDeLogIIS");  
+        }
+
         public FichierDeLogIIS(BaseConfig config)
         {
             _cheminDeFichier = GetCheminFichierLogAndModifyingDate(config);
@@ -28,7 +34,17 @@ namespace ProjetManhattan.Sources
                         .Replace("YY", config.DateTraitement.ToString("yy"))
                         .Replace("MM", config.DateTraitement.ToString("MM"))
                         .Replace("DD", config.DateTraitement.ToString("dd"));
-            return fileName;
+
+            //Verification de l'existence du fichier
+            if (!File.Exists(fileName))
+            {
+                Console.WriteLine($"Le fichier de log {fileName} n'existe pas");
+                throw new TraitementExecutionException($"Le fichier de log {fileName} n'existe pas");
+            }
+            else
+            {
+                return fileName;
+            }
         }
 
         public bool HasLines()

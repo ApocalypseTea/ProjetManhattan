@@ -42,9 +42,37 @@ namespace ProjetManhattan
 
                 foreach (ConstructorInfo constructor in constructors)
                 {
-                    ITraitement instanceDeTraitement = (ITraitement)constructor.Invoke(parametreTraitement);
-                    string nomTraitementRaccourci = instanceDeTraitement.Name;
-                    allTreatments.Add(nomTraitementRaccourci, instanceDeTraitement);
+                    try
+                    {
+                        ITraitement instanceDeTraitement = (ITraitement)constructor.Invoke(parametreTraitement);
+                        string nomTraitementRaccourci = instanceDeTraitement.Name;
+                        allTreatments.Add(nomTraitementRaccourci, instanceDeTraitement);
+                    }
+                    catch (TargetInvocationException ex)
+                    {
+                        if (ex.InnerException.GetType() == typeof(TraitementExecutionException))
+                        {
+                            Console.WriteLine(ex.InnerException.Message);
+                            Console.WriteLine(ex.InnerException.InnerException);
+                            Console.WriteLine($"Traitement {typeTraitement.Name} non instancié. Ignoré.");
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    //catch (Exception ex)
+                    //{
+                    //    Console.WriteLine(ex.Message);
+                    //    Console.WriteLine(ex.InnerException);
+                    //    Console.WriteLine($"Traitement {typeTraitement.Name} non instancié. Ignoré.");
+                    //}
+                    //finally
+                    //{
+
+                    //}
+                  
+                  
                 }              
             }
 
