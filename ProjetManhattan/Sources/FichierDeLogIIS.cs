@@ -14,10 +14,10 @@ namespace ProjetManhattan.Sources
         private string[] _lignes;
         private int _currentLine;
 
-        static FichierDeLogIIS()
-        {
-            Console.WriteLine("FichierDeLogIIS");  
-        }
+        //static FichierDeLogIIS()
+        //{
+        //    Console.WriteLine("FichierDeLogIIS");  
+        //}
 
         public FichierDeLogIIS(BaseConfig config)
         {

@@ -9,6 +9,7 @@ using System.CommandLine;
 using System.Threading.Tasks;
 using ProjetManhattan.Formatages;
 using System.Reflection;
+using Microsoft.Data.SqlClient;
 
 namespace ProjetManhattan
 {
@@ -61,18 +62,6 @@ namespace ProjetManhattan
                             throw;
                         }
                     }
-                    //catch (Exception ex)
-                    //{
-                    //    Console.WriteLine(ex.Message);
-                    //    Console.WriteLine(ex.InnerException);
-                    //    Console.WriteLine($"Traitement {typeTraitement.Name} non instancié. Ignoré.");
-                    //}
-                    //finally
-                    //{
-
-                    //}
-                  
-                  
                 }              
             }
 
@@ -80,9 +69,18 @@ namespace ProjetManhattan
             {
                 if (nomTraitement == "all" || traitementInstance.Key.Contains(nomTraitement))
                 {
-                    traitement = traitementInstance.Value;
-                    traitement?.Execute();
-                    traitement?.Display(typeOutput, nomBD);
+                    try
+                    {
+                        traitement = traitementInstance.Value;
+                        traitement?.Execute();
+                        traitement?.Display(typeOutput, nomBD);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        Console.WriteLine(ex.InnerException);
+                        Console.WriteLine($"Traitement {traitementInstance.Key} non instancié. Ignoré.");
+                    }
                 }
             }
         }

@@ -45,7 +45,7 @@ namespace ProjetManhattan.Traitements
             int colLabel = reader.GetOrdinal("label");
             int colValue = reader.GetOrdinal("value");
             int colNbPatient = reader.GetOrdinal("nb_patient_brise_glace");
-            int colDate = reader.GetOrdinal("_date");
+            int colDate = reader.GetOrdinal("date");
 
             long profilRef = reader.GetInt64(colProfilRef);
             string prenom = reader.GetString(colPrenom);

@@ -36,10 +36,6 @@
       "commandName": "Project",
       "commandLineArgs": "toZabbix --nomTraitement=URL --debutPeriode=20-03-2025 --finPeriode=20-03-2025"
     },
-    "ttt BrisGlace date bd default": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=BrisGlace --date=2019-12-24"
-    },
     "toZabbix getValue LocalisationIp": {
       "commandName": "Project",
       "commandLineArgs": "toZabbix getValue --nomTraitement=StatIp --nomTarget=217.109.150.133 --nomPropertyName=OrigineGeographique --date=17-02-2025"
@@ -63,6 +59,10 @@
     "traitement StatIp date console": {
       "commandName": "Project",
       "commandLineArgs": "traitement --traitement=StatIp --date=17-02-2022 --outputFormat=console"
+    },
+    "traitement BrisGlace date console": {
+      "commandName": "Project",
+      "commandLineArgs": "traitement --traitement=BrisGlace --outputFormat=console --date=2025-03-23"
     }
   }
 }
