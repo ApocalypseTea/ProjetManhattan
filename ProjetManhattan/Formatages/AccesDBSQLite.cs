@@ -27,11 +27,11 @@ namespace ProjetManhattan.Formatages
                 connection.Open();
                 Console.WriteLine("Connecté à la BD SQLite");
 
-                string creationTableRecord = "CREATE TABLE IF NOT EXISTS _record (" +
+                string creationTableRecord = "CREATE TABLE IF NOT EXISTS record (" +
                    "idRecord INTEGER PRIMARY KEY," +
                    "traitement TEXT NOT NULL,"+
                    "target TEXT NOT NULL," +
-                   "_date TEXT," +
+                   "date TEXT," +
                    "value TEXT," +
                    "propertyName TEXT," +
                    "description TEXT" +

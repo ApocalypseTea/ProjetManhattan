@@ -52,13 +52,17 @@
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=TempsRequete --date=17-02-2025"
     },
-    "ttt all date console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=all --nomOutput console --date=2025-03-23"
-    },
     "ttt StatIp date console": {
       "commandName": "Project",
       "commandLineArgs": "ttt --nomTraitement=StatIp --date=17-02-2025 --nomOutput=console"
+    },
+    "traitement all date console": {
+      "commandName": "Project",
+      "commandLineArgs": "traitement --traitement=all --outputFormat console --date=2025-03-23"
+    },
+    "traitement all date bd testavril1": {
+      "commandName": "Project",
+      "commandLineArgs": "traitement --traitement=all --outputFormat=bd --output=testavril1 --date=2025-03-23"
     }
   }
 }

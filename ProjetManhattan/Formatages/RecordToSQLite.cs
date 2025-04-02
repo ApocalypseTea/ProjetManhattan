@@ -17,7 +17,7 @@ namespace ProjetManhattan.Formatages
 
         public void AddRecordToDataBase(SqliteConnection connection)
         {
-            string requete = "INSERT INTO _record (traitement, target, _date, value, propertyName, description)" +
+            string requete = "INSERT INTO record (traitement, target, date, value, propertyName, description)" +
                 $"VALUES (@Traitement, @Target, @Date, @Value, @PropertyName, @Description);"
                 ;
 
