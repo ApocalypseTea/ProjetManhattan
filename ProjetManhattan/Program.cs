@@ -47,7 +47,7 @@ namespace ProjetManhattan
                     {
                         ITraitement instanceDeTraitement = (ITraitement)constructor.Invoke(parametreTraitement);
                         string nomTraitementRaccourci = instanceDeTraitement.Name;
-                        allTreatments.Add(nomTraitementRaccourci, instanceDeTraitement);
+                        allTreatments.Add(nomTraitementRaccourci.ToLower(), instanceDeTraitement);
                     }
                     catch (TargetInvocationException ex)
                     {
@@ -67,7 +67,7 @@ namespace ProjetManhattan
 
             foreach (var traitementInstance in allTreatments)
             {
-                if (nomTraitement == "all" || traitementInstance.Key.Contains(nomTraitement))
+                if (nomTraitement.ToLower() == "all" || traitementInstance.Key.Contains(nomTraitement.ToLower()))
                 {
                     try
                     {
@@ -147,7 +147,7 @@ namespace ProjetManhattan
             exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue, dateDebutExportValue, dateFinExportValue) =>
             {
                 SQLiteToZabbix transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, dateDebutExportValue, dateFinExportValue);
-                //Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue));
+                Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue));
             }, nomBDorigine, traitementChoisi, dateDebutExport, dateFinExport);
 
             Command getValue = GetSubCommandGetValue(nomBDorigine);
@@ -185,7 +185,7 @@ namespace ProjetManhattan
             getValue.SetHandler((nomTraitementValue, nomTargetValue, nomPropertyNameValue, nomBDOrigineValue, dateValueValue) =>
             {
                 SQLiteToZabbix transfertToZabbix = new SQLiteToZabbix(nomBDOrigineValue, dateValueValue, dateValueValue);
-                //Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue));
+                Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue));
 
             }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine, dateValue);
 

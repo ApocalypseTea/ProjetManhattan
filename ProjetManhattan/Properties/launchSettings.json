@@ -50,7 +50,7 @@
     },
     "traitement all date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=all --outputFormat console --date=2025-03-23"
+      "commandLineArgs": "traitement --traitement=ALL --outputFormat console --date=2025-03-23"
     },
     "traitement all date bd testavril1": {
       "commandName": "Project",
@@ -58,7 +58,7 @@
     },
     "traitement StatIp date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=StatIp --date=17-02-2022 --outputFormat=console"
+      "commandLineArgs": "traitement --traitement=STATIP --date=17-02-2025 --outputFormat=console"
     },
     "traitement BrisGlace date console": {
       "commandName": "Project",
