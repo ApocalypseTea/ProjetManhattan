@@ -166,8 +166,8 @@ namespace ProjetManhattan
             nomTraitement.IsRequired = true;
             getValue.AddOption(nomTraitement);
             Option<string> nomTarget = new Option<string>(
-                name: "--nomTarget",
-                description: "nom du Target dont la value est recherchée");
+                name: "--target",
+                description: "nom de la Target dont la value est recherchée");
             nomTarget.IsRequired = true;
             getValue.AddOption(nomTarget);
             Option<string> nomPropertyName = new Option<string>(
