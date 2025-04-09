@@ -171,7 +171,7 @@ namespace ProjetManhattan
             nomTarget.IsRequired = true;
             getValue.AddOption(nomTarget);
             Option<string> nomPropertyName = new Option<string>(
-                name: "--nomPropertyName",
+                name: "--propertyName",
                 description: "nom de la PropertyName dont la value est recherchée");
             nomPropertyName.IsRequired = true;
             getValue.AddOption(nomPropertyName);
