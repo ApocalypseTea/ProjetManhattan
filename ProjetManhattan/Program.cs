@@ -64,7 +64,7 @@ namespace ProjetManhattan
                     }
                 }              
             }
-
+            bool isTraitementDone = false;
             foreach (var traitementInstance in allTreatments)
             {
                 if (nomTraitement.ToLower() == "all" || traitementInstance.Key.Contains(nomTraitement.ToLower()))
@@ -74,6 +74,7 @@ namespace ProjetManhattan
                         traitement = traitementInstance.Value;
                         traitement?.Execute();
                         traitement?.Display(typeOutput, nomBD);
+                        isTraitementDone = true;
                     }
                     catch (Exception ex)
                     {
@@ -81,6 +82,16 @@ namespace ProjetManhattan
                         Console.WriteLine(ex.InnerException);
                         Console.WriteLine($"Traitement {traitementInstance.Key} non instancié. Ignoré.");
                     }
+                } 
+            }
+
+            if (!isTraitementDone)
+            {
+                Console.WriteLine($"Oops, le traitement {nomTraitement} n'existe pas.");
+                Console.WriteLine("Par contre, vous pouvez choisir parmi les traitements : ");
+                foreach (var oneTraitement in allTreatments)
+                {
+                    Console.WriteLine($"- {oneTraitement.Key}");
                 }
             }
         }

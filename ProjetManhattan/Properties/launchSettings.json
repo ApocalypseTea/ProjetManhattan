@@ -58,7 +58,7 @@
     },
     "traitement StatIp date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=STATIP --date=17-02-2025 --outputFormat=console"
+      "commandLineArgs": "traitement --traitement=STAToP --date=17-02-2025 --outputFormat=console"
     },
     "traitement BrisGlace date console": {
       "commandName": "Project",
