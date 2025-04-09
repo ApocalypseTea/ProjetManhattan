@@ -14,7 +14,11 @@ namespace ProjetManhattan.Formatages
 {
     class SQLiteToZabbix
     {
-        private const string QUERY = "SELECT DISTINCT traitement, target, date, propertyName, description FROM record WHERE traitement=@traitement AND date BETWEEN @debutExport AND @finExport;";
+        private const string QUERY = "SELECT DISTINCT traitement, target, date, propertyName, description " +
+            "FROM record " +
+            "WHERE traitement=@traitement COLLATE NOCASE" +
+            "AND date " +
+            "BETWEEN @debutExport AND @finExport;";
         private List<ZabbixData> _zabbixListe;
         private SqliteConnection _connection;
         private DateTime _dateDebutExport;
@@ -73,7 +77,7 @@ namespace ProjetManhattan.Formatages
         }
         public string GetValueFromTraitementTargetPropertyName (string nomTraitement, string nomTarget, string nomPropertyName)
         {
-            string query = "SELECT value FROM record WHERE traitement = @traitement AND target = @target AND propertyName = @propertyName GROUP BY date HAVING date = MAX(date);";
+            string query = "SELECT value FROM record WHERE traitement = @traitement COLLATE NOCASE AND target = @target COLLATE NOCASE AND propertyName = @propertyName COLLATE NOCASE GROUP BY date HAVING date = MAX(date);";
             SqliteCommand requete = new SqliteCommand(query, _connection);
 
             requete.Parameters.AddWithValue("@traitement", nomTraitement);
