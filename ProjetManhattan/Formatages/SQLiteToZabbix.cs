@@ -67,7 +67,6 @@ namespace ProjetManhattan.Formatages
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
-                
             };
 
             return JsonConvert.SerializeObject(_zabbixListe, settings);

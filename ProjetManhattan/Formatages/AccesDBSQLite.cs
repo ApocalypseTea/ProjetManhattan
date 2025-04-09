@@ -25,7 +25,7 @@ namespace ProjetManhattan.Formatages
                 SqliteConnection connection = new SqliteConnection(connectionString);
             
                 connection.Open();
-                Console.WriteLine("Connecté à la BD SQLite");
+                //Console.WriteLine("Connecté à la BD SQLite");
 
                 string creationTableRecord = "CREATE TABLE IF NOT EXISTS record (" +
                    "idRecord INTEGER PRIMARY KEY," +

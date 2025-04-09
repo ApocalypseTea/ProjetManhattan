@@ -16,7 +16,6 @@ namespace ProjetManhattan.Traitements
             get
             {
                 return "ValidateurAbsent";
-
             } 
         }
         public TraitementValidateurRCPnonPresentSQL(BaseConfig config) : base(config)
