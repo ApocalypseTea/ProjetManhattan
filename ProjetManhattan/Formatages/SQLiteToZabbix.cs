@@ -40,26 +40,8 @@ namespace ProjetManhattan.Formatages
         }
         public string GetJSONToZabbix(string nomTraitement, BaseConfig importConfig)
         {
-            GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(importConfig);
-
-            bool isRealTreatment = false;
-            
-            foreach (var nomDeTraitementExistants in generationNomTraitement.AllTreatments.Keys)
+            if (IsValidTraitement(nomTraitement, importConfig) == null)
             {
-                if ((nomTraitement.ToLower()).Equals(nomDeTraitementExistants))
-                {
-                    isRealTreatment = true;
-                }
-            }
-
-            if (isRealTreatment == false)
-            {
-                Console.WriteLine($"Erreur : le nom du traitement {nomTraitement} est incorrect.");
-                Console.WriteLine("Traitements existants :");
-                foreach (var nomDeTraitementExistants in generationNomTraitement.AllTreatments.Keys)
-                {
-                    Console.WriteLine($"- {nomDeTraitementExistants}");
-                }
                 return null;
             }
 
@@ -95,8 +77,13 @@ namespace ProjetManhattan.Formatages
 
             return JsonConvert.SerializeObject(_zabbixListe, settings);
         }
-        public string GetValueFromTraitementTargetPropertyName (string nomTraitement, string nomTarget, string nomPropertyName)
+        public string GetValueFromTraitementTargetPropertyName (string nomTraitement, string nomTarget, string nomPropertyName, BaseConfig importConfig)
         {
+            if (IsValidTraitement(nomTraitement, importConfig) == null)
+            {
+                return null;
+            }
+
             string query = "SELECT value FROM record WHERE traitement = @traitement COLLATE NOCASE AND target = @target COLLATE NOCASE AND propertyName = @propertyName COLLATE NOCASE GROUP BY date HAVING date = MAX(date);";
             SqliteCommand requete = new SqliteCommand(query, _connection);
 
@@ -114,5 +101,39 @@ namespace ProjetManhattan.Formatages
             }
             return value;
         }
+
+        public static string IsValidTraitement(string nomTraitement, BaseConfig importConfig)
+        {
+            GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(importConfig);
+
+            bool isRealTreatment = false;
+
+            foreach (var nomDeTraitementExistants in generationNomTraitement.AllTreatments.Keys)
+            {
+                if ((nomTraitement.ToLower()).Equals(nomDeTraitementExistants))
+                {
+                    isRealTreatment = true;
+                }
+            }
+
+            if (isRealTreatment == false)
+            {
+                Console.WriteLine($"Erreur : le nom du traitement {nomTraitement} est incorrect.");
+                Console.WriteLine("Traitements existants :");
+                foreach (var nomDeTraitementExistants in generationNomTraitement.AllTreatments.Keys)
+                {
+                    Console.WriteLine($"- {nomDeTraitementExistants}");
+                }
+                return null;
+            }
+
+            else
+            {
+                return nomTraitement;
+            }
+        }
+
+
+
     }
 }

@@ -192,19 +192,22 @@ namespace ProjetManhattan
                 description: "nom de la PropertyName dont la value est recherchée");
             nomPropertyName.IsRequired = true;
             getValue.AddOption(nomPropertyName);
-
             Option<DateTime> dateValue = new Option<DateTime>(
                 name: "--date",
                 description: "Date a laquelle la Value est a rechercher",
                 getDefaultValue: () => DateTime.Now);
             getValue.AddOption(dateValue);
 
-            getValue.SetHandler((nomTraitementValue, nomTargetValue, nomPropertyNameValue, nomBDOrigineValue, dateValueValue) =>
+            getValue.SetHandler((nomTraitementValue, nomTargetValue, nomPropertyNameValue, nomBDOrigineValue, dateValueValue, configFileNameValue) =>
             {
                 SQLiteToZabbix transfertToZabbix = new SQLiteToZabbix(nomBDOrigineValue, dateValueValue, dateValueValue);
-                Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue));
+                fichierConfig = configFileNameValue;
+                importConfig = new BaseConfig(fichierConfig);
+                importConfig.DateTraitement = dateValueValue;
 
-            }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine, dateValue);
+                Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue, importConfig));
+
+            }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine, dateValue, configFileName);
 
             return getValue;
         }

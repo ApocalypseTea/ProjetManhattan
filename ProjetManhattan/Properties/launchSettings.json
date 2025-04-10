@@ -6,23 +6,11 @@
     },
     "toZabbix ttt StatIp": {
       "commandName": "Project",
-      "commandLineArgs": "toZabbix --traitement=LocalisationIp --debutPeriode=2025-03-22 --finPeriode=2025-03-22"
+      "commandLineArgs": "toZabbix --traitement=LocalISationIp --debutPeriode=2025-03-22 --finPeriode=2025-03-22"
     },
     "WSL": {
       "commandName": "WSL2",
       "distributionName": ""
-    },
-    "ttt ChgtNaissance date console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=ModificationDateNaissance --nomOutput console --date=2023-03-10"
-    },
-    "ttt ChgtId date Console": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=ChangementIdentite  --nomOutput console --date=2025-03-10"
-    },
-    "ttt URL date bd default": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=URL --date=17-02-2025"
     },
     "ttt ValidateurAbsent bd default date": {
       "commandName": "Project",
@@ -34,7 +22,7 @@
     },
     "toZabbix getValue LocalisationIp": {
       "commandName": "Project",
-      "commandLineArgs": "toZabbix getValue --nomTraitement=StatIp --nomTarget=217.109.150.133 --nomPropertyName=OrigineGeographique --date=17-02-2025"
+      "commandLineArgs": "toZabbix getValue --traitement=Statip --target=217.109.150.133 --propertyName=OrigineGeographique --date=17-02-2025"
     },
     "ttt localisationIP date bd default": {
       "commandName": "Project",
