@@ -46,7 +46,15 @@ namespace ProjetManhattan.Formatages
             //pseudo Code pour l'idée - à revoir pour utiliser la reflexivité
             //1. recuperer les noms de traitements existants
             GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(importConfig);
-            if (String.IsNullOrEmpty(nomTraitement) || !(nomTraitement.Equals(generationNomTraitement.AllTreatments.Keys)))
+            bool isExistantTraitement = false;
+            foreach (var nomDeTraitementExistants in generationNomTraitement.AllTreatments.Keys)
+            {
+                if (!String.IsNullOrEmpty(nomTraitement) || ((nomTraitement.ToLower()).Equals(generationNomTraitement.AllTreatments.Keys)))
+                {
+                    isExistantTraitement = true;
+                }
+            }
+            if (!isExistantTraitement)
             {
                 Console.WriteLine($"Erreur : le nom du traitement {nomTraitement} est incorrect.");
                 Console.WriteLine("Traitements existants :");
