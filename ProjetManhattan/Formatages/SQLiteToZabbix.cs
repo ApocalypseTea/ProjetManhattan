@@ -15,10 +15,7 @@ namespace ProjetManhattan.Formatages
 {
     class SQLiteToZabbix
     {
-        private const string QUERY = "SELECT DISTINCT traitement, target, date, propertyName, description " +
-            "FROM record " +
-            "WHERE traitement=@traitement COLLATE NOCASE" +
-            "AND date BETWEEN @debutExport AND @finExport;";
+        private const string QUERY = "SELECT DISTINCT traitement, target, date, propertyName, description FROM record WHERE traitement=@traitement COLLATE NOCASE AND date BETWEEN @debutExport AND @finExport;";
         private List<ZabbixData> _zabbixListe;
         private SqliteConnection _connection;
         private DateTime _dateDebutExport;
@@ -43,18 +40,19 @@ namespace ProjetManhattan.Formatages
         }
         public string GetJSONToZabbix(string nomTraitement, BaseConfig importConfig)
         {
-            //pseudo Code pour l'idée - à revoir pour utiliser la reflexivité
-            //1. recuperer les noms de traitements existants
             GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(importConfig);
-            bool isExistantTraitement = false;
+
+            bool isRealTreatment = false;
+            
             foreach (var nomDeTraitementExistants in generationNomTraitement.AllTreatments.Keys)
             {
-                if (!String.IsNullOrEmpty(nomTraitement) || ((nomTraitement.ToLower()).Equals(generationNomTraitement.AllTreatments.Keys)))
+                if ((nomTraitement.ToLower()).Equals(nomDeTraitementExistants))
                 {
-                    isExistantTraitement = true;
+                    isRealTreatment = true;
                 }
             }
-            if (!isExistantTraitement)
+
+            if (isRealTreatment == false)
             {
                 Console.WriteLine($"Erreur : le nom du traitement {nomTraitement} est incorrect.");
                 Console.WriteLine("Traitements existants :");
