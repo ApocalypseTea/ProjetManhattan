@@ -6,11 +6,7 @@
     },
     "toZabbix ttt StatIp": {
       "commandName": "Project",
-      "commandLineArgs": "toZabbix --nomTraitement=StatIp"
-    },
-    "toZabbix ttt Bris Glace": {
-      "commandName": "Project",
-      "commandLineArgs": "toZabbix --nomTraitement=BrisGlace "
+      "commandLineArgs": "toZabbix --traitement=LocalisationIp --debutPeriode=22-03-2025 --finPeriode=22-03-2025"
     },
     "WSL": {
       "commandName": "WSL2",
@@ -58,7 +54,7 @@
     },
     "traitement StatIp date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=STAToP --date=17-02-2025 --outputFormat=console"
+      "commandLineArgs": "traitement --traitement=STATiP --date=17-02-2025 --outputFormat=console"
     },
     "traitement BrisGlace date console": {
       "commandName": "Project",

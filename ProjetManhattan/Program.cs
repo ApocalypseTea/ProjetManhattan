@@ -28,44 +28,46 @@ namespace ProjetManhattan
                 traitement?.Execute();
                 traitement?.Display(typeOutput, nomBD);
             };
-            Dictionary<string, ITraitement> allTreatments = new Dictionary<string, ITraitement>();
+            /*
+            //Dictionary<string, ITraitement> allTreatments = new Dictionary<string, ITraitement>();
 
-            //var traitementsQuiImplemententItraitement = Assembly.GetExecutingAssembly().GetTypes().Where(l => l.IsClass && l.IsAssignableTo(typeof(ITraitement)));
-            //syntaxe Linq "officielle":
-            var traitementsQuiImplemententItraitement = from l in Assembly.GetExecutingAssembly().GetTypes()
-                                                        where l.IsClass && l.IsAssignableTo(typeof(ITraitement))
-                                                        select l;
+            //var traitementsQuiImplemententItraitement = from l in Assembly.GetExecutingAssembly().GetTypes()
+            //                                            where l.IsClass && l.IsAssignableTo(typeof(ITraitement))
+            //                                            select l;
 
-            //Instancier tous les traitements
-            foreach (Type typeTraitement in traitementsQuiImplemententItraitement)
-            {
-                ConstructorInfo[] constructors = typeTraitement.GetConstructors();
+            ////Instancier tous les traitements
+            //foreach (Type typeTraitement in traitementsQuiImplemententItraitement)
+            //{
+            //    ConstructorInfo[] constructors = typeTraitement.GetConstructors();
 
-                foreach (ConstructorInfo constructor in constructors)
-                {
-                    try
-                    {
-                        ITraitement instanceDeTraitement = (ITraitement)constructor.Invoke(parametreTraitement);
-                        string nomTraitementRaccourci = instanceDeTraitement.Name;
-                        allTreatments.Add(nomTraitementRaccourci.ToLower(), instanceDeTraitement);
-                    }
-                    catch (TargetInvocationException ex)
-                    {
-                        if (ex.InnerException.GetType() == typeof(TraitementExecutionException))
-                        {
-                            Console.WriteLine(ex.InnerException.Message);
-                            Console.WriteLine(ex.InnerException.InnerException);
-                            Console.WriteLine($"Traitement {typeTraitement.Name} non instancié. Ignoré.");
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-                }              
-            }
+            //    foreach (ConstructorInfo constructor in constructors)
+            //    {
+            //        try
+            //        {
+            //            ITraitement instanceDeTraitement = (ITraitement)constructor.Invoke(parametreTraitement);
+            //            string nomTraitementRaccourci = instanceDeTraitement.Name;
+            //            allTreatments.Add(nomTraitementRaccourci.ToLower(), instanceDeTraitement);
+            //        }
+            //        catch (TargetInvocationException ex)
+            //        {
+            //            if (ex.InnerException.GetType() == typeof(TraitementExecutionException))
+            //            {
+            //                Console.WriteLine(ex.InnerException.Message);
+            //                Console.WriteLine(ex.InnerException.InnerException);
+            //                Console.WriteLine($"Traitement {typeTraitement.Name} non instancié. Ignoré.");
+            //            }
+            //            else
+            //            {
+            //                throw;
+            //            }
+            //        }
+            //    }              
+            //}
+            */
+
+            GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(importConfig);
             bool isTraitementDone = false;
-            foreach (var traitementInstance in allTreatments)
+            foreach (var traitementInstance in generationNomTraitement.AllTreatments)
             {
                 if (nomTraitement.ToLower() == "all" || traitementInstance.Key.Contains(nomTraitement.ToLower()))
                 {
@@ -89,7 +91,7 @@ namespace ProjetManhattan
             {
                 Console.WriteLine($"Oops, le traitement {nomTraitement} n'existe pas.");
                 Console.WriteLine("Par contre, vous pouvez choisir parmi les traitements : ");
-                foreach (var oneTraitement in allTreatments)
+                foreach (var oneTraitement in generationNomTraitement.AllTreatments)
                 {
                     Console.WriteLine($"- {oneTraitement.Key}");
                 }
@@ -155,11 +157,15 @@ namespace ProjetManhattan
             dateFinExport.IsRequired = true;
             exporterVersZabbix.AddOption(dateFinExport);
 
-            exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue, dateDebutExportValue, dateFinExportValue) =>
+            exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue, dateDebutExportValue, dateFinExportValue, configFileNameValue) =>
             {
+                fichierConfig = configFileNameValue;
+                importConfig = new BaseConfig(fichierConfig);
+                importConfig.DateTraitement = dateDebutExportValue;
+
                 SQLiteToZabbix transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, dateDebutExportValue, dateFinExportValue);
-                Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue));
-            }, nomBDorigine, traitementChoisi, dateDebutExport, dateFinExport);
+                Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue, importConfig));
+            }, nomBDorigine, traitementChoisi, dateDebutExport, dateFinExport, configFileName);
 
             Command getValue = GetSubCommandGetValue(nomBDorigine);
 
@@ -224,7 +230,7 @@ namespace ProjetManhattan
                 description: "Nom de la base de donnée qui recevra les resultats du traitement",
                 getDefaultValue: () => "resultatTraitement");
             effectuerTraitement.AddOption(nomBDResult);
-
+            
             Option<DateTime> dateDebutTraitements = new Option<DateTime>(
                 name: "--date",
                 description: "date à laquelle effectuer le ou les traitements",

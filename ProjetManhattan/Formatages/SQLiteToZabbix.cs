@@ -8,6 +8,7 @@ using Microsoft.Data.Sqlite;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+using ProjetManhattan.Configuration;
 using ProjetManhattan.Traitements;
 
 namespace ProjetManhattan.Formatages
@@ -17,8 +18,7 @@ namespace ProjetManhattan.Formatages
         private const string QUERY = "SELECT DISTINCT traitement, target, date, propertyName, description " +
             "FROM record " +
             "WHERE traitement=@traitement COLLATE NOCASE" +
-            "AND date " +
-            "BETWEEN @debutExport AND @finExport;";
+            "AND date BETWEEN @debutExport AND @finExport;";
         private List<ZabbixData> _zabbixListe;
         private SqliteConnection _connection;
         private DateTime _dateDebutExport;
@@ -41,8 +41,22 @@ namespace ProjetManhattan.Formatages
                 _dateFinExport = DateTime.Now;
             }
         }
-        public string GetJSONToZabbix(string nomTraitement)
+        public string GetJSONToZabbix(string nomTraitement, BaseConfig importConfig)
         {
+            //pseudo Code pour l'idée - à revoir pour utiliser la reflexivité
+            //1. recuperer les noms de traitements existants
+            GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(importConfig);
+            if (String.IsNullOrEmpty(nomTraitement) || !(nomTraitement.Equals(generationNomTraitement.AllTreatments.Keys)))
+            {
+                Console.WriteLine($"Erreur : le nom du traitement {nomTraitement} est incorrect.");
+                Console.WriteLine("Traitements existants :");
+                foreach (var nomDeTraitementExistants in generationNomTraitement.AllTreatments.Keys)
+                {
+                    Console.WriteLine($"- {nomDeTraitementExistants}");
+                }
+                return null;
+            }
+
             using (SqliteCommand requete = new SqliteCommand(QUERY, _connection))
             {
                 requete.Parameters.AddWithValue("@traitement", nomTraitement);
