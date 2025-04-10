@@ -131,7 +131,7 @@ namespace ProjetManhattan
         {
             Command exporterVersZabbix = new Command("toZabbix", "exporter le resultat d'un traitement en bd");
             Option<string> nomBDorigine = new Option<string>(
-                name: "--output",
+                name: "--input",
                 description: "Nom de la base de donnée dont il faut exporter les resultats",
                 getDefaultValue: () => "resultatTraitement.db");
             exporterVersZabbix.AddOption(nomBDorigine);

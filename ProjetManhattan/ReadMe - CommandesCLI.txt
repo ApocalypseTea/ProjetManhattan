@@ -15,7 +15,7 @@
 		- --output (option) (default = resultatTraitement) (pas besoin de mettre d'extension de fichier, ajout de .db automatique)
 		- --date (option)(default DateTime.Now)
 	- toZabbix (command)
-		- --output (option) resultatTraitement.db (default)
+		- --input (option) resultatTraitement.db (default)
 		- --traitement (option required) 
 			- *StatIp
 			- *TempsRequete
@@ -37,8 +37,9 @@
 				- *ValidationInterne
 				- *ChangementIdentite
 				- *ValidateurAbsent
+				- ...
 
-			- --nomTarget(option required)
+			- --target(option required)
 				- * ProfilID:5881         (exemple pour Bris glace)
 				- * 83.206.51.169         (exemple pour Stat Ip)
 				- * /rcp/Home/ScriptGetPreferencesForCurrentUser (exemple pour Temps Requete)
@@ -47,7 +48,7 @@
 				- * userIDModified:27336  (exemple pour Changement Identite User)
 				- * Validateur:2257       (exemple pour Validateur RCP absent)
 
-			- --nomPropertyName(option required)
+			- --propertyName(option required)
 				- *NbBrisGlace (pour Bris glace)
 				- *NbRequetes (pour Stat Ip)
 				- *TimeTaken (pour Temps Requete)
