@@ -12,7 +12,7 @@
 		- --outputFormat (option required)
 			- *bd
 			- *console
-		- --output (option) (pas besoin de mettre d'extension de fichier, ajout de .db automatique)
+		- --output (option)
 		- --date (option)(default DateTime.Now)
 	- toZabbix (command)
 		- --input (option required) 
