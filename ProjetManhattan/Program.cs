@@ -172,33 +172,63 @@ namespace ProjetManhattan
                 }
                
                 SQLiteToZabbix transfertVersZabbix;
-                if (dateDebutExportValue != default(DateTime))
+
+                //SI les 2 paramètres --date ET --debutPeriode sont entrés OU aucun des 2
+                if ((dateOnlyValue != default(DateTime) && dateDebutExportValue != default(DateTime)) || (dateOnlyValue == default(DateTime) && dateDebutExportValue == default(DateTime)))
                 {
-                    Console.WriteLine($"date debut export entree : {dateDebutExportValue}");
+                    Console.WriteLine("Erreur : entrer une date OU une periode pour l'extraction des informations");
+                    Console.WriteLine("--date : pour entrer une seule journée");
+                    Console.WriteLine("--debutPeriode : pour entrer le debut de la periode");
+                    Console.WriteLine("--finPeriode : pour entrer la fin de la periode (date par defaut = aujourd'hui)");
+                    return;
+                }
+                //Option RANGE de DATES
+                else if (dateDebutExportValue != default(DateTime))
+                {
+                    //Console.WriteLine($"date debut export entree : {dateDebutExportValue}");
                     importConfig.DateTraitement = dateDebutExportValue;
+
                     if (dateFinExportValue == default(DateTime))
                     {
                         Console.WriteLine("Option Date de fin non remplie. La periode s'etend donc jusqu'a aujourd'hui");
                         dateFinExportValue = DateTime.Now;
                     }
+
+                    if (dateFinExportValue > DateTime.Now)
+                    {
+                        Console.WriteLine("Erreur : Faille Spatio Temporelle");
+                        Console.WriteLine($"La date de fin {dateFinExportValue} est dans le futur");
+                        return;
+                    }
+                    if (dateDebutExportValue > DateTime.Now)
+                    {
+                        Console.WriteLine("Erreur : Faille Spatio Temporelle");
+                        Console.WriteLine($"La date {dateDebutExportValue} est dans le futur");
+                        return;
+                    }
+
                     if (dateDebutExportValue >= dateFinExportValue)
                     {
                         Console.WriteLine("Erreur : Faille Spatio Temporelle");
                         Console.WriteLine($"La date de début {dateDebutExportValue} est incompatible avec la date de fin {dateFinExportValue}");
                         return;
                     }
-
-
-                        transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, dateDebutExportValue, dateFinExportValue);
-                } 
+                    transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, dateDebutExportValue, dateFinExportValue);
+                }
+                //Option date seule rentrée
                 else if (dateOnlyValue != default(DateTime))
                 {
+                    if (dateOnlyValue > DateTime.Now)
+                    {
+                        Console.WriteLine("Erreur : Faille Spatio Temporelle");
+                        Console.WriteLine($"La date demandée {dateOnlyValue} est dans le futur");
+                        return;
+                    }
                     //Console.WriteLine($"date only entree : {dateOnlyValue}");
                     importConfig.DateTraitement = dateOnlyValue;
                     transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, dateOnlyValue);
-                } 
-                //SI les 2 paramètres --date ET --debutPeriode sont entrés OU aucun des 2
-                else if((dateOnlyValue != default(DateTime) && dateDebutExportValue !=default(DateTime)) || (dateOnlyValue == default(DateTime) && dateDebutExportValue == default(DateTime))) {
+                }
+                else
                 {
                     Console.WriteLine("Erreur : entrer une date OU une periode pour l'extraction des informations");
                     Console.WriteLine("--date : pour entrer une seule journée");
