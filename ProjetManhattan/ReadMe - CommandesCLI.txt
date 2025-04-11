@@ -9,13 +9,13 @@
 			- *ValidationInterne
 			- *ChangementIdentite
 			- *ValidateurAbsent
-		- --outputFormat (option)
-			- *bd (default)
+		- --outputFormat (option required)
+			- *bd
 			- *console
-		- --output (option) (default = resultatTraitement) (pas besoin de mettre d'extension de fichier, ajout de .db automatique)
+		- --output (option) (pas besoin de mettre d'extension de fichier, ajout de .db automatique)
 		- --date (option)(default DateTime.Now)
 	- toZabbix (command)
-		- --input (option) resultatTraitement.db (default)
+		- --input (option required) 
 		- --traitement (option required) 
 			- *StatIp
 			- *TempsRequete

@@ -18,7 +18,7 @@ namespace ProjetManhattan
         private static string fichierConfig;
         private static BaseConfig? importConfig = null;
         private static Option<string> configFileName;
-        public static void MiniMenu(string nomTraitement, BaseConfig importConfig, string typeOutput, string nomBD)
+        public static void MiniMenu(string nomTraitement, BaseConfig importConfig, string typeOutput, string? nomBD)
         {
             ITraitement? traitement = null;
             object[] parametreTraitement = { importConfig };
@@ -132,8 +132,8 @@ namespace ProjetManhattan
             Command exporterVersZabbix = new Command("toZabbix", "exporter le resultat d'un traitement en bd");
             Option<string> nomBDorigine = new Option<string>(
                 name: "--input",
-                description: "Nom de la base de donnée dont il faut exporter les resultats",
-                getDefaultValue: () => "resultatTraitement.db");
+                description: "Nom de la base de donnée dont il faut exporter les resultats");
+                nomBDorigine.IsRequired = true;
             exporterVersZabbix.AddOption(nomBDorigine);
 
             Option<string> traitementChoisi = new Option<string>(
@@ -224,14 +224,16 @@ namespace ProjetManhattan
 
             Option<string> choixOutput = new Option<string>(
                 name: "--outputFormat",
-                description: "nom du type d'export des données traitées",
-                getDefaultValue: () => "bd");
+                description: "nom du type d'export des données traitées"
+                ).FromAmong("bd", "console");
+            choixOutput.IsRequired = true;
             effectuerTraitement.AddOption(choixOutput);
-
+            
+            //Trouver une solution pour créer une conditionnelle SEULEMENT si le type de traitement est "bd"
             Option<string> nomBDResult = new Option<string>(
                 name: "--output",
-                description: "Nom de la base de donnée qui recevra les resultats du traitement",
-                getDefaultValue: () => "resultatTraitement");
+                description: "Nom de la base de donnée qui recevra les resultats du traitement"
+                );            
             effectuerTraitement.AddOption(nomBDResult);
             
             Option<DateTime> dateDebutTraitements = new Option<DateTime>(
@@ -247,6 +249,20 @@ namespace ProjetManhattan
                 importConfig = new BaseConfig(fichierConfig);
                 importConfig.DateTraitement = dateDebutTraitementsValue;
                 //Console.WriteLine(importConfig.DateTraitement);
+                if (choixOutputValue.Equals("bd"))
+                {
+                    if (nomBDresultValue == null)
+                    {
+                        Console.WriteLine("Erreur : le nom de la base de donnée n'est pas renseigné.");
+                        Console.WriteLine("Veuillez le renseigner avec l'option --output.");
+                        return;
+                    }
+                }
+                else
+                {
+                    nomBDresultValue = null;
+                }
+
                 MiniMenu(choixTraitementValue, importConfig, choixOutputValue, nomBDresultValue);
             }, choixTraitement, choixOutput, nomBDResult, configFileName, dateDebutTraitements);
 

@@ -12,29 +12,13 @@
       "commandName": "WSL2",
       "distributionName": ""
     },
-    "ttt ValidateurAbsent bd default date": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=ValidateurAbsent --date=2014-06-23"
-    },
-    "toZabbix ttt URL dateRange": {
-      "commandName": "Project",
-      "commandLineArgs": "toZabbix --nomTraitement=URL --debutPeriode=20-03-2025 --finPeriode=20-03-2025"
-    },
     "toZabbix getValue LocalisationIp": {
       "commandName": "Project",
       "commandLineArgs": "toZabbix getValue --traitement=Statip --target=217.109.150.133 --propertyName=OrigineGeographique --date=17-02-2025"
     },
-    "ttt localisationIP date bd default": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=LocalisationIp  --date=2025-02-17"
-    },
-    "ttt TempsRequete date bd default": {
-      "commandName": "Project",
-      "commandLineArgs": "ttt --nomTraitement=TempsRequete --date=17-02-2025"
-    },
     "traitement all date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=ALL --outputFormat console --date=2025-03-23"
+      "commandLineArgs": "traitement --traitement=ALL --outputFormat=console --date=2025-03-23"
     },
     "traitement all date bd testavril1": {
       "commandName": "Project",
