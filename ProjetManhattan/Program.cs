@@ -18,6 +18,7 @@ namespace ProjetManhattan
         private static string fichierConfig;
         private static BaseConfig? importConfig = null;
         private static Option<string> configFileName;
+        private static string dBFilenamePattern = @"[a-zA-Z0-9]*\.db$";
         public static void MiniMenu(string nomTraitement, BaseConfig importConfig, string typeOutput, string? nomBD)
         {
             ITraitement? traitement = null;
@@ -146,7 +147,6 @@ namespace ProjetManhattan
                 name: "--debutPeriode",
                 description: "Date de debut de periode de traitement a exporter"
                 );
-            dateDebutExport.IsRequired = true;
             exporterVersZabbix.AddOption(dateDebutExport);
 
             Option<DateTime> dateFinExport = new Option<DateTime>(
@@ -154,8 +154,10 @@ namespace ProjetManhattan
                 description: "Date de fin de periode de traitement a exporter",
                 getDefaultValue: () => DateTime.Now
                 );
-            dateFinExport.IsRequired = true;
             exporterVersZabbix.AddOption(dateFinExport);
+
+
+
 
             exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue, dateDebutExportValue, dateFinExportValue, configFileNameValue) =>
             {
@@ -163,7 +165,14 @@ namespace ProjetManhattan
                 importConfig = new BaseConfig(fichierConfig);
                 importConfig.DateTraitement = dateDebutExportValue;
 
+                if (!Regex.IsMatch(nomBDorigneValue, dBFilenamePattern))
+                {
+                    nomBDorigneValue += ".db";
+                }
+
                 SQLiteToZabbix transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, dateDebutExportValue, dateFinExportValue);
+                
+                //Affichage du JSON en console
                 Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue, importConfig));
             }, nomBDorigine, traitementChoisi, dateDebutExport, dateFinExport, configFileName);
 
@@ -258,7 +267,7 @@ namespace ProjetManhattan
                         return;
                     }
 
-                    string dBFilenamePattern = @"[a-zA-Z0-9]*\.db$";
+                    //string dBFilenamePattern = @"[a-zA-Z0-9]*\.db$";
 
                     if (!Regex.IsMatch(nomBDresultValue, dBFilenamePattern))
                     {

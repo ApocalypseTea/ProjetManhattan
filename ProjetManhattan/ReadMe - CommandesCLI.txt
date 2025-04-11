@@ -12,10 +12,10 @@
 		- --outputFormat (option required)
 			- *bd
 			- *console
-		- --output (option)
+		- --output (option required SI --outputFormat='bd') (nomdefichier avec ou sans extension .db)
 		- --date (option)(default DateTime.Now)
 	- toZabbix (command)
-		- --input (option required) 
+		- --input (option required) (nomdefichier avec ou sans extension .db)
 		- --traitement (option required) 
 			- *StatIp
 			- *TempsRequete

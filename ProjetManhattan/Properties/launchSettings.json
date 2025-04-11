@@ -6,7 +6,7 @@
     },
     "toZabbix ttt StatIp": {
       "commandName": "Project",
-      "commandLineArgs": "toZabbix --traitement=LocalISationIp --debutPeriode=2025-03-22 --finPeriode=2025-03-22"
+      "commandLineArgs": "toZabbix --traitement=LocalISationIp --input=resultatTraitement.db --debutPeriode=2025-03-22 "
     },
     "WSL": {
       "commandName": "WSL2",
