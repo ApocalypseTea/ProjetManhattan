@@ -25,8 +25,9 @@
 			- *ChangementIdentite
 			- *ValidateurAbsent
 			- *LocalisationIp
-		- --debutPeriode (option required)
-		- --finPeriode (option required) (default DateTime.Now)
+		- --debutPeriode (option)
+		- --finPeriode (option) (default DateTime.Now)
+		- --date (option)
 
 		- getValue (subcommand)
 			- --traitement (option required)

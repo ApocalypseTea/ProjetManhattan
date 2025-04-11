@@ -18,7 +18,7 @@ namespace ProjetManhattan
         private static string fichierConfig;
         private static BaseConfig? importConfig = null;
         private static Option<string> configFileName;
-        private static string dBFilenamePattern = @"[a-zA-Z0-9]*\.db$";
+        private static Regex dBFilenamePattern = new Regex(@".*\.db$", RegexOptions.Compiled);
         public static void MiniMenu(string nomTraitement, BaseConfig importConfig, string typeOutput, string? nomBD)
         {
             ITraitement? traitement = null;
@@ -151,30 +151,65 @@ namespace ProjetManhattan
 
             Option<DateTime> dateFinExport = new Option<DateTime>(
                 name: "--finPeriode",
-                description: "Date de fin de periode de traitement a exporter",
-                getDefaultValue: () => DateTime.Now
+                description: "Date de fin de periode de traitement a exporter"
                 );
             exporterVersZabbix.AddOption(dateFinExport);
 
+            Option<DateTime> dateOnly = new Option<DateTime>(
+                name: "--date",
+                description: "Date exacte du traitement à exporter"
+                );
+            exporterVersZabbix.AddOption(dateOnly);
 
-
-
-            exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue, dateDebutExportValue, dateFinExportValue, configFileNameValue) =>
+            exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue, dateDebutExportValue, dateFinExportValue, configFileNameValue, dateOnlyValue) =>
             {
                 fichierConfig = configFileNameValue;
                 importConfig = new BaseConfig(fichierConfig);
-                importConfig.DateTraitement = dateDebutExportValue;
-
-                if (!Regex.IsMatch(nomBDorigneValue, dBFilenamePattern))
+                
+                if (Path.GetExtension(nomBDorigneValue) != ".db")                
                 {
                     nomBDorigneValue += ".db";
                 }
+               
+                SQLiteToZabbix transfertVersZabbix;
+                if (dateDebutExportValue != default(DateTime))
+                {
+                    Console.WriteLine($"date debut export entree : {dateDebutExportValue}");
+                    importConfig.DateTraitement = dateDebutExportValue;
+                    if (dateFinExportValue == default(DateTime))
+                    {
+                        Console.WriteLine("Option Date de fin non remplie. La periode s'etend donc jusqu'a aujourd'hui");
+                        dateFinExportValue = DateTime.Now;
+                    }
+                    if (dateDebutExportValue >= dateFinExportValue)
+                    {
+                        Console.WriteLine("Erreur : Faille Spatio Temporelle");
+                        Console.WriteLine($"La date de début {dateDebutExportValue} est incompatible avec la date de fin {dateFinExportValue}");
+                        return;
+                    }
 
-                SQLiteToZabbix transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, dateDebutExportValue, dateFinExportValue);
-                
-                //Affichage du JSON en console
-                Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue, importConfig));
-            }, nomBDorigine, traitementChoisi, dateDebutExport, dateFinExport, configFileName);
+
+                        transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, dateDebutExportValue, dateFinExportValue);
+                } 
+                else if (dateOnlyValue != default(DateTime))
+                {
+                    //Console.WriteLine($"date only entree : {dateOnlyValue}");
+                    importConfig.DateTraitement = dateOnlyValue;
+                    transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, dateOnlyValue);
+                } 
+                //SI les 2 paramètres --date ET --debutPeriode sont entrés OU aucun des 2
+                else if((dateOnlyValue != default(DateTime) && dateDebutExportValue !=default(DateTime)) || (dateOnlyValue == default(DateTime) && dateDebutExportValue == default(DateTime))) {
+                {
+                    Console.WriteLine("Erreur : entrer une date OU une periode pour l'extraction des informations");
+                    Console.WriteLine("--date : pour entrer une seule journée");
+                    Console.WriteLine("--debutPeriode : pour entrer le debut de la periode");
+                    Console.WriteLine("--finPeriode : pour entrer la fin de la periode (date par defaut = aujourd'hui)");
+                    return;
+                }
+
+                    //Affichage du JSON en console
+                    Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue, importConfig));
+            }, nomBDorigine, traitementChoisi, dateDebutExport, dateFinExport, configFileName, dateOnly);
 
             Command getValue = GetSubCommandGetValue(nomBDorigine);
 
@@ -267,14 +302,9 @@ namespace ProjetManhattan
                         return;
                     }
 
-                    //string dBFilenamePattern = @"[a-zA-Z0-9]*\.db$";
-
-                    if (!Regex.IsMatch(nomBDresultValue, dBFilenamePattern))
+                    if (!dBFilenamePattern.IsMatch(nomBDresultValue))
                     {
-                        //Console.WriteLine("Nom de base de données entré sans extension");
-                        //Console.WriteLine($"Le nom de la base de donnée était : {nomBDresultValue}");
                         nomBDresultValue += ".db";
-                        //Console.WriteLine($"Le nom de la base de donnée est a present : {nomBDresultValue}");
                     }
 
                 }

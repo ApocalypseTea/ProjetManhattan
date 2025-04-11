@@ -15,60 +15,91 @@ namespace ProjetManhattan.Formatages
 {
     class SQLiteToZabbix
     {
-        private const string QUERY = "SELECT DISTINCT traitement, target, date, propertyName, description FROM record WHERE traitement=@traitement COLLATE NOCASE AND date BETWEEN @debutExport AND @finExport;";
+        private const string QUERY_RANGE = "SELECT DISTINCT traitement, target, date, propertyName, description FROM record WHERE traitement=@traitement COLLATE NOCASE AND date BETWEEN @debutExport AND @finExport;";
+
+        private const string QUERY_DATE = "SELECT DISTINCT traitement, target, date, propertyName, description FROM record WHERE traitement=@traitement COLLATE NOCASE AND date =@dateExacte;";
+
         private List<ZabbixData> _zabbixListe;
         private SqliteConnection _connection;
         private DateTime _dateDebutExport;
         private DateTime _dateFinExport;
+        private DateTime _dateOnly;
+        private bool isRange = false;
         public SQLiteToZabbix(string _nomBD, DateTime dateDebutExport, DateTime dateFinExport)
         {
             _zabbixListe = new List<ZabbixData>();
             AccesDBSQLite accesDB = new AccesDBSQLite(_nomBD);
             _connection = accesDB.ConnectToTinyDB();
-
-            //Si erreur dans les dates, retourner les traitements concernant le jour meme
-            if (dateDebutExport <= dateFinExport)
-            {
-                _dateDebutExport = dateDebutExport;
-                _dateFinExport = dateFinExport;
-            }
-            else 
-            {
-                _dateDebutExport = DateTime.Now;
-                _dateFinExport = DateTime.Now;
-            }
+            _dateDebutExport = dateDebutExport;
+            _dateFinExport = dateFinExport;
+         
+            isRange = true;
         }
+
+        public SQLiteToZabbix(string _nomBD, DateTime dateOnly)
+        {
+            _zabbixListe = new List<ZabbixData>();
+            AccesDBSQLite accesDB = new AccesDBSQLite(_nomBD);
+            _connection = accesDB.ConnectToTinyDB();
+
+            _dateOnly= dateOnly;
+        }
+
         public string GetJSONToZabbix(string nomTraitement, BaseConfig importConfig)
         {
             if (IsValidTraitement(nomTraitement, importConfig) == null)
             {
+                Console.WriteLine("Traitement invalide");
                 return null;
             }
 
-            using (SqliteCommand requete = new SqliteCommand(QUERY, _connection))
+            string finalQuery = "";
+            if (isRange)
             {
-                requete.Parameters.AddWithValue("@traitement", nomTraitement);
-                requete.Parameters.AddWithValue("@debutExport", _dateDebutExport);
-                requete.Parameters.AddWithValue("@finExport", _dateFinExport.AddDays(1));
-                SqliteDataReader reader = requete.ExecuteReader();
-                while (reader.Read())
-                {
-                    int colTraitement = reader.GetOrdinal("traitement");
-                    int colTarget = reader.GetOrdinal("target");
-                    int colPropertyName = reader.GetOrdinal("propertyName");
-                    int colDescription = reader.GetOrdinal("description");
-                    int colDate = reader.GetOrdinal("date");
-
-                    string traitement = reader.GetString(colTraitement);
-                    string target = reader.GetString(colTarget);
-                    string propertyName = reader.GetString(colPropertyName);
-                    string description = reader.GetString(colDescription);
-                    DateTime date = reader.GetDateTime(colDate);
-
-                    ZabbixData zabbixObject = new ZabbixData(target, traitement, propertyName, description, date);
-                    _zabbixListe.Add(zabbixObject);
-                }
+                Console.WriteLine("Requete RANGE");
+                finalQuery = QUERY_RANGE;
             }
+            else
+            {
+                //Console.WriteLine("Requete DATE");
+                finalQuery = QUERY_DATE;
+            }
+
+                using (SqliteCommand requete = new SqliteCommand(finalQuery, _connection))
+                {
+                    if (isRange)
+                    {
+                        Console.WriteLine($"Parametres RANGE { nomTraitement} date debut {_dateDebutExport} date fin {_dateFinExport.AddDays(1)}");
+                        requete.Parameters.AddWithValue("@traitement", nomTraitement);
+                        requete.Parameters.AddWithValue("@debutExport", _dateDebutExport);
+                        requete.Parameters.AddWithValue("@finExport", _dateFinExport.AddDays(1));
+                    } 
+                    else
+                    {
+                        Console.WriteLine($"Parametres DATE : {nomTraitement} et date {_dateOnly}");
+                        requete.Parameters.AddWithValue("@traitement", nomTraitement);
+                        requete.Parameters.AddWithValue("@dateExacte", _dateOnly);
+                    }
+
+                    SqliteDataReader reader = requete.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        int colTraitement = reader.GetOrdinal("traitement");
+                        int colTarget = reader.GetOrdinal("target");
+                        int colPropertyName = reader.GetOrdinal("propertyName");
+                        int colDescription = reader.GetOrdinal("description");
+                        int colDate = reader.GetOrdinal("date");
+
+                        string traitement = reader.GetString(colTraitement);
+                        string target = reader.GetString(colTarget);
+                        string propertyName = reader.GetString(colPropertyName);
+                        string description = reader.GetString(colDescription);
+                        DateTime date = reader.GetDateTime(colDate);
+
+                        ZabbixData zabbixObject = new ZabbixData(target, traitement, propertyName, description, date);
+                        _zabbixListe.Add(zabbixObject);
+                    }
+                }
 
             JsonSerializerSettings settings = new JsonSerializerSettings()
             {
