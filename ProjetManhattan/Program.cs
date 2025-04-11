@@ -257,6 +257,22 @@ namespace ProjetManhattan
                         Console.WriteLine("Veuillez le renseigner avec l'option --output.");
                         return;
                     }
+
+                    string dBFilenamePattern = @"[a-zA-Z0-9]*\.db$";
+
+                    if (!Regex.IsMatch(nomBDresultValue, dBFilenamePattern))
+                    {
+                        Console.WriteLine("Nom de base de données entré sans extension");
+                        Console.WriteLine($"Le nom de la base de donnée était : {nomBDresultValue}");
+                        nomBDresultValue += ".db";
+                        Console.WriteLine($"Le nom de la base de donnée est a present : {nomBDresultValue}");
+                    }
+                    else
+                    {
+                        
+                        Console.WriteLine($"Le nom de la base de donnée est : {nomBDresultValue}");
+                    }
+
                 }
                 else
                 {

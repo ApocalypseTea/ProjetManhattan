@@ -33,7 +33,7 @@ namespace ProjetManhattan.Traitements
 
             if (exportDataMethod.Equals("bd"))
             {
-                string userFileName = $"{nomBD}.db";
+                string userFileName = $"{nomBD}";
                 AccesDBSQLite creationDBSQLite = new AccesDBSQLite(dbFileName: userFileName);
 
                 SqliteConnection connection = creationDBSQLite.ConnectToTinyDB();

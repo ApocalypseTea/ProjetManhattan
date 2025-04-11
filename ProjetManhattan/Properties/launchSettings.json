@@ -18,7 +18,7 @@
     },
     "traitement all date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=ALL --outputFormat=console --date=2025-03-23"
+      "commandLineArgs": "traitement --traitement=ALL --outputFormat=bd --output=bdtestsansextension2.db --date=2025-03-23"
     },
     "traitement all date bd testavril1": {
       "commandName": "Project",
@@ -28,7 +28,7 @@
       "commandName": "Project",
       "commandLineArgs": "traitement --traitement=STATiP --date=17-02-2025 --outputFormat=console"
     },
-    "traitement BrisGlace date console": {
+    "traitement BrisGlace date bd": {
       "commandName": "Project",
       "commandLineArgs": "traitement --traitement=BrisGlace --outputFormat=console --date=2025-03-23"
     }
