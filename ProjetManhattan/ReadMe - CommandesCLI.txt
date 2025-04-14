@@ -2,13 +2,6 @@
 	- --configFile (option required) (default = ..\..\..\Ressources\config.json")
 	- traitement (command)
 		- --traitement (option required)
-			- *StatIp
-			- *TempsRequete
-			- *URL
-			- *BrisGlace
-			- *ValidationInterne
-			- *ChangementIdentite
-			- *ValidateurAbsent
 		- --outputFormat (option required)
 			- *bd
 			- *console
@@ -17,14 +10,6 @@
 	- toZabbix (command)
 		- --input (option required) (nomdefichier avec ou sans extension .db)
 		- --traitement (option required) 
-			- *StatIp
-			- *TempsRequete
-			- *URL
-			- *BrisGlace
-			- *ValidationInterne
-			- *ChangementIdentite
-			- *ValidateurAbsent
-			- *LocalisationIp
 		- --debutPeriode (option)
 		- --finPeriode (option) (default DateTime.Now)
 		- --date (option)
@@ -59,6 +44,10 @@
 				- *Validateur Absent (pour pour Validateur RCP absent)
 
 			- --date (option)(default DateTime.Now)
+	
+	- helpMe
+		- --date (option)(default DateTime.Now)
+
 
 LEGENDE : *Options possibles pour le texte à ecrire
 

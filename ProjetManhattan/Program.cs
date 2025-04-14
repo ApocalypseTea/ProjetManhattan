@@ -19,6 +19,7 @@ namespace ProjetManhattan
         private static BaseConfig? importConfig = null;
         private static Option<string> configFileName;
         private static Regex dBFilenamePattern = new Regex(@".*\.db$", RegexOptions.Compiled);
+        private const string RESSOURCEHELP = "ProjetManhattan.ReadMe - CommandesCLI.txt";
         public static void MiniMenu(string nomTraitement, BaseConfig importConfig, string typeOutput, string? nomBD)
         {
             ITraitement? traitement = null;
@@ -100,24 +101,42 @@ namespace ProjetManhattan
         }
         static void Main(string[] args)
         {
-            RootCommand rootCommand = GetRootCommandProjetManhattan();
-            Command effectuerTraitement = GetCommandTraitement(configFileName);
-            Command exporterVersZabbix = GetCommandExportToZabbix();
-            Command menuAide = GetHelp(configFileName);
-           
-            rootCommand.Add(effectuerTraitement);
-            rootCommand.Add(exporterVersZabbix);
-            rootCommand.Add(menuAide);
-            rootCommand.Invoke(args);
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Les Commandes Disponibles sur Projet Manhattan :");
+                Assembly assembly = Assembly.GetExecutingAssembly();
+
+                using (Stream stream = assembly.GetManifestResourceStream(RESSOURCEHELP))
+                {
+                    using (StreamReader reader = new StreamReader(stream))
+                    {
+                        Console.WriteLine(reader.ReadToEnd());
+                    }
+                }
+            }
+            else
+            {
+                RootCommand rootCommand = GetRootCommandProjetManhattan();
+                Command effectuerTraitement = GetCommandTraitement(configFileName);
+                Command exporterVersZabbix = GetCommandExportToZabbix();
+                Command menuAide = GetHelp(configFileName);
+
+                rootCommand.Add(effectuerTraitement);
+                rootCommand.Add(exporterVersZabbix);
+                rootCommand.Add(menuAide);
+
+                rootCommand.Invoke(args);
+            }
         }
 
         private static RootCommand GetRootCommandProjetManhattan()
         {
+            
             RootCommand rootCommand = new RootCommand("K-Projet Manhattan");
             configFileName = new Option<string>(
                  name: "--configFile",
                  description: "emplacement du nouveau fichier config JSON",
-                 getDefaultValue: () => @"..\..\..\Ressources\config.json");
+                 getDefaultValue: () => @"..\..\..\Ressources\config3.json");
             configFileName.IsRequired = true;
             rootCommand.AddGlobalOption(configFileName);
 
@@ -128,6 +147,7 @@ namespace ProjetManhattan
             }, configFileName);
 
             return rootCommand;
+            
         }
 
         private static Command GetCommandExportToZabbix()
