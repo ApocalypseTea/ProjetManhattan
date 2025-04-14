@@ -17,13 +17,13 @@ namespace ProjetManhattan.Formatages
     {
         private const string QUERY_RANGE = "SELECT DISTINCT traitement, target, date, propertyName, description FROM record WHERE traitement=@traitement COLLATE NOCASE AND date BETWEEN @debutExport AND @finExport;";
 
-        private const string QUERY_DATE = "SELECT DISTINCT traitement, target, date, propertyName, description FROM record WHERE traitement=@traitement COLLATE NOCASE AND date =@dateExacte;";
+        private const string QUERY_DATE = "SELECT DISTINCT traitement, target, date, propertyName, description FROM record WHERE traitement=@traitement COLLATE NOCASE AND DATE(date)=@dateExacte;";
 
         private List<ZabbixData> _zabbixListe;
         private SqliteConnection _connection;
         private DateTime _dateDebutExport;
         private DateTime _dateFinExport;
-        private DateTime _dateOnly;
+        private DateOnly _dateOnly;
         private bool isRange = false;
         public SQLiteToZabbix(string _nomBD, DateTime dateDebutExport, DateTime dateFinExport)
         {
@@ -36,7 +36,7 @@ namespace ProjetManhattan.Formatages
             isRange = true;
         }
 
-        public SQLiteToZabbix(string _nomBD, DateTime dateOnly)
+        public SQLiteToZabbix(string _nomBD, DateOnly dateOnly)
         {
             _zabbixListe = new List<ZabbixData>();
             AccesDBSQLite accesDB = new AccesDBSQLite(_nomBD);
@@ -61,7 +61,7 @@ namespace ProjetManhattan.Formatages
             }
             else
             {
-                //Console.WriteLine("Requete DATE");
+                Console.WriteLine("Requete DATE");
                 finalQuery = QUERY_DATE;
             }
 
@@ -69,7 +69,7 @@ namespace ProjetManhattan.Formatages
                 {
                     if (isRange)
                     {
-                        Console.WriteLine($"Parametres RANGE { nomTraitement} date debut {_dateDebutExport} date fin {_dateFinExport.AddDays(1)}");
+                        Console.WriteLine($"Parametres RANGE {nomTraitement} date debut {_dateDebutExport} date fin {_dateFinExport.AddDays(1)}");
                         requete.Parameters.AddWithValue("@traitement", nomTraitement);
                         requete.Parameters.AddWithValue("@debutExport", _dateDebutExport);
                         requete.Parameters.AddWithValue("@finExport", _dateFinExport.AddDays(1));
@@ -77,6 +77,7 @@ namespace ProjetManhattan.Formatages
                     else
                     {
                         Console.WriteLine($"Parametres DATE : {nomTraitement} et date {_dateOnly}");
+                        Console.WriteLine($"La requete est {finalQuery}");
                         requete.Parameters.AddWithValue("@traitement", nomTraitement);
                         requete.Parameters.AddWithValue("@dateExacte", _dateOnly);
                     }
@@ -84,6 +85,7 @@ namespace ProjetManhattan.Formatages
                     SqliteDataReader reader = requete.ExecuteReader();
                     while (reader.Read())
                     {
+                        Console.WriteLine("Rader read");
                         int colTraitement = reader.GetOrdinal("traitement");
                         int colTarget = reader.GetOrdinal("target");
                         int colPropertyName = reader.GetOrdinal("propertyName");

@@ -4,10 +4,6 @@
       "commandName": "Project",
       "commandLineArgs": "test"
     },
-    "toZabbix ttt StatIp": {
-      "commandName": "Project",
-      "commandLineArgs": "toZabbix --traitement=LocalisationIp --input=resultatTraitement.db --debutPeriode=2026-03-22 --finPeriode=2025-03-20"
-    },
     "WSL": {
       "commandName": "WSL2",
       "distributionName": ""
@@ -31,6 +27,14 @@
     "traitement BrisGlace date bd": {
       "commandName": "Project",
       "commandLineArgs": "traitement --traitement=BrisGlace --outputFormat=console --date=2025-03-23"
+    },
+    "Profil 1": {
+      "commandName": "Project",
+      "commandLineArgs": "helpMe --date=2025-03-22"
+    },
+    "toZabbix ttt URL": {
+      "commandName": "Project",
+      "commandLineArgs": "toZabbix --traitement=URL --input=resultatTraitement.db --date=2025-03-22 "
     }
   }
 }

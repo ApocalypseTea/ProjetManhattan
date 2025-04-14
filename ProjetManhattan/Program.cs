@@ -23,7 +23,7 @@ namespace ProjetManhattan
         {
             ITraitement? traitement = null;
             object[] parametreTraitement = { importConfig };
-            
+
             Action<ITraitement> executeTraitement = (traitement) =>
             {
                 traitement?.Execute();
@@ -85,7 +85,7 @@ namespace ProjetManhattan
                         Console.WriteLine(ex.InnerException);
                         Console.WriteLine($"Traitement {traitementInstance.Key} non instancié. Ignoré.");
                     }
-                } 
+                }
             }
 
             if (!isTraitementDone)
@@ -103,9 +103,11 @@ namespace ProjetManhattan
             RootCommand rootCommand = GetRootCommandProjetManhattan();
             Command effectuerTraitement = GetCommandTraitement(configFileName);
             Command exporterVersZabbix = GetCommandExportToZabbix();
-
+            Command menuAide = GetHelp(configFileName);
+           
             rootCommand.Add(effectuerTraitement);
             rootCommand.Add(exporterVersZabbix);
+            rootCommand.Add(menuAide);
             rootCommand.Invoke(args);
         }
 
@@ -134,7 +136,7 @@ namespace ProjetManhattan
             Option<string> nomBDorigine = new Option<string>(
                 name: "--input",
                 description: "Nom de la base de donnée dont il faut exporter les resultats");
-                nomBDorigine.IsRequired = true;
+            nomBDorigine.IsRequired = true;
             exporterVersZabbix.AddOption(nomBDorigine);
 
             Option<string> traitementChoisi = new Option<string>(
@@ -165,12 +167,12 @@ namespace ProjetManhattan
             {
                 fichierConfig = configFileNameValue;
                 importConfig = new BaseConfig(fichierConfig);
-                
-                if (Path.GetExtension(nomBDorigneValue) != ".db")                
+
+                if (Path.GetExtension(nomBDorigneValue) != ".db")
                 {
                     nomBDorigneValue += ".db";
                 }
-               
+
                 SQLiteToZabbix transfertVersZabbix;
 
                 //SI les 2 paramètres --date ET --debutPeriode sont entrés OU aucun des 2
@@ -224,9 +226,9 @@ namespace ProjetManhattan
                         Console.WriteLine($"La date demandée {dateOnlyValue} est dans le futur");
                         return;
                     }
-                    //Console.WriteLine($"date only entree : {dateOnlyValue}");
+                    Console.WriteLine($"date only entree : {dateOnlyValue}");
                     importConfig.DateTraitement = dateOnlyValue;
-                    transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, dateOnlyValue);
+                    transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, DateOnly.FromDateTime(dateOnlyValue));
                 }
                 else
                 {
@@ -237,8 +239,8 @@ namespace ProjetManhattan
                     return;
                 }
 
-                    //Affichage du JSON en console
-                    Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue, importConfig));
+                //Affichage du JSON en console
+                Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue, importConfig));
             }, nomBDorigine, traitementChoisi, dateDebutExport, dateFinExport, configFileName, dateOnly);
 
             Command getValue = GetSubCommandGetValue(nomBDorigine);
@@ -289,7 +291,7 @@ namespace ProjetManhattan
         private static Command GetCommandTraitement(Option<string> configFileName)
         {
             Command effectuerTraitement = new Command("traitement", "Effectuer un traitement");
-            
+
             Option<string> choixTraitement = new Option<string>(
                 name: "--traitement",
                 description: "nom du traitement choisi");
@@ -302,14 +304,14 @@ namespace ProjetManhattan
                 ).FromAmong("bd", "console");
             choixOutput.IsRequired = true;
             effectuerTraitement.AddOption(choixOutput);
-            
+
             //Trouver une solution pour créer une conditionnelle SEULEMENT si le type de traitement est "bd"
             Option<string> nomBDResult = new Option<string>(
                 name: "--output",
                 description: "Nom de la base de donnée qui recevra les resultats du traitement"
-                );            
+                );
             effectuerTraitement.AddOption(nomBDResult);
-            
+
             Option<DateTime> dateDebutTraitements = new Option<DateTime>(
                 name: "--date",
                 description: "date à laquelle effectuer le ou les traitements",
@@ -347,6 +349,38 @@ namespace ProjetManhattan
             }, choixTraitement, choixOutput, nomBDResult, configFileName, dateDebutTraitements);
 
             return effectuerTraitement;
+        }
+
+        private static Command GetHelp(Option<string> configFileName)
+        {
+            Command help = new Command(
+                name: "helpMe",
+                description : "Informations pour utiliser ProjetManhattanCLI"
+            );
+
+            Option<DateTime> date = new Option<DateTime>(
+                name: "--date",
+                description: "Liste de tous les traitements existants disponibles a la date demandee"
+                //ajouter le jour meme par default une fois en utilisation
+                );
+            date.IsRequired = true; ;
+            help.AddOption(date);
+
+            help.SetHandler((configFileNameValue, dateValue) =>
+            {
+                fichierConfig = configFileNameValue;
+                importConfig = new BaseConfig(fichierConfig);
+                importConfig.DateTraitement = dateValue;
+
+                GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(importConfig);
+                Console.WriteLine("Liste des traitements disponibles");
+                foreach (string nomTraitement in generationNomTraitement.AllTreatments.Keys)
+                {
+                    Console.WriteLine($"- {nomTraitement}");
+                }
+            }, configFileName, date);
+
+            return help;
         }
     }
 }
