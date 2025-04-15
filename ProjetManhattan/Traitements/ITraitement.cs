@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjetManhattan.Traitements
 {
-    internal interface ITraitement
+    public interface ITraitement
     {
         string Name { get; }
         void Display(string exportDataMethod, string nomDB);

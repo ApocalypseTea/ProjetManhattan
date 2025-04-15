@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjetManhattan.Sources
 {
-    interface ISource
+    public interface ISource
     {
     }
 }

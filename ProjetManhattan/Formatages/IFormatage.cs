@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjetManhattan.Formatages
 {
-    internal interface IFormatage
+    public interface IFormatage
     {
         void AffichageRecord(IEnumerable<Record> listeDeRecord);
     }

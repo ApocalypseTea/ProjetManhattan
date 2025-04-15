@@ -12,7 +12,7 @@ using System.Reflection;
 
 namespace ProjetManhattan.Traitements
 {
-    abstract class BaseTraitement<TSource> where TSource: ISource
+    public abstract class BaseTraitement<TSource> where TSource: ISource
     {
         private List<Record> _items;
         protected TSource _source;

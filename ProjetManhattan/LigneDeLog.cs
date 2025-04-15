@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace ProjetManhattan
 {
-    internal class LigneDeLog : IToRecordable
+    public class LigneDeLog : IToRecordable
     {
         private const int COL_DATE = 0;
         private const int COL_TIME = 1;

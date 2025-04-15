@@ -7,7 +7,7 @@ using Microsoft.Data.SqlClient;
 
 namespace ProjetManhattan.Sources
 {
-    interface IAccesBDD : ISource
+    public interface IAccesBDD : ISource
     {
         public string ConnectionString { get; init; }
         SqlConnection ConnexionBD();

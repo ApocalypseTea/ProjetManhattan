@@ -11,7 +11,7 @@ using ProjetManhattan.Traitements;
 
 namespace ProjetManhattan
 {
-    internal class IpClient 
+    public class IpClient 
     {
         //Passer la Query dans le fichier de config json
         private const string QUERY = "SELECT country_name FROM dbo.ip2location_db1 WHERE @ip BETWEEN ip_from AND ip_to;";

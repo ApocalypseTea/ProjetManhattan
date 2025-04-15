@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjetManhattan.Filtres
 {
-    internal interface IFiltre
+    public interface IFiltre
     {
         bool Needed(LigneDeLog ligne);
     }

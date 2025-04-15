@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjetManhattan
 {
-    interface IToRecordable
+    public interface IToRecordable
     {
         Record ToRecord();
     }

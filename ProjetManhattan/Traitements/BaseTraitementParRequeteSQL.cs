@@ -10,7 +10,7 @@ using ProjetManhattan.Sources;
 
 namespace ProjetManhattan.Traitements
 {
-    abstract class BaseTraitementParRequeteSQL <T> : BaseTraitement<IAccesBDD> where T: IToRecordable
+    public abstract class BaseTraitementParRequeteSQL <T> : BaseTraitement<IAccesBDD> where T: IToRecordable
     {
         protected List<T> _items;
         protected BaseTraitementParRequeteSQL(BaseConfig config) : base(config)

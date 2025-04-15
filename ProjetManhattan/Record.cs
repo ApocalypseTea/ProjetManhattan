@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace ProjetManhattan
 {
-    class Record
+    public class Record
     {
         [JsonProperty("traitement")]
         public string Traitement { get; set; }

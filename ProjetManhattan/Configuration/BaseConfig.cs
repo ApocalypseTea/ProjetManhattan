@@ -8,7 +8,7 @@ using ProjetManhattan.Sources;
 
 namespace ProjetManhattan.Configuration
 {
-    class BaseConfig
+    public class BaseConfig
     {
         public string CheminFichierLog { get; init; }
         public string ConnectionString { get; init; }

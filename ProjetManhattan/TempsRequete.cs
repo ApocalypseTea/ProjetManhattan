@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProjetManhattan
 {
-    internal class TempsRequete
+    public class TempsRequete
     {
         public int TimeTaken { get; init; }
         public string Url { get; init; }
