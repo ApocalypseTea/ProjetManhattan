@@ -114,13 +114,14 @@ namespace ProjetManhattan.Formatages
         }
         public string GetValueFromTraitementTargetPropertyName (string nomTraitement, string nomTarget, string nomPropertyName, BaseConfig importConfig)
         {
-            if (IsValidTraitement(nomTraitement, importConfig) == null)
+            if (!nomTraitement.Equals(""))                
             {
-                return null;
+                if(IsValidTraitement(nomTraitement, importConfig) == null){
+                    return null;
+                }
             }
 
-
-            string query = "SELECT value, date, description FROM record WHERE (traitement = @traitement COLLATE NOCASE OR propertyName = @propertyName COLLATE NOCASE) AND target = @target COLLATE NOCASE GROUP BY date HAVING date = MAX(date);";
+            string query = "SELECT traitement, value, date, description, propertyName FROM record WHERE (traitement = @traitement COLLATE NOCASE OR propertyName = @propertyName COLLATE NOCASE) AND target = @target COLLATE NOCASE GROUP BY date HAVING date = MAX(date);";
             SqliteCommand requete = new SqliteCommand(query, _connection);
 
             requete.Parameters.AddWithValue("@traitement", nomTraitement);
@@ -130,25 +131,24 @@ namespace ProjetManhattan.Formatages
             SqliteDataReader reader = requete.ExecuteReader();
             string value = "no value";
 
+            Record recordValue = new Record();
             while (reader.Read())
             {
                 int colVal = reader.GetOrdinal("value");
                 int colDate = reader.GetOrdinal("date");
                 int colDescription = reader.GetOrdinal ("description");
+                int colTraitement = reader.GetOrdinal("traitement");
+                int colPropertyName = reader.GetOrdinal("propertyName");
 
                 value = reader.GetString(colVal);
-                _dateValue = reader.GetDateTime(colDate);
-                _descriptionValue = reader.GetString(colDescription);
+               
+                recordValue.Traitement = reader.GetString(colTraitement);
+                recordValue.Target = nomTarget;
+                recordValue.Date = reader.GetDateTime(colDate);
+                recordValue.Value = value;
+                recordValue.PropertyName = reader.GetString(colPropertyName); ;
+                recordValue.Description = reader.GetString(colDescription);
             }
-
-            Record recordValue = new Record();
-            
-            recordValue.Traitement = nomTraitement;
-            recordValue.Target=nomTarget;
-            recordValue.Date = _dateValue;
-            recordValue.Value = value; 
-            recordValue.PropertyName = nomPropertyName;
-            recordValue.Description = _descriptionValue;
 
             string json = JsonConvert.SerializeObject(recordValue);
             return json;

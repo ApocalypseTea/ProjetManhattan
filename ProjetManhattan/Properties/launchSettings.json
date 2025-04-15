@@ -10,7 +10,7 @@
     },
     "toZabbix getValue LocalisationIp": {
       "commandName": "Project",
-      "commandLineArgs": "toZabbix --input=resultatTraitement getValue --traitement=LocalisationIp --target=103.138.4.61 --propertyName=OrigineGeographique --date=2025-03-22 "
+      "commandLineArgs": "toZabbix --input=resultatTraitement getValue --propertyName=OrigineGeographique --target=103.138.4.61 --date=2025-03-22 "
     },
     "traitement all date console": {
       "commandName": "Project",

@@ -125,23 +125,6 @@ namespace ProjetManhattan
                 rootCommand.Add(effectuerTraitement);
                 rootCommand.Add(exporterVersZabbix);
                 rootCommand.Add(menuAide);
-
-                //var parser = new CommandLineBuilder(rootCommand)
-                //    .UseDefaults()
-                //    .UseHelp(ctx =>
-                //    {
-                //        ctx.HelpBuilder.CustomizeSymbol(rootCommand,
-                //            firstColumnText: "--color <Black, White, Red, or Yellow>",
-                //            secondColumnText: "Specifies the foreground color. " +
-                //                "Choose a color that provides enough contrast " +
-                //                "with the background color. " +
-                //                "For example, a yellow foreground can't be read " +
-                //                "against a light mode background.");
-                //    })
-                //    .Build();
-
-                //parser.Invoke(args);
-
                 rootCommand.Invoke(args);
             }
         }
@@ -164,7 +147,6 @@ namespace ProjetManhattan
             }, configFileName);
 
             return rootCommand;
-            
         }
 
         private static Command GetCommandExportToZabbix()
@@ -292,21 +274,21 @@ namespace ProjetManhattan
             Command getValue = new Command(name: "getValue", description: "recuperer la derniere valeur d'un ensemble Traitement-Target-PropertyName");
             Option<string> nomTraitement = new Option<string>(
                 name: "--traitement",
-                description: "nom du traitement dont la value est recherchee");
-            nomTraitement.IsRequired = true;
+                description: "nom du traitement dont la value est recherchee",
+                getDefaultValue: () => "");
             getValue.AddOption(nomTraitement);
+
+            Option<string> nomPropertyName = new Option<string>(
+                name: "--propertyName",
+                description: "nom de la PropertyName dont la value est recherchée",
+                getDefaultValue:()=> "");
+            getValue.AddOption(nomPropertyName);
 
             Option<string> nomTarget = new Option<string>(
                 name: "--target",
                 description: "nom de la Target dont la value est recherchée");
             nomTarget.IsRequired = true;
             getValue.AddOption(nomTarget);
-
-            Option<string> nomPropertyName = new Option<string>(
-                name: "--propertyName",
-                description: "nom de la PropertyName dont la value est recherchée");
-            nomPropertyName.IsRequired = true;
-            getValue.AddOption(nomPropertyName);
 
             Option<DateTime> dateValue = new Option<DateTime>(
                 name: "--date",
@@ -319,7 +301,8 @@ namespace ProjetManhattan
                 if (nomBDOrigineValue == null) 
                 {
                     Console.WriteLine("Base de données non indiquée");
-                    Console.WriteLine("Infos à entrer en CLi : toZabbix -input nomDeLaBaseDeDonnees GetValue --date dateDeRechercheDeLaValue --traitement nomTraitement --target nomTarget --propertyName nomPropertyName");
+                    Console.WriteLine("Infos à entrer en CLI : toZabbix -input nomDeLaBaseDeDonnees GetValue --date dateDeRechercheDeLaValue --target nomTarget [--traitement nomTraitement OU --propertyName nomPropertyName]");
+                    return;
                 } 
                 else
                 {
@@ -332,7 +315,15 @@ namespace ProjetManhattan
                     fichierConfig = configFileNameValue;
                     importConfig = new BaseConfig(fichierConfig);
                     importConfig.DateTraitement = dateValueValue;
-                    Console.WriteLine($"Base de Donnees consultee={nomBDOrigineValue}"); ;
+                    Console.WriteLine($"Base de Donnees consultee={nomBDOrigineValue}"); 
+
+                    if(nomTraitementValue == null && nomPropertyNameValue == null)
+                    {
+                        Console.WriteLine("Traitement ou PropertyName non indiqué");
+                        Console.WriteLine("Infos à entrer en CLI : toZabbix -input nomDeLaBaseDeDonnees GetValue --date dateDeRechercheDeLaValue --target nomTarget [--traitement nomTraitement OU --propertyName nomPropertyName]");
+                        return;
+                    }
+
                     Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue, importConfig));
                 }
             }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine, dateValue, configFileName);
