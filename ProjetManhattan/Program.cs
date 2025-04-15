@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using ProjetManhattan.Formatages;
 using System.Reflection;
 using Microsoft.Data.SqlClient;
+using System.CommandLine.Builder;
 
 namespace ProjetManhattan
 {
@@ -125,6 +126,22 @@ namespace ProjetManhattan
                 rootCommand.Add(exporterVersZabbix);
                 rootCommand.Add(menuAide);
 
+                //var parser = new CommandLineBuilder(rootCommand)
+                //    .UseDefaults()
+                //    .UseHelp(ctx =>
+                //    {
+                //        ctx.HelpBuilder.CustomizeSymbol(rootCommand,
+                //            firstColumnText: "--color <Black, White, Red, or Yellow>",
+                //            secondColumnText: "Specifies the foreground color. " +
+                //                "Choose a color that provides enough contrast " +
+                //                "with the background color. " +
+                //                "For example, a yellow foreground can't be read " +
+                //                "against a light mode background.");
+                //    })
+                //    .Build();
+
+                //parser.Invoke(args);
+
                 rootCommand.Invoke(args);
             }
         }
@@ -136,7 +153,7 @@ namespace ProjetManhattan
             configFileName = new Option<string>(
                  name: "--configFile",
                  description: "emplacement du nouveau fichier config JSON",
-                 getDefaultValue: () => @"..\..\..\Ressources\config3.json");
+                 getDefaultValue: () => @"..\..\..\Ressources\config.json");
             configFileName.IsRequired = true;
             rootCommand.AddGlobalOption(configFileName);
 
@@ -195,7 +212,7 @@ namespace ProjetManhattan
 
                 SQLiteToZabbix transfertVersZabbix;
 
-                //SI les 2 paramètres --date ET --debutPeriode sont entrés OU aucun des 2
+                //Si les 2 paramètres --date ET --debutPeriode sont entrés OU aucun des 2
                 if ((dateOnlyValue != default(DateTime) && dateDebutExportValue != default(DateTime)) || (dateOnlyValue == default(DateTime) && dateDebutExportValue == default(DateTime)))
                 {
                     Console.WriteLine("Erreur : entrer une date OU une periode pour l'extraction des informations");
@@ -278,16 +295,19 @@ namespace ProjetManhattan
                 description: "nom du traitement dont la value est recherchee");
             nomTraitement.IsRequired = true;
             getValue.AddOption(nomTraitement);
+
             Option<string> nomTarget = new Option<string>(
                 name: "--target",
                 description: "nom de la Target dont la value est recherchée");
             nomTarget.IsRequired = true;
             getValue.AddOption(nomTarget);
+
             Option<string> nomPropertyName = new Option<string>(
                 name: "--propertyName",
                 description: "nom de la PropertyName dont la value est recherchée");
             nomPropertyName.IsRequired = true;
             getValue.AddOption(nomPropertyName);
+
             Option<DateTime> dateValue = new Option<DateTime>(
                 name: "--date",
                 description: "Date a laquelle la Value est a rechercher",
@@ -296,13 +316,25 @@ namespace ProjetManhattan
 
             getValue.SetHandler((nomTraitementValue, nomTargetValue, nomPropertyNameValue, nomBDOrigineValue, dateValueValue, configFileNameValue) =>
             {
-                SQLiteToZabbix transfertToZabbix = new SQLiteToZabbix(nomBDOrigineValue, dateValueValue, dateValueValue);
-                fichierConfig = configFileNameValue;
-                importConfig = new BaseConfig(fichierConfig);
-                importConfig.DateTraitement = dateValueValue;
+                if (nomBDOrigineValue == null) 
+                {
+                    Console.WriteLine("Base de données non indiquée");
+                    Console.WriteLine("Infos à entrer en CLi : toZabbix -input nomDeLaBaseDeDonnees GetValue --date dateDeRechercheDeLaValue --traitement nomTraitement --target nomTarget --propertyName nomPropertyName");
+                } 
+                else
+                {
+                    if (Path.GetExtension(nomBDOrigineValue) != ".db")
+                    {
+                        nomBDOrigineValue += ".db";
+                    }
 
-                Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue, importConfig));
-
+                    SQLiteToZabbix transfertToZabbix = new SQLiteToZabbix(nomBDOrigineValue, DateOnly.FromDateTime(dateValueValue));
+                    fichierConfig = configFileNameValue;
+                    importConfig = new BaseConfig(fichierConfig);
+                    importConfig.DateTraitement = dateValueValue;
+                    Console.WriteLine($"Base de Donnees consultee={nomBDOrigineValue}"); ;
+                    Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue, importConfig));
+                }
             }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine, dateValue, configFileName);
 
             return getValue;
@@ -380,7 +412,8 @@ namespace ProjetManhattan
 
             Option<DateTime> date = new Option<DateTime>(
                 name: "--date",
-                description: "Liste de tous les traitements existants disponibles a la date demandee"
+                description: "Liste de tous les traitements existants disponibles a la date demandee",
+                getDefaultValue:()=> DateTime.Now
                 //ajouter le jour meme par default une fois en utilisation
                 );
             date.IsRequired = true; ;

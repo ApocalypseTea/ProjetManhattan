@@ -25,6 +25,8 @@ namespace ProjetManhattan.Formatages
         private DateTime _dateFinExport;
         private DateOnly _dateOnly;
         private bool isRange = false;
+        private DateTime _dateValue;
+        private string _descriptionValue;
         public SQLiteToZabbix(string _nomBD, DateTime dateDebutExport, DateTime dateFinExport)
         {
             _zabbixListe = new List<ZabbixData>();
@@ -85,7 +87,7 @@ namespace ProjetManhattan.Formatages
                     SqliteDataReader reader = requete.ExecuteReader();
                     while (reader.Read())
                     {
-                        Console.WriteLine("Rader read");
+                        Console.WriteLine("Reader read");
                         int colTraitement = reader.GetOrdinal("traitement");
                         int colTarget = reader.GetOrdinal("target");
                         int colPropertyName = reader.GetOrdinal("propertyName");
@@ -117,7 +119,8 @@ namespace ProjetManhattan.Formatages
                 return null;
             }
 
-            string query = "SELECT value FROM record WHERE traitement = @traitement COLLATE NOCASE AND target = @target COLLATE NOCASE AND propertyName = @propertyName COLLATE NOCASE GROUP BY date HAVING date = MAX(date);";
+
+            string query = "SELECT value, date, description FROM record WHERE (traitement = @traitement COLLATE NOCASE OR propertyName = @propertyName COLLATE NOCASE) AND target = @target COLLATE NOCASE GROUP BY date HAVING date = MAX(date);";
             SqliteCommand requete = new SqliteCommand(query, _connection);
 
             requete.Parameters.AddWithValue("@traitement", nomTraitement);
@@ -130,9 +133,25 @@ namespace ProjetManhattan.Formatages
             while (reader.Read())
             {
                 int colVal = reader.GetOrdinal("value");
+                int colDate = reader.GetOrdinal("date");
+                int colDescription = reader.GetOrdinal ("description");
+
                 value = reader.GetString(colVal);
+                _dateValue = reader.GetDateTime(colDate);
+                _descriptionValue = reader.GetString(colDescription);
             }
-            return value;
+
+            Record recordValue = new Record();
+            
+            recordValue.Traitement = nomTraitement;
+            recordValue.Target=nomTarget;
+            recordValue.Date = _dateValue;
+            recordValue.Value = value; 
+            recordValue.PropertyName = nomPropertyName;
+            recordValue.Description = _descriptionValue;
+
+            string json = JsonConvert.SerializeObject(recordValue);
+            return json;
         }
 
         public static string IsValidTraitement(string nomTraitement, BaseConfig importConfig)
