@@ -121,7 +121,9 @@ namespace ProjetManhattan
                 Command effectuerTraitement = GetCommandTraitement(configFileName);
                 Command exporterVersZabbix = GetCommandExportToZabbix();
                 Command menuAide = GetHelp(configFileName);
+                Command getValue = GetCommandGetValue();
 
+                rootCommand.Add(getValue);
                 rootCommand.Add(effectuerTraitement);
                 rootCommand.Add(exporterVersZabbix);
                 rootCommand.Add(menuAide);
@@ -262,14 +264,10 @@ namespace ProjetManhattan
                 Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue, importConfig));
             }, nomBDorigine, traitementChoisi, dateDebutExport, dateFinExport, configFileName, dateOnly);
 
-            Command getValue = GetSubCommandGetValue(nomBDorigine);
-
-            exporterVersZabbix.Add(getValue);
-
             return exporterVersZabbix;
         }
 
-        private static Command GetSubCommandGetValue(Option<string> nomBDorigine)
+        private static Command GetCommandGetValue()
         {
             Command getValue = new Command(name: "getValue", description: "recuperer la derniere valeur d'un ensemble Traitement-Target-PropertyName");
             Option<string> nomTraitement = new Option<string>(
@@ -295,6 +293,12 @@ namespace ProjetManhattan
                 description: "Date a laquelle la Value est a rechercher",
                 getDefaultValue: () => DateTime.Now);
             getValue.AddOption(dateValue);
+
+            Option<string> nomBDOrigine = new Option<string>(
+                name: "--input",
+                description: "Nom de la base de donnée dont il faut exporter les resultats");
+            nomBDOrigine.IsRequired = true;
+            getValue.AddOption(nomBDOrigine);
 
             getValue.SetHandler((nomTraitementValue, nomTargetValue, nomPropertyNameValue, nomBDOrigineValue, dateValueValue, configFileNameValue) =>
             {
@@ -326,7 +330,7 @@ namespace ProjetManhattan
 
                     Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue, importConfig));
                 }
-            }, nomTraitement, nomTarget, nomPropertyName, nomBDorigine, dateValue, configFileName);
+            }, nomTraitement, nomTarget, nomPropertyName, nomBDOrigine, dateValue, configFileName);
 
             return getValue;
         }

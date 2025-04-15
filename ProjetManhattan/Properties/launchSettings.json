@@ -8,10 +8,6 @@
       "commandName": "WSL2",
       "distributionName": ""
     },
-    "toZabbix getValue LocalisationIp": {
-      "commandName": "Project",
-      "commandLineArgs": "toZabbix --input=resultatTraitement getValue --propertyName=OrigineGeographique --target=103.138.4.61 --date=2025-03-22 "
-    },
     "traitement all date console": {
       "commandName": "Project",
       "commandLineArgs": "traitement --traitement=ALL --outputFormat=bd --output=resultatTraitement.db --date=2025-03-23"
@@ -35,6 +31,10 @@
     "toZabbix ttt URL": {
       "commandName": "Project",
       "commandLineArgs": "toZabbix --traitement=URL --input=resultatTraitement.db --date=2025-03-22 "
+    },
+    "getValue LocalisationIp": {
+      "commandName": "Project",
+      "commandLineArgs": "getValue --input=resultatTraitement  --propertyName=OrigineGeographique --target=103.138.4.61 --date=2025-03-22 "
     }
   }
 }
