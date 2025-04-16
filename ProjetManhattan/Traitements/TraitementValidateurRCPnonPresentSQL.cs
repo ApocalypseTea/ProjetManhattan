@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using ProjetManhattan.Configuration;
+using Unity;
 
 namespace ProjetManhattan.Traitements
 {
@@ -18,17 +20,20 @@ namespace ProjetManhattan.Traitements
                 return "ValidateurAbsent";
             } 
         }
-        public TraitementValidateurRCPnonPresentSQL(BaseConfig config) : base(config)
+        public TraitementValidateurRCPnonPresentSQL(BaseConfig config, IUnityContainer container) : base(container)
         {
             _dateTraitement = config.DateTraitement;
         }
-        protected override SqlCommand GetSQLCommand(SqlConnection connection)
+        protected override IDbCommand GetSQLCommand(IDbConnection connection)
         {
-            SqlCommand requete = new SqlCommand(GetSQLQuery(RESOURCENAME), connection);
-            requete.Parameters.AddWithValue("@dateTraitement", _dateTraitement);
+            IDbCommand requete = connection.CreateCommand();
+            requete.CommandText = GetSQLQuery(RESOURCENAME);
+            requete.CommandType = CommandType.Text;
+
+            requete.AddParameterWithValue("@dateTraitement", _dateTraitement);
             return requete;
         }
-        protected override LigneRequeteSQLValidateurNonPresent ReadItem(SqlDataReader reader)
+        protected override LigneRequeteSQLValidateurNonPresent ReadItem(IDataReader reader)
         {
             int _colValidateur = reader.GetOrdinal("Validateur");
             int _colIdFicheRCP = reader.GetOrdinal("FicheRCP");

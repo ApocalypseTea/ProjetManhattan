@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
 using ProjetManhattan.Sources;
+using Unity;
 
 namespace ProjetManhattan.Traitements
 {
     abstract class BaseTraitementParLigne : BaseTraitement<IFichierDeLog>
     {
-        protected BaseTraitementParLigne(BaseConfig config, IFichierDeLog source) : base(config)
+        protected BaseTraitementParLigne(IUnityContainer container) : base(container)
         {
-            _source = source;
         }
 
         public override void Execute()
         {
+            _source = this.Container.Resolve<IFichierDeLog>();
             while (_source.HasLines())
             {
                 LigneDeLog? ligne = _source.ReadLine();
@@ -32,7 +33,7 @@ namespace ProjetManhattan.Traitements
         protected abstract void FillRecord(Record record, LigneDeLog ligne);       
         protected virtual void AddLine(Record ligne)
         {
-            this.AddItem(ligne);
+            this.AddRecord(ligne);
         }
     }
 }

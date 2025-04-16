@@ -9,6 +9,7 @@ using Microsoft.Data.SqlClient;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
 using ProjetManhattan.Sources;
+using Unity;
 
 namespace ProjetManhattan.Traitements
 {
@@ -27,8 +28,9 @@ namespace ProjetManhattan.Traitements
         private string _regexIPv4 = @"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$";
         private DateTime _dateTraitement;
 
-        public TraitementLocalisationIp(BaseConfig config) : base(config)
+        public TraitementLocalisationIp(IUnityContainer container) : base(container)
         {
+            BaseConfig config = container.Resolve<BaseConfig>();
             ConnectionStringIPLocator = config.ConnectionStringIPLocator;
             _listingIp = new HashSet<IpClient>();
             _dateTraitement = config.DateTraitement;
@@ -59,7 +61,7 @@ namespace ProjetManhattan.Traitements
                         Value = $"{item.PaysOrigine}",
                         Description = ""
                     };
-                    this.AddItem(record);
+                    this.AddRecord(record);
                 }
             }
         }

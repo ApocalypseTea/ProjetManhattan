@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using ProjetManhattan.Configuration;
+using Unity;
 
 
 namespace ProjetManhattan.Traitements
@@ -17,17 +19,20 @@ namespace ProjetManhattan.Traitements
         private DateTime _dateTraitement;
 
         public string Name { get { return "ChangementIdentite"; } }
-        public TraitementChangementIdentiteUserSQL(BaseConfig config) : base(config)
+        public TraitementChangementIdentiteUserSQL(BaseConfig config, IUnityContainer container) : base(container)
         {
             _dateTraitement = config.DateTraitement;
         }
-        protected override SqlCommand GetSQLCommand(SqlConnection connection)
+        protected override IDbCommand GetSQLCommand(IDbConnection connection)
         {
-            SqlCommand requete = new SqlCommand(GetSQLQuery(RESSOURCENAME), connection);
-            requete.Parameters.AddWithValue("@dateTraitement", _dateTraitement);
+            IDbCommand requete = connection.CreateCommand();
+            requete.CommandText = GetSQLQuery(RESSOURCENAME);
+            requete.CommandType = CommandType.Text;
+
+            requete.AddParameterWithValue("@dateTraitement", _dateTraitement);
             return requete;
         }
-        protected override LigneRequeteSQLChgtIdentiteUser ReadItem(SqlDataReader reader)
+        protected override LigneRequeteSQLChgtIdentiteUser ReadItem(IDataReader reader)
         {
             int colId = reader.GetOrdinal("id");
             int colNomActuel = reader.GetOrdinal("nom_enCours");

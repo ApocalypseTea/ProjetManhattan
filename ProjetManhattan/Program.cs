@@ -11,11 +11,14 @@ using ProjetManhattan.Formatages;
 using System.Reflection;
 using Microsoft.Data.SqlClient;
 using System.CommandLine.Builder;
+using Unity;
+using ProjetManhattan.Sources;
 
 namespace ProjetManhattan
 {
     internal class Program
     {
+        private static IUnityContainer _container = new UnityContainer();
         private static string fichierConfig;
         private static BaseConfig? importConfig = null;
         private static Option<string> configFileName;
@@ -68,7 +71,7 @@ namespace ProjetManhattan
             //}
             */
 
-            GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(importConfig);
+            GenerationNomTraitement generationNomTraitement = _container.Resolve<GenerationNomTraitement>();
             bool isTraitementDone = false;
             foreach (var traitementInstance in generationNomTraitement.AllTreatments)
             {
@@ -144,11 +147,28 @@ namespace ProjetManhattan
 
             rootCommand.SetHandler((configFileNameValue) =>
             {
-                fichierConfig = configFileNameValue;
-                importConfig = new BaseConfig(fichierConfig);
+                InitConfig(configFileNameValue);
             }, configFileName);
 
             return rootCommand;
+        }
+
+        private static void InitConfig(string configFileNameValue)
+        {
+            fichierConfig = configFileNameValue;
+            importConfig = new BaseConfig(fichierConfig);
+            _container.RegisterInstance<BaseConfig>(importConfig);
+
+            IAccesBDD source = new AccesBDD(importConfig);
+            IFormatage sortie = new OutputDisplay();
+
+            _container.RegisterInstance<IAccesBDD>(source);
+            _container.RegisterInstance<IFormatage>(sortie);
+
+            GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(_container, importConfig);
+            _container.RegisterInstance<GenerationNomTraitement>(generationNomTraitement);
+
+           
         }
 
         private static Command GetCommandExportToZabbix()
@@ -186,8 +206,7 @@ namespace ProjetManhattan
 
             exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue, dateDebutExportValue, dateFinExportValue, configFileNameValue, dateOnlyValue) =>
             {
-                fichierConfig = configFileNameValue;
-                importConfig = new BaseConfig(fichierConfig);
+                InitConfig(configFileNameValue);
 
                 if (Path.GetExtension(nomBDorigneValue) != ".db")
                 {
@@ -261,7 +280,7 @@ namespace ProjetManhattan
                 }
 
                 //Affichage du JSON en console
-                Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue, importConfig));
+                Console.WriteLine(transfertVersZabbix.GetJSONToZabbix(traitementChoisiValue, _container));
             }, nomBDorigine, traitementChoisi, dateDebutExport, dateFinExport, configFileName, dateOnly);
 
             return exporterVersZabbix;
@@ -316,8 +335,8 @@ namespace ProjetManhattan
                     }
 
                     SQLiteToZabbix transfertToZabbix = new SQLiteToZabbix(nomBDOrigineValue, DateOnly.FromDateTime(dateValueValue));
-                    fichierConfig = configFileNameValue;
-                    importConfig = new BaseConfig(fichierConfig);
+                    InitConfig(configFileNameValue);
+                    
                     importConfig.DateTraitement = dateValueValue;
                     Console.WriteLine($"Base de Donnees consultee={nomBDOrigineValue}"); 
 
@@ -328,7 +347,7 @@ namespace ProjetManhattan
                         return;
                     }
 
-                    Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue, importConfig));
+                    Console.WriteLine(transfertToZabbix.GetValueFromTraitementTargetPropertyName(nomTraitementValue, nomTargetValue, nomPropertyNameValue, _container));
                 }
             }, nomTraitement, nomTarget, nomPropertyName, nomBDOrigine, dateValue, configFileName);
 
@@ -368,8 +387,8 @@ namespace ProjetManhattan
 
             effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue, nomBDresultValue, configFileNameValue, dateDebutTraitementsValue) =>
             {
-                fichierConfig = configFileNameValue;
-                importConfig = new BaseConfig(fichierConfig);
+                InitConfig(configFileNameValue);
+                
                 importConfig.DateTraitement = dateDebutTraitementsValue;
                 //Console.WriteLine(importConfig.DateTraitement);
                 if (choixOutputValue.Equals("bd"))
@@ -416,11 +435,10 @@ namespace ProjetManhattan
 
             help.SetHandler((configFileNameValue, dateValue) =>
             {
-                fichierConfig = configFileNameValue;
-                importConfig = new BaseConfig(fichierConfig);
+                InitConfig(configFileNameValue);              
                 importConfig.DateTraitement = dateValue;
 
-                GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(importConfig);
+                GenerationNomTraitement generationNomTraitement = _container.Resolve<GenerationNomTraitement>();
                 Console.WriteLine("Liste des traitements disponibles");
                 foreach (string nomTraitement in generationNomTraitement.AllTreatments.Keys)
                 {

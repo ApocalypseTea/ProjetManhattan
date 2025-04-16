@@ -16,6 +16,7 @@
   <ItemGroup>
     <None Remove="Configuration\QueryChangementDateNaissancePatient.txt" />
     <None Remove="Configuration\QueryChangementIdentiteUser.txt" />
+    <None Remove="Configuration\QueryDureeRequeteMoyenneSQL.txt" />
     <None Remove="Configuration\QueryValidateurRCPAbsent.txt" />
     <None Remove="Configuration\QueryValidationParInterne.txt" />
     <None Remove="ReadMe - CommandesCLI.txt" />
@@ -27,6 +28,7 @@
     <EmbeddedResource Include="Configuration\QueryBrisDeGlace.txt" />
     <EmbeddedResource Include="Configuration\QueryChangementDateNaissancePatient.txt" />
     <EmbeddedResource Include="Configuration\QueryChangementIdentiteUser.txt" />
+    <EmbeddedResource Include="Configuration\QueryDureeRequeteMoyenneSQL.txt" />
     <EmbeddedResource Include="Configuration\QueryValidateurRCPAbsent.txt" />
     <EmbeddedResource Include="Configuration\QueryValidationParInterne.txt" />
     <EmbeddedResource Include="ReadMe - CommandesCLI.txt" />
@@ -37,6 +39,7 @@
     <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+    <PackageReference Include="Unity.Container" Version="5.11.11" />
   </ItemGroup>
 
 </Project>

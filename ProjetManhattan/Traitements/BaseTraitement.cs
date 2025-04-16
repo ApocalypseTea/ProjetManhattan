@@ -9,26 +9,29 @@ using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
 using Microsoft.Data.Sqlite;
 using System.Reflection;
+using Unity;
 
 namespace ProjetManhattan.Traitements
 {
     public abstract class BaseTraitement<TSource> where TSource: ISource
     {
-        private List<Record> _items;
+        private List<Record> _records;
         protected TSource _source;
         protected IFiltre _filtre;
         protected IFormatage _sortie;
-        public BaseTraitement(BaseConfig config)
+        protected IUnityContainer _container;
+        public BaseTraitement(IUnityContainer container)
         {
+            _container = container;
             _sortie = new OutputDisplay();
-            _items = new List<Record>();
+            _records = new List<Record>();
         }
         public abstract void Execute();
         public virtual void Display(string exportDataMethod, string nomBD)
         {
             if (exportDataMethod.Equals("console"))
             {
-                _sortie.AffichageRecord(_items);
+                _sortie.AffichageRecord(_records);
             }
 
             if (exportDataMethod.Equals("bd"))
@@ -38,7 +41,7 @@ namespace ProjetManhattan.Traitements
 
                 SqliteConnection connection = creationDBSQLite.ConnectToTinyDB();
 
-                foreach (Record item in _items)
+                foreach (Record item in _records)
                 {
                     RecordToSQLite ligneBD = new RecordToSQLite(item);
                     ligneBD.AddRecordToDataBase(connection);
@@ -52,10 +55,12 @@ namespace ProjetManhattan.Traitements
             set { _filtre = value; }
         }
 
-        public void AddItem(Record item)
+        public void AddRecord(Record item)
         {
-            _items.Add(item);
+            _records.Add(item);
         }
+
+        public IUnityContainer Container => _container;
 
     }
 }

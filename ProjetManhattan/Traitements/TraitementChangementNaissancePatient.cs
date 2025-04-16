@@ -1,5 +1,7 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using System.Data;
+using Microsoft.Data.SqlClient;
 using ProjetManhattan.Configuration;
+using Unity;
 
 namespace ProjetManhattan.Traitements
 {
@@ -13,19 +15,21 @@ namespace ProjetManhattan.Traitements
                 return "ModificationDateNaissance"; 
             } 
         }
-        public TraitementChangementNaissancePatient(BaseConfig config) : base(config)
+        public TraitementChangementNaissancePatient(BaseConfig config, IUnityContainer container) : base(container)
         {
             _dateTraitement = config.DateTraitement;
         }
         
-        protected override SqlCommand GetSQLCommand(SqlConnection connection)
+        protected override IDbCommand GetSQLCommand(IDbConnection connection)
         {
-            SqlCommand requete = new SqlCommand(GetSQLQuery(RESSOURCENAME), connection);
-            requete.Parameters.AddWithValue("@dateTraitement", _dateTraitement);
+            IDbCommand requete = connection.CreateCommand();
+            requete.CommandText = GetSQLQuery(RESSOURCENAME);
+            requete.CommandType = CommandType.Text;
+            requete.AddParameterWithValue("@dateTraitement", _dateTraitement);
             return requete;
         }        
 
-        protected override LigneRequeteChangementNaissancePatient ReadItem(SqlDataReader reader)
+        protected override LigneRequeteChangementNaissancePatient ReadItem(IDataReader reader)
         {
             int colIdPatient = reader.GetOrdinal("id_patient");
             int colDateActuelle = reader.GetOrdinal("date_actuelle");

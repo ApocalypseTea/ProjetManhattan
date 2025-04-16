@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Traitements;
+using Unity;
 
 namespace ProjetManhattan
 {
@@ -15,7 +16,7 @@ namespace ProjetManhattan
         public Dictionary<string, ITraitement> AllTreatments { get; }
         private object[] _parametreTraitement;
 
-        public GenerationNomTraitement(BaseConfig importConfig)
+        public GenerationNomTraitement(IUnityContainer container, BaseConfig importConfig)
         {
             AllTreatments = new Dictionary<string, ITraitement>();
             object[] parametreTraitement = {importConfig};
@@ -30,30 +31,48 @@ namespace ProjetManhattan
             //Instanciation de tous les traitements existants
             foreach (Type typeTraitement in traitementsQuiImplemententItraitement)
             {
-                ConstructorInfo[] constructors = typeTraitement.GetConstructors();
-
-                foreach (ConstructorInfo constructor in constructors)
+                try
                 {
-                    try
+                    ITraitement instanceDeTraitement = container.Resolve(typeTraitement) as ITraitement;
+                    string nomTraitementRaccourci = instanceDeTraitement.Name;
+                    AllTreatments.Add(nomTraitementRaccourci.ToLower(), instanceDeTraitement);
+                }
+                catch (TargetInvocationException ex)
+                {
+                    if (ex.InnerException.GetType() == typeof(TraitementExecutionException))
                     {
-                        ITraitement instanceDeTraitement = (ITraitement)constructor.Invoke(_parametreTraitement);
-                        string nomTraitementRaccourci = instanceDeTraitement.Name;
-                        AllTreatments.Add(nomTraitementRaccourci.ToLower(), instanceDeTraitement);
+                        Console.WriteLine(ex.InnerException.Message);
+                        Console.WriteLine(ex.InnerException.InnerException);
+                        Console.WriteLine($"Traitement {typeTraitement.Name} non instancié. Ignoré.");
                     }
-                    catch (TargetInvocationException ex)
+                    else
                     {
-                        if (ex.InnerException.GetType() == typeof(TraitementExecutionException))
-                        {
-                            Console.WriteLine(ex.InnerException.Message);
-                            Console.WriteLine(ex.InnerException.InnerException);
-                            Console.WriteLine($"Traitement {typeTraitement.Name} non instancié. Ignoré.");
-                        }
-                        else
-                        {
-                            throw;
-                        }
+                        throw;
                     }
                 }
+
+                //foreach (ConstructorInfo constructor in constructors)
+                //{
+                //    try
+                //    {
+                //        ITraitement instanceDeTraitement = (ITraitement)constructor.Invoke(_parametreTraitement);
+                //        string nomTraitementRaccourci = instanceDeTraitement.Name;
+                //        AllTreatments.Add(nomTraitementRaccourci.ToLower(), instanceDeTraitement);
+                //    }
+                //    catch (TargetInvocationException ex)
+                //    {
+                //        if (ex.InnerException.GetType() == typeof(TraitementExecutionException))
+                //        {
+                //            Console.WriteLine(ex.InnerException.Message);
+                //            Console.WriteLine(ex.InnerException.InnerException);
+                //            Console.WriteLine($"Traitement {typeTraitement.Name} non instancié. Ignoré.");
+                //        }
+                //        else
+                //        {
+                //            throw;
+                //        }
+                //    }
+                //}
             }
         }
 

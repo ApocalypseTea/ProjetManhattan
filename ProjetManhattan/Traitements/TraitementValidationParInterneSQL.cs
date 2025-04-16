@@ -8,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
+using Unity;
 
 namespace ProjetManhattan.Traitements
 {
@@ -24,20 +25,22 @@ namespace ProjetManhattan.Traitements
                 return "ValidationInterne";
             }
         }
-        public TraitementValidationParInterneSQL(BaseConfig config) : base(config)
+        public TraitementValidationParInterneSQL(BaseConfig config, IUnityContainer container) : base(container)
         {
             ConfigRCPValideParInterne c = config.GetConfigTraitement<ConfigRCPValideParInterne>(nameof(TraitementValidationParInterneSQL));
 
             _titreValidateur = c.TitreValidateur;
-            _items = new List<LigneRequeteSQLValidationParInterne>();
+            _lines = new List<LigneRequeteSQLValidationParInterne>();
             _source = new AccesBDD(config);
             _sortie = new OutputDisplay();
             _dateTraitement = config.DateTraitement;
         }
 
-        protected override SqlCommand GetSQLCommand(SqlConnection connection)
+        protected override IDbCommand GetSQLCommand(IDbConnection connection)
         {
-            SqlCommand requete = new SqlCommand(GetSQLQuery(RESOURCENAME), connection);
+            IDbCommand requete = connection.CreateCommand();
+            requete.CommandText = GetSQLQuery(RESOURCENAME);
+            requete.CommandType = CommandType.Text;
             DataTable table = new DataTable("toto");
             DataColumn column = new DataColumn("value");
             column.DataType = typeof(string);
@@ -48,14 +51,14 @@ namespace ProjetManhattan.Traitements
                 table.Rows.Add(titre);
             }
 
-            SqlParameter pTitre = requete.Parameters.AddWithValue("@Titre", table);
+            SqlParameter pTitre = requete.AddParameterWithValue("@Titre", table);
             pTitre.SqlDbType = SqlDbType.Structured;
             pTitre.TypeName = "dbo.StringArray";
-            requete.Parameters.AddWithValue("@dateTraitement", _dateTraitement);
+            requete.AddParameterWithValue("@dateTraitement", _dateTraitement);
             return requete;
         }
 
-        protected override LigneRequeteSQLValidationParInterne ReadItem(SqlDataReader reader)
+        protected override LigneRequeteSQLValidationParInterne ReadItem(IDataReader reader)
         {
             int colNumeroFiche = reader.GetOrdinal("numeroFiche");
             long numeroFicheRCP = reader.GetInt64(colNumeroFiche);

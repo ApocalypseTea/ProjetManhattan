@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjetManhattan.Configuration;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace ProjetManhattan.Sources
 {
@@ -17,7 +18,7 @@ namespace ProjetManhattan.Sources
             ConnectionString = config.ConnectionString;
         }          
 
-        public SqlConnection ConnexionBD()
+        public IDbConnection ConnexionBD()
         {
             try
             {

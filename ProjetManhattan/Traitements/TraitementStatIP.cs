@@ -7,6 +7,7 @@ using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
 using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
+using Unity;
 
 namespace ProjetManhattan.Traitements
 {
@@ -22,17 +23,19 @@ namespace ProjetManhattan.Traitements
                 return "StatIp";
             }
         }
-        public TraitementStatIP(BaseConfig config) : base(config)
+        public TraitementStatIP(IUnityContainer container) : base(container)
         {
+            BaseConfig config = container.Resolve<BaseConfig>();
             ConfigStatsIP c = config.GetConfigTraitement<ConfigStatsIP>(nameof(TraitementStatIP));
             this.Filtre = new IgnoreWhiteList(c.AdressesIPValides);
-            _source = new FichierDeLogIIS(config);
             _seuilAlerte = c.SeuilAlerteRequetesParIp; 
             _listingIPJournalieres = new Dictionary<string, IpClient>();
             _dateTraitement = config.DateTraitement;
         }
         public override void Execute()
         {
+            _source = this.Container.Resolve<FichierDeLogIIS>();
+
             while (_source.HasLines())
             {
                 LigneDeLog? ligne = _source.ReadLine();
@@ -55,7 +58,7 @@ namespace ProjetManhattan.Traitements
                         Value = item._nbConnexionJournaliere.ToString(),
                         Description = ""
                     };
-                    this.AddItem(record);
+                    this.AddRecord(record);
                 }
             }
         }       

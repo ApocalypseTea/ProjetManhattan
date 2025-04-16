@@ -10,6 +10,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Traitements;
+using Unity;
 
 namespace ProjetManhattan.Formatages
 {
@@ -47,9 +48,9 @@ namespace ProjetManhattan.Formatages
             _dateOnly= dateOnly;
         }
 
-        public string GetJSONToZabbix(string nomTraitement, BaseConfig importConfig)
+        public string GetJSONToZabbix(string nomTraitement, IUnityContainer container)
         {
-            if (IsValidTraitement(nomTraitement, importConfig) == null)
+            if (IsValidTraitement(nomTraitement, container) == null)
             {
                 Console.WriteLine("Traitement invalide");
                 return null;
@@ -112,11 +113,11 @@ namespace ProjetManhattan.Formatages
 
             return JsonConvert.SerializeObject(_zabbixListe, settings);
         }
-        public string GetValueFromTraitementTargetPropertyName (string nomTraitement, string nomTarget, string nomPropertyName, BaseConfig importConfig)
+        public string GetValueFromTraitementTargetPropertyName (string nomTraitement, string nomTarget, string nomPropertyName, IUnityContainer container)
         {
             if (!nomTraitement.Equals(""))                
             {
-                if(IsValidTraitement(nomTraitement, importConfig) == null){
+                if(IsValidTraitement(nomTraitement, container) == null){
                     return null;
                 }
             }
@@ -154,9 +155,9 @@ namespace ProjetManhattan.Formatages
             return json;
         }
 
-        public static string IsValidTraitement(string nomTraitement, BaseConfig importConfig)
+        public static string IsValidTraitement(string nomTraitement, IUnityContainer container)
         {
-            GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(importConfig);
+            GenerationNomTraitement generationNomTraitement = container.Resolve<GenerationNomTraitement>();
 
             bool isRealTreatment = false;
 

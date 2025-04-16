@@ -7,6 +7,7 @@ using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
 using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
+using Unity;
 
 namespace ProjetManhattan.Traitements
 {
@@ -19,7 +20,7 @@ namespace ProjetManhattan.Traitements
                 return "TempsRequete";
             }
         }
-        public TraitementTempsRequete(BaseConfig config) : base (config, new FichierDeLogIIS(config))
+        public TraitementTempsRequete(BaseConfig config, IUnityContainer container) : base (container)
         {
             ConfigTempsRequetes c = config.GetConfigTraitement<ConfigTempsRequetes>(nameof(TraitementTempsRequete));
             this.Filtre = new IgnoreFastRequest(c.SeuilAlerteTempsRequetes);

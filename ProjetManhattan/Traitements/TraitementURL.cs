@@ -7,6 +7,7 @@ using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
 using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
+using Unity;
 
 namespace ProjetManhattan.Traitements
 {
@@ -19,7 +20,7 @@ namespace ProjetManhattan.Traitements
                 return "URL";
             }
         }
-        public TraitementURL(BaseConfig config) : base (config, new FichierDeLogIIS(config))
+        public TraitementURL(BaseConfig config, IUnityContainer container) : base (container)
         {
             ConfigURLInvalides c = config.GetConfigTraitement<ConfigURLInvalides>(nameof(TraitementURL));
             this.Filtre = new IgnoreURLWhiteList(c.PatternURLValide);

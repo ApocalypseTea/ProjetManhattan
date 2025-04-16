@@ -10,6 +10,7 @@ using System.Data;
 using ProjetManhattan.Formatages;
 using System.Numerics;
 using System.Reflection;
+using Unity;
 
 namespace ProjetManhattan.Traitements
 {
@@ -28,16 +29,18 @@ namespace ProjetManhattan.Traitements
             } 
         }
 
-        public TraitementBrisDeGlaceSQL(BaseConfig config) : base(config)
+        public TraitementBrisDeGlaceSQL(IUnityContainer container, BaseConfig config, IAccesBDD accesBDD, IFormatage outputDisplay ) : base(container)
         {
             ConfigBrisGlace c = config.GetConfigTraitement<ConfigBrisGlace>(nameof(TraitementBrisDeGlaceSQL));
             _seuilAlerteBrisGlace = c.SeuilAlerteBrisDeGlaceJournalierParUtilisateur;
             _dateTraitement = config.DateTraitement;
-            _items = new List<LigneRequeteBrisGlace> ();
-            _source = new AccesBDD(config);
-            _sortie = new OutputDisplay();           
+            _lines = new List<LigneRequeteBrisGlace> ();
+            //_source = new AccesBDD(config);
+            //_sortie = new OutputDisplay();           
+            _source = accesBDD;
+            _sortie = outputDisplay;
         }
-        protected override LigneRequeteBrisGlace ReadItem(SqlDataReader reader)
+        protected override LigneRequeteBrisGlace ReadItem(IDataReader reader)
         {
             int colProfilRef = reader.GetOrdinal("profil_ref");
             int colPrenom = reader.GetOrdinal("prenom");
@@ -59,11 +62,15 @@ namespace ProjetManhattan.Traitements
 
             return ligne;
         }
-        protected override SqlCommand GetSQLCommand(SqlConnection connection)
+        protected override IDbCommand GetSQLCommand(IDbConnection connection)
         {
-            SqlCommand requete = new SqlCommand(GetSQLQuery(RESOURCENAME), connection);
-            requete.Parameters.AddWithValue("@Seuil", _seuilAlerteBrisGlace);
-            requete.Parameters.AddWithValue("@dateTraitement", _dateTraitement);
+            IDbCommand requete = connection.CreateCommand();
+            requete.CommandText = GetSQLQuery(RESOURCENAME);
+            requete.CommandType = CommandType.Text;
+
+            //requete.Parameters.AddWithValue("@Seuil", _seuilAlerteBrisGlace);
+            requete.AddParameterWithValue("@Seuil", _seuilAlerteBrisGlace);
+            requete.AddParameterWithValue("@dateTraitement", _dateTraitement);
 
             return requete;
         }
