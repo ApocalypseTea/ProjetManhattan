@@ -24,6 +24,7 @@ namespace ProjetManhattan
         private static Option<string> configFileName;
         private static Regex dBFilenamePattern = new Regex(@".*\.db$", RegexOptions.Compiled);
         private const string RESSOURCEHELP = "ProjetManhattan.ReadMe - CommandesCLI.txt";
+        
         public static void MiniMenu(string nomTraitement, BaseConfig importConfig, string typeOutput, string? nomBD)
         {
             ITraitement? traitement = null;
@@ -147,16 +148,17 @@ namespace ProjetManhattan
 
             rootCommand.SetHandler((configFileNameValue) =>
             {
-                InitConfig(configFileNameValue);
+                InitConfig(configFileNameValue, DateTime.Now);
             }, configFileName);
 
             return rootCommand;
         }
 
-        private static void InitConfig(string configFileNameValue)
+        private static void InitConfig(string configFileNameValue, DateTime DateTraitement)
         {
             fichierConfig = configFileNameValue;
             importConfig = new BaseConfig(fichierConfig);
+            importConfig.DateTraitement = DateTraitement;
             _container.RegisterInstance<BaseConfig>(importConfig);
 
             IAccesBDD source = new AccesBDD(importConfig);
@@ -164,11 +166,12 @@ namespace ProjetManhattan
 
             _container.RegisterInstance<IAccesBDD>(source);
             _container.RegisterInstance<IFormatage>(sortie);
-
+            _container.RegisterFactory<IFichierDeLog>((container) =>
+            {
+                return new FichierDeLogIIS(importConfig);
+            });
             GenerationNomTraitement generationNomTraitement = new GenerationNomTraitement(_container, importConfig);
             _container.RegisterInstance<GenerationNomTraitement>(generationNomTraitement);
-
-           
         }
 
         private static Command GetCommandExportToZabbix()
@@ -206,7 +209,9 @@ namespace ProjetManhattan
 
             exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue, dateDebutExportValue, dateFinExportValue, configFileNameValue, dateOnlyValue) =>
             {
-                InitConfig(configFileNameValue);
+
+                ///////////////////A REGULARISER SELON DATE ENTREE EN PARAMETRE
+                //InitConfig(configFileNameValue, DateTime.Now);
 
                 if (Path.GetExtension(nomBDorigneValue) != ".db")
                 {
@@ -228,7 +233,9 @@ namespace ProjetManhattan
                 else if (dateDebutExportValue != default(DateTime))
                 {
                     //Console.WriteLine($"date debut export entree : {dateDebutExportValue}");
-                    importConfig.DateTraitement = dateDebutExportValue;
+                    //importConfig.DateTraitement = dateDebutExportValue;
+                    InitConfig(configFileNameValue, dateDebutExportValue);
+
 
                     if (dateFinExportValue == default(DateTime))
                     {
@@ -267,7 +274,8 @@ namespace ProjetManhattan
                         return;
                     }
                     Console.WriteLine($"date only entree : {dateOnlyValue}");
-                    importConfig.DateTraitement = dateOnlyValue;
+                    //importConfig.DateTraitement = dateOnlyValue;
+                    InitConfig(configFileNameValue, dateOnlyValue);
                     transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, DateOnly.FromDateTime(dateOnlyValue));
                 }
                 else
@@ -335,7 +343,7 @@ namespace ProjetManhattan
                     }
 
                     SQLiteToZabbix transfertToZabbix = new SQLiteToZabbix(nomBDOrigineValue, DateOnly.FromDateTime(dateValueValue));
-                    InitConfig(configFileNameValue);
+                    InitConfig(configFileNameValue, dateValueValue);
                     
                     importConfig.DateTraitement = dateValueValue;
                     Console.WriteLine($"Base de Donnees consultee={nomBDOrigineValue}"); 
@@ -371,7 +379,6 @@ namespace ProjetManhattan
             choixOutput.IsRequired = true;
             effectuerTraitement.AddOption(choixOutput);
 
-            //Trouver une solution pour créer une conditionnelle SEULEMENT si le type de traitement est "bd"
             Option<string> nomBDResult = new Option<string>(
                 name: "--output",
                 description: "Nom de la base de donnée qui recevra les resultats du traitement"
@@ -387,10 +394,11 @@ namespace ProjetManhattan
 
             effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue, nomBDresultValue, configFileNameValue, dateDebutTraitementsValue) =>
             {
-                InitConfig(configFileNameValue);
+                InitConfig(configFileNameValue, dateDebutTraitementsValue);
                 
+
                 importConfig.DateTraitement = dateDebutTraitementsValue;
-                //Console.WriteLine(importConfig.DateTraitement);
+                Console.WriteLine(importConfig.DateTraitement);
                 if (choixOutputValue.Equals("bd"))
                 {
                     if (nomBDresultValue == null)
@@ -435,7 +443,7 @@ namespace ProjetManhattan
 
             help.SetHandler((configFileNameValue, dateValue) =>
             {
-                InitConfig(configFileNameValue);              
+                InitConfig(configFileNameValue, dateValue);              
                 importConfig.DateTraitement = dateValue;
 
                 GenerationNomTraitement generationNomTraitement = _container.Resolve<GenerationNomTraitement>();

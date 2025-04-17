@@ -8,10 +8,10 @@ namespace ProjetManhattan
 {
     public class LigneRequeteDureeMoyenneSQL : IToRecordable
     {
-        public float Duree { get; set; }
+        public long Duree { get; set; }
         public string StoredProcedure { get; set; }
 
-        public LigneRequeteDureeMoyenneSQL(float duree, string storedProcedure)
+        public LigneRequeteDureeMoyenneSQL(long duree, string storedProcedure)
         {
             this.Duree = duree;
             this.StoredProcedure = storedProcedure;
@@ -24,7 +24,7 @@ namespace ProjetManhattan
                 Value = this.Duree.ToString(),
                 Date = DateTime.Now,
                 PropertyName = "AverageDuration",
-                Traitement = "DureeTraitementRequeteSQL"
+                Traitement = "DureeMoyRequeteSQL"
             };
         }
     }

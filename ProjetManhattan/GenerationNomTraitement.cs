@@ -21,6 +21,7 @@ namespace ProjetManhattan
             AllTreatments = new Dictionary<string, ITraitement>();
             object[] parametreTraitement = {importConfig};
             _parametreTraitement = parametreTraitement;
+            Console.WriteLine(_parametreTraitement);
 
             //var traitementsQuiImplemententItraitement = Assembly.GetExecutingAssembly().GetTypes().Where(l => l.IsClass && l.IsAssignableTo(typeof(ITraitement)));
             //syntaxe Linq "officielle":

@@ -15,49 +15,21 @@ namespace ProjetManhattan.Traitements
     {
         private readonly static string RESOURCENAME = "ProjetManhattan.Configuration.QueryDureeRequeteMoyenneSQL.txt";
         private IAccesBDD _accesBDD;
-        public string Name => "DureeTraitementRequeteSQL";
+        public string Name => "DureeMoyRequeteSQL";
 
         public TraitementDureeMoyenneRequeteSQL(IUnityContainer container) : base(container)
         {
-
+            //Console.WriteLine("Je suis une instance de Ttt duree moyenne Requete sql");
         }
-
-        public void Display(string exportDataMethod, string nomDB)
-        {
-            throw new NotImplementedException();
-        }
-
-        //public void Execute()
-        //{
-        //    IAccesBDD acces = this.Container.Resolve<IAccesBDD>();
-        //    using (IDbConnection connection = acces.ConnexionBD())
-        //    using(IDbCommand cmd = connection.CreateCommand())
-        //    {
-        //        cmd.CommandText = GetSQLQuery(RESOURCENAME);
-        //        cmd.CommandType = CommandType.Text;
-        //    }
-        //}
 
         protected override LigneRequeteDureeMoyenneSQL ReadItem(IDataReader reader)
         {
             int colAvgElapsedTime = reader.GetOrdinal("avg_elapsed_time");
             int colStoredProcedure = reader.GetOrdinal("stored_procedure");
-            //int colPrenom = reader.GetOrdinal("prenom");
-            //int colNom = reader.GetOrdinal("nom");
-            //int colLabel = reader.GetOrdinal("label");
-            //int colValue = reader.GetOrdinal("value");
-            //int colNbPatient = reader.GetOrdinal("nb_patient_brise_glace");
-            //int colDate = reader.GetOrdinal("date");
+           
 
-            float duree = reader.GetFloat(colAvgElapsedTime);
+            long duree = reader.GetInt64(colAvgElapsedTime);
             string storedProcedure = reader.GetString(colStoredProcedure);
-
-            //string prenom = reader.GetString(colPrenom);
-            //string nom = reader.GetString(colNom);
-            //string label = reader.GetString(colLabel);
-            //string value = reader.GetString(colValue);
-            //int nbPatientBrisGlace = reader.GetInt32(colNbPatient);
-            //DateTime date = reader.GetDateTime(colDate);
 
             LigneRequeteDureeMoyenneSQL ligne = new LigneRequeteDureeMoyenneSQL(duree, storedProcedure);
 

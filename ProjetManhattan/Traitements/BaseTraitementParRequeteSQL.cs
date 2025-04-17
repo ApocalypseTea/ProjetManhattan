@@ -18,20 +18,29 @@ namespace ProjetManhattan.Traitements
         protected BaseTraitementParRequeteSQL(IUnityContainer container) : base(container)
         {
             _lines = new List<T>();
-            _source = container.Resolve<IAccesBDD>();
         }
         public override void Execute()
         {
-            using (IDbConnection connect = _source.ConnexionBD())
-            using (IDbCommand requete = GetSQLCommand(connect))
-            using (IDataReader reader = requete.ExecuteReader())
+            //Console.WriteLine("execution traitement par requete SQL");
+            _source = this.Container.Resolve<IAccesBDD>();
+            using (IDbConnection connect = _source.ConnexionBD()) 
             {
-                while(reader.Read())
+                //Console.WriteLine("connexion etablie");
+                using (IDbCommand requete = GetSQLCommand(connect))
                 {
-                    T item = ReadItem(reader);
-                    _lines.Add(item);
-                    Record line = item.ToRecord();
-                    this.AddRecord(line);
+                    //Console.WriteLine("commande recuperee");
+                    using (IDataReader reader = requete.ExecuteReader())
+                    {
+                        //Console.WriteLine("Lancement reader");
+                        while (reader.Read())
+                        {
+                            //Console.WriteLine("Je suis le reader de resultat de requete SQL a SQL Server");
+                            T item = ReadItem(reader);
+                            _lines.Add(item);
+                            Record line = item.ToRecord();
+                            this.AddRecord(line);
+                        }
+                    }
                 }
             }
         }

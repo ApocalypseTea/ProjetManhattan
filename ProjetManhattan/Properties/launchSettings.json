@@ -7,25 +7,9 @@
       "commandName": "WSL2",
       "distributionName": ""
     },
-    "traitement all date console": {
-      "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=ALL --outputFormat=bd --output=resultatTraitement.db --date=2025-03-23"
-    },
-    "traitement all date bd testavril1": {
-      "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=all --outputFormat=bd --output=testavril1 --date=2025-03-23"
-    },
     "traitement StatIp date console": {
       "commandName": "Project",
       "commandLineArgs": "traitement --traitement=STATiP --date=17-02-2025 --outputFormat=console"
-    },
-    "traitement BrisGlace date bd": {
-      "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=BrisGlace --outputFormat=console --date=2025-03-23"
-    },
-    "Profil 1": {
-      "commandName": "Project",
-      "commandLineArgs": "helpMe --date=2025-03-22"
     },
     "toZabbix ttt URL": {
       "commandName": "Project",
@@ -34,6 +18,18 @@
     "getValue LocalisationIp": {
       "commandName": "Project",
       "commandLineArgs": "getValue --input=resultatTraitement  --propertyName=OrigineGeographique --target=103.138.4.61 --date=2025-03-22 "
+    },
+    "helpMe date": {
+      "commandName": "Project",
+      "commandLineArgs": "helpMe --date=2025-03-22"
+    },
+    "traitement BrisGlace date console": {
+      "commandName": "Project",
+      "commandLineArgs": "traitement --traitement=BrisGlace --outputFormat=console --date=2022-09-08"
+    },
+    "traitement dureeMoyeRequete date console": {
+      "commandName": "Project",
+      "commandLineArgs": "traitement --traitement=dureemoyrequetesql --outputFormat=console --date=2025-04-17"
     }
   }
 }

@@ -38,6 +38,7 @@ namespace ProjetManhattan.Traitements
 
         public override void Execute()
         {
+            _source = this.Container.Resolve<IFichierDeLog>();
             while (_source.HasLines())
             {
                 LigneDeLog? ligne = _source.ReadLine();

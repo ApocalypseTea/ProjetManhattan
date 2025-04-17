@@ -11,7 +11,7 @@ using Unity;
 
 namespace ProjetManhattan.Traitements
 {
-    internal class TraitementStatIP : BaseTraitement<FichierDeLogIIS>, ITraitement
+    internal class TraitementStatIP : BaseTraitement<IFichierDeLog>, ITraitement
     {
         protected Dictionary<string, IpClient> _listingIPJournalieres;
         private int _seuilAlerte;
