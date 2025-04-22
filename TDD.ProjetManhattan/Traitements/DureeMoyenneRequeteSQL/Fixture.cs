@@ -35,7 +35,7 @@ namespace TDD.ProjetManhattan.Traitements.DureeMoyenneRequeteSQL
             return new BaseConfig(FILENAME);
         }
 
-        internal void GivenExistingRow(float duree, string storedProcedureName)
+        internal void GivenExistingRow(long duree, string storedProcedureName)
         {
             AddRow(duree, storedProcedureName);
         }
@@ -69,7 +69,7 @@ namespace TDD.ProjetManhattan.Traitements.DureeMoyenneRequeteSQL
             if (_fakeAccesBDD.ExpectData == null)
             {
                 DataTable data = new DataTable();
-                data.Columns.Add(new DataColumn("avg_elapsed_time", typeof(float)));
+                data.Columns.Add(new DataColumn("avg_elapsed_time", typeof(long)));
                 data.Columns.Add(new DataColumn("stored_procedure", typeof(string)));
                 this._fakeAccesBDD.ExpectData = data;
             }

@@ -395,7 +395,6 @@ namespace ProjetManhattan
             effectuerTraitement.SetHandler((choixTraitementValue, choixOutputValue, nomBDresultValue, configFileNameValue, dateDebutTraitementsValue) =>
             {
                 InitConfig(configFileNameValue, dateDebutTraitementsValue);
-                
 
                 importConfig.DateTraitement = dateDebutTraitementsValue;
                 Console.WriteLine(importConfig.DateTraitement);
@@ -412,7 +411,6 @@ namespace ProjetManhattan
                     {
                         nomBDresultValue += ".db";
                     }
-
                 }
                 else
                 {

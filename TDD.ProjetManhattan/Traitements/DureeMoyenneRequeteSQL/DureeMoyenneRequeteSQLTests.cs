@@ -42,7 +42,7 @@ namespace TDD.ProjetManhattan.Traitements.DureeMoyenneRequeteSQLTests
         public void ShouldHaveAName()
         {
             _fixture.WhenCreatingTraitement();
-            _fixture.ThenTraitement().Name.Should().Be("DureeTraitementRequeteSQL");
+            _fixture.ThenTraitement().Name.Should().Be("DureeMoyRequeteSQL");
 
             //BaseConfig config = GetConfig();
             //ITraitement traitement = new TraitementDureeMoyenneRequeteSQL(_container);

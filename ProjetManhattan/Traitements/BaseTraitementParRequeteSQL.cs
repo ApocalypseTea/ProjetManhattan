@@ -14,7 +14,7 @@ namespace ProjetManhattan.Traitements
 {
     public abstract class BaseTraitementParRequeteSQL <T> : BaseTraitement<IAccesBDD> where T: IToRecordable
     {
-        protected List<T> _lines;
+        public List<T> _lines;
         protected BaseTraitementParRequeteSQL(IUnityContainer container) : base(container)
         {
             _lines = new List<T>();

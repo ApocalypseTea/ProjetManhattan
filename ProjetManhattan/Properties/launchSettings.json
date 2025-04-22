@@ -27,9 +27,9 @@
       "commandName": "Project",
       "commandLineArgs": "traitement --traitement=BrisGlace --outputFormat=console --date=2022-09-08"
     },
-    "traitement dureeMoyeRequete date console": {
+    "traitement MedecinParticipantAbsent date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=dureemoyrequetesql --outputFormat=console --date=2025-04-17"
+      "commandLineArgs": "traitement --traitement=MedecinParticipantAbsent --outputFormat=console --date=2023-01-17"
     }
   }
 }

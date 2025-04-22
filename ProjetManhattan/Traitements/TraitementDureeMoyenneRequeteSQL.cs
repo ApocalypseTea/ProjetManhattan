@@ -26,11 +26,19 @@ namespace ProjetManhattan.Traitements
         {
             int colAvgElapsedTime = reader.GetOrdinal("avg_elapsed_time");
             int colStoredProcedure = reader.GetOrdinal("stored_procedure");
-           
 
             long duree = reader.GetInt64(colAvgElapsedTime);
-            string storedProcedure = reader.GetString(colStoredProcedure);
-
+            
+            string storedProcedure;
+            if (!reader.IsDBNull(colStoredProcedure))
+            {
+                storedProcedure = reader.GetString(colStoredProcedure);
+            }
+            else
+            {
+                storedProcedure = "NULL";
+            }
+            
             LigneRequeteDureeMoyenneSQL ligne = new LigneRequeteDureeMoyenneSQL(duree, storedProcedure);
 
             return ligne;
