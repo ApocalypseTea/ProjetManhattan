@@ -59,12 +59,12 @@ namespace ProjetManhattan.Formatages
             string finalQuery = "";
             if (isRange)
             {
-                Console.WriteLine("Requete RANGE");
+                //Console.WriteLine("Requete RANGE");
                 finalQuery = QUERY_RANGE;
             }
             else
             {
-                Console.WriteLine("Requete DATE");
+                //Console.WriteLine("Requete DATE");
                 finalQuery = QUERY_DATE;
             }
 
@@ -72,15 +72,15 @@ namespace ProjetManhattan.Formatages
                 {
                     if (isRange)
                     {
-                        Console.WriteLine($"Parametres RANGE {nomTraitement} date debut {_dateDebutExport} date fin {_dateFinExport.AddDays(1)}");
+                        //Console.WriteLine($"Parametres RANGE {nomTraitement} date debut {_dateDebutExport} date fin {_dateFinExport.AddDays(1)}");
                         requete.Parameters.AddWithValue("@traitement", nomTraitement);
                         requete.Parameters.AddWithValue("@debutExport", _dateDebutExport);
                         requete.Parameters.AddWithValue("@finExport", _dateFinExport.AddDays(1));
                     } 
                     else
                     {
-                        Console.WriteLine($"Parametres DATE : {nomTraitement} et date {_dateOnly}");
-                        Console.WriteLine($"La requete est {finalQuery}");
+                        //Console.WriteLine($"Parametres DATE : {nomTraitement} et date {_dateOnly}");
+                        //Console.WriteLine($"La requete est {finalQuery}");
                         requete.Parameters.AddWithValue("@traitement", nomTraitement);
                         requete.Parameters.AddWithValue("@dateExacte", _dateOnly);
                     }
@@ -88,7 +88,7 @@ namespace ProjetManhattan.Formatages
                     SqliteDataReader reader = requete.ExecuteReader();
                     while (reader.Read())
                     {
-                        Console.WriteLine("Reader read");
+                        //Console.WriteLine("Reader read");
                         int colTraitement = reader.GetOrdinal("traitement");
                         int colTarget = reader.GetOrdinal("target");
                         int colPropertyName = reader.GetOrdinal("propertyName");

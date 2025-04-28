@@ -25,7 +25,7 @@ namespace ProjetManhattan.Traitements
         {
             using (IDbCommand commande = connection.CreateCommand())
             {
-                Console.WriteLine("Je suis une instance de tttMedecinAbsent : ", _dateTraitement);
+                //Console.WriteLine("Je suis une instance de tttMedecinAbsent : ", _dateTraitement);
                 commande.CommandText = GetSQLQuery(RESOURCENAME);
                 commande.CommandType = CommandType.Text;
                 commande.AddParameterWithValue("@DateValidation", _dateTraitement);

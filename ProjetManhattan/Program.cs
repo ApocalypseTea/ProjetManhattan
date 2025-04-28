@@ -273,8 +273,8 @@ namespace ProjetManhattan
                         Console.WriteLine($"La date demandée {dateOnlyValue} est dans le futur");
                         return;
                     }
-                    Console.WriteLine($"date only entree : {dateOnlyValue}");
-                    //importConfig.DateTraitement = dateOnlyValue;
+                    //Console.WriteLine($"date only entree : {dateOnlyValue}");
+                    importConfig.DateTraitement = dateOnlyValue;
                     InitConfig(configFileNameValue, dateOnlyValue);
                     transfertVersZabbix = new SQLiteToZabbix(nomBDorigneValue, DateOnly.FromDateTime(dateOnlyValue));
                 }
@@ -346,7 +346,7 @@ namespace ProjetManhattan
                     InitConfig(configFileNameValue, dateValueValue);
                     
                     importConfig.DateTraitement = dateValueValue;
-                    Console.WriteLine($"Base de Donnees consultee={nomBDOrigineValue}"); 
+                    //Console.WriteLine($"Base de Donnees consultee={nomBDOrigineValue}"); 
 
                     if(nomTraitementValue == null && nomPropertyNameValue == null)
                     {
@@ -397,7 +397,7 @@ namespace ProjetManhattan
                 InitConfig(configFileNameValue, dateDebutTraitementsValue);
 
                 importConfig.DateTraitement = dateDebutTraitementsValue;
-                Console.WriteLine(importConfig.DateTraitement);
+                //Console.WriteLine(importConfig.DateTraitement);
                 if (choixOutputValue.Equals("bd"))
                 {
                     if (nomBDresultValue == null)
