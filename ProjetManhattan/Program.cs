@@ -35,42 +35,6 @@ namespace ProjetManhattan
                 traitement?.Execute();
                 traitement?.Display(typeOutput, nomBD);
             };
-            /*
-            //Dictionary<string, ITraitement> allTreatments = new Dictionary<string, ITraitement>();
-
-            //var traitementsQuiImplemententItraitement = from l in Assembly.GetExecutingAssembly().GetTypes()
-            //                                            where l.IsClass && l.IsAssignableTo(typeof(ITraitement))
-            //                                            select l;
-
-            ////Instancier tous les traitements
-            //foreach (Type typeTraitement in traitementsQuiImplemententItraitement)
-            //{
-            //    ConstructorInfo[] constructors = typeTraitement.GetConstructors();
-
-            //    foreach (ConstructorInfo constructor in constructors)
-            //    {
-            //        try
-            //        {
-            //            ITraitement instanceDeTraitement = (ITraitement)constructor.Invoke(parametreTraitement);
-            //            string nomTraitementRaccourci = instanceDeTraitement.Name;
-            //            allTreatments.Add(nomTraitementRaccourci.ToLower(), instanceDeTraitement);
-            //        }
-            //        catch (TargetInvocationException ex)
-            //        {
-            //            if (ex.InnerException.GetType() == typeof(TraitementExecutionException))
-            //            {
-            //                Console.WriteLine(ex.InnerException.Message);
-            //                Console.WriteLine(ex.InnerException.InnerException);
-            //                Console.WriteLine($"Traitement {typeTraitement.Name} non instancié. Ignoré.");
-            //            }
-            //            else
-            //            {
-            //                throw;
-            //            }
-            //        }
-            //    }              
-            //}
-            */
 
             GenerationNomTraitement generationNomTraitement = _container.Resolve<GenerationNomTraitement>();
             bool isTraitementDone = false;
@@ -126,14 +90,18 @@ namespace ProjetManhattan
                 Command exporterVersZabbix = GetCommandExportToZabbix();
                 Command menuAide = GetHelp(configFileName);
                 Command getValue = GetCommandGetValue();
+                Command getTargetInfo = GetCommandTargetInfo(configFileName);
 
                 rootCommand.Add(getValue);
                 rootCommand.Add(effectuerTraitement);
                 rootCommand.Add(exporterVersZabbix);
                 rootCommand.Add(menuAide);
+                rootCommand.Add(getTargetInfo);
                 rootCommand.Invoke(args);
             }
         }
+
+        
 
         private static RootCommand GetRootCommandProjetManhattan()
         {
@@ -434,7 +402,7 @@ namespace ProjetManhattan
                 name: "--date",
                 description: "Liste de tous les traitements existants disponibles a la date demandee",
                 getDefaultValue:()=> DateTime.Now
-                //ajouter le jour meme par default une fois en utilisation
+                //ajouter le jour même par default une fois en utilisation
                 );
             date.IsRequired = true; ;
             help.AddOption(date);
@@ -454,5 +422,44 @@ namespace ProjetManhattan
 
             return help;
         }
+
+        private static Command GetCommandTargetInfo(Option<string> configFileName)
+        {
+            Command view = new Command(
+                name: "view",
+                description: "retourne les valeurs d'une vue qui sera définie par une requête SQL"
+                );
+
+            Option<string> getView = new Option<string>(
+                name: "--view",
+                description: "choix de la vue à utiliser");
+            getView.IsRequired = true;
+            view.AddOption(getView);
+
+            Option<string> getTarget = new Option<string>(
+                name:"--target",
+                description: "cible de la recherche d'informations");
+            getTarget.IsRequired = true;
+            view.AddOption(getTarget);
+
+            Option<DateTime> dateDebut = new Option<DateTime>(
+                name: "--dateDebut",
+                description: "date pour laquelle on souhaite aggréger les informations");
+            view.AddOption(dateDebut);
+
+            Option<DateTime> dateFin = new Option<DateTime>(
+                name: "--dateFin",
+                description: "date pour laquelle on souhaite finir d'aggréger les informations");
+            view.AddOption(dateFin);
+
+            view.SetHandler((configFileNameValue) =>
+            {
+
+            }, configFileName);
+
+            return view;
+        }
+
+
     }
 }

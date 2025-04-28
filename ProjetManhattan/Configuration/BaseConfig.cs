@@ -13,7 +13,7 @@ namespace ProjetManhattan.Configuration
         public string CheminFichierLog { get; init; }
         public string ConnectionString { get; init; }
         public string ConnectionStringIPLocator { get; init; }
-        protected JObject _jConfig;
+        public  JObject _jConfig { get; init; }
         public DateTime DateTraitement { get; set; }
         public BaseConfig(string filename)
         {
@@ -29,7 +29,6 @@ namespace ProjetManhattan.Configuration
             string nomTraitementEnCamelCase = TransformToCamelCase(nomTraitement);
             return _jConfig["traitements"][nomTraitementEnCamelCase].ToObject<T>();
         }
-
         private string TransformToCamelCase(string nomTraitement)
         {
             char majusculeFirst = Char.ToLower(nomTraitement[0]);

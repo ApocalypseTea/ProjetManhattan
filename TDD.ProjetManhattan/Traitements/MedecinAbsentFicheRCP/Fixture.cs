@@ -58,7 +58,7 @@ namespace TDD.ProjetManhattan.Traitements.MedecinAbsentFicheRCP
         internal void WhenCreatingTraitement()
         {
             BaseConfig config = GetConfig();
-            _traitement = new TraitementMedecinAbsentFicheRCPSQL(_container);
+            _traitement = new TraitementMedecinAbsentFicheRCPSQL(_container, config);
         }
 
         internal void WhenExecuteTraitement()
