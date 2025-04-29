@@ -8,7 +8,7 @@ using Microsoft.Data.Sqlite;
 
 namespace ProjetManhattan.Formatages
 {
-    class AccesDBSQLite
+    public class AccesDBSQLite
     {
         private string _dbFileName;
         
@@ -17,7 +17,26 @@ namespace ProjetManhattan.Formatages
             _dbFileName = dbFileName;
         }
 
-        public SqliteConnection ConnectToTinyDB()
+        public SqliteConnection ConnectToDb()
+        {
+            string connectionString = "Data Source=" + _dbFileName;
+
+            try
+            {
+                SqliteConnection connection = new SqliteConnection(connectionString);
+
+                //connection.Open();
+
+                return connection;
+            }
+            catch (SqliteException _sqliteErreur)
+            {
+                Console.WriteLine("ERREUR CONNEXION SQL : " + _sqliteErreur.Message);
+                throw;
+            }
+        }
+
+        public SqliteConnection ConnectToTinyDBAndCreatingTableRecord()
         {
             string connectionString = "Data Source=" + _dbFileName;
             

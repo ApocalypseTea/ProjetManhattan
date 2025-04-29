@@ -32,7 +32,7 @@ namespace ProjetManhattan.Formatages
         {
             _zabbixListe = new List<ZabbixData>();
             AccesDBSQLite accesDB = new AccesDBSQLite(_nomBD);
-            _connection = accesDB.ConnectToTinyDB();
+            _connection = accesDB.ConnectToTinyDBAndCreatingTableRecord();
             _dateDebutExport = dateDebutExport;
             _dateFinExport = dateFinExport;
          
@@ -43,7 +43,7 @@ namespace ProjetManhattan.Formatages
         {
             _zabbixListe = new List<ZabbixData>();
             AccesDBSQLite accesDB = new AccesDBSQLite(_nomBD);
-            _connection = accesDB.ConnectToTinyDB();
+            _connection = accesDB.ConnectToTinyDBAndCreatingTableRecord();
 
             _dateOnly= dateOnly;
         }

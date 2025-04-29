@@ -52,7 +52,6 @@ namespace TDD.ProjetManhattan.Traitements.DureeMoyenneRequeteSQL
             _traitement.Execute();
         }
 
-
         internal TraitementDureeMoyenneRequeteSQL ThenTraitement()
         {
             return _traitement;
@@ -62,7 +61,6 @@ namespace TDD.ProjetManhattan.Traitements.DureeMoyenneRequeteSQL
         {
             return _traitement.Items;
         }
-
 
         private void AddRow(params object[] row)
         {

@@ -47,5 +47,15 @@
 				"FaisantFonctionInterne"
 			]
 		}
+	},
+	"views": {
+		"ip": {
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\SQLqueryViewTest.txt",
+			"description": "Informations sur les IP"
+		},
+		"url": {
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\SQLqueryViewTest.txt",
+			"description": "Informations sur les URL"
+		}
 	}
 }

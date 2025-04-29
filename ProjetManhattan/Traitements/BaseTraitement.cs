@@ -39,7 +39,7 @@ namespace ProjetManhattan.Traitements
                 string userFileName = $"{nomBD}";
                 AccesDBSQLite creationDBSQLite = new AccesDBSQLite(dbFileName: userFileName);
 
-                SqliteConnection connection = creationDBSQLite.ConnectToTinyDB();
+                SqliteConnection connection = creationDBSQLite.ConnectToTinyDBAndCreatingTableRecord();
 
                 foreach (Record item in _records)
                 {

@@ -13,6 +13,7 @@ using Microsoft.Data.SqlClient;
 using System.CommandLine.Builder;
 using Unity;
 using ProjetManhattan.Sources;
+using System.ComponentModel;
 
 namespace ProjetManhattan
 {
@@ -452,10 +453,17 @@ namespace ProjetManhattan
                 description: "date pour laquelle on souhaite finir d'aggréger les informations");
             view.AddOption(dateFin);
 
-            view.SetHandler((configFileNameValue) =>
-            {
+            Option<string> fromDatabase = new Option<string>(
+                name: "--input",
+                description: "base de données dans laquelle la requete sera effectuée");
+            fromDatabase.IsRequired = true;
+            view.AddOption(fromDatabase);
 
-            }, configFileName);
+
+            view.SetHandler((configFileNameValue, fromDatabaseValue, getViewValue, getTargetValue, dateDebutValue, dateFinValue) =>
+            {
+               TraitementTargetInfo traitementtarget = new TraitementTargetInfo(_container, new BaseConfig(configFileNameValue), getViewValue, getTargetValue, dateDebutValue, fromDatabaseValue, dateFinValue);
+            }, configFileName, fromDatabase, getTarget, getView, dateDebut, dateFin);
 
             return view;
         }
