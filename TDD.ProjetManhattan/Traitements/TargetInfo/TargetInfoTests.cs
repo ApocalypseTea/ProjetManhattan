@@ -32,7 +32,6 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
             _fixture.ThenTraitementInstance().Name.Should().Be("TargetInfo");
         } 
 
-
         [TestMethod]
         public void IsExistingConfigFile()
         {   _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025,03,17), new DateTime(2025, 03, 19));
@@ -60,6 +59,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         public void GetQueryFromConfigFilePath()
         {
             _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
+            _fixture.WhenStartingTraitementTargetInfo();
             _fixture.WhenExecutingTraitement();
             _fixture.ThenTraitementInstance().Query.Should().NotBeNullOrWhiteSpace();
         }
@@ -68,6 +68,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         public void GetSQLQueryFromConfigFilePath()
         {
             _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
+            _fixture.WhenStartingTraitementTargetInfo();
             _fixture.WhenExecutingTraitement();
             _fixture.ThenTraitementInstance().Query.Should().StartWith("SELECT");
             _fixture.ThenTraitementInstance().Query.Should().EndWith(";");
@@ -87,16 +88,28 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
             _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
             _fixture.GivingDatabasePath("resultatTraitement.db");
             _fixture.WhenStartingTraitementTargetInfo();
-            _fixture.ThenTraitementInstance().AccesSQLiteDB.ConnectToDb().Should().BeOfType(typeof(SqliteConnection));
+            _fixture.WhenExecutingTraitement();
+            _fixture.ThenTraitementInstance().AccesSQLiteDB.ConnexionBD().Should().BeOfType(typeof(SqliteConnection));
         }
 
         [TestMethod]
+        public void CanExecuteAndReturnOneResult()
+        {
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
+            _fixture.GivingDatabasePath("resultatTraitement.db");
+            _fixture.WhenStartingTraitementTargetInfo();
+            _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 42");
+            _fixture.WhenExecutingTraitement();
+            _fixture.ThenTraitementInstance()._lines.Should().HaveCount(1);
+        }
+        
+        [TestMethod]
         public void Having3ParametersToQuery()
         {
-            //_fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
-            //_fixture.GivingDatabasePath("resultatTraitement.db");
-            //_fixture.WhenStartingTraitementTargetInfo();
-            //_fixture.ThenTraitementInstance().GetSQLCommand(_fixture.ThenTraitementInstance().AccesSQLiteDB.ConnectToDb()).Parameters.Should().HaveCount(3);
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
+            _fixture.GivingDatabasePath("resultatTraitement.db");
+            _fixture.WhenStartingTraitementTargetInfo();
+            //_fixture.ThenTraitementInstance().GetSQLCommand().Parameters.Should().HaveCount(3);
             throw new NotImplementedException();
         }
 
@@ -105,9 +118,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         {
             _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
             _fixture.GivingDatabasePath("resultatTraitement.db");
+            throw new NotImplementedException();
         }
-
-
-
     }
 }

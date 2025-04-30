@@ -30,6 +30,10 @@
     "traitement MedecinParticipantAbsent date console": {
       "commandName": "Project",
       "commandLineArgs": "traitement --traitement=MedecinParticipantAbsent --outputFormat=console --date=2023-01-17"
+    },
+    "Views": {
+      "commandName": "Project",
+      "commandLineArgs": "view --view=\"ip\" --target=\"1.2.3.4\" --input=\"resultatTraitement.db\" --dateDebut=2025-03-20 --dateFin=2025-03-21"
     }
   }
 }

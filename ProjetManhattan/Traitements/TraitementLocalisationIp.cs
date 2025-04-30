@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
+using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
 using Unity;
 

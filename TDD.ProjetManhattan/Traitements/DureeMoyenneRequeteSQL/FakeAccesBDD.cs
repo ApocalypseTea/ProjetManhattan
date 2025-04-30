@@ -15,7 +15,7 @@ namespace TDD.ProjetManhattan.Traitements.DureeMoyenneRequeteSQL
         private IDbCommand _createdSqlCommand;
         private FakeSqlConnection _createdConnection;
 
-        public string ConnectionString { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public string ConnectionString { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public IDbConnection ConnexionBD()
         {

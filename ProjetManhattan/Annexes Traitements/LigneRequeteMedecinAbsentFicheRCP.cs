@@ -1,4 +1,6 @@
-﻿namespace ProjetManhattan
+﻿using ProjetManhattan.Formatages;
+
+namespace ProjetManhattan
 {
     public class LigneRequeteMedecinAbsentFicheRCP : IToRecordable
     {

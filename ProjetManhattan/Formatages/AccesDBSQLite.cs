@@ -1,29 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
+using ProjetManhattan.Sources;
 
 
 namespace ProjetManhattan.Formatages
 {
-    public class AccesDBSQLite
+    public class AccesDBSQLite : IAccesBDD
     {
         private string _dbFileName;
-        
+
+        public string ConnectionString { get; set; }
+
         public AccesDBSQLite(string dbFileName = "resultatTraitement.db")
         {
             _dbFileName = dbFileName;
         }
-
-        public SqliteConnection ConnectToDb()
+        
+        public IDbConnection ConnexionBD()
         {
-            string connectionString = "Data Source=" + _dbFileName;
+            ConnectionString = "Data Source=" + _dbFileName;
 
             try
             {
-                SqliteConnection connection = new SqliteConnection(connectionString);
+                SqliteConnection connection = new SqliteConnection(ConnectionString);
 
                 //connection.Open();
 
@@ -66,5 +70,7 @@ namespace ProjetManhattan.Formatages
                 throw;
             }
         }
+
+        
     }
 }

@@ -9,6 +9,7 @@ using Microsoft.Data.Sqlite;
 using Newtonsoft.Json.Linq;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Formatages;
+using ProjetManhattan.Sources;
 using Unity;
 
 namespace ProjetManhattan.Traitements
@@ -18,8 +19,7 @@ namespace ProjetManhattan.Traitements
         public BaseConfig Config { get; set; }
 
         public string Name => "TargetInfo";
-        public AccesDBSQLite AccesSQLiteDB { get; set; }
-
+        public IAccesBDD AccesSQLiteDB { get; set; }
         private string _view;
         private string _target;
         private DateTime _dateDebut;
@@ -34,12 +34,13 @@ namespace ProjetManhattan.Traitements
             _dateDebut = dateDebut;
             _dateFin = dateFin;
             AccesSQLiteDB = new AccesDBSQLite(SQLiteDBName);
+            //AccesSQLiteDB.ConnectionString = "Data Source=" + SQLiteDBName;
         }
 
         public override void Execute()
         {
             Query = File.ReadAllText((string)Config._jConfig["views"][_view]["path"]);
-            SqliteConnection connexion = AccesSQLiteDB.ConnectToDb();
+            IDbConnection connexion = AccesSQLiteDB.ConnexionBD();
 
             try
             {
@@ -71,7 +72,9 @@ namespace ProjetManhattan.Traitements
 
         protected override IDbCommand GetSQLCommand(IDbConnection connection)
         {
-            SqliteCommand commande = new SqliteCommand(Query, connection as SqliteConnection);
+            IDbCommand commande = connection.CreateCommand();
+            commande.CommandType = CommandType.Text;
+     
             commande.AddParameterWithValue("@Target", _target);
             commande.AddParameterWithValue("@DateDebut", _dateDebut);
             commande.AddParameterWithValue("@DateFin", _dateFin);

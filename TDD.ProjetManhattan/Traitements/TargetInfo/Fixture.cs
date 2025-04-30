@@ -9,6 +9,9 @@ using ProjetManhattan.Traitements;
 using ProjetManhattan.Formatages;
 using Unity;
 using Unity.Events;
+using ProjetManhattan.Sources;
+using System.Data;
+using TDD.ProjetManhattan.Traitements.DureeMoyenneRequeteSQL;
 
 namespace TDD.ProjetManhattan.Traitements.TargetInfo
 {
@@ -18,25 +21,26 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         private static readonly string FILENAME = "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\config.json";
 
         public IUnityContainer _container;
-        public AccesDBSQLite _accesDBSQLite;
+        public FakeAccesBDD _accesDBSQLite;
 
         private BaseConfig _fakeConfig;
         private string _fakeView;
         private string _fakeTarget;
         private DateTime _fakeDateDebut;
         private DateTime _fakeDateFin;
-        private string _fakeSQLiteDB;
+        private string _fakeSQLiteDBPath;
 
         public Fixture() {
             _fakeConfig = new BaseConfig(FILENAME);
             _container = new UnityContainer();
+            _accesDBSQLite = new FakeAccesBDD();
             _container.RegisterInstance<IUnityContainer>(_container);
-          
+            _container.RegisterInstance<IAccesBDD>(_accesDBSQLite);
         }
 
         public TraitementTargetInfo WhenStartingTraitementTargetInfo()
         {
-            _traitement = new TraitementTargetInfo(this._container, this._fakeConfig, this._fakeView, this._fakeTarget, this._fakeDateDebut, this._fakeSQLiteDB, this._fakeDateFin);
+            _traitement = new TraitementTargetInfo(this._container, this._fakeConfig, this._fakeView, this._fakeTarget, this._fakeDateDebut, this._fakeSQLiteDBPath, this._fakeDateFin);
             return _traitement;
         }
 
@@ -58,14 +62,30 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
             return _traitement;
         }
 
-        internal void GivingDatabasePath(string fakeSQLiteDB)
+        internal void GivingDatabasePath(string fakeSQLiteDBPath)
         {
-            this._fakeSQLiteDB = fakeSQLiteDB;
+            this._fakeSQLiteDBPath = fakeSQLiteDBPath;
         }
 
         internal void WhenExecutingTraitement()
         {
-            WhenStartingTraitementTargetInfo().Execute();
+            _traitement.Execute();
+        }
+
+        internal void GivingExistingData(string target, string json)
+        {
+            _traitement.AccesSQLiteDB = _accesDBSQLite;
+            if (_accesDBSQLite.ExpectedData == null)
+            {
+                DataTable data = new DataTable();
+                data.Columns.Add(new DataColumn("target", typeof(string)));
+                data.Columns.Add(new DataColumn("json", typeof(string)));
+                this._accesDBSQLite.ExpectedData = data;
+            }
+            DataRow row = _accesDBSQLite.ExpectedData.NewRow();
+            row["target"] = target;
+            row["json"] = json;
+            _accesDBSQLite.ExpectedData.Rows.Add(row);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ProjetManhattan.Sources
 {
     public interface IAccesBDD : ISource
     {
-        public string ConnectionString { get; init; }
+        public string ConnectionString { get; set; }
         IDbConnection ConnexionBD();
     }
 }

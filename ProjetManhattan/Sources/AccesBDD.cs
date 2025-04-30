@@ -11,7 +11,7 @@ namespace ProjetManhattan.Sources
 {
     class AccesBDD : IAccesBDD
     {
-        public string ConnectionString { get; init; }
+        public string ConnectionString { get; set; }
 
         public AccesBDD(BaseConfig config)
         {

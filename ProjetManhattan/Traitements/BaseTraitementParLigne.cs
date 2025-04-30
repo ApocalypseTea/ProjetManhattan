@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
+using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
 using Unity;
 

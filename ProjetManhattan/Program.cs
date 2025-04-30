@@ -462,7 +462,12 @@ namespace ProjetManhattan
 
             view.SetHandler((configFileNameValue, fromDatabaseValue, getViewValue, getTargetValue, dateDebutValue, dateFinValue) =>
             {
-               TraitementTargetInfo traitementtarget = new TraitementTargetInfo(_container, new BaseConfig(configFileNameValue), getViewValue, getTargetValue, dateDebutValue, fromDatabaseValue, dateFinValue);
+                if (Path.GetExtension(fromDatabaseValue) != ".db")
+                {
+                    fromDatabaseValue += ".db";
+                }
+
+                TraitementTargetInfo traitementtarget = new TraitementTargetInfo(_container, new BaseConfig(configFileNameValue), getViewValue, getTargetValue, dateDebutValue, fromDatabaseValue, dateFinValue);
             }, configFileName, fromDatabase, getTarget, getView, dateDebut, dateFin);
 
             return view;
