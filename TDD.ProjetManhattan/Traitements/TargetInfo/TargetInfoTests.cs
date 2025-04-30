@@ -60,7 +60,6 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         {
             _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
-            _fixture.WhenExecutingTraitement();
             _fixture.ThenTraitementInstance().Query.Should().NotBeNullOrWhiteSpace();
         }
 
@@ -69,7 +68,6 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         {
             _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
-            _fixture.WhenExecutingTraitement();
             _fixture.ThenTraitementInstance().Query.Should().StartWith("SELECT");
             _fixture.ThenTraitementInstance().Query.Should().EndWith(";");
         }
@@ -102,15 +100,24 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
             _fixture.WhenExecutingTraitement();
             _fixture.ThenTraitementInstance()._lines.Should().HaveCount(1);
         }
-        
+        [TestMethod]
+        public void CanExecuteAndReturnRequeteTypeLine()
+        {
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
+            _fixture.GivingDatabasePath("resultatTraitement.db");
+            _fixture.WhenStartingTraitementTargetInfo();
+            _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 42");
+            _fixture.WhenExecutingTraitement();
+            _fixture.ThenTraitementInstance()._lines[0].Should().BeOfType(typeof(LigneRequeteSQLiteTargetInfo));
+        }
+
         [TestMethod]
         public void Having3ParametersToQuery()
         {
             _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
             _fixture.GivingDatabasePath("resultatTraitement.db");
             _fixture.WhenStartingTraitementTargetInfo();
-            //_fixture.ThenTraitementInstance().GetSQLCommand().Parameters.Should().HaveCount(3);
-            throw new NotImplementedException();
+            //_fixture.ThenCommand().Parameters.Count(3);
         }
 
         [TestMethod]

@@ -5,7 +5,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
 {
     internal class FakeSqlConnexion : IDbConnection
     {
-        private FakeAccesBDD _fakeAcces;
+        public FakeAccesBDD _fakeAcces;
         private SqlFakeCommand _commande;
         public FakeSqlConnexion(FakeAccesBDD fakeAcces)
         {
@@ -48,7 +48,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
 
         public void Open()

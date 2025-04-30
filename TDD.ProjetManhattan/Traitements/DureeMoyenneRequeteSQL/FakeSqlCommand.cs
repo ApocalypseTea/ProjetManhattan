@@ -10,6 +10,7 @@ namespace TDD.ProjetManhattan.Traitements.DureeMoyenneRequeteSQL
     internal class FakeSqlCommand : IDbCommand
     {
         private FakeSqlConnection _connection;
+        public DataTable DataTable { get; set; }
         public FakeSqlCommand(FakeSqlConnection connection)
         {
             _connection = connection;
@@ -65,6 +66,6 @@ namespace TDD.ProjetManhattan.Traitements.DureeMoyenneRequeteSQL
             throw new NotImplementedException();
         }
 
-        public DataTable DataTable { get; set; }
+        
     }
 }

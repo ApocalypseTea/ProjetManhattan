@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 using Azure.Core;
@@ -34,31 +35,9 @@ namespace ProjetManhattan.Traitements
             _dateDebut = dateDebut;
             _dateFin = dateFin;
             AccesSQLiteDB = new AccesDBSQLite(SQLiteDBName);
-            //AccesSQLiteDB.ConnectionString = "Data Source=" + SQLiteDBName;
-        }
-
-        public override void Execute()
-        {
             Query = File.ReadAllText((string)Config._jConfig["views"][_view]["path"]);
-            IDbConnection connexion = AccesSQLiteDB.ConnexionBD();
-
-            try
-            {
-                connexion.Open();
-                IDbCommand commande = GetSQLCommand(connexion);
-                IDataReader reader = commande.ExecuteReader();
-                while (reader.Read())
-                {
-                    LigneRequeteSQLiteTargetInfo line = ReadItem(reader);
-                    _lines.Add(line);
-                }
-            }
-            catch (SqliteException ex)
-            {
-                Console.WriteLine($"ERREUR CONNEXION SQLite : {ex.Message}");
-            }
         }
-
+       
         protected override LigneRequeteSQLiteTargetInfo ReadItem(IDataReader reader)
         {
             int colTarget = reader.GetOrdinal("target");

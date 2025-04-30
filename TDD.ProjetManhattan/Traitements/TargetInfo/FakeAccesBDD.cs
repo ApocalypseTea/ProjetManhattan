@@ -16,6 +16,8 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
 
         public DataTable ExpectedData { get; set; }
 
+        public FakeSqlConnexion Connection => _connection;
+
         public IDbConnection ConnexionBD()
         {
             _connection = new FakeSqlConnexion(this);

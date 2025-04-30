@@ -82,10 +82,16 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
                 data.Columns.Add(new DataColumn("json", typeof(string)));
                 this._accesDBSQLite.ExpectedData = data;
             }
+
             DataRow row = _accesDBSQLite.ExpectedData.NewRow();
             row["target"] = target;
             row["json"] = json;
             _accesDBSQLite.ExpectedData.Rows.Add(row);
+        }
+
+        internal IDbCommand ThenCommand()
+        {
+            return this._accesDBSQLite.Connection.CreateCommand();
         }
     }
 }

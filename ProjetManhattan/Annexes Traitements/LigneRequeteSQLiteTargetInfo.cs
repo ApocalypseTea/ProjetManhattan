@@ -6,18 +6,26 @@ namespace ProjetManhattan
 {
     public class LigneRequeteSQLiteTargetInfo : IToRecordable
     {
-        private string _target;
-        private string _json;
+        public string Target { get; init; }
+
+        public string Json { get; init; }
 
         public LigneRequeteSQLiteTargetInfo(string target, string json)
         {
-            _target = target;
-            _json = json;
+            Target = target;
+            Json = json;
         }
 
         public Record ToRecord()
         {
-            throw new NotImplementedException();
+            return new Record()
+            {
+                Target = this.Target,
+                Value = this.Json,
+                Date = DateTime.Now,
+                PropertyName = "Agregation",
+                Traitement = "TargetInfo"
+            };
         }
     }
 }
