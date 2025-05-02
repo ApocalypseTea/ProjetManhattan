@@ -4,7 +4,7 @@ using ProjetManhattan.Formatages;
 
 namespace ProjetManhattan
 {
-    public class LigneRequeteSQLiteTargetInfo : IToRecordable
+    public class LigneRequeteSQLiteTargetInfo
     {
         public string Target { get; init; }
 
@@ -16,16 +16,6 @@ namespace ProjetManhattan
             Json = json;
         }
 
-        public Record ToRecord()
-        {
-            return new Record()
-            {
-                Target = this.Target,
-                Value = this.Json,
-                Date = DateTime.Now,
-                PropertyName = "Agregation",
-                Traitement = "TargetInfo"
-            };
-        }
+        
     }
 }

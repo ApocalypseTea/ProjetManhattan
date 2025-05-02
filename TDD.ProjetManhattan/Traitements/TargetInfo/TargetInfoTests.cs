@@ -27,14 +27,14 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         [TestMethod]
         public void ShouldHaveAName()
         {
-            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
             _fixture.ThenTraitementInstance().Name.Should().Be("TargetInfo");
         } 
 
         [TestMethod]
         public void IsExistingConfigFile()
-        {   _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025,03,17), new DateTime(2025, 03, 19));
+        {   _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
             _fixture.ThenConfigFile().Should().NotBeNull();
         }
@@ -42,7 +42,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         [TestMethod]
         public void IsExistingViewDataInConfigFile()
         {
-            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
             _fixture.ThenConfigFile()._jConfig["views"].Should().NotBeNullOrEmpty();
         }
@@ -50,7 +50,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         [TestMethod]
         public void IsIPQueryViewFileExisting()
         {
-            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
             File.Exists((string)_fixture.ThenConfigFile()._jConfig["views"]["ip"]["path"]).Should().Be(true);
         }
@@ -58,7 +58,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         [TestMethod]
         public void GetQueryFromConfigFilePath()
         {
-            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
             _fixture.ThenTraitementInstance().Query.Should().NotBeNullOrWhiteSpace();
         }
@@ -66,35 +66,46 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         [TestMethod]
         public void GetSQLQueryFromConfigFilePath()
         {
-            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
             _fixture.ThenTraitementInstance().Query.Should().StartWith("SELECT");
             _fixture.ThenTraitementInstance().Query.Should().EndWith(";");
         }
 
         [TestMethod]
+        public void ShouldHaveParameters()
+        {
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
+            _fixture.WhenStartingTraitementTargetInfo();
+            _fixture.WhenTryingToConnectToDatabase();
+            _fixture.ThenTraitementInstance().View.Should().Be("ip");
+            _fixture.ThenTraitementInstance().Target.Should().Be("1.2.3.4");
+            _fixture.ThenTraitementInstance().DateDebut.Should().Be(DateOnly.FromDateTime(new DateTime(2025, 03, 17)));
+            _fixture.ThenTraitementInstance().DateFin.Should().Be(DateOnly.FromDateTime(new DateTime(2025, 03, 19)));
+            _fixture.ThenTraitementInstance().AccesSQLiteDB.ConnectionString.Should().Be("Data Source=resultatTraitement.db");
+        }
+
+        [TestMethod]
         public void CanExecuteTraitement()
         {
-            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
+            _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 42");
             _fixture.ThenTraitementInstance().Execute();
         }
 
         [TestMethod]
         public void CanConnectToSQLIteDatabase()
         {
-            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
-            _fixture.GivingDatabasePath("resultatTraitement.db");
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
-            _fixture.WhenExecutingTraitement();
             _fixture.ThenTraitementInstance().AccesSQLiteDB.ConnexionBD().Should().BeOfType(typeof(SqliteConnection));
         }
 
         [TestMethod]
         public void CanExecuteAndReturnOneResult()
         {
-            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
-            _fixture.GivingDatabasePath("resultatTraitement.db");
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
             _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 42");
             _fixture.WhenExecutingTraitement();
@@ -103,8 +114,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         [TestMethod]
         public void CanExecuteAndReturnRequeteTypeLine()
         {
-            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
-            _fixture.GivingDatabasePath("resultatTraitement.db");
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
             _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 42");
             _fixture.WhenExecutingTraitement();
@@ -112,20 +122,14 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         }
 
         [TestMethod]
-        public void Having3ParametersToQuery()
+        public void CanReturnJSONwithData()
         {
-            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
-            _fixture.GivingDatabasePath("resultatTraitement.db");
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
             _fixture.WhenStartingTraitementTargetInfo();
-            //_fixture.ThenCommand().Parameters.Count(3);
-        }
-
-        [TestMethod]
-        public void ShouldReturnRecord()
-        {
-            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), new DateTime(2025, 03, 19));
-            _fixture.GivingDatabasePath("resultatTraitement.db");
-            throw new NotImplementedException();
+            _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 42");
+            _fixture.WhenExecutingTraitement();
+            _fixture.WhenJsoningTraitement();
+            _fixture.ThenTraitementInstance().TargetInfoToJSON().Should().StartWith("[");
         }
     }
 }

@@ -33,7 +33,7 @@
     },
     "Views": {
       "commandName": "Project",
-      "commandLineArgs": "view --view=\"ip\" --target=\"1.2.3.4\" --input=\"resultatTraitement.db\" --dateDebut=2025-03-20 --dateFin=2025-03-21"
+      "commandLineArgs": "views --view=\"ip\" --target=\"1.2.3.4\" --input=\"resultatTraitement.db\" --dateDebut=2025-03-20 --dateFin=2025-03-21"
     }
   }
 }

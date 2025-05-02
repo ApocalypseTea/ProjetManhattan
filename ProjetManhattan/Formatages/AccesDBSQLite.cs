@@ -29,7 +29,7 @@ namespace ProjetManhattan.Formatages
             {
                 SqliteConnection connection = new SqliteConnection(ConnectionString);
 
-                //connection.Open();
+                connection.Open();
 
                 return connection;
             }

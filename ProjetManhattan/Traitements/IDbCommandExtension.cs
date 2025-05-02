@@ -34,6 +34,14 @@ namespace ProjetManhattan.Traitements
             command.Parameters.Add(pParametre);
         }
 
+        public static void AddParameterWithValue(this IDbCommand command, string parameterName, DateOnly value)
+        {
+            IDbDataParameter pParametre = command.CreateParameter();
+            pParametre.Value = value;
+            pParametre.ParameterName = parameterName;
+            command.Parameters.Add(pParametre);
+        }
+
         public static void AddParameterWithValue(this IDbCommand command, string parameterName, string value)
         {
             IDbDataParameter pParametre = command.CreateParameter();

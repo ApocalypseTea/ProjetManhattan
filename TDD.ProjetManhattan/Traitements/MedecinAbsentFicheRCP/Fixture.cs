@@ -24,7 +24,6 @@ namespace TDD.ProjetManhattan.Traitements.MedecinAbsentFicheRCP
         {
             _container = new UnityContainer();
             FakeAccesBDD = new FakeAccesBDD();
-
             _container.RegisterInstance<IUnityContainer>(_container);
             _container.RegisterInstance<IAccesBDD>(FakeAccesBDD);
         }

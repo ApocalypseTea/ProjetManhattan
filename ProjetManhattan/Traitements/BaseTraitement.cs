@@ -20,6 +20,8 @@ namespace ProjetManhattan.Traitements
         protected IFiltre _filtre;
         protected IFormatage _sortie;
         protected IUnityContainer _container;
+        public IUnityContainer Container => _container;
+        
         public BaseTraitement(IUnityContainer container)
         {
             _container = container;
@@ -60,7 +62,7 @@ namespace ProjetManhattan.Traitements
             _records.Add(item);
         }
 
-        public IUnityContainer Container => _container;
+        
 
     }
 }

@@ -102,8 +102,6 @@ namespace ProjetManhattan
             }
         }
 
-        
-
         private static RootCommand GetRootCommandProjetManhattan()
         {
             
@@ -427,7 +425,7 @@ namespace ProjetManhattan
         private static Command GetCommandTargetInfo(Option<string> configFileName)
         {
             Command view = new Command(
-                name: "view",
+                name: "views",
                 description: "retourne les valeurs d'une vue qui sera définie par une requête SQL"
                 );
 
@@ -462,17 +460,58 @@ namespace ProjetManhattan
 
             view.SetHandler((configFileNameValue, fromDatabaseValue, getViewValue, getTargetValue, dateDebutValue, dateFinValue) =>
             {
+                if (dateDebutValue == default(DateTime))
+                {
+                    Console.WriteLine("Erreur : Entrer une date pour demarrer l'agregation des informations");
+                    Console.WriteLine("--dateDebut : pour entrer le debut de la période souhaitée");
+                    Console.WriteLine("--dateFin : Pour entrer la fin de la période souhaitée.");
+                    return;
+                }
+
+                if (dateDebutValue > DateTime.Now)
+                {
+                    Console.WriteLine("Erreur : Faille Spatio Temporelle");
+                    Console.WriteLine($"La date {dateDebutValue} est dans le futur");
+                    return;
+                }
+
+                if (dateFinValue != default(DateTime))
+                {
+                    if (dateDebutValue >= dateFinValue)
+                    {
+                        Console.WriteLine("Erreur : Faille Spatio Temporelle");
+                        Console.WriteLine($"La date de début {dateDebutValue} est incompatible avec la date de fin {dateFinValue}");
+                        return;
+                    }
+
+                    if (dateFinValue > DateTime.Now)
+                    {
+                        Console.WriteLine("Erreur : Faille Spatio Temporelle");
+                        Console.WriteLine($"La date {dateFinValue} est dans le futur");
+                        return;
+                    }
+                } 
+                else
+                {
+                    Console.WriteLine("Option Date de fin non remplie. La periode d'analyse s'etend donc jusqu'a aujourd'hui");
+                    dateFinValue = DateTime.Now;
+                }
+
                 if (Path.GetExtension(fromDatabaseValue) != ".db")
                 {
                     fromDatabaseValue += ".db";
                 }
+                BaseConfig config = new BaseConfig(configFileNameValue);
 
-                TraitementTargetInfo traitementtarget = new TraitementTargetInfo(_container, new BaseConfig(configFileNameValue), getViewValue, getTargetValue, dateDebutValue, fromDatabaseValue, dateFinValue);
-            }, configFileName, fromDatabase, getTarget, getView, dateDebut, dateFin);
+                AnalyseTargetInfo traitementTarget = new AnalyseTargetInfo(config , getViewValue, getTargetValue, dateDebutValue, fromDatabaseValue, dateFinValue);
+
+                traitementTarget.Execute();
+                traitementTarget.TargetInfoToJSON();
+
+
+            }, configFileName, fromDatabase, getView, getTarget, dateDebut, dateFin);
 
             return view;
         }
-
-
     }
 }
