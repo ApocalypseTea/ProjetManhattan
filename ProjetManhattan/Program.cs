@@ -471,7 +471,7 @@ namespace ProjetManhattan
                 if (dateDebutValue > DateTime.Now)
                 {
                     Console.WriteLine("Erreur : Faille Spatio Temporelle");
-                    Console.WriteLine($"La date {dateDebutValue} est dans le futur");
+                    Console.WriteLine($"La date de Debut {dateDebutValue} est dans le futur");
                     return;
                 }
 
@@ -487,7 +487,7 @@ namespace ProjetManhattan
                     if (dateFinValue > DateTime.Now)
                     {
                         Console.WriteLine("Erreur : Faille Spatio Temporelle");
-                        Console.WriteLine($"La date {dateFinValue} est dans le futur");
+                        Console.WriteLine($"La date de Fin {dateFinValue} est dans le futur");
                         return;
                     }
                 } 
@@ -500,14 +500,19 @@ namespace ProjetManhattan
                 if (Path.GetExtension(fromDatabaseValue) != ".db")
                 {
                     fromDatabaseValue += ".db";
+                    
                 }
                 BaseConfig config = new BaseConfig(configFileNameValue);
+                //Console.WriteLine($"Database = {fromDatabaseValue}");
+                //Console.WriteLine($"View={getViewValue}");
+                //Console.WriteLine($"Target={getTargetValue}");
+                //Console.WriteLine($"dateDebut={dateDebutValue}");
+                //Console.WriteLine($"dateFin={dateFinValue}");
 
                 AnalyseTargetInfo traitementTarget = new AnalyseTargetInfo(config , getViewValue, getTargetValue, dateDebutValue, fromDatabaseValue, dateFinValue);
 
                 traitementTarget.Execute();
                 traitementTarget.TargetInfoToJSON();
-
 
             }, configFileName, fromDatabase, getView, getTarget, dateDebut, dateFin);
 

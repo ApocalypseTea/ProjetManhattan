@@ -12,6 +12,7 @@ using Unity.Events;
 using ProjetManhattan.Sources;
 using System.Data;
 using TDD.ProjetManhattan.Traitements.DureeMoyenneRequeteSQL;
+using Newtonsoft.Json.Linq;
 
 namespace TDD.ProjetManhattan.Traitements.TargetInfo
 {
@@ -28,6 +29,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         private DateTime _fakeDateDebut;
         private DateTime _fakeDateFin;
         private string _fakeSQLiteDBPath;
+        public JObject _fakeJson;
 
         public Fixture() {
             _fakeConfig = new BaseConfig(FILENAME);
@@ -85,17 +87,26 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
             _accesDBSQLite.ExpectedData.Rows.Add(row);
         }
 
-        internal IDbCommand ThenCommand()
+        public IDbCommand ThenCommand()
         {
             return this._accesDBSQLite.Connection.CreateCommand();
         }
 
-        internal void WhenTryingToConnectToDatabase()
+        public void WhenTryingToConnectToDatabase()
         {
             _traitement.AccesSQLiteDB.ConnectionString = $"Data Source={this._fakeSQLiteDBPath}";
         }
 
-        internal void WhenJsoningTraitement()
+        public JObject[] ThenJSONResult()
+        {
+            //    this._fakeJson = JObject.Parse(_traitement.TargetInfoToJSON());
+            //    return this._fakeJson;
+            JArray jArray = JArray.Parse(_traitement.TargetInfoToJSON());
+            return jArray.Select(x => x as JObject).ToArray();
+
+        }
+
+        public void WhenExecutingTargetInfoToJSON()
         {
             _traitement.TargetInfoToJSON();
         }

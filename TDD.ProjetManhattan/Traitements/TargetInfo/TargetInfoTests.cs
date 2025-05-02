@@ -10,6 +10,7 @@ using Unity;
 using ProjetManhattan;
 using System.Data;
 using Microsoft.Data.Sqlite;
+using Newtonsoft.Json.Linq;
 
 
 namespace TDD.ProjetManhattan.Traitements.TargetInfo
@@ -111,6 +112,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
             _fixture.WhenExecutingTraitement();
             _fixture.ThenTraitementInstance()._lines.Should().HaveCount(1);
         }
+
         [TestMethod]
         public void CanExecuteAndReturnRequeteTypeLine()
         {
@@ -128,8 +130,20 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
             _fixture.WhenStartingTraitementTargetInfo();
             _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 42");
             _fixture.WhenExecutingTraitement();
-            _fixture.WhenJsoningTraitement();
             _fixture.ThenTraitementInstance().TargetInfoToJSON().Should().StartWith("[");
+        }
+
+        [TestMethod]
+        public void CanVerifyJsonData()
+        {
+            _fixture.GivingTraitementParameters("ip", "1.2.3.4", new DateTime(2025, 03, 17), "resultatTraitement.db", new DateTime(2025, 03, 19));
+            _fixture.WhenStartingTraitementTargetInfo();
+            _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 42");
+            _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 56");
+            _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 24");
+            _fixture.WhenExecutingTraitement();
+            _fixture.WhenExecutingTargetInfoToJSON();
+            ((_fixture.ThenJSONResult()[0]["target"] as JValue).Value as string).Should().Contain("1.2.3.4");
         }
     }
 }
