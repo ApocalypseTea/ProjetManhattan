@@ -512,7 +512,7 @@ namespace ProjetManhattan
                 AnalyseTargetInfo traitementTarget = new AnalyseTargetInfo(config , getViewValue, getTargetValue, dateDebutValue, fromDatabaseValue, dateFinValue);
 
                 traitementTarget.Execute();
-                traitementTarget.TargetInfoToJSON();
+                Console.WriteLine(traitementTarget.TargetInfoToJSON());
 
             }, configFileName, fromDatabase, getView, getTarget, dateDebut, dateFin);
 
