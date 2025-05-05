@@ -25,14 +25,14 @@ namespace ProjetManhattan.Traitements
                 LigneDeLog? ligne = _source.ReadLine();
                 if (ligne != null && _filtre.Needed(ligne))
                 {
-                    Record record = ligne.ToRecord();
+                    Record[] record = ligne.ToRecords();
                     this.FillRecord(record, ligne);
                     this.AddLine(record);
                 }
             }
         }
-        protected abstract void FillRecord(Record record, LigneDeLog ligne);       
-        protected virtual void AddLine(Record ligne)
+        protected abstract void FillRecord(Record[] record, LigneDeLog ligne);       
+        protected virtual void AddLine(Record[] ligne)
         {
             this.AddRecord(ligne);
         }

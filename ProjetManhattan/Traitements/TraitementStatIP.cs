@@ -58,7 +58,9 @@ namespace ProjetManhattan.Traitements
                         Value = item._nbConnexionJournaliere.ToString(),
                         Description = ""
                     };
-                    this.AddRecord(record);
+                    Record[] tableauRecord = new Record[] { record };
+
+                    this.AddRecord(tableauRecord);
                 }
             }
         }       

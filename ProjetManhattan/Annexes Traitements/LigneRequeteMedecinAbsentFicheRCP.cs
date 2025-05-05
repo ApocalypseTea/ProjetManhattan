@@ -16,9 +16,9 @@ namespace ProjetManhattan
             IdFicheRCp = idFicheRCp;
             DateValidation = dateValidation;
         }
-        public Record ToRecord()
+        public Record[] ToRecords()
         {
-            return new Record
+            Record record =  new Record
             {
                 Traitement = "MedecinParticipantAbsent",
                 Date = this.DateValidation,
@@ -27,6 +27,8 @@ namespace ProjetManhattan
                 Value = $"FicheRCP={this.IdFicheRCp}",
                 Description=$"ReunionID={this.IdReunion}"
             };
+            Record[] tableauRecord = { record };
+            return tableauRecord;
         }
     }
 }

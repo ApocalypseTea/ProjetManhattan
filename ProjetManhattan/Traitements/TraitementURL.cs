@@ -25,14 +25,17 @@ namespace ProjetManhattan.Traitements
             ConfigURLInvalides c = config.GetConfigTraitement<ConfigURLInvalides>(nameof(TraitementURL));
             this.Filtre = new IgnoreURLWhiteList(c.PatternURLValide);
         }
-        protected override void FillRecord(Record record, LigneDeLog ligne)
+        protected override void FillRecord(Record[] records, LigneDeLog ligne)
         {
-            record.Traitement = "URL";
-            record.Target = ligne.CsUriStem;
-            record.PropertyName = "UrlDouteuse";
-            record.Value = "true";
-            record.Description = ligne.IpClient;
-            record.Date = ligne.DateHeure;
+            foreach (Record record in records)
+            {
+                record.Traitement = "URL";
+                record.Target = ligne.CsUriStem;
+                record.PropertyName = "UrlDouteuse";
+                record.Value = "true";
+                record.Description = ligne.IpClient;
+                record.Date = ligne.DateHeure;
+            }
         }
     }
 }

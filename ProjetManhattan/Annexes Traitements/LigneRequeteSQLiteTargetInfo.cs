@@ -14,8 +14,6 @@ namespace ProjetManhattan
         {
             Target = target;
             Json = json;
-        }
-
-        
+        }        
     }
 }

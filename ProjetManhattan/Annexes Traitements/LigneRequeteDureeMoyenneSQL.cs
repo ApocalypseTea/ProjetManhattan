@@ -19,9 +19,9 @@ namespace ProjetManhattan
             this.StoredProcedure = storedProcedure;
             this.nbExecution = nbExecution;
         }
-        public Record ToRecord()
+        public Record[] ToRecords()
         {
-            return new Record()
+            Record record1 = new Record()
             {
                 Target = this.StoredProcedure,
                 Value = this.Duree.ToString(),
@@ -29,6 +29,18 @@ namespace ProjetManhattan
                 PropertyName = "AverageDuration",
                 Traitement = "DureeMoyRequeteSQL"
             };
+
+            Record record2 = new Record()
+            {
+                Target = this.nbExecution.ToString(),
+                Value = this.Duree.ToString(),
+                Date = DateTime.Now,
+                PropertyName = "ExecutionCount",
+                Traitement = "DureeMoyRequeteSQL"
+            };
+
+            Record[] tableauRecord = { record1, record2 };
+            return tableauRecord;
         }
     }
 }

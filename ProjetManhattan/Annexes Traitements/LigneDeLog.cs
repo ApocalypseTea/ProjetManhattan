@@ -114,12 +114,14 @@ namespace ProjetManhattan
             return -1;
         }
 
-        public Record ToRecord()
+        public Record[] ToRecords()
         {
-            return new Record()
+            Record record =  new Record()
             {
                 Date = this.DateHeure
             };
+            Record[] tableauRecord = { record };
+            return tableauRecord;
         }
     }
 }

@@ -63,7 +63,8 @@ namespace ProjetManhattan.Traitements
                         Value = $"{item.PaysOrigine}",
                         Description = ""
                     };
-                    this.AddRecord(record);
+                    Record[] tableauRecord = new Record[] { record };
+                    this.AddRecord(tableauRecord);
                 }
             }
         }

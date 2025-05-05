@@ -8,6 +8,6 @@ namespace ProjetManhattan.Formatages
 {
     public interface IToRecordable
     {
-        Record ToRecord();
+        Record[] ToRecords();
     }
 }

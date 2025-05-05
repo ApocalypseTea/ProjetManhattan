@@ -28,9 +28,9 @@ namespace ProjetManhattan
             Date = _colDate;
         }
 
-        public Record ToRecord()
+        public Record[] ToRecords()
         {
-            return new Record()
+            Record record =  new Record()
             {
                 Traitement = "BrisGlace",
                 Date = this.Date,
@@ -39,6 +39,8 @@ namespace ProjetManhattan
                 Value = this.NbPatientBrisGlace.ToString(),
                 Description = $"{this.Nom} {this.Prenom} {this.Value}"
             };
+            Record[] tableauRecord = { record };
+            return tableauRecord;
         }
     }
 }

@@ -13,13 +13,15 @@ namespace ProjetManhattan
         {
         }
 
-        public Record ToRecord()
+        public Record[] ToRecords()
         {
-            return new Record()
+            Record record = new Record()
             {
                 Target = this.IpClient,
                 Date = this.DateHeure
             };
+            Record[] tableauRecord = { record };
+            return tableauRecord;
         }
     }
 }

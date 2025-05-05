@@ -30,9 +30,9 @@ namespace ProjetManhattan
             _dateModification= dateModification;
         }
 
-        public Record ToRecord()
+        public Record[] ToRecords()
         {
-            return new Record()
+            Record record= new Record()
             {
                 Traitement = "ModificationDateNaissance",
                 Target = $"PatientID={this._idPatient}",
@@ -41,9 +41,8 @@ namespace ProjetManhattan
                 PropertyName = "NouvelleDateNaissance",
                 Description = $"Previous Date={DateOnly.FromDateTime(this._dateAnterieure).ToString("dd-MM-yyyy")} / Modificateur={this._profilModificateurID} {this._modificateurNom} {this._modificateurPrenom}, {this._modificateurType}"
             };
-            
-                
-            
+            Record[] tableauRecord = { record };
+            return tableauRecord;
         }
     }
 }

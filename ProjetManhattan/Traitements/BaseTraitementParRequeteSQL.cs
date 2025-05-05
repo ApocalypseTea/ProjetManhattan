@@ -38,7 +38,7 @@ namespace ProjetManhattan.Traitements
                             //Console.WriteLine("Je suis le reader de resultat de requete SQL a SQL Server");
                             T item = ReadItem(reader);
                             _lines.Add(item);
-                            Record line = item.ToRecord();
+                            Record[] line = item.ToRecords();
                             this.AddRecord(line);
                         }
                     }

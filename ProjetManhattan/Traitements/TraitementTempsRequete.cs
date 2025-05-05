@@ -25,14 +25,17 @@ namespace ProjetManhattan.Traitements
             ConfigTempsRequetes c = config.GetConfigTraitement<ConfigTempsRequetes>(nameof(TraitementTempsRequete));
             this.Filtre = new IgnoreFastRequest(c.SeuilAlerteTempsRequetes);
         }
-        protected override void FillRecord(Record record, LigneDeLog ligne)
+        protected override void FillRecord(Record[] records, LigneDeLog ligne)
         {
-            record.Traitement = "TempsRequete";
-            record.Target = ligne.CsUriStem;
-            record.PropertyName = "TimeTaken";
-            record.Value = ligne.TimeTaken.ToString();
-            record.Description = ligne.IpClient;
-            record.Date = ligne.DateHeure;
+            foreach (Record record in records)
+            {
+                record.Traitement = "TempsRequete";
+                record.Target = ligne.CsUriStem;
+                record.PropertyName = "TimeTaken";
+                record.Value = ligne.TimeTaken.ToString();
+                record.Description = ligne.IpClient;
+                record.Date = ligne.DateHeure;
+            }
         }
     }
 }

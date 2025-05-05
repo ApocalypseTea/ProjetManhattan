@@ -33,9 +33,9 @@ namespace ProjetManhattan
             _prenomValidateur = prenomValidateur;
             _specialiteMedicale = specialiteMedicale;
         }
-        public Record ToRecord()
+        public Record[] ToRecords()
         {
-            return new Record()
+            Record record = new Record()
             {
                 Traitement = "ValidateurAbsent",
                 Date = this._dateFicheRCP,
@@ -46,6 +46,9 @@ namespace ProjetManhattan
                 Description = $"RcpID={this._idReunionRCP} Date={this._dateReunionRCP.ToString("dd-MM-yyyy HH\\hmm")} Lieu={this._lieuReunion} Specialite={this._idSpecialiteMedicale} {this._specialiteMedicale}",
                 Value = _idFicheRCP.ToString(),
             };
+
+            Record[] tableauRecord = { record };
+            return tableauRecord;
         }
     }
 }

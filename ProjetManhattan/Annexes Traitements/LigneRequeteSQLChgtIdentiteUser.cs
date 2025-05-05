@@ -33,9 +33,9 @@ namespace ProjetManhattan
             _prenomModificateur = prenomModificateur;
             _typeModificateur = typeModificateur;
         }
-        public Record ToRecord()
+        public Record[] ToRecords()
         {
-            return new Record()
+            Record record = new Record()
             {
                 Traitement = "ChangementIdentite",
                 Date = this._dateModificationNom,
@@ -44,6 +44,8 @@ namespace ProjetManhattan
                 Description = $"PreviousName={this._previousNomUser} {this._previousPrenomUser} /ModificateurID={this._idModificateur.ToString()} {this._nomModificateur} {this._prenomModificateur} {this._typeModificateur}",
                 Value =  $"{this._prenomUser} {this._nomUser}"
             };
+            Record[] tableauRecord = { record };
+            return tableauRecord;
         }
     }
 }

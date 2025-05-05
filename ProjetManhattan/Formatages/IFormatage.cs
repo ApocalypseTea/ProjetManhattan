@@ -8,6 +8,6 @@ namespace ProjetManhattan.Formatages
 {
     public interface IFormatage
     {
-        void AffichageRecord(IEnumerable<Record> listeDeRecord);
+        void AffichageRecord(Record record);
     }
 }

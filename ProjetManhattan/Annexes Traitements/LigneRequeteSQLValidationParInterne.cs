@@ -31,9 +31,10 @@ namespace ProjetManhattan
             _lieuReunionRCP = lieuReunion;
             _specialiteMedicale = specialiteMed;
         }
-        public Record ToRecord()
+        public Record[] ToRecords()
         {
-            return new Record()
+            
+            Record record = new Record()
             {
                 Traitement = "ValidationInterne",
                 Date = this._date,
@@ -42,6 +43,9 @@ namespace ProjetManhattan
                 Description = $"ReunionID={this._numeroRCP} Date={this._dateReunionRCP.ToString("dd-MM-yyyy")}, Lieu={this._lieuReunionRCP}, Specialite={this._idSpecialiteMedicale} {this._specialiteMedicale}",
                 Value = $"{this._idValidateur}={this._nomValidateur} {this._prenomValidateur}"
             };
+
+            Record[] tableauRecord = {record};
+            return tableauRecord;
         }
     }
 }

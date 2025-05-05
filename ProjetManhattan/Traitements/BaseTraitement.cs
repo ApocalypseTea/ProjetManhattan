@@ -15,7 +15,7 @@ namespace ProjetManhattan.Traitements
 {
     public abstract class BaseTraitement<TSource> where TSource: ISource
     {
-        private List<Record> _records;
+        private List<Record[]> _records;
         protected TSource _source;
         protected IFiltre _filtre;
         protected IFormatage _sortie;
@@ -26,14 +26,21 @@ namespace ProjetManhattan.Traitements
         {
             _container = container;
             _sortie = new OutputDisplay();
-            _records = new List<Record>();
+            _records = new List<Record[]>();
         }
         public abstract void Execute();
         public virtual void Display(string exportDataMethod, string nomBD)
         {
             if (exportDataMethod.Equals("console"))
             {
-                _sortie.AffichageRecord(_records);
+                foreach (Record[] record in _records)
+                {
+                    foreach (Record item in record)
+                    {
+
+                        _sortie.AffichageRecord(item);
+                    }
+                }
             }
 
             if (exportDataMethod.Equals("bd"))
@@ -43,10 +50,13 @@ namespace ProjetManhattan.Traitements
 
                 SqliteConnection connection = creationDBSQLite.ConnectToTinyDBAndCreatingTableRecord();
 
-                foreach (Record item in _records)
+                foreach (Record[] item in _records)
                 {
-                    RecordToSQLite ligneBD = new RecordToSQLite(item);
-                    ligneBD.AddRecordToDataBase(connection);
+                    foreach (Record record in item)
+                    {
+                        RecordToSQLite ligneBD = new RecordToSQLite(record);
+                        ligneBD.AddRecordToDataBase(connection);
+                    }
                 }
             }
         }
@@ -57,7 +67,7 @@ namespace ProjetManhattan.Traitements
             set { _filtre = value; }
         }
 
-        public void AddRecord(Record item)
+        public void AddRecord(Record[] item)
         {
             _records.Add(item);
         }
