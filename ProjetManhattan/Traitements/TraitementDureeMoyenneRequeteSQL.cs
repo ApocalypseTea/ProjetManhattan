@@ -26,8 +26,10 @@ namespace ProjetManhattan.Traitements
         {
             int colAvgElapsedTime = reader.GetOrdinal("avg_elapsed_time");
             int colStoredProcedure = reader.GetOrdinal("stored_procedure");
+            int colExecutionCount = reader.GetOrdinal("execution_count");
 
             long duree = reader.GetInt64(colAvgElapsedTime);
+            long nbExecution = reader.GetInt64(colExecutionCount);
             
             string storedProcedure;
             if (!reader.IsDBNull(colStoredProcedure))
@@ -39,7 +41,7 @@ namespace ProjetManhattan.Traitements
                 storedProcedure = "NULL";
             }
             
-            LigneRequeteDureeMoyenneSQL ligne = new LigneRequeteDureeMoyenneSQL(duree, storedProcedure);
+            LigneRequeteDureeMoyenneSQL ligne = new LigneRequeteDureeMoyenneSQL(duree, storedProcedure, nbExecution);
 
             return ligne;
         }
@@ -53,7 +55,6 @@ namespace ProjetManhattan.Traitements
                 return cmd;
             }
         }
-
         public IReadOnlyList<LigneRequeteDureeMoyenneSQL> Items => _lines;
     }
 }

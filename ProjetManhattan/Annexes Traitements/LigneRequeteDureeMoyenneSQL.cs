@@ -11,11 +11,13 @@ namespace ProjetManhattan
     {
         public long Duree { get; set; }
         public string StoredProcedure { get; set; }
+        public long nbExecution { get; set; }
 
-        public LigneRequeteDureeMoyenneSQL(long duree, string storedProcedure)
+        public LigneRequeteDureeMoyenneSQL(long duree, string storedProcedure, long nbExecution)
         {
             this.Duree = duree;
             this.StoredProcedure = storedProcedure;
+            this.nbExecution = nbExecution;
         }
         public Record ToRecord()
         {
