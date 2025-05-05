@@ -31,9 +31,9 @@
       "commandName": "Project",
       "commandLineArgs": "views --view=\"ip\" --target=\"1.2.3.4\" --input=\"resultatTraitement\" --dateDebut=2025-04-20"
     },
-    "traitement dureeMoyReqSql date console": {
+    "traitement echecconnexion date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=dureemoyrequetesql --outputFormat=console --date=2025-05-05"
+      "commandLineArgs": "traitement --traitement=echecConnexion --outputFormat=console --date=2020-07-01"
     }
   }
 }

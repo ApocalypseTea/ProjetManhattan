@@ -46,6 +46,9 @@
 				"Interne",
 				"FaisantFonctionInterne"
 			]
+		},
+		"traitementEchecConnexion": {
+			"seuilAlerteTentativesConnexionEnEchec": 5
 		}
 	},
 	"views": {
