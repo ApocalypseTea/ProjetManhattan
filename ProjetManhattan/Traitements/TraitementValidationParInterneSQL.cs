@@ -18,22 +18,10 @@ namespace ProjetManhattan.Traitements
 
         private string [] _titreValidateur;
         private DateTime _dateTraitement;
-        public string Name
-        {
-            get
-            {
-                return "ValidationInterne";
-            }
-        }
+        public string Name => "ValidationInterne";
+          
         public TraitementValidationParInterneSQL(BaseConfig config, IUnityContainer container) : base(container)
         {
-            ConfigRCPValideParInterne c = config.GetConfigTraitement<ConfigRCPValideParInterne>(nameof(TraitementValidationParInterneSQL));
-
-            _titreValidateur = c.TitreValidateur;
-            _lines = new List<LigneRequeteSQLValidationParInterne>();
-            _source = new AccesBDD(config);
-            _sortie = new OutputDisplay();
-            _dateTraitement = config.DateTraitement;
         }
 
         protected override IDbCommand GetSQLCommand(IDbConnection connection)
@@ -97,6 +85,16 @@ namespace ProjetManhattan.Traitements
             LigneRequeteSQLValidationParInterne ligne = new LigneRequeteSQLValidationParInterne(numeroFicheRCP, idPatient, idValidateur, nomValidateur, prenomValidateur, numeroRCP, dateValidationFiche, dateReunionRCP, specialiteID, lieuReunionRCP, specialite);
 
             return ligne;
+        }
+
+        public void InitialisationConfig(BaseConfig config)
+        {
+            ConfigRCPValideParInterne c = config.GetConfigTraitement<ConfigRCPValideParInterne>(nameof(TraitementValidationParInterneSQL));
+            _titreValidateur = c.TitreValidateur;
+            _lines = new List<LigneRequeteSQLValidationParInterne>();
+            _source = new AccesBDD(config);
+            _sortie = new OutputDisplay();
+            _dateTraitement = config.DateTraitement;
         }
     }
 }

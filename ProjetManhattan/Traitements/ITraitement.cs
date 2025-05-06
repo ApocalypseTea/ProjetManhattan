@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjetManhattan.Configuration;
 
 namespace ProjetManhattan.Traitements
 {
@@ -10,7 +11,7 @@ namespace ProjetManhattan.Traitements
     {
         string Name { get; }
 
-
+        void InitialisationConfig(BaseConfig config);
         void Display(string exportDataMethod, string nomDB);
         void Execute();
     }

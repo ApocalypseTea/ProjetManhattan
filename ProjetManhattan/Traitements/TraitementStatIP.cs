@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,21 +17,11 @@ namespace ProjetManhattan.Traitements
         protected Dictionary<string, IpClient> _listingIPJournalieres;
         private int _seuilAlerte;
         private DateTime _dateTraitement;
-        public string Name
-        {
-            get
-            {
-                return "StatIp";
-            }
-        }
+        private IUnityContainer _container;
+        public string Name => "StatIp";
         public TraitementStatIP(IUnityContainer container) : base(container)
         {
-            BaseConfig config = container.Resolve<BaseConfig>();
-            ConfigStatsIP c = config.GetConfigTraitement<ConfigStatsIP>(nameof(TraitementStatIP));
-            this.Filtre = new IgnoreWhiteList(c.AdressesIPValides);
-            _seuilAlerte = c.SeuilAlerteRequetesParIp; 
-            _listingIPJournalieres = new Dictionary<string, IpClient>();
-            _dateTraitement = config.DateTraitement;
+           _container = container;
         }
         public override void Execute()
         {
@@ -74,6 +65,16 @@ namespace ProjetManhattan.Traitements
                 _listingIPJournalieres.Add(numIpClient, nouvelleIp);
             }
             _listingIPJournalieres[numIpClient]._nbConnexionJournaliere++;
+        }
+
+        public virtual void InitialisationConfig(BaseConfig config)
+        {
+            //BaseConfig config = _container.Resolve<BaseConfig>();
+            ConfigStatsIP c = config.GetConfigTraitement<ConfigStatsIP>(nameof(TraitementStatIP));
+            this.Filtre = new IgnoreWhiteList(c.AdressesIPValides);
+            _seuilAlerte = c.SeuilAlerteRequetesParIp;
+            _listingIPJournalieres = new Dictionary<string, IpClient>();
+            _dateTraitement = config.DateTraitement;
         }
     }
 }

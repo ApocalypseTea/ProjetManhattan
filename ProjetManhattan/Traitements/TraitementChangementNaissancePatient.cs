@@ -9,15 +9,12 @@ namespace ProjetManhattan.Traitements
     {
         protected const string RESSOURCENAME = "ProjetManhattan.Configuration.QueryChangementDateNaissancePatient.txt";
         private DateTime _dateTraitement;
-        public string Name { 
-            get 
-            { 
-                return "ModificationDateNaissance"; 
-            } 
-        }
+        public string Name => "ModificationDateNaissance"; 
+        
+        
         public TraitementChangementNaissancePatient(BaseConfig config, IUnityContainer container) : base(container)
         {
-            _dateTraitement = config.DateTraitement;
+            
         }
         
         protected override IDbCommand GetSQLCommand(IDbConnection connection)
@@ -50,6 +47,11 @@ namespace ProjetManhattan.Traitements
             DateTime dateModification = reader.GetDateTime(colDateModification);
 
             return new LigneRequeteChangementNaissancePatient(idPatient, dateActuelle, dateAnterieure, modificateurID, modificateurNom, modificateurPrenom, modificateurType, dateModification);
+        }
+
+        public void InitialisationConfig(BaseConfig config)
+        {
+            _dateTraitement = config.DateTraitement;
         }
     }
 }

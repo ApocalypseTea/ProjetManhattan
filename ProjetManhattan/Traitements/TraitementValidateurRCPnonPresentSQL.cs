@@ -14,15 +14,11 @@ namespace ProjetManhattan.Traitements
     {
         private const string RESOURCENAME = "ProjetManhattan.Configuration.QueryValidateurRCPAbsent.txt";
         private DateTime _dateTraitement;
-        public string Name { 
-            get
-            {
-                return "ValidateurAbsent";
-            } 
-        }
+        public string Name => "ValidateurAbsent";
+        
         public TraitementValidateurRCPnonPresentSQL(BaseConfig config, IUnityContainer container) : base(container)
         {
-            _dateTraitement = config.DateTraitement;
+           
         }
         protected override IDbCommand GetSQLCommand(IDbConnection connection)
         {
@@ -59,6 +55,11 @@ namespace ProjetManhattan.Traitements
 
 
             return new LigneRequeteSQLValidateurNonPresent(_validateur, _idFicheRCP, _idReunionRCP, _dateFicheRCP, _dateReunionRCP, _colIdSpecialiteMedicale, _lieuReunion, _nomValidateur, _prenomValidateur, _specialiteMedicale);
+        }
+
+        public void InitialisationConfig(BaseConfig config)
+        {
+            _dateTraitement = config.DateTraitement;
         }
     }
 }

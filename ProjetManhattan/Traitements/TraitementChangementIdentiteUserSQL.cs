@@ -21,7 +21,7 @@ namespace ProjetManhattan.Traitements
         public string Name { get { return "ChangementIdentite"; } }
         public TraitementChangementIdentiteUserSQL(BaseConfig config, IUnityContainer container) : base(container)
         {
-            _dateTraitement = config.DateTraitement;
+           
         }
         protected override IDbCommand GetSQLCommand(IDbConnection connection)
         {
@@ -82,6 +82,11 @@ namespace ProjetManhattan.Traitements
                 LigneRequeteSQLChgtIdentiteUser ligne = new LigneRequeteSQLChgtIdentiteUser(idUser, nomUser, prenomUser, previousNomUser, previousPrenomUser, dateModification, modificateurID, nomModificateur, prenomModificateur, typeModificateur);
 
             return ligne;
+        }
+
+        public void InitialisationConfig(BaseConfig config)
+        {
+            _dateTraitement = config.DateTraitement;
         }
     }
 }

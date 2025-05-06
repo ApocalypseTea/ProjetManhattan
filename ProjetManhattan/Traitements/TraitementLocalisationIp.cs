@@ -17,24 +17,15 @@ namespace ProjetManhattan.Traitements
     class TraitementLocalisationIp : TraitementStatIP, ITraitement
     {
         private HashSet<IpClient> _listingIp;
-        public string ConnectionStringIPLocator { get; init; }
-        public string Name 
-        { 
-            get 
-            { 
-                return "LocalisationIp"; 
-            } 
-        }
-
+        public string ConnectionStringIPLocator { get; set; }
+        public string Name => "LocalisationIp"; 
+       
         private string _regexIPv4 = @"^((25[0-5]|(2[0-4]|1\d|[1-9]|)\d)\.?\b){4}$";
         private DateTime _dateTraitement;
 
         public TraitementLocalisationIp(IUnityContainer container) : base(container)
         {
-            BaseConfig config = container.Resolve<BaseConfig>();
-            ConnectionStringIPLocator = config.ConnectionStringIPLocator;
-            _listingIp = new HashSet<IpClient>();
-            _dateTraitement = config.DateTraitement;
+            //BaseConfig config = container.Resolve<BaseConfig>();
         }
 
         public override void Execute()
@@ -67,6 +58,13 @@ namespace ProjetManhattan.Traitements
                     this.AddRecord(tableauRecord);
                 }
             }
+        }
+
+        public override void InitialisationConfig(BaseConfig config)
+        {
+            this.ConnectionStringIPLocator = config.ConnectionStringIPLocator;
+            _listingIp = new HashSet<IpClient>();
+            _dateTraitement = config.DateTraitement;
         }
     }
 }

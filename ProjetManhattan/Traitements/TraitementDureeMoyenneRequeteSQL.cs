@@ -19,7 +19,6 @@ namespace ProjetManhattan.Traitements
 
         public TraitementDureeMoyenneRequeteSQL(IUnityContainer container) : base(container)
         {
-            //Console.WriteLine("Je suis une instance de Ttt duree moyenne Requete sql");
         }
 
         protected override LigneRequeteDureeMoyenneSQL ReadItem(IDataReader reader)
@@ -55,6 +54,12 @@ namespace ProjetManhattan.Traitements
                 return cmd;
             }
         }
+
+        public void InitialisationConfig(BaseConfig config)
+        {
+           
+        }
+
         public IReadOnlyList<LigneRequeteDureeMoyenneSQL> Items => _lines;
     }
 }

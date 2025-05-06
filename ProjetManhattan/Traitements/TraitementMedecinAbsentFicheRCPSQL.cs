@@ -16,10 +16,15 @@ namespace ProjetManhattan.Traitements
 
         public TraitementMedecinAbsentFicheRCPSQL(IUnityContainer container, BaseConfig config) : base(container)
         {
-            _dateTraitement = config.DateTraitement;
+           
         }
 
         public string Name => "MedecinParticipantAbsent";
+
+        public void InitialisationConfig(BaseConfig config)
+        {
+            _dateTraitement = config.DateTraitement;
+        }
 
         protected override IDbCommand GetSQLCommand(IDbConnection connection)
         {

@@ -17,9 +17,6 @@ namespace ProjetManhattan.Traitements
         public string Name => "EchecConnexion";
         public TraitementEchecConnexion(IUnityContainer container, BaseConfig config) : base(container)
         {
-            _date = config.DateTraitement;
-            ConfigEchecConnexion c = config.GetConfigTraitement<ConfigEchecConnexion>(nameof(TraitementEchecConnexion));
-            _nbConnexionMini = c.SeuilAlerteTentativesConnexionEnEchec;
         }
 
         protected override IDbCommand GetSQLCommand(IDbConnection connection)
@@ -51,6 +48,13 @@ namespace ProjetManhattan.Traitements
             int nbTentativesConnexion = reader.GetInt32(colNbConnexion);
 
             return new LigneRequeteSQLEchecConnexion(credential, idUser, nomUser, prenomUser, nbTentativesConnexion, _date);
+        }
+
+        public void InitialisationConfig(BaseConfig config)
+        {
+            _date = config.DateTraitement;
+            ConfigEchecConnexion c = config.GetConfigTraitement<ConfigEchecConnexion>(nameof(TraitementEchecConnexion));
+            _nbConnexionMini = c.SeuilAlerteTentativesConnexionEnEchec;
         }
     }
 }

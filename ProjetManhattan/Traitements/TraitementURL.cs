@@ -13,17 +13,10 @@ namespace ProjetManhattan.Traitements
 {
     internal class TraitementURL : BaseTraitementParLigne, ITraitement
     {        
-        public string Name
-        {
-            get
-            {
-                return "URL";
-            }
-        }
+        public string Name => "URL";
+           
         public TraitementURL(BaseConfig config, IUnityContainer container) : base (container)
         {
-            ConfigURLInvalides c = config.GetConfigTraitement<ConfigURLInvalides>(nameof(TraitementURL));
-            this.Filtre = new IgnoreURLWhiteList(c.PatternURLValide);
         }
         protected override void FillRecord(Record[] records, LigneDeLog ligne)
         {
@@ -36,6 +29,12 @@ namespace ProjetManhattan.Traitements
                 record.Description = ligne.IpClient;
                 record.Date = ligne.DateHeure;
             }
+        }
+
+        public void InitialisationConfig(BaseConfig config)
+        {
+            ConfigURLInvalides c = config.GetConfigTraitement<ConfigURLInvalides>(nameof(TraitementURL));
+            this.Filtre = new IgnoreURLWhiteList(c.PatternURLValide);
         }
     }
 }

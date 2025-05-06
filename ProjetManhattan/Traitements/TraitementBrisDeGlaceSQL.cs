@@ -21,19 +21,10 @@ namespace ProjetManhattan.Traitements
         private int _seuilAlerteBrisGlace;
         private DateTime _dateTraitement;
 
-        public string Name 
-        { 
-            get 
-            { 
-                return "BrisGlace"; 
-            } 
-        }
-
+        public string Name => "BrisGlace"; 
+      
         public TraitementBrisDeGlaceSQL(IUnityContainer container, BaseConfig config, IAccesBDD accesBDD, IFormatage outputDisplay ) : base(container)
         {
-            ConfigBrisGlace c = config.GetConfigTraitement<ConfigBrisGlace>(nameof(TraitementBrisDeGlaceSQL));
-            _seuilAlerteBrisGlace = c.SeuilAlerteBrisDeGlaceJournalierParUtilisateur;
-            _dateTraitement = config.DateTraitement;
             _lines = new List<LigneRequeteBrisGlace>();
             _source = accesBDD;
             _sortie = outputDisplay;
@@ -71,6 +62,13 @@ namespace ProjetManhattan.Traitements
             requete.AddParameterWithValue("@dateTraitement", _dateTraitement);
 
             return requete;
+        }
+
+        public void InitialisationConfig(BaseConfig config)
+        {
+            ConfigBrisGlace c = config.GetConfigTraitement<ConfigBrisGlace>(nameof(TraitementBrisDeGlaceSQL));
+            _seuilAlerteBrisGlace = c.SeuilAlerteBrisDeGlaceJournalierParUtilisateur;
+            _dateTraitement = config.DateTraitement;
         }
     }
 }

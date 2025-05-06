@@ -26,10 +26,8 @@ namespace ProjetManhattan.Configuration
 
         public T GetConfigTraitement<T>(string nomTraitement) where T : class
         {
-            
                 string nomTraitementEnCamelCase = TransformToCamelCase(nomTraitement);
                 return _jConfig["traitements"][nomTraitementEnCamelCase].ToObject<T>();
-           
         }
         private string TransformToCamelCase(string nomTraitement)
         {

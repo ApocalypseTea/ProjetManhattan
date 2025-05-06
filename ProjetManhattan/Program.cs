@@ -31,11 +31,12 @@ namespace ProjetManhattan
             ITraitement? traitement = null;
             object[] parametreTraitement = { importConfig };
 
-            Action<ITraitement> executeTraitement = (traitement) =>
-            {
-                traitement?.Execute();
-                traitement?.Display(typeOutput, nomBD);
-            };
+            //Action<ITraitement> executeTraitement = (traitement) =>
+            //{
+            //    traitement?.InitialisationConfig(importConfig);
+            //    traitement?.Execute();
+            //    traitement?.Display(typeOutput, nomBD);
+            //};
 
             GenerationNomTraitement generationNomTraitement = _container.Resolve<GenerationNomTraitement>();
             bool isTraitementDone = false;
@@ -46,13 +47,14 @@ namespace ProjetManhattan
                     try
                     {
                         traitement = traitementInstance.Value;
+                        traitement?.InitialisationConfig(importConfig);
                         traitement?.Execute();
                         traitement?.Display(typeOutput, nomBD);
                         isTraitementDone = true;
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        Console.WriteLine($"ERREUR : {ex.Message}");
                         Console.WriteLine(ex.InnerException);
                         Console.WriteLine($"Traitement {traitementInstance.Key} non instancié. Ignoré.");
                     }
@@ -61,8 +63,8 @@ namespace ProjetManhattan
 
             if (!isTraitementDone)
             {
-                Console.WriteLine($"Oops, le traitement {nomTraitement} n'existe pas.");
-                Console.WriteLine("Par contre, vous pouvez choisir parmi les traitements : ");
+                Console.WriteLine($"Oops, le traitement {nomTraitement} ne fonctionne pas.");
+                Console.WriteLine("Liste des traitements existants : ");
                 foreach (var oneTraitement in generationNomTraitement.AllTreatments)
                 {
                     Console.WriteLine($"- {oneTraitement.Key}");

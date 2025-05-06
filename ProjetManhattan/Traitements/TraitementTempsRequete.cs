@@ -13,17 +13,10 @@ namespace ProjetManhattan.Traitements
 {
     internal class TraitementTempsRequete : BaseTraitementParLigne, ITraitement
     {       
-        public string Name
-        {
-            get
-            {
-                return "TempsRequete";
-            }
-        }
+        public string Name=> "TempsRequete";
         public TraitementTempsRequete(BaseConfig config, IUnityContainer container) : base (container)
         {
-            ConfigTempsRequetes c = config.GetConfigTraitement<ConfigTempsRequetes>(nameof(TraitementTempsRequete));
-            this.Filtre = new IgnoreFastRequest(c.SeuilAlerteTempsRequetes);
+            
         }
         protected override void FillRecord(Record[] records, LigneDeLog ligne)
         {
@@ -36,6 +29,12 @@ namespace ProjetManhattan.Traitements
                 record.Description = ligne.IpClient;
                 record.Date = ligne.DateHeure;
             }
+        }
+
+        public void InitialisationConfig(BaseConfig config)
+        {
+            ConfigTempsRequetes c = config.GetConfigTraitement<ConfigTempsRequetes>(nameof(TraitementTempsRequete));
+            this.Filtre = new IgnoreFastRequest(c.SeuilAlerteTempsRequetes);
         }
     }
 }
