@@ -109,7 +109,7 @@ namespace ProjetManhattan
             configFileName = new Option<string>(
                  name: "--configFile",
                  description: "emplacement du nouveau fichier config JSON",
-                 getDefaultValue: () => @"..\..\..\Ressources\config.json");
+                 getDefaultValue: () => @"..\..\..\Ressources\config2.json");
             configFileName.IsRequired = true;
             rootCommand.AddGlobalOption(configFileName);
 
@@ -123,6 +123,7 @@ namespace ProjetManhattan
 
         private static void InitConfig(string configFileNameValue, DateTime DateTraitement)
         {
+
             fichierConfig = configFileNameValue;
             importConfig = new BaseConfig(fichierConfig);
             importConfig.DateTraitement = DateTraitement;
@@ -177,8 +178,7 @@ namespace ProjetManhattan
             exporterVersZabbix.SetHandler((nomBDorigneValue, traitementChoisiValue, dateDebutExportValue, dateFinExportValue, configFileNameValue, dateOnlyValue) =>
             {
 
-                ///////////////////A REGULARISER SELON DATE ENTREE EN PARAMETRE
-                //InitConfig(configFileNameValue, DateTime.Now);
+                
 
                 if (Path.GetExtension(nomBDorigneValue) != ".db")
                 {
@@ -200,13 +200,12 @@ namespace ProjetManhattan
                 else if (dateDebutExportValue != default(DateTime))
                 {
                     //Console.WriteLine($"date debut export entree : {dateDebutExportValue}");
-                    //importConfig.DateTraitement = dateDebutExportValue;
+                    
                     InitConfig(configFileNameValue, dateDebutExportValue);
 
 
                     if (dateFinExportValue == default(DateTime))
                     {
-                        Console.WriteLine("Option Date de fin non remplie. La periode s'etend donc jusqu'a aujourd'hui");
                         dateFinExportValue = DateTime.Now;
                     }
 
@@ -493,7 +492,6 @@ namespace ProjetManhattan
                 } 
                 else
                 {
-                    Console.WriteLine("Option Date de fin non remplie. La periode d'analyse s'etend donc jusqu'a aujourd'hui");
                     dateFinValue = DateTime.Now;
                 }
 
@@ -503,11 +501,7 @@ namespace ProjetManhattan
                     
                 }
                 BaseConfig config = new BaseConfig(configFileNameValue);
-                //Console.WriteLine($"Database = {fromDatabaseValue}");
-                //Console.WriteLine($"View={getViewValue}");
-                //Console.WriteLine($"Target={getTargetValue}");
-                //Console.WriteLine($"dateDebut={dateDebutValue}");
-                //Console.WriteLine($"dateFin={dateFinValue}");
+                
 
                 AnalyseTargetInfo traitementTarget = new AnalyseTargetInfo(config , getViewValue, getTargetValue, dateDebutValue, fromDatabaseValue, dateFinValue);
 

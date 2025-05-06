@@ -48,8 +48,15 @@ namespace ProjetManhattan
                     }
                     else
                     {
-                        throw;
+                        Console.WriteLine($"Traitement {typeTraitement.Name} non instancié. Ignoré.");
                     }
+                }
+                catch(ResolutionFailedException exception)
+                {
+                    
+                    Console.WriteLine(exception.InnerException.Message);
+                    Console.WriteLine(exception.InnerException.InnerException.Message);
+                    Console.WriteLine($"Traitement {typeTraitement.Name} non instancié. Ignoré. Une erreur incongrue est apparue lors de l'invocation");
                 }
 
                 //foreach (ConstructorInfo constructor in constructors)

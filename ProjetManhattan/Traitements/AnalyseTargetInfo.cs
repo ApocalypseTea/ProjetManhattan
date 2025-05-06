@@ -102,7 +102,7 @@ namespace ProjetManhattan.Traitements
             } 
             else
             {
-                return $"Pas de données trouvées pour la Target {_target} entre {_dateDebut} et {_dateFin}";
+                return null;
             }
         }
     }

@@ -1,16 +1,17 @@
 {
-	"Sources": {
-		"FichierDeLogIIS": {
-			"CheminFichierLog": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\u_ex250217.log"
+	"sources": {
+		"fichierDeLogIIS": {
+			"cheminFichierLog": "..\\..\\..\\Ressources\\u_exYYMMDD.log"
 		},
-		"AccesBDD": {
-			"connectionString": "Data Source=.\\SQLEXPRESS;Initial Catalog=OncoPC_DCC_extract;Integrated Security=true;TrustServerCertificate=true;"
+		"accesBDD": {
+			"connectionString": "Data Source=.\\SQLEXPRESS;Initial Catalog=OncoPC_DCC_extract;Integrated Security=true;TrustServerCertificate=true;",
+			"connectionStringIPLocator": "Data Source=.\\SQLEXPRESS;Initial Catalog=ip2location;Integrated Security=true;TrustServerCertificate=true;"
 		}
 	},
 
-	"Traitements": {
-		"TraitementURL": {
-			"PatternURLValide": [
+	"traitements": {
+		"traitementURL": {
+			"patternURLValide": [
 				"^/rcp/",
 				"^/rcp$",
 				"^/rcp_test/",
@@ -21,9 +22,9 @@
 			]
 		},
 
-		"TraitementStatIP": {
-			"SeuilAlerteRequetesParIp": 2000,
-			"AdressesIPValides": [
+		"traitementStatIP": {
+			"seuilAlerteRequetesParIp": 2000,
+			"adressesIPValides": [
 				"51.68.119.164",
 				"37.58.161.180",
 				"3.82.48.116",
@@ -31,16 +32,16 @@
 			]
 		},
 
-		"TraitementTempsRequete": {
-			"SeuilAlerteTempsRequetes": 10000
+		"traitementTempsRequete": {
+			"seuilAlerteTempsRequetes": 10000
 		},
 
-		"TraitementBrisDeGlaceSQL": {
-			"SeuilAlerteBrisDeGlaceJournalierParUtilisateur": 25
+		"traitementBrisDeGlaceSQL": {
+			"seuilAlerteBrisDeGlaceJournalierParUtilisateur": 25
 		},
 
-		"TraitementValidationParInterneSQL": {
-			"TitreValidateur": [
+		"raitementValidationParInterneSQL": {
+			"titreValidateur": [
 				"Interne",
 				"FaisantFonctionInterne"
 			]

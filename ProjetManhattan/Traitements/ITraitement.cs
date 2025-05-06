@@ -9,6 +9,8 @@ namespace ProjetManhattan.Traitements
     public interface ITraitement
     {
         string Name { get; }
+
+
         void Display(string exportDataMethod, string nomDB);
         void Execute();
     }

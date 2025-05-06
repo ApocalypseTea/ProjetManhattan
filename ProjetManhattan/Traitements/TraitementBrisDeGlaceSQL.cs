@@ -31,16 +31,12 @@ namespace ProjetManhattan.Traitements
 
         public TraitementBrisDeGlaceSQL(IUnityContainer container, BaseConfig config, IAccesBDD accesBDD, IFormatage outputDisplay ) : base(container)
         {
-            
             ConfigBrisGlace c = config.GetConfigTraitement<ConfigBrisGlace>(nameof(TraitementBrisDeGlaceSQL));
             _seuilAlerteBrisGlace = c.SeuilAlerteBrisDeGlaceJournalierParUtilisateur;
             _dateTraitement = config.DateTraitement;
-            _lines = new List<LigneRequeteBrisGlace> ();
-            //_source = new AccesBDD(config);
-            //_sortie = new OutputDisplay();           
+            _lines = new List<LigneRequeteBrisGlace>();
             _source = accesBDD;
             _sortie = outputDisplay;
-            //Console.WriteLine($"Je suis une instance de bris de glace et ma date de traitement est :{_dateTraitement} mon seuil est {_seuilAlerteBrisGlace}");
         }
         protected override LigneRequeteBrisGlace ReadItem(IDataReader reader)
         {
