@@ -130,7 +130,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
             _fixture.WhenStartingTraitementTargetInfo();
             _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 42");
             _fixture.WhenExecutingTraitement();
-            _fixture.ThenTraitementInstance().TargetInfoToJSON().Should().StartWith("[");
+            _fixture.ThenTraitementInstance().TargetInfoToJSON().Should().StartWith("{");
         }
 
         [TestMethod]

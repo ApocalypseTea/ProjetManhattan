@@ -98,7 +98,10 @@ namespace ProjetManhattan.Traitements
                     ContractResolver = new CamelCasePropertyNamesContractResolver()
                 };
 
-                return JsonConvert.SerializeObject(_lines, settings);
+                string json = JsonConvert.SerializeObject(_lines, settings);
+                json = json.Replace("[", "");
+                json = json.Replace("]", "");
+                return json;
             } 
             else
             {
