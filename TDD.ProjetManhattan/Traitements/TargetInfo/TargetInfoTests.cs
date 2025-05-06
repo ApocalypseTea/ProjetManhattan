@@ -143,7 +143,7 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
             _fixture.GivingExistingData("1.2.3.4", "'target', 1.2.3.4, 'pays', South Korea, 'nbRequetes', 24");
             _fixture.WhenExecutingTraitement();
             _fixture.WhenExecutingTargetInfoToJSON();
-            ((_fixture.ThenJSONResult()[0]["target"] as JValue).Value as string).Should().Contain("1.2.3.4");
+            ((_fixture.ThenJSONResult()["target"] as JValue).Value as string).Should().Contain("1.2.3.4");
         }
     }
 }

@@ -32,8 +32,8 @@ namespace ProjetManhattan
 
             Record record2 = new Record()
             {
-                Target = this.nbExecution.ToString(),
-                Value = this.Duree.ToString(),
+                Target = this.StoredProcedure,
+                Value = this.nbExecution.ToString(),
                 Date = DateTime.Now,
                 PropertyName = "ExecutionCount",
                 Traitement = "DureeMoyRequeteSQL"

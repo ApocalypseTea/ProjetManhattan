@@ -14,6 +14,8 @@ using System.CommandLine.Builder;
 using Unity;
 using ProjetManhattan.Sources;
 using System.ComponentModel;
+using Newtonsoft.Json.Linq;
+using ProjetManhattan.Annexes_Traitements;
 
 namespace ProjetManhattan
 {
@@ -25,18 +27,12 @@ namespace ProjetManhattan
         private static Option<string> configFileName;
         private static Regex dBFilenamePattern = new Regex(@".*\.db$", RegexOptions.Compiled);
         private const string RESSOURCEHELP = "ProjetManhattan.ReadMe - CommandesCLI.txt";
+  
         
         public static void MiniMenu(string nomTraitement, BaseConfig importConfig, string typeOutput, string? nomBD)
         {
             ITraitement? traitement = null;
             object[] parametreTraitement = { importConfig };
-
-            //Action<ITraitement> executeTraitement = (traitement) =>
-            //{
-            //    traitement?.InitialisationConfig(importConfig);
-            //    traitement?.Execute();
-            //    traitement?.Display(typeOutput, nomBD);
-            //};
 
             GenerationNomTraitement generationNomTraitement = _container.Resolve<GenerationNomTraitement>();
             bool isTraitementDone = false;
@@ -111,7 +107,7 @@ namespace ProjetManhattan
             configFileName = new Option<string>(
                  name: "--configFile",
                  description: "emplacement du nouveau fichier config JSON",
-                 getDefaultValue: () => @"..\..\..\Ressources\config2.json");
+                 getDefaultValue: () => @"..\..\..\Ressources\config.json");
             configFileName.IsRequired = true;
             rootCommand.AddGlobalOption(configFileName);
 
@@ -502,14 +498,44 @@ namespace ProjetManhattan
                     fromDatabaseValue += ".db";
                     
                 }
+
+                //Retrait de la casse si existante
+                getViewValue = getViewValue.ToLower();
+                getTargetValue = getTargetValue.ToLower();
+
                 BaseConfig config = new BaseConfig(configFileNameValue);
-                
 
-                AnalyseTargetInfo traitementTarget = new AnalyseTargetInfo(config , getViewValue, getTargetValue, dateDebutValue, fromDatabaseValue, dateFinValue);
+                IList<JToken> listeViews = config._jConfig["views"].ToList();
+                IList<string> views = new List<string>();
 
-                traitementTarget.Execute();
-                Console.WriteLine(traitementTarget.TargetInfoToJSON());
+                foreach (JProperty view in listeViews)
+                {
+                    string viewItem = view.Name;
+                    views.Add(viewItem);
+                }
 
+                bool isViewExist = false;
+                foreach (string viewName in views)
+                {
+                    if (viewName.Contains(getViewValue))
+                    {
+                        AnalyseTargetInfo traitementTarget = new AnalyseTargetInfo(config, getViewValue, getTargetValue, dateDebutValue, fromDatabaseValue, dateFinValue);
+
+                        traitementTarget.Execute();
+                        Console.WriteLine(traitementTarget.TargetInfoToJSON());
+                        isViewExist = true;
+                    }
+                   
+                }
+                if (!isViewExist)
+                {
+                    Console.WriteLine($"La vue : {getViewValue} n'existe pas dans le fichier de configuration.");
+                    Console.WriteLine("Liste des vues disponibles");
+                    foreach (string viewName in views)
+                    {
+                        Console.WriteLine($" - {viewName}");
+                    }
+                }
             }, configFileName, fromDatabase, getView, getTarget, dateDebut, dateFin);
 
             return view;
