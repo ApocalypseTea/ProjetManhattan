@@ -29,7 +29,7 @@
     },
     "traitement echecconnexion date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=all --outputFormat=console --date=2017-07-01"
+      "commandLineArgs": "traitement --traitement=brisglace --outputFormat=console --date=2017-07-01"
     },
     "traitement statip Mauvaise date console": {
       "commandName": "Project",

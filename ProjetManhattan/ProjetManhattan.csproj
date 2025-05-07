@@ -22,7 +22,6 @@
     <None Remove="Configuration\QueryValidateurRCPAbsent.txt" />
     <None Remove="Configuration\QueryValidationParInterne.txt" />
     <None Remove="ReadMe - CommandesCLI.txt" />
-    <None Remove="Ressources\config2.json" />
     <None Remove="Ressources\config_initial.json" />
   </ItemGroup>
 

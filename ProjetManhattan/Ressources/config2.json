@@ -36,11 +36,9 @@
 			"seuilAlerteTempsRequetes": 10000
 		},
 
-		"traitementBrisDeGlaceSQL": {
-			"seuilAlerteBrisDeGlaceJournalierParUtilisateur": 25
-		},
+		
 
-		"raitementValidationParInterneSQL": {
+		"traitementValidationParInterneSQL": {
 			"titreValidateur": [
 				"Interne",
 				"FaisantFonctionInterne"

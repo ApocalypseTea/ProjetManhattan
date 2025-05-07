@@ -115,7 +115,7 @@ namespace ProjetManhattan
             configFileName = new Option<string>(
                  name: "--configFile",
                  description: "emplacement du nouveau fichier config JSON",
-                 getDefaultValue: () => @"..\..\..\Ressources\config.json");
+                 getDefaultValue: () => @"..\..\..\Ressources\config2.json");
             configFileName.IsRequired = true;
             rootCommand.AddGlobalOption(configFileName);
 
