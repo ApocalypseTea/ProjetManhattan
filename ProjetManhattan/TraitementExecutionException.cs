@@ -8,7 +8,11 @@ namespace ProjetManhattan
 {
     public class TraitementExecutionException : Exception
     {
-        public TraitementExecutionException(string message) : base(message) { }
+        public TraitementExecutionException(string message) : base(message) 
+        {
+            Console.WriteLine();
+            Console.WriteLine(message);
+        }
         public TraitementExecutionException(string message, Exception innerException) : base(message, innerException) { }
 
     }

@@ -37,8 +37,7 @@ namespace ProjetManhattan.Sources
 
             //Verification de l'existence du fichier
             if (!File.Exists(fileName))
-            {
-                Console.WriteLine($"Le fichier de log {fileName} n'existe pas");
+            {                
                 throw new TraitementExecutionException($"Le fichier de log {fileName} n'existe pas");
             }
             else

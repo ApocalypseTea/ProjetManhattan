@@ -7,10 +7,6 @@
       "commandName": "WSL2",
       "distributionName": ""
     },
-    "traitement StatIp date console": {
-      "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=localisationiP --date=17-02-2025 --outputFormat=console"
-    },
     "toZabbix ttt URL": {
       "commandName": "Project",
       "commandLineArgs": "toZabbix --traitement=URL --input=resultatTraitement.db --date=2025-03-22 "
@@ -33,7 +29,11 @@
     },
     "traitement echecconnexion date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=echecConnexion --outputFormat=console --date=2020-07-01"
+      "commandLineArgs": "traitement --traitement=all --outputFormat=console --date=2017-07-01"
+    },
+    "traitement statip Mauvaise date console": {
+      "commandName": "Project",
+      "commandLineArgs": "traitement --traitement=statip --date=2024-02-17 --outputFormat=console"
     }
   }
 }

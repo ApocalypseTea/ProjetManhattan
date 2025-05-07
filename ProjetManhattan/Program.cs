@@ -15,7 +15,6 @@ using Unity;
 using ProjetManhattan.Sources;
 using System.ComponentModel;
 using Newtonsoft.Json.Linq;
-using ProjetManhattan.Annexes_Traitements;
 
 namespace ProjetManhattan
 {
@@ -48,11 +47,19 @@ namespace ProjetManhattan
                         traitement?.Display(typeOutput, nomBD);
                         isTraitementDone = true;
                     }
+                    catch (Unity.ResolutionFailedException exception)
+                    {
+                        
+                        Console.WriteLine($"ERREUR : Une erreur est apparue lors de l'instanciation du traitement {traitementInstance.Key}");
+                        Console.WriteLine($"Traitement {traitementInstance.Key} non instancié. Ignoré.");
+                        Console.WriteLine();
+                    }
                     catch (Exception ex)
                     {
+                        
                         Console.WriteLine($"ERREUR : {ex.Message}");
-                        Console.WriteLine(ex.InnerException);
                         Console.WriteLine($"Traitement {traitementInstance.Key} non instancié. Ignoré.");
+                        Console.WriteLine();
                     }
                 }
             }
@@ -60,6 +67,7 @@ namespace ProjetManhattan
             if (!isTraitementDone)
             {
                 Console.WriteLine($"Oops, le traitement {nomTraitement} ne fonctionne pas.");
+                Console.WriteLine();
                 Console.WriteLine("Liste des traitements existants : ");
                 foreach (var oneTraitement in generationNomTraitement.AllTreatments)
                 {

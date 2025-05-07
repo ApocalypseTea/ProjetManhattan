@@ -25,7 +25,6 @@ namespace ProjetManhattan.Traitements
 
         public TraitementLocalisationIp(IUnityContainer container) : base(container)
         {
-            //BaseConfig config = container.Resolve<BaseConfig>();
         }
 
         public override void Execute()

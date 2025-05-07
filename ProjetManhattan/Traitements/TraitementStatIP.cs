@@ -17,11 +17,9 @@ namespace ProjetManhattan.Traitements
         protected Dictionary<string, IpClient> _listingIPJournalieres;
         private int _seuilAlerte;
         private DateTime _dateTraitement;
-        private IUnityContainer _container;
         public string Name => "StatIp";
         public TraitementStatIP(IUnityContainer container) : base(container)
         {
-           _container = container;
         }
         public override void Execute()
         {
@@ -69,7 +67,6 @@ namespace ProjetManhattan.Traitements
 
         public virtual void InitialisationConfig(BaseConfig config)
         {
-            //BaseConfig config = _container.Resolve<BaseConfig>();
             ConfigStatsIP c = config.GetConfigTraitement<ConfigStatsIP>(nameof(TraitementStatIP));
             this.Filtre = new IgnoreWhiteList(c.AdressesIPValides);
             _seuilAlerte = c.SeuilAlerteRequetesParIp;
