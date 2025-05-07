@@ -62,6 +62,7 @@ namespace ProjetManhattan.Traitements
 
         public override void InitialisationConfig(BaseConfig config)
         {
+            base.InitialisationConfig(config);
             this.ConnectionStringIPLocator = config.ConnectionStringIPLocator;
             _listingIp = new HashSet<IpClient>();
             _dateTraitement = config.DateTraitement;

@@ -9,7 +9,7 @@
     },
     "traitement StatIp date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=STATiP --date=17-02-2025 --outputFormat=console"
+      "commandLineArgs": "traitement --traitement=localisationiP --date=17-02-2025 --outputFormat=console"
     },
     "toZabbix ttt URL": {
       "commandName": "Project",
@@ -29,7 +29,7 @@
     },
     "Views": {
       "commandName": "Project",
-      "commandLineArgs": "views --view=\"up\" --target=\"1.2.3.4\" --input=\"resultatTraitement\" --dateDebut=2025-04-20"
+      "commandLineArgs": "views --view=\"uRL\" --target=\"1.2.3.4\" --input=\"resultatTraitement\" --dateDebut=2025-04-20"
     },
     "traitement echecconnexion date console": {
       "commandName": "Project",

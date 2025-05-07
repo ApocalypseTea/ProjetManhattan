@@ -496,7 +496,6 @@ namespace ProjetManhattan
                 if (Path.GetExtension(fromDatabaseValue) != ".db")
                 {
                     fromDatabaseValue += ".db";
-                    
                 }
 
                 //Retrait de la casse si existante
@@ -525,7 +524,6 @@ namespace ProjetManhattan
                         Console.WriteLine(traitementTarget.TargetInfoToJSON());
                         isViewExist = true;
                     }
-                   
                 }
                 if (!isViewExist)
                 {
