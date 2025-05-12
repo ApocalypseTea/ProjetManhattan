@@ -14,9 +14,10 @@ using Newtonsoft.Json.Serialization;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
+using ProjetManhattan.Traitements;
 using Unity;
 
-namespace ProjetManhattan.Traitements
+namespace ProjetManhattan.Analyses
 {
     public class AnalyseTargetInfo
     {
@@ -63,7 +64,6 @@ namespace ProjetManhattan.Traitements
                     }
                 }
             }
-            
         }
 
         protected LigneRequeteSQLiteTargetInfo ReadItem(IDataReader reader)

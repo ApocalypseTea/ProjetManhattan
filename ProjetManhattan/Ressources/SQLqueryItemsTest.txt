@@ -1,0 +1,3 @@
+﻿SELECT DISTINCT target AS item
+    FROM record AS R
+    WHERE R.traitement IN ('LocalisationIp', 'StatIp')

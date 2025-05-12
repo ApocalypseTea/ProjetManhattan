@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using ProjetManhattan.Configuration;
-using ProjetManhattan.Traitements;
 using ProjetManhattan.Formatages;
 using Unity;
 using Unity.Events;
@@ -13,6 +12,7 @@ using ProjetManhattan.Sources;
 using System.Data;
 using TDD.ProjetManhattan.Traitements.DureeMoyenneRequeteSQL;
 using Newtonsoft.Json.Linq;
+using ProjetManhattan.Analyses;
 
 namespace TDD.ProjetManhattan.Traitements.TargetInfo
 {
@@ -101,8 +101,8 @@ namespace TDD.ProjetManhattan.Traitements.TargetInfo
         {
             //    this._fakeJson = JObject.Parse(_traitement.TargetInfoToJSON());
             //    return this._fakeJson;
-            JObject jArray = JObject.Parse(_traitement.TargetInfoToJSON());
-            return jArray;
+            JObject jObject = JObject.Parse(_traitement.TargetInfoToJSON());
+            return jObject;
 
         }
 

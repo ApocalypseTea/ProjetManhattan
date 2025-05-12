@@ -60,5 +60,10 @@
 			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\SQLqueryViewTest.txt",
 			"description": "Informations sur les URL"
 		}
+	},
+	"items": {
+		"query": {
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\SQLqueryItemsTest.txt"
+		}
 	}
 }

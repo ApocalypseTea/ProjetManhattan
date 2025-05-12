@@ -15,6 +15,8 @@ using Unity;
 using ProjetManhattan.Sources;
 using System.ComponentModel;
 using Newtonsoft.Json.Linq;
+using ProjetManhattan.Analyses;
+using System.Security.Cryptography;
 
 namespace ProjetManhattan
 {
@@ -98,15 +100,19 @@ namespace ProjetManhattan
                 Command menuAide = GetHelp(configFileName);
                 Command getValue = GetCommandGetValue();
                 Command getTargetInfo = GetCommandTargetInfo(configFileName);
+                Command getItems = GetCommandItems(configFileName);
 
                 rootCommand.Add(getValue);
                 rootCommand.Add(effectuerTraitement);
                 rootCommand.Add(exporterVersZabbix);
                 rootCommand.Add(menuAide);
                 rootCommand.Add(getTargetInfo);
+                rootCommand.Add(getItems);
                 rootCommand.Invoke(args);
             }
         }
+
+        
 
         private static RootCommand GetRootCommandProjetManhattan()
         {
@@ -115,7 +121,7 @@ namespace ProjetManhattan
             configFileName = new Option<string>(
                  name: "--configFile",
                  description: "emplacement du nouveau fichier config JSON",
-                 getDefaultValue: () => @"..\..\..\Ressources\config2.json");
+                 getDefaultValue: () => @"..\..\..\Ressources\config.json");
             configFileName.IsRequired = true;
             rootCommand.AddGlobalOption(configFileName);
 
@@ -506,6 +512,12 @@ namespace ProjetManhattan
                     fromDatabaseValue += ".db";
                 }
 
+                if (!File.Exists(fromDatabaseValue))
+                {
+                    Console.WriteLine($"La base de données {fromDatabaseValue} n'existe pas.");
+                    return;
+                }
+
                 //Retrait de la casse si existante
                 getViewValue = getViewValue.ToLower();
                 getTargetValue = getTargetValue.ToLower();
@@ -535,7 +547,7 @@ namespace ProjetManhattan
                 }
                 if (!isViewExist)
                 {
-                    Console.WriteLine($"La vue : {getViewValue} n'existe pas dans le fichier de configuration.");
+                    Console.WriteLine($"La vue : {getViewValue} n'existe pas dans le fichier de configuration pour la commande Views.");
                     Console.WriteLine("Liste des vues disponibles");
                     foreach (string viewName in views)
                     {
@@ -545,6 +557,80 @@ namespace ProjetManhattan
             }, configFileName, fromDatabase, getView, getTarget, dateDebut, dateFin);
 
             return view;
+        }
+
+        private static Command GetCommandItems(Option<string> configFileName)
+        {
+            Command items = new Command(
+                name: "items",
+                description: "retourne les valeurs définies par une requête SQL sans parametres"
+                );
+
+            Option<string> getQuery = new Option<string>(
+                name: "--query",
+                description: "choix de la requete à utiliser");
+            getQuery.IsRequired = true;
+            items.AddOption(getQuery);
+
+            Option<string> fromDatabase = new Option<string>(
+                name: "--input",
+                description: "base de données dans laquelle la requete sera effectuée");
+            fromDatabase.IsRequired = true;
+            items.AddOption(fromDatabase);
+
+            items.SetHandler((configFileNameValue, fromDatabaseValue, getQueryValue) =>
+            {
+                //Retrait de la Casse
+                getQueryValue = getQueryValue.ToLower();
+
+                if (Path.GetExtension(fromDatabaseValue) != ".db")
+                {
+                    fromDatabaseValue += ".db";
+                }
+
+                if (!File.Exists(fromDatabaseValue))
+                {
+                    Console.WriteLine($"La base de données {fromDatabaseValue} n'existe pas.");
+                    return;
+                }
+
+                BaseConfig config = new BaseConfig(configFileNameValue);
+
+                IList<JToken> listeQuery = config._jConfig["items"].ToList();
+                IList<string> querys = new List<string>();
+
+                foreach (JProperty query in listeQuery)
+                {
+                    string item = query.Name;
+                    querys.Add(item);
+                }
+
+                bool isQueryExist = false;
+                foreach (string queryName in querys)
+                {
+                    if (queryName.Contains(getQueryValue))
+                    {
+                        string query = File.ReadAllText((string)config._jConfig["items"][getQueryValue]["path"]);
+                        AnalyseItemsInfo itemsInfo = new AnalyseItemsInfo(config, fromDatabaseValue, query);
+                        itemsInfo.Execute();
+                        Console.WriteLine(itemsInfo.ItemsInfoToJSON());
+                        isQueryExist = true;
+                    }
+                }
+                if (!isQueryExist)
+                {
+                    Console.WriteLine($"La requete : {getQueryValue} n'existe pas dans le fichier de configuration pour la commande Items.");
+                    Console.WriteLine("Liste des requetes actuellement disponibles");
+                    foreach (string queryName in querys)
+                    {
+                        Console.WriteLine($" - {queryName}");
+                    }
+                }
+
+            }, configFileName, fromDatabase, getQuery);
+
+
+            return items;
         }
     }
 }
