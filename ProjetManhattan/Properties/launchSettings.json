@@ -37,7 +37,7 @@
     },
     "items": {
       "commandName": "Project",
-      "commandLineArgs": "items --query=query --input=reultatraitement.db"
+      "commandLineArgs": "items --query=query --input=resultatTraitement.db"
     }
   }
 }

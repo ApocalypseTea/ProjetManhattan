@@ -11,6 +11,7 @@ using ProjetManhattan.Formatages;
 using ProjetManhattan.Sources;
 using ProjetManhattan.Traitements;
 using ProjetManhattan.AnnexesTraitements;
+using Azure.Core;
 
 namespace ProjetManhattan.Analyses
 {
@@ -65,6 +66,8 @@ namespace ProjetManhattan.Analyses
         protected IDbCommand GetSQLCommand(IDbConnection connection)
         {
             IDbCommand commande = connection.CreateCommand();
+            commande.CommandText = Query;
+            commande.CommandType = CommandType.Text;
             return commande;
         }
 
