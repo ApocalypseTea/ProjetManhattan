@@ -23,12 +23,13 @@
 		},
 
 		"traitementStatIP": {
-			"seuilAlerteRequetesParIp": 2000,
+			"seuilAlerteRequetesParIp": 500,
 			"adressesIPValides": [
 				"51.68.119.164",
 				"37.58.161.180",
 				"3.82.48.116",
-				"141.255.166.90"
+				"141.255.166.90",
+				"::1"
 			]
 		},
 
@@ -36,14 +37,24 @@
 			"seuilAlerteTempsRequetes": 10000
 		},
 
-		
+		"traitementBrisDeGlaceSQL": {
+			"seuilAlerteBrisDeGlaceJournalierParUtilisateur": 25
+		},
 
 		"traitementValidationParInterneSQL": {
 			"titreValidateur": [
 				"Interne",
 				"FaisantFonctionInterne"
 			]
-
+		},
+		"traitementEchecConnexion": {
+			"seuilAlerteTentativesConnexionEnEchec": 5
+		}
+	},
+	
+	"items": {
+		"query": {
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\SQLqueryItemsTest.txt"
 		}
 	}
 }

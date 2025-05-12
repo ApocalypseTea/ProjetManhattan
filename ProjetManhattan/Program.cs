@@ -524,6 +524,12 @@ namespace ProjetManhattan
 
                 BaseConfig config = new BaseConfig(configFileNameValue);
 
+                if(!ValidateConfigSections(config, "views"))
+                {
+                    return;
+                }
+                
+
                 IList<JToken> listeViews = config._jConfig["views"].ToList();
                 IList<string> views = new List<string>();
 
@@ -596,6 +602,10 @@ namespace ProjetManhattan
 
                 BaseConfig config = new BaseConfig(configFileNameValue);
 
+                if(!ValidateConfigSections(config, "items")){
+                    return;
+                }
+
                 IList<JToken> listeQuery = config._jConfig["items"].ToList();
                 IList<string> querys = new List<string>();
 
@@ -631,6 +641,25 @@ namespace ProjetManhattan
 
 
             return items;
+        }
+
+        private static bool ValidateConfigSections(BaseConfig config, string sectionName)
+        {
+            IEnumerable<JToken> configSections = config._jConfig.Children();
+            bool isConfigSectionExisting = false;
+            foreach (JToken configSection in configSections)
+            {
+                if (configSection.ToString().Contains(sectionName))
+                {
+                    isConfigSectionExisting = true;
+                }
+            }
+            if (!isConfigSectionExisting)
+            {
+                Console.WriteLine($"Le fichier de configuration ne contient pas de section pour la commande {sectionName}. Analyse ignorée.");
+                
+            }
+            return isConfigSectionExisting;
         }
     }
 }
