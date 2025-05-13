@@ -25,7 +25,7 @@
     },
     "Views": {
       "commandName": "Project",
-      "commandLineArgs": "views --view=\"uRL\" --target=\"1.2.3.4\" --input=\"resultatTraitement\" --dateDebut=2025-04-20"
+      "commandLineArgs": "views --input=items-2025-05-12.db --view=ip --target=10.195.1.110 --dateDebut=2025-05-12"
     },
     "traitement echecconnexion date console": {
       "commandName": "Project",
