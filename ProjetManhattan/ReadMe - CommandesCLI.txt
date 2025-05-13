@@ -46,6 +46,17 @@
 	- helpMe (COMMAND) Renvoie la liste des traitements disponibles à la date indiquée
 		- --date (option)(default DateTime.Now)
 
+	- views (COMMAND)
+		- --view (option required)
+		- --target (option required)
+		- --dateDebut (option required)
+		- --dateFin (option) (date du jour si non entré)
+		- --input (option required) (nomdefichier avec ou sans extension .db)
+
+	- items (COMMAND)
+		- --query (option required)
+		- --input (option required) (nomdefichier avec ou sans extension .db)
+
 ///////////////////////////////////////////////////
 LEGENDE : *Options possibles pour le texte à ecrire
 ///////////////////////////////////////////////////

@@ -48,8 +48,7 @@ namespace ProjetManhattan.Formatages
                 SqliteConnection connection = new SqliteConnection(connectionString);
             
                 connection.Open();
-                //Console.WriteLine("Connecté à la BD SQLite");
-
+                
                 string creationTableRecord = "CREATE TABLE IF NOT EXISTS record (" +
                    "idRecord INTEGER PRIMARY KEY," +
                    "traitement TEXT NOT NULL,"+
@@ -58,7 +57,15 @@ namespace ProjetManhattan.Formatages
                    "value TEXT," +
                    "propertyName TEXT," +
                    "description TEXT" +
-                   ");";
+                   ");" +
+                   "CREATE INDEX IX_record ON record(" +
+                   "idRecord," +
+                   "traitement," +
+                   "target," +
+                   "date," +
+                   "value," +
+                   "propertyName," +
+                   "description);";
                 SqliteCommand commande = new SqliteCommand(creationTableRecord, connection);
                 commande.ExecuteReader();
 
