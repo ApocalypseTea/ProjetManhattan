@@ -1,5 +1,7 @@
 ﻿using System.Text.Json.Nodes;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using ProjetManhattan.Formatages;
 
 namespace ProjetManhattan

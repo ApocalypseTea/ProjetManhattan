@@ -73,6 +73,7 @@ namespace ProjetManhattan.Analyses
 
             string target = reader.GetString(colTarget);
             string json = reader.GetString(colJSON);
+
             LigneRequeteSQLiteTargetInfo line = new LigneRequeteSQLiteTargetInfo(target,json);
             return line;
         }
@@ -82,7 +83,7 @@ namespace ProjetManhattan.Analyses
             IDbCommand commande = connection.CreateCommand();
             commande.CommandText = Query;
             commande.CommandType = CommandType.Text;
-     
+
             commande.AddParameterWithValue("@Target", _target);
             commande.AddParameterWithValue("@DateDebut", _dateDebut);
             commande.AddParameterWithValue("@DateFin", _dateFin);
@@ -98,9 +99,12 @@ namespace ProjetManhattan.Analyses
                     ContractResolver = new CamelCasePropertyNamesContractResolver()
                 };
 
-                string json = JsonConvert.SerializeObject(_lines, settings);
-                json = json.Replace("[", "");
-                json = json.Replace("]", "");
+                JObject jObject = new JObject();
+
+                jObject.Add("target", _lines[0].Target);
+                jObject.Add("json", JObject.Parse(_lines[0].Json));
+
+                string json = JsonConvert.SerializeObject(jObject, settings);
                 return json;
             } 
             else
