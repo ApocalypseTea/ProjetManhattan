@@ -16,9 +16,10 @@ namespace ProjetManhattan
         private long _idSpecialiteMedicale;
         private string _lieuReunionRCP;
         private string _specialiteMedicale;
+        private string _profilValidateur;
 
 
-        public LigneRequeteSQLValidationParInterne(long numeroFicheRCP, long idPatient, long idValidateur, string nomValidateur, string prenomValidateur, long numeroRCP, DateTime date, DateTime dateReunionRCP, long specialiteMedicale, string lieuReunion, string specialiteMed)
+        public LigneRequeteSQLValidationParInterne(long numeroFicheRCP, long idPatient, long idValidateur, string nomValidateur, string prenomValidateur, long numeroRCP, DateTime date, DateTime dateReunionRCP, long specialiteMedicale, string lieuReunion, string specialiteMed, string profilValidateur)
         {
             _numeroFicheRCP = numeroFicheRCP;
             _idPatient = idPatient;
@@ -31,6 +32,7 @@ namespace ProjetManhattan
             _idSpecialiteMedicale = specialiteMedicale;
             _lieuReunionRCP = lieuReunion;
             _specialiteMedicale = specialiteMed;
+            _profilValidateur = profilValidateur;
         }
         public Record[] ToRecords()
         {
@@ -41,6 +43,7 @@ namespace ProjetManhattan
             jsonDescription.Add("specialite", this._specialiteMedicale);
             string identiteValidateur = $"{this._nomValidateur} {this._prenomValidateur}";
             jsonDescription.Add("validateur", identiteValidateur);
+            jsonDescription.Add("validateurProfilType", this._profilValidateur);
             
             Record record = new Record()
             {

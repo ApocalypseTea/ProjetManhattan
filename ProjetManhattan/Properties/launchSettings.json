@@ -37,7 +37,7 @@
     },
     "traitement validateurabs date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=validateurAbsent --outputFormat=console --date=2014-07-15"
+      "commandLineArgs": "traitement --traitement=validationinterne --outputFormat=console --date=2018-02-20"
     }
   }
 }

@@ -8,7 +8,8 @@
 	R.date_reunion AS dateRCP,
 	R.specialite_ref AS id_specialite,
 	LE.label AS salle_reunion,
-	SRE.label AS specialite_med
+	SRE.label AS specialite_med,
+	PPST.value AS profil_validateur
 FROM dbo.fiches_rcp AS FR
 JOIN account.profil_professionnel_sante AS PPS ON PPS.profil_id = FR.validateur_ref
 JOIN account.profil_professionnel_sante_titre_enum AS PPST ON PPST.id = PPS.titre_ref
