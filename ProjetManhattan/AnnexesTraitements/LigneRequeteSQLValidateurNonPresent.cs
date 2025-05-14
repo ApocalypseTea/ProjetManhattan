@@ -51,7 +51,7 @@ namespace ProjetManhattan
                 Target = $"FicheRCPID={this._idFicheRCP}",
                 PropertyName = "ValidateurAbsent",
                 Description = jsonDescription.ToString(),
-                Value = $"ValidateurID={this._idValidateur}"
+                Value = $"{this._idValidateur}"
             };
 
             Record[] tableauRecord = { record };
