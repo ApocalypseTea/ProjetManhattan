@@ -1,4 +1,5 @@
-﻿using ProjetManhattan.Formatages;
+﻿using Newtonsoft.Json.Linq;
+using ProjetManhattan.Formatages;
 
 namespace ProjetManhattan
 {
@@ -33,6 +34,13 @@ namespace ProjetManhattan
         }
         public Record[] ToRecords()
         {
+            JObject jsonDescription = new JObject();
+            jsonDescription.Add("ficheRCPID", this._numeroFicheRCP);
+            jsonDescription.Add("dateReunion", this._dateReunionRCP);
+            jsonDescription.Add("lieu",this._lieuReunionRCP);
+            jsonDescription.Add("specialite", this._specialiteMedicale);
+            string identiteValidateur = $"{this._nomValidateur} {"
+            jsonDescription.Add("validateur", )
             
             Record record = new Record()
             {
@@ -40,8 +48,8 @@ namespace ProjetManhattan
                 Date = this._date,
                 Target = $"FicheRcpID={this._numeroFicheRCP}",
                 PropertyName = "Validateur",
-                Description = $"ReunionID={this._numeroRCP} Date={this._dateReunionRCP.ToString("dd-MM-yyyy")}, Lieu={this._lieuReunionRCP}, Specialite={this._idSpecialiteMedicale} {this._specialiteMedicale}",
-                Value = $"{this._idValidateur}={this._nomValidateur} {this._prenomValidateur}"
+                Description = jsonDescription.ToString(),
+                Value = $"{this._idValidateur}"
             };
 
             Record[] tableauRecord = {record};
