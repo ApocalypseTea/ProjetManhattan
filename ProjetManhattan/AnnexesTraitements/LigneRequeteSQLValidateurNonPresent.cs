@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using ProjetManhattan.Formatages;
 
 namespace ProjetManhattan
@@ -35,16 +36,22 @@ namespace ProjetManhattan
         }
         public Record[] ToRecords()
         {
+            JObject jsonDescription = new JObject();
+            jsonDescription.Add("reunionID", this._idReunionRCP);
+            jsonDescription.Add("date", this._dateReunionRCP);
+            jsonDescription.Add("lieu", this._lieuReunion);
+            jsonDescription.Add("specialite", this._specialiteMedicale);
+
             Record record = new Record()
             {
+                
+
                 Traitement = "ValidateurAbsent",
                 Date = this._dateFicheRCP,
-                Target = $"ValidateurID={this._idValidateur} {this._prenomValidateur} {this._nomValidateur}",
-                //FIcheRCP ID en target 
-                //Validateur a ajouter en value
+                Target = $"FicheRCPID={this._idFicheRCP}",
                 PropertyName = "ValidateurAbsent",
-                Description = $"RcpID={this._idReunionRCP} Date={this._dateReunionRCP.ToString("dd-MM-yyyy HH\\hmm")} Lieu={this._lieuReunion} Specialite={this._idSpecialiteMedicale} {this._specialiteMedicale}",
-                Value = _idFicheRCP.ToString(),
+                Description = jsonDescription.ToString(),
+                Value = $"ValidateurID={this._idValidateur} {this._prenomValidateur} {this._nomValidateur}"
             };
 
             Record[] tableauRecord = { record };

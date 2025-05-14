@@ -37,7 +37,7 @@
     },
     "traitement localisationip date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=localisationip --outputFormat=console --date=2025-03-20"
+      "commandLineArgs": "traitement --traitement=validateurAbsent --outputFormat=console --date=2014-07-15"
     }
   }
 }
