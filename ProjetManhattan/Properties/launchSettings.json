@@ -27,10 +27,6 @@
       "commandName": "Project",
       "commandLineArgs": "views --input=items-2025-05-12.db --view=ip --target=10.195.1.110 --dateDebut=2025-05-12"
     },
-    "traitement echecconnexion date console": {
-      "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=brisglace --outputFormat=console --date=2017-07-01"
-    },
     "traitement statip Mauvaise date console": {
       "commandName": "Project",
       "commandLineArgs": "traitement --traitement=statip --date=2024-02-17 --outputFormat=console"
@@ -38,6 +34,10 @@
     "items": {
       "commandName": "Project",
       "commandLineArgs": "items --query=query --input=resultatTraitement.db"
+    },
+    "traitement all date console": {
+      "commandName": "Project",
+      "commandLineArgs": "traitement --traitement=all --outputFormat=console --date=2017-07-01"
     }
   }
 }

@@ -58,7 +58,7 @@ namespace ProjetManhattan.Formatages
                    "propertyName TEXT," +
                    "description TEXT" +
                    ");" +
-                   "CREATE INDEX IX_record ON record(" +
+                   "CREATE INDEX IF NOT EXISTS IX_record ON record(" +
                    "idRecord," +
                    "traitement," +
                    "target," +
