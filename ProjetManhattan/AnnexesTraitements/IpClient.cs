@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+using Microsoft.Data.Sqlite;
 using Microsoft.Identity.Client;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Traitements;
@@ -14,7 +15,7 @@ namespace ProjetManhattan
     public class IpClient 
     {
         //Passer la Query dans le fichier de config json
-        private const string QUERY = "SELECT country_name FROM dbo.ip2location_db1 WHERE @ip BETWEEN ip_from AND ip_to;";
+        private const string QUERY = "SELECT country_name FROM location WHERE @ip BETWEEN ip_from AND ip_to;";
         
         public string AdresseIP { get; init; }
         public int _nbConnexionJournaliere = 0;
@@ -50,13 +51,13 @@ namespace ProjetManhattan
         {
             get
             {
-                using (SqlConnection connect = new SqlConnection(ConnectionStringIPLocator))
+                using (SqliteConnection connect = new SqliteConnection(ConnectionStringIPLocator))
                 {
                     connect.Open();
-                    using (SqlCommand requete = new SqlCommand(QUERY, connect))
+                    using (SqliteCommand requete = new SqliteCommand(QUERY, connect))
                     {
                         requete.Parameters.AddWithValue("@ip", NumeroIp);
-                        using (SqlDataReader reader = requete.ExecuteReader())
+                        using (SqliteDataReader reader = requete.ExecuteReader())
                         {
                             while (reader.Read())
                             {

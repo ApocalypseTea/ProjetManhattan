@@ -5,7 +5,7 @@
 		},
 		"accesBDD": {
 			"connectionString": "Data Source=.\\SQLEXPRESS;Initial Catalog=OncoPC_DCC_extract;Integrated Security=true;TrustServerCertificate=true;",
-			"connectionStringIPLocator": "Data Source=.\\SQLEXPRESS;Initial Catalog=ip2location;Integrated Security=true;TrustServerCertificate=true;"
+			"connectionStringIPLocator": "Data Source=..\\..\\..\\Ressources\\ip2location.db;"
 		}
 	},
 

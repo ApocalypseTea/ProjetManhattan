@@ -35,9 +35,9 @@
       "commandName": "Project",
       "commandLineArgs": "items --query=query --input=resultatTraitement.db"
     },
-    "traitement all date console": {
+    "traitement localisationip date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=all --outputFormat=console --date=2017-07-01"
+      "commandLineArgs": "traitement --traitement=localisationip --outputFormat=console --date=2025-03-20"
     }
   }
 }
