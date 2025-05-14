@@ -1,4 +1,4 @@
-﻿SELECT 
+﻿SELECT DISTINCT
 	I.id AS id_patient, 
 	I.date_naissance AS date_actuelle, 
 	IH.date_naissance AS date_precedente,
