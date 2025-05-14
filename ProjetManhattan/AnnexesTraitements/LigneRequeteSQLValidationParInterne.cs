@@ -39,8 +39,8 @@ namespace ProjetManhattan
             jsonDescription.Add("dateReunion", this._dateReunionRCP);
             jsonDescription.Add("lieu",this._lieuReunionRCP);
             jsonDescription.Add("specialite", this._specialiteMedicale);
-            string identiteValidateur = $"{this._nomValidateur} {"
-            jsonDescription.Add("validateur", )
+            string identiteValidateur = $"{this._nomValidateur} {this._prenomValidateur}";
+            jsonDescription.Add("validateur", identiteValidateur);
             
             Record record = new Record()
             {
