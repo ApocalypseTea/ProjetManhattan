@@ -25,7 +25,7 @@
     },
     "Views": {
       "commandName": "Project",
-      "commandLineArgs": "views --input=2025-05-13-sqldata-r3 --view=profil --target=ProfilID=17484 --dateDebut=2025-05-12"
+      "commandLineArgs": "views --input=2025-05-13-sqldata-r3 --view=fiche_rcp --target=ProfilID=17484 --dateDebut=2025-05-12"
     },
     "traitement statip Mauvaise date console": {
       "commandName": "Project",

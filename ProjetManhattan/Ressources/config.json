@@ -64,7 +64,7 @@
 			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\viewsQuery\\profil.sql",
 			"description": "Liste des profils pour lesquels il y a eu des bris de glace et nombre"
 		},
-		"ficheRCP": {
+		"fiche_rcp": {
 			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\viewsQuery\\fiche_rcp.sql",
 			"description": "Liste des RCP pour lesquelles il y a eu modification (Validateur Absent ou Interne)"
 		}
