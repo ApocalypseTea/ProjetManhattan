@@ -25,7 +25,7 @@
     },
     "Views": {
       "commandName": "Project",
-      "commandLineArgs": "views --input=2025-05-13-sqldata-r3 --view=profil --target=ProfilID=17484 --dateDebut=2025-05-12"
+      "commandLineArgs": "views --input=2025-05-13-sqldata-r3 --view=fiche_rcp --target=ProfilID=17484 --dateDebut=2025-05-12"
     },
     "traitement statip Mauvaise date console": {
       "commandName": "Project",
@@ -37,11 +37,7 @@
     },
     "traitement validateurabs date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=modificationdatenaissance --outputFormat=console --date=2025-02-17"
-    },
-    "François": {
-      "commandName": "Project",
-      "commandLineArgs": "items --input E:\\Données\\Logs\\ProjectManhattan\\items-2025-05-14.db --configFile \"C:\\Users\\fdori\\OneDrive\\Professionnel\\Projets\\Réseau Onco\\PowerShell\\config.json\" --query profil"
+      "commandLineArgs": "traitement --traitement=validateurAbsent --outputFormat=console --date=2012-08-13"
     }
   }
 }

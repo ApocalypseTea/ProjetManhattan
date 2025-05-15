@@ -8,12 +8,18 @@
 	R.date_reunion,
 	R.specialite_ref,
 	SRE.label AS specialite_med,
-	LE.label
+	LE.label,
+	PTE.label AS profil,
+	PPSTE.value AS titre
 FROM dbo.fiches_rcp AS FR
 JOIN dbo.reunions AS R ON R.id = FR.reunion_ref
 JOIN dbo.lieux_enum AS LE ON LE.id=R.lieu_ref
 JOIN account.ZT_user AS U ON U.id=FR.validateur_ref
 JOIN core.specialite_rcp_enum AS SRE ON SRE.id=R.specialite_ref
+JOIN account.ZT_profil AS P ON P.user_ref=U.id
+JOIN account.profil_type_enum AS PTE ON PTE.id=P.type_ref
+JOIN account.profil_professionnel_sante AS PPS ON PPS.profil_id=P.id
+JOIN account.profil_professionnel_sante_titre_enum AS PPSTE ON PPSTE.id = PPS.titre_ref
 WHERE validateur_ref IS NOT NULL
 AND CONVERT(DATE, FR.date_validation) = CONVERT(DATE,@dateTraitement)
 AND validateur_ref NOT IN (

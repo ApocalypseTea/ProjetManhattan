@@ -43,7 +43,7 @@ namespace ProjetManhattan
             jsonDescription.Add("specialite", this._specialiteMedicale);
             string identiteValidateur = $"{this._nomValidateur} {this._prenomValidateur}";
             jsonDescription.Add("validateur", identiteValidateur);
-            jsonDescription.Add("validateurProfilType", this._profilValidateur);
+            jsonDescription.Add("typeProfil", this._profilValidateur);
             
             Record record = new Record()
             {
