@@ -25,7 +25,7 @@
     },
     "Views": {
       "commandName": "Project",
-      "commandLineArgs": "views --input=items-2025-05-12.db --view=ip --target=10.195.1.110 --dateDebut=2025-05-12"
+      "commandLineArgs": "views --input=2025-05-13-sqldata-r3 --view=profil --target=ProfilID=17484 --dateDebut=2025-05-12"
     },
     "traitement statip Mauvaise date console": {
       "commandName": "Project",
@@ -33,7 +33,7 @@
     },
     "items": {
       "commandName": "Project",
-      "commandLineArgs": "items --query=patient --input=2025-05-13-sqldata-r3"
+      "commandLineArgs": "items --query=profil --input=2025-05-13-sqldata-r3"
     },
     "traitement validateurabs date console": {
       "commandName": "Project",

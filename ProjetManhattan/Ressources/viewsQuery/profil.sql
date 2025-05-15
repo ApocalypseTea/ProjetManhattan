@@ -4,5 +4,5 @@
 FROM record AS R
 WHERE R.target=@Target
 AND
-CONVERT(DATE, R.date) BETWEEN CONVERT(DATE, @DateDebut) AND CONVERT(DATE, @DateFin)
+date(R.date) BETWEEN date(@DateDebut) AND date(@DateFin)
 ;

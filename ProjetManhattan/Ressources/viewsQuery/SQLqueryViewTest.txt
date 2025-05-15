@@ -6,5 +6,6 @@ SELECT DISTINCT R.target, json_object(
     FROM record AS R
     LEFT JOIN record AS R2 ON R.target = R2.target  AND R2.propertyName = 'NbRequetes'
     WHERE R.propertyName = 'OrigineGeographique' AND
-          R.target = @Target --AND
-          --CONVERT(DATE, R.date) BETWEEN CONVERT(DATE, @DateDebut) AND CONVERT(DATE, @DateFin)
+          R.target = @Target 
+    --AND
+    --CONVERT(DATE, R.date) BETWEEN CONVERT(DATE, @DateDebut) AND CONVERT(DATE, @DateFin)
