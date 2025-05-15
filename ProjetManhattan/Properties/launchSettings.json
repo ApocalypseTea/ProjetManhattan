@@ -38,6 +38,10 @@
     "traitement validateurabs date console": {
       "commandName": "Project",
       "commandLineArgs": "traitement --traitement=modificationdatenaissance --outputFormat=console --date=2025-02-17"
+    },
+    "François": {
+      "commandName": "Project",
+      "commandLineArgs": "items --input E:\\Données\\Logs\\ProjectManhattan\\items-2025-05-14.db --configFile \"C:\\Users\\fdori\\OneDrive\\Professionnel\\Projets\\Réseau Onco\\PowerShell\\config.json\" --query profil"
     }
   }
 }

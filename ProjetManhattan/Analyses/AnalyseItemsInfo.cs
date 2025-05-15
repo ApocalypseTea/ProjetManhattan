@@ -12,6 +12,7 @@ using ProjetManhattan.Sources;
 using ProjetManhattan.Traitements;
 using ProjetManhattan.AnnexesTraitements;
 using Azure.Core;
+using Newtonsoft.Json.Linq;
 
 namespace ProjetManhattan.Analyses
 {
@@ -25,7 +26,7 @@ namespace ProjetManhattan.Analyses
 
         public IAccesBDD AccesSQLiteDB { get; set; }
 
-        public List<LigneRequeteSQLiteItemsInfo> _lines;
+        public JArray _lines;
 
         public AnalyseItemsInfo(BaseConfig config, string input, string query) 
         {
@@ -33,7 +34,7 @@ namespace ProjetManhattan.Analyses
             Input = input;
             Query = query;
             AccesSQLiteDB = new AccesDBSQLite(input);
-            _lines = new List<LigneRequeteSQLiteItemsInfo>();
+            _lines = new JArray();
         }
 
         public void Execute()
@@ -46,21 +47,22 @@ namespace ProjetManhattan.Analyses
                     {
                         while (reader.Read())
                         {
-                            LigneRequeteSQLiteItemsInfo item = ReadItem(reader);
-                            _lines.Add(item);
+                            string item = ReadItem(reader);
+                            JToken jToken = JToken.Parse(item);
+                            _lines.Add(jToken);
                         }
                     }
                 }
             }
         }
 
-        protected LigneRequeteSQLiteItemsInfo ReadItem(IDataReader reader)
+        protected string ReadItem(IDataReader reader)
         {
             int colTarget = reader.GetOrdinal("item");
             string target = reader.GetString(colTarget);
             
-            LigneRequeteSQLiteItemsInfo line = new LigneRequeteSQLiteItemsInfo(target);
-            return line;
+            //LigneRequeteSQLiteItemsInfo line = new LigneRequeteSQLiteItemsInfo(target);
+            return target;
         }
 
         protected IDbCommand GetSQLCommand(IDbConnection connection)
