@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using ProjetManhattan.Formatages;
 
 namespace ProjetManhattan
@@ -30,6 +31,12 @@ namespace ProjetManhattan
 
         public Record[] ToRecords()
         {
+            JObject jObject = new JObject();
+            jObject.Add("nom", this.Nom);
+            jObject.Add("prenom", this.Prenom);
+            jObject.Add("profilID", this.Profil);
+            jObject.Add("profilType", this.Value);
+
             Record record =  new Record()
             {
                 Traitement = "BrisGlace",
@@ -37,7 +44,7 @@ namespace ProjetManhattan
                 Target = $"ProfilID={this.Profil}",
                 PropertyName = "NbBrisGlace",
                 Value = this.NbPatientBrisGlace.ToString(),
-                Description = $"{this.Nom} {this.Prenom} {this.Value}"
+                Description = jObject.ToString()
             };
             Record[] tableauRecord = { record };
             return tableauRecord;
