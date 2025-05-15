@@ -53,17 +53,34 @@
 	},
 	"views": {
 		"ip": {
-			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\SQLqueryViewTest.txt",
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\viewsQuery\\SQLqueryViewTest.txt",
 			"description": "Informations sur les IP"
 		},
 		"url": {
-			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\SQLqueryViewTest.txt",
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\viewsQuery\\SQLqueryViewTest.txt",
 			"description": "Informations sur les URL"
+		},
+		"profil": {
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\viewsQuery\\profil.sql",
+			"description": "Liste des profils pour lesquels il y a eu des bris de glace et nombre"
+		},
+		"ficheRCP": {
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\viewsQuery\\fiche_rcp.sql",
+			"description": "Liste des RCP pour lesquelles il y a eu modification (Validateur Absent ou Interne)"
 		}
 	},
 	"items": {
 		"query": {
-			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\SQLqueryItemsTest.txt"
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\itemsQuery\\SQLqueryItemsTest.txt"
+		},
+		"profil": {
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\itemsQuery\\profil.sql"
+		},
+		"patient": {
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\itemsQuery\\patient.sql"
+		},
+		"ficheRcp": {
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\itemsQuery\\fiche_rcp.sql"
 		}
 	}
 }

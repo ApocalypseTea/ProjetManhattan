@@ -33,7 +33,7 @@
     },
     "items": {
       "commandName": "Project",
-      "commandLineArgs": "items --query=query --input=resultatTraitement.db"
+      "commandLineArgs": "items --query=patient --input=2025-05-13-sqldata-r3"
     },
     "traitement validateurabs date console": {
       "commandName": "Project",

@@ -520,7 +520,6 @@ namespace ProjetManhattan
 
                 //Retrait de la casse si existante
                 getViewValue = getViewValue.ToLower();
-                getTargetValue = getTargetValue.ToLower();
 
                 BaseConfig config = new BaseConfig(configFileNameValue);
 
