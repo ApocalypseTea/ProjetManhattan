@@ -67,6 +67,10 @@
 		"fiche_rcp": {
 			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\viewsQuery\\fiche_rcp.sql",
 			"description": "Liste des RCP pour lesquelles il y a eu modification (Validateur Absent ou Interne)"
+		},
+		"patient.sql": {
+			"path": "C:\\Users\\Adelas\\source\\repos\\ApocalypseTea\\ProjetManhattan\\ProjetManhattan\\Ressources\\viewsQuery\\patient.sql",
+			"description": "Récupérer les informations d'un patient"
 		}
 	},
 	"items": {
