@@ -20,8 +20,10 @@ namespace ProjetManhattan
         private string _nomValidateur;
         private string _prenomValidateur;
         private string _specialiteMedicale;
+        private string _profilUser;
+        private string _titreUser;
 
-        public LigneRequeteSQLValidateurNonPresent(long validateur, long idFicheRCP, long idReunionRCP, DateTime dateValidationRCP, DateTime dateReunionRCP, long idSpecialiteMedicale, string lieuReunion, string nomValidateur, string prenomValidateur, string specialiteMedicale)
+        public LigneRequeteSQLValidateurNonPresent(long validateur, long idFicheRCP, long idReunionRCP, DateTime dateValidationRCP, DateTime dateReunionRCP, long idSpecialiteMedicale, string lieuReunion, string nomValidateur, string prenomValidateur, string specialiteMedicale, string profilUser, string titreUser)
         {
             _idValidateur = validateur;
             _idFicheRCP = idFicheRCP;
@@ -33,19 +35,23 @@ namespace ProjetManhattan
             _nomValidateur = nomValidateur;
             _prenomValidateur = prenomValidateur;
             _specialiteMedicale = specialiteMedicale;
+            _profilUser = profilUser;
+            _titreUser = titreUser;
         }
         public Record[] ToRecords()
         {
             JObject jsonDescription = new JObject();
             jsonDescription.Add("reunionID", this._idReunionRCP);
-            jsonDescription.Add("date", this._dateReunionRCP);
+            jsonDescription.Add("dateReunion", this._dateReunionRCP);
             jsonDescription.Add("lieu", this._lieuReunion);
             jsonDescription.Add("specialite", this._specialiteMedicale);
+            string identiteValidateur = $"{this._nomValidateur} {this._prenomValidateur}";
+            jsonDescription.Add("validateur", identiteValidateur);   
+            jsonDescription.Add("typeProfil", this._profilUser);
+            jsonDescription.Add("titre", this._titreUser);
 
             Record record = new Record()
             {
-                
-
                 Traitement = "ValidateurAbsent",
                 Date = this._dateFicheRCP,
                 Target = $"FicheRCPID={this._idFicheRCP}",
