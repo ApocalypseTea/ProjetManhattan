@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using ProjetManhattan.Formatages;
 
 namespace ProjetManhattan
@@ -32,14 +33,20 @@ namespace ProjetManhattan
 
         public Record[] ToRecords()
         {
-            Record record= new Record()
+            JObject json = new JObject();
+            json.Add("previousDate", DateOnly.FromDateTime(this._dateAnterieure).ToString("dd-MM-yyyy"));
+            string modificateur = $"{this._profilModificateurID} {this._modificateurNom} {this._modificateurPrenom}";
+            json.Add("modificateur", modificateur);
+            json.Add("modificateurType", this._modificateurType);
+
+            Record record = new Record()
             {
                 Traitement = "ModificationDateNaissance",
                 Target = $"PatientID={this._idPatient}",
                 Date = this._dateModification,
                 Value = $"{this._dateActuelle.Date.ToString("dd-MM-yyyy")}",
                 PropertyName = "NouvelleDateNaissance",
-                Description = $"Previous Date={DateOnly.FromDateTime(this._dateAnterieure).ToString("dd-MM-yyyy")} / Modificateur={this._profilModificateurID} {this._modificateurNom} {this._modificateurPrenom}, {this._modificateurType}"
+                Description = json.ToString()
             };
             Record[] tableauRecord = { record };
             return tableauRecord;
