@@ -39,7 +39,7 @@ namespace ProjetManhattan.Traitements
             IDbCommand requete = connection.CreateCommand();
             requete.CommandText = GetSQLQuery(RESOURCENAME);
             requete.CommandType = CommandType.Text;
-            requete.AddParameterWithValue("@Seuil", _seuilAlerteEmail);
+            //requete.AddParameterWithValue("@Seuil", _seuilAlerteEmail);
             requete.AddParameterWithValue("@Date", _dateTraitement);
 
             return requete;

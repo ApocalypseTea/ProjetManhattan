@@ -18,12 +18,12 @@ namespace ProjetManhattan.AnnexesTraitements
         {
             Record record = new Record()
             {
-                Target = "",
+                Target = _typeMailsEnEchec,
                 Value = this._nbMailsEnEchec.ToString(),
                 Date = _dateEnvoiMails,
                 PropertyName = "NbMailEnEchec",
                 Traitement = "EchecEmail",
-                Description = _typeMailsEnEchec
+                Description = ""
             };
             Record[] tableauRecord = { record };
             return tableauRecord;
