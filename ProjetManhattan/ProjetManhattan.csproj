@@ -18,6 +18,7 @@
     <None Remove="Configuration\QueryChangementIdentiteUser.txt" />
     <None Remove="Configuration\QueryDureeRequeteMoyenneSQL.txt" />
     <None Remove="Configuration\QueryEchecConnexion.txt" />
+    <None Remove="Configuration\QueryEchecEmailSQL.txt" />
     <None Remove="Configuration\QueryMedecinParticipantReunionAbsentFicheRCP.txt" />
     <None Remove="Configuration\QueryValidateurRCPAbsent.txt" />
     <None Remove="Configuration\QueryValidationParInterne.txt" />
@@ -31,6 +32,7 @@
     <EmbeddedResource Include="Configuration\QueryChangementIdentiteUser.txt" />
     <EmbeddedResource Include="Configuration\QueryDureeRequeteMoyenneSQL.txt" />
     <EmbeddedResource Include="Configuration\QueryEchecConnexion.txt" />
+    <EmbeddedResource Include="Configuration\QueryEchecEmailSQL.txt" />
     <EmbeddedResource Include="Configuration\QueryMedecinParticipantReunionAbsentFicheRCP.txt" />
     <EmbeddedResource Include="Configuration\QueryValidateurRCPAbsent.txt" />
     <EmbeddedResource Include="Configuration\QueryValidationParInterne.txt" />

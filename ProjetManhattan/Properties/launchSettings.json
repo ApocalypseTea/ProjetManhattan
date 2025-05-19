@@ -35,9 +35,9 @@
       "commandName": "Project",
       "commandLineArgs": "items --query=profil --input=2025-05-13-sqldata-r3"
     },
-    "traitement modifnaissance date console": {
+    "traitement echecEmail date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=modificationdatenaissance --outputFormat=console --date=2025-02-17"
+      "commandLineArgs": "traitement --traitement=echecEmail --outputFormat=console --date=2017-03-09"
     }
   }
 }

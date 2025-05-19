@@ -1,0 +1,9 @@
+﻿SELECT COUNT(ET.id) AS nb_mails, ETTE.value, CONVERT(DATE, ET.date) AS date_envoi
+	FROM dbo.emails_trace AS ET
+	JOIN dbo.emails_trace_status_enum AS ETSE ON ETSE.id=ET.status_ref
+	JOIN dbo.emails_trace_type_enum AS ETTE ON ETTE.id =ET.type_ref
+		WHERE ETSE.value != 'Success'
+		AND CONVERT(DATE, ET.date) = @Date
+	GROUP BY ETTE.value, CONVERT(DATE, ET.date)
+	HAVING COUNT(ET.id) > @Seuil
+;

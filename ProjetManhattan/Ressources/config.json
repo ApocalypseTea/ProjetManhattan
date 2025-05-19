@@ -49,6 +49,9 @@
 		},
 		"traitementEchecConnexion": {
 			"seuilAlerteTentativesConnexionEnEchec": 5
+		},
+		"traitementEchecEmailSQL": {
+			"SeuilAlerteNbEmailsEnEchec": 10
 		}
 	},
 	"views": {
