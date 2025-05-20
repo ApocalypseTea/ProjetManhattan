@@ -49,7 +49,7 @@ namespace ProjetManhattan
             {
                 Traitement = "ValidationInterne",
                 Date = this._date,
-                Target = $"FicheRcpID={this._numeroFicheRCP}",
+                Target = $"FicheRCPID={this._numeroFicheRCP}",
                 PropertyName = "Validateur",
                 Description = jsonDescription.ToString(),
                 Value = $"{this._idValidateur}"
