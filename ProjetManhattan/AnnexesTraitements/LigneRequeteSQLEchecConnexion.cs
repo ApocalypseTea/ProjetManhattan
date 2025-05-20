@@ -36,6 +36,7 @@ namespace ProjetManhattan.Traitements
             jObject.Add("profilID", this._idUser);
             jObject.Add("profilType", this._profilType);
             jObject.Add("specialite", this._specialiteValue);
+            jObject.Add("specialiteLabel", this._specialiteLabel);
             Record record = new Record()
             {
                 Target = this._idUser.ToString(),

@@ -38,6 +38,7 @@ namespace ProjetManhattan
             jObject.Add("profilID", this.Profil);
             jObject.Add("profilType", this.ProfilTypeValue);
             jObject.Add("specialite", this.SpecialiteValue);
+            jObject.Add("specialiteLabel", this.SpecialiteLabel);
 
             Record record =  new Record()
             {
