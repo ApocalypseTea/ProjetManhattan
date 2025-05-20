@@ -39,7 +39,7 @@ namespace ProjetManhattan.Traitements
             jObject.Add("specialiteLabel", this._specialiteLabel);
             Record record = new Record()
             {
-                Target = this._idUser.ToString(),
+                Target = $"ProfilID={this._idUser.ToString()}",
                 Value = this._nbTentatives.ToString(),
                 Date = _dateTraitement,
                 PropertyName = "ConnectionAttempt",
