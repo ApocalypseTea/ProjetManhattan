@@ -13,18 +13,19 @@ namespace ProjetManhattan
         public long Profil { get; init; }
         public string Nom { get; init; }
         public string Prenom { get; init; }
-        public string Label { get; init; }
-        public string Value { get; init; }
+        public string SpecialiteLabel { get; init; }
+        public string SpecialiteValue { get; init; }
+        public string ProfilTypeValue { get; init; }
         public int NbPatientBrisGlace { get; init; }
         public DateTime Date { get; init; }
 
-        public LigneRequeteBrisGlace(long _colProfil, string _colNom, string _colPrenom, string _colLabel, string _colValue, int _colNbPatientBrisGlace, DateTime _colDate)
+        public LigneRequeteBrisGlace(long _colProfil, string _colNom, string _colPrenom, string _colSpecialiteLabel, string _colSpecialiteValue, string _colProfilTypeValue, int _colNbPatientBrisGlace, DateTime _colDate)
         {
             Profil = _colProfil;
             Nom = _colNom;
             Prenom = _colPrenom;
-            Label = _colLabel;
-            Value = _colValue;
+            SpecialiteLabel = _colSpecialiteLabel;
+            ProfilTypeValue = _colProfilTypeValue;
             NbPatientBrisGlace = _colNbPatientBrisGlace;
             Date = _colDate;
         }
@@ -35,7 +36,8 @@ namespace ProjetManhattan
             jObject.Add("nom", this.Nom);
             jObject.Add("prenom", this.Prenom);
             jObject.Add("profilID", this.Profil);
-            jObject.Add("profilType", this.Value);
+            jObject.Add("profilType", this.ProfilTypeValue);
+            jObject.Add("specialite", this.SpecialiteValue);
 
             Record record =  new Record()
             {

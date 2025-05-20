@@ -34,20 +34,22 @@ namespace ProjetManhattan.Traitements
             int colProfilRef = reader.GetOrdinal("profil_ref");
             int colPrenom = reader.GetOrdinal("prenom");
             int colNom = reader.GetOrdinal("nom");
-            int colLabel = reader.GetOrdinal("label");
-            int colValue = reader.GetOrdinal("value");
+            int colLabel = reader.GetOrdinal("specialite_label");
+            int colSpecialiteValue = reader.GetOrdinal("specialite_value");
+            int colValue = reader.GetOrdinal("profil_type_value");
             int colNbPatient = reader.GetOrdinal("nb_patient_brise_glace");
             int colDate = reader.GetOrdinal("date");
 
             long profilRef = reader.GetInt64(colProfilRef);
             string prenom = reader.GetString(colPrenom);
             string nom = reader.GetString(colNom);
-            string label = reader.GetString(colLabel);
-            string value = reader.GetString(colValue);
+            string specialiteLabel = reader.GetString(colLabel);
+            string specialiteValue = reader.GetString(colSpecialiteValue);
+            string profilTypeValue = reader.GetString(colValue);
             int nbPatientBrisGlace = reader.GetInt32(colNbPatient);
             DateTime date = reader.GetDateTime(colDate);
 
-            LigneRequeteBrisGlace ligne = new LigneRequeteBrisGlace(profilRef, prenom, nom, label, value, nbPatientBrisGlace, date);
+            LigneRequeteBrisGlace ligne = new LigneRequeteBrisGlace(profilRef, prenom, nom, specialiteLabel, specialiteValue, profilTypeValue, nbPatientBrisGlace, date);
 
             return ligne;
         }
