@@ -1,4 +1,8 @@
-﻿SELECT CL.credential_ref AS credential, C.id AS id_user, U.nom, U.prenom, COUNT(CL.credential_ref) AS nb_connexion
+﻿SELECT CL.credential_ref AS credential, 
+C.id AS id_user, 
+U.nom, 
+U.prenom, 
+COUNT(CL.credential_ref) AS nb_connexion
 	FROM account.ZT_user AS U
 	JOIN account.ZT_credential AS C ON C.user_ref = U.id
 	JOIN account.ZT_credential_log AS CL ON CL.credential_ref = C.id
@@ -7,6 +11,10 @@
 	WHERE CTE.value='LoginPassword'
 	AND CLSE.value != 'Success'
 	AND CONVERT(DATE,CL.date) = @date
-	GROUP BY CL.credential_ref, C.id, U.nom, U.prenom
+	GROUP BY 
+		CL.credential_ref, 
+		C.id, 
+		U.nom, 
+		U.prenom
 	HAVING COUNT(CL.credential_ref) > @nbTentative
 ;

@@ -5,7 +5,7 @@
 	I.trace_profil_ref AS modificateurID,
 	U.nom AS modificateurNom,
 	U.prenom AS modificateurPrenom,
-	PTE.label AS modificateurType,
+	PTE.value AS modificateurType,
 	I.trace_start_date AS date_derniere_modification
 FROM patient.ZT_identite_history AS IH
 INNER JOIN patient.ZT_identite AS I ON I.id=IH.id

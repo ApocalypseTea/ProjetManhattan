@@ -9,7 +9,7 @@
 	R.specialite_ref,
 	SRE.label AS specialite_med,
 	LE.label,
-	PTE.label AS profil,
+	PTE.value AS profil,
 	PPSTE.value AS titre
 FROM dbo.fiches_rcp AS FR
 JOIN dbo.reunions AS R ON R.id = FR.reunion_ref

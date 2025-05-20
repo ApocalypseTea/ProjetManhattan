@@ -8,7 +8,7 @@
 	PTM.modification_date AS dateModification,
 	PTM_U.nom AS nom_modificateur,
 	PTM_U.prenom AS prenom_modificateur,
-	PTE.label AS type_modificateur
+	PTE.value AS type_modificateur
 FROM account.ZT_user AS U 
 JOIN account.ZT_user_previous_name AS UPN ON U.id = UPN.user_ref 
 FULL OUTER JOIN account.ZT_profil_trace_modification AS PTM ON U.trace_profil_ref=PTM.profil_ref

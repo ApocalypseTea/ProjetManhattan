@@ -1,4 +1,6 @@
-﻿SELECT COUNT(ET.id) AS nb_mails, ETTE.value, CONVERT(DATE, ET.date) AS date_envoi
+﻿SELECT COUNT(ET.id) AS nb_mails, 
+ETTE.value, 
+CONVERT(DATE, ET.date) AS date_envoi
 	FROM dbo.emails_trace AS ET
 	JOIN dbo.emails_trace_status_enum AS ETSE ON ETSE.id=ET.status_ref
 	JOIN dbo.emails_trace_type_enum AS ETTE ON ETTE.id =ET.type_ref
