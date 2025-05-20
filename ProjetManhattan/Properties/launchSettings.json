@@ -37,7 +37,7 @@
     },
     "traitement echecEmail date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=brisGlace --outputFormat=console --date=2017-03-09"
+      "commandLineArgs": "traitement --traitement=echecconnexion --outputFormat=console --date=2017-03-09"
     }
   }
 }

@@ -1,20 +1,30 @@
 ﻿SELECT CL.credential_ref AS credential, 
 C.id AS id_user, 
 U.nom, 
-U.prenom, 
+U.prenom,
+PTE.value AS profil_type,
+PPSS.value AS specialite_value,
+PPSS.label AS specialite_label,
 COUNT(CL.credential_ref) AS nb_connexion
 	FROM account.ZT_user AS U
 	JOIN account.ZT_credential AS C ON C.user_ref = U.id
 	JOIN account.ZT_credential_log AS CL ON CL.credential_ref = C.id
 	JOIN account.credential_log_statut_enum AS CLSE ON CLSE.id = CL.statut_ref
 	JOIN account.credential_type_enum AS CTE ON CTE.id = C.type_ref
-	WHERE CTE.value='LoginPassword'
-	AND CLSE.value != 'Success'
-	AND CONVERT(DATE,CL.date) = @date
-	GROUP BY 
-		CL.credential_ref, 
-		C.id, 
-		U.nom, 
-		U.prenom
-	HAVING COUNT(CL.credential_ref) > @nbTentative
+	JOIN account.ZT_profil AS P ON P.user_ref=U.id
+	JOIN account.profil_type_enum AS PTE ON PTE.id=P.type_ref
+	JOIN account.profil_professionnel_sante AS PPS ON PPS.profil_id=P.id
+	JOIN account.profil_professionnel_sante_specialite_enum AS PPSS ON PPSS.id=PPS.specialite_ref
+		WHERE CTE.value='LoginPassword'
+		AND CLSE.value != 'Success'
+		AND CONVERT(DATE,CL.date) = @date
+		GROUP BY 
+			CL.credential_ref, 
+			C.id, 
+			U.nom, 
+			U.prenom,
+			PTE.value,
+			PPSS.value,
+			PPSS.label
+		HAVING COUNT(CL.credential_ref) > 5
 ;

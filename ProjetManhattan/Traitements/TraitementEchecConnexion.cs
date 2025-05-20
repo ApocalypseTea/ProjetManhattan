@@ -40,14 +40,20 @@ namespace ProjetManhattan.Traitements
             int colNom = reader.GetOrdinal("nom");
             int colPrenom = reader.GetOrdinal("prenom");
             int colNbConnexion = reader.GetOrdinal("nb_connexion");
+            int colProfilType = reader.GetOrdinal("profil_type");
+            int colSpecialiteValue = reader.GetOrdinal("specialite_value");
+            int colSpecialiteLabel = reader.GetOrdinal("specialite_label");
 
             long credential = reader.GetInt64(colCredentials);
             long idUser = reader.GetInt64(colIdUser);
             string nomUser = reader.GetString(colNom);
             string prenomUser = reader.GetString(colPrenom);
             int nbTentativesConnexion = reader.GetInt32(colNbConnexion);
+            string profilType = reader.GetString(colProfilType);
+            string specialiteValue = reader.GetString(colSpecialiteValue);
+            string specialiteLabel = reader.GetString(colSpecialiteLabel);
 
-            return new LigneRequeteSQLEchecConnexion(credential, idUser, nomUser, prenomUser, nbTentativesConnexion, _date);
+            return new LigneRequeteSQLEchecConnexion(credential, idUser, nomUser, prenomUser, nbTentativesConnexion, _date, profilType, specialiteValue, specialiteLabel);
         }
 
         public void InitialisationConfig(BaseConfig config)
