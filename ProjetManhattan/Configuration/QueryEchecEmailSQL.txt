@@ -5,5 +5,4 @@
 		WHERE ETSE.value != 'Success'
 		AND CONVERT(DATE, ET.date) = @Date
 	GROUP BY ETTE.value, CONVERT(DATE, ET.date)
-	--HAVING COUNT(ET.id) > @Seuil
 ;

@@ -16,7 +16,6 @@ namespace ProjetManhattan.Traitements
     {
         private const string RESOURCENAME = "ProjetManhattan.Configuration.QueryEchecEmailSQL.txt";
 
-        private int _seuilAlerteEmail;
         private DateTime _dateTraitement;
         public string Name => "EchecEmail";
 
@@ -29,8 +28,6 @@ namespace ProjetManhattan.Traitements
 
         public void InitialisationConfig(BaseConfig config)
         {
-            ConfigEchecEmail c = config.GetConfigTraitement<ConfigEchecEmail>(nameof(TraitementEchecEmailSQL));
-            _seuilAlerteEmail = c.SeuilAlerteNbEmailsEnEchec;
             _dateTraitement = config.DateTraitement;
         }
 
@@ -39,7 +36,6 @@ namespace ProjetManhattan.Traitements
             IDbCommand requete = connection.CreateCommand();
             requete.CommandText = GetSQLQuery(RESOURCENAME);
             requete.CommandType = CommandType.Text;
-            //requete.AddParameterWithValue("@Seuil", _seuilAlerteEmail);
             requete.AddParameterWithValue("@Date", _dateTraitement);
 
             return requete;
