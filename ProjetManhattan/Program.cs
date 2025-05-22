@@ -28,8 +28,6 @@ namespace ProjetManhattan
         private static Option<string> configFileName;
         private static Regex dBFilenamePattern = new Regex(@".*\.db$", RegexOptions.Compiled);
         private const string RESSOURCEHELP = "ProjetManhattan.ReadMe - CommandesCLI.txt";
-  
-        
         public static void MiniMenu(string nomTraitement, BaseConfig importConfig, string typeOutput, string? nomBD)
         {
             ITraitement? traitement = null;

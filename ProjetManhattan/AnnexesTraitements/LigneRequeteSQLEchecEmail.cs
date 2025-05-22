@@ -23,7 +23,7 @@ namespace ProjetManhattan.AnnexesTraitements
                 Date = _dateEnvoiMails,
                 PropertyName = "NbMailEnEchec",
                 Traitement = "EchecEmail",
-                Description = ""
+                Description = "{}"
             };
             Record[] tableauRecord = { record };
             return tableauRecord;

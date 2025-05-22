@@ -27,7 +27,8 @@ namespace ProjetManhattan
                 Value = this.Duree.ToString(),
                 Date = DateTime.Now,
                 PropertyName = "AverageDuration",
-                Traitement = "DureeMoyRequeteSQL"
+                Traitement = "DureeMoyRequeteSQL",
+                Description = "{}"
             };
 
             Record record2 = new Record()
@@ -36,7 +37,8 @@ namespace ProjetManhattan
                 Value = this.nbExecution.ToString(),
                 Date = DateTime.Now,
                 PropertyName = "ExecutionCount",
-                Traitement = "DureeMoyRequeteSQL"
+                Traitement = "DureeMoyRequeteSQL",
+                Description = "{}"
             };
 
             Record[] tableauRecord = { record1, record2 };

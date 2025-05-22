@@ -45,7 +45,7 @@ namespace ProjetManhattan.Traitements
                         Target = item.AdresseIP,
                         PropertyName = "NbRequetes",
                         Value = item._nbConnexionJournaliere.ToString(),
-                        Description = ""
+                        Description = "{}"
                     };
                     Record[] tableauRecord = new Record[] { record };
 

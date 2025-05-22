@@ -26,7 +26,6 @@ namespace ProjetManhattan.Traitements
         public TraitementLocalisationIp(IUnityContainer container) : base(container)
         {
         }
-
         public override void Execute()
         {
             _source = this.Container.Resolve<IFichierDeLog>();
@@ -51,7 +50,7 @@ namespace ProjetManhattan.Traitements
                         Target = item.AdresseIP,
                         PropertyName = "OrigineGeographique",
                         Value = $"{item.PaysOrigine}",
-                        Description = ""
+                        Description = "{}"
                     };
                     Record[] tableauRecord = new Record[] { record };
                     this.AddRecord(tableauRecord);
