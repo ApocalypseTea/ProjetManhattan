@@ -34,9 +34,9 @@ namespace ProjetManhattan
         private int _port;
         private string _username;
         public string IpClient { get; set; }
-        private string _userAgentHTTP;
+        public string UserAgentHTTP { get; set; }
         private string _referer;
-        private int _csStatutHTTP;
+        public int CsStatutHTTP { get; set; }
         private int _csSubStatut;
         private int _csWin32Status;
         public int TimeTaken { get; set; }
@@ -52,9 +52,9 @@ namespace ProjetManhattan
             this._port = int.Parse(champsLog[COL_PORT]);
             this._username = champsLog[COL_USERNAME];
             this.IpClient = champsLog[COL_IP_CLIENT];
-            this._userAgentHTTP = champsLog[COL_USER_AGENT_HTTP];
+            this.UserAgentHTTP = champsLog[COL_USER_AGENT_HTTP];
             this._referer = champsLog[COL_REFERER];
-            this._csStatutHTTP = int.Parse(champsLog[COL_CS_STATUS_HTTP]);
+            this.CsStatutHTTP = int.Parse(champsLog[COL_CS_STATUS_HTTP]);
             this._csSubStatut = int.Parse(champsLog[COL_CS_SUBSTATUS]);
             this._csWin32Status = int.Parse(champsLog[COL_CS_WIN32_STATUS]);
             this.TimeTaken = int.Parse(champsLog[COL_TIME_TAKEN]);
@@ -69,7 +69,7 @@ namespace ProjetManhattan
             ligneDeLogTexte.AppendLine($"Methode HTTP : {_methodeHTTP}");
             ligneDeLogTexte.AppendLine($"Port : {_port}");
             ligneDeLogTexte.AppendLine($"ip Client : {IpClient}");
-            ligneDeLogTexte.AppendLine($"status HTTP : {_csStatutHTTP}");
+            ligneDeLogTexte.AppendLine($"status HTTP : {CsStatutHTTP}");
             return ligneDeLogTexte.ToString();
         }
 

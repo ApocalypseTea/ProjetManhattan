@@ -52,6 +52,15 @@
 		},
 		"traitementEchecEmailSQL": {
 			"SeuilAlerteNbEmailsEnEchec": 10
+		},
+		"traitementCheckHTTPErrors": {
+			"patternURLValide": [
+				"^/rcp/",
+				"^/rcp$",
+				"^/rcp_test/",
+				"^/rcp_test$",
+				"^/$"
+			]
 		}
 	},
 	"views": {

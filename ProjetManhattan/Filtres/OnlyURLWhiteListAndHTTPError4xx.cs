@@ -4,28 +4,31 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using ProjetManhattan.Configuration;
 
 namespace ProjetManhattan.Filtres
 {
-    class IgnoreURLWhiteList : IFiltre
+    internal class OnlyURLWhiteListAndHTTPError4xx : IFiltre
     {
         private HashSet<string> _urlValides;
 
-        public IgnoreURLWhiteList(HashSet<string> regexs)
+        public OnlyURLWhiteListAndHTTPError4xx(HashSet<string> regexs)
         {
             _urlValides = regexs;
         }
         public bool Needed(LigneDeLog ligne)
         {
-            foreach(var url in _urlValides) 
+            if (ligne.CsStatutHTTP.ToString().StartsWith('4'))
             {
-                if (Regex.IsMatch(ligne.CsUriStem,url))
+                foreach (var url in _urlValides)
                 {
-                    return false;
+
+                    if (Regex.IsMatch(ligne.CsUriStem, url))
+                    {
+                        return true;
+                    }
                 }
             }
-            return true;
+            return false;
         }
     }
 }

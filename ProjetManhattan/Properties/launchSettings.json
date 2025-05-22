@@ -35,9 +35,9 @@
       "commandName": "Project",
       "commandLineArgs": "items --query=profil --input=2025-05-13-sqldata-r3"
     },
-    "traitement echecEmail date console": {
+    "traitement httperrors date console": {
       "commandName": "Project",
-      "commandLineArgs": "traitement --traitement=echecconnexion --outputFormat=console --date=2020-09-24"
+      "commandLineArgs": "traitement --traitement=HTTPErrors --outputFormat=console --date=2025-02-17"
     }
   }
 }
