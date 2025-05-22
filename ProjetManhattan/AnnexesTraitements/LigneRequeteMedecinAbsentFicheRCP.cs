@@ -1,4 +1,5 @@
-﻿using ProjetManhattan.Formatages;
+﻿using Newtonsoft.Json.Linq;
+using ProjetManhattan.Formatages;
 
 namespace ProjetManhattan
 {
@@ -18,14 +19,17 @@ namespace ProjetManhattan
         }
         public Record[] ToRecords()
         {
-            Record record =  new Record
+            JObject jobject = new JObject();
+            jobject.Add("reunionID", this.IdReunion);
+            
+            Record record = new Record
             {
                 Traitement = "MedecinParticipantAbsent",
                 Date = this.DateValidation,
                 Target = $"MedecinID={this.IdMedecin}",
                 PropertyName = "ParticipantAbsent",
                 Value = $"FicheRCP={this.IdFicheRCp}",
-                Description=$"ReunionID={this.IdReunion}"
+                Description = jobject.ToString()
             };
             Record[] tableauRecord = { record };
             return tableauRecord;

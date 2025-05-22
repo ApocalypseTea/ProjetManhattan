@@ -17,8 +17,7 @@ namespace ProjetManhattan.Traitements
         public string Name => "ValidateurAbsent";
         
         public TraitementValidateurRCPnonPresentSQL(BaseConfig config, IUnityContainer container) : base(container)
-        {
-           
+        { 
         }
         protected override IDbCommand GetSQLCommand(IDbConnection connection)
         {
@@ -56,7 +55,6 @@ namespace ProjetManhattan.Traitements
             string _specialiteMedicale = reader.GetString(_colSpecialiteMedicale);
             string _profilUser = reader.GetString(_colProfilUser);
             string _titreUser = reader.GetString(_colProfilTitre);
-
 
             return new LigneRequeteSQLValidateurNonPresent(_validateur, _idFicheRCP, _idReunionRCP, _dateFicheRCP, _dateReunionRCP, _colIdSpecialiteMedicale, _lieuReunion, _nomValidateur, _prenomValidateur, _specialiteMedicale, _profilUser, _titreUser);
         }

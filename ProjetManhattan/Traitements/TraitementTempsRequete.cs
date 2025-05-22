@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using ProjetManhattan.Configuration;
 using ProjetManhattan.Filtres;
 using ProjetManhattan.Formatages;
@@ -20,13 +21,16 @@ namespace ProjetManhattan.Traitements
         }
         protected override void FillRecord(Record[] records, LigneDeLog ligne)
         {
+            JObject jsonDescription = new JObject();
+            jsonDescription.Add("ip", ligne.IpClient);
+
             foreach (Record record in records)
             {
                 record.Traitement = "TempsRequete";
                 record.Target = ligne.CsUriStem;
                 record.PropertyName = "TimeTaken";
                 record.Value = ligne.TimeTaken.ToString();
-                record.Description = ligne.IpClient;
+                record.Description = jsonDescription.ToString();
                 record.Date = ligne.DateHeure;
             }
         }

@@ -23,7 +23,6 @@ namespace ProjetManhattan.Traitements
         public TraitementValidationParInterneSQL(BaseConfig config, IUnityContainer container) : base(container)
         {
         }
-
         protected override IDbCommand GetSQLCommand(IDbConnection connection)
         {
             IDbCommand requete = connection.CreateCommand();

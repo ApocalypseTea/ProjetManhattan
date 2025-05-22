@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 using ProjetManhattan.Formatages;
 
 namespace ProjetManhattan
@@ -35,14 +36,22 @@ namespace ProjetManhattan
         }
         public Record[] ToRecords()
         {
+            JObject jobject = new JObject();
+            string nomCompletPrevious = $"{this._previousNomUser} {this._previousPrenomUser}";
+            jobject.Add("previousName", nomCompletPrevious);
+            jobject.Add("modificateurID", this._idModificateur);
+            string nomCompletModificateur = $"{this._nomModificateur} {this._prenomModificateur}";
+            jobject.Add("modificateur", nomCompletModificateur);
+            jobject.Add("modificateurType", this._typeModificateur);
+
             Record record = new Record()
             {
                 Traitement = "ChangementIdentite",
                 Date = this._dateModificationNom,
                 Target = $"UserID={this._idUser}",
                 PropertyName = $"Modificateur",
-                Description = $"PreviousName={this._previousNomUser} {this._previousPrenomUser} /ModificateurID={this._idModificateur.ToString()} {this._nomModificateur} {this._prenomModificateur} {this._typeModificateur}",
-                Value =  $"{this._prenomUser} {this._nomUser}"
+                Description = jobject.ToString(),
+                Value = $"{this._prenomUser} {this._nomUser}"
             };
             Record[] tableauRecord = { record };
             return tableauRecord;
